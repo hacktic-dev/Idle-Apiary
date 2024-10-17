@@ -139,7 +139,7 @@ local function TrackPlayers(game, characterCallback)
         }
         
         if client == nil then
-            RemoveAllPlayerItems(player)
+            --RemoveAllPlayerItems(player)
 
             beeObjectManager.SpawnAllBeesForPlayer(player)
             Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
@@ -180,6 +180,16 @@ local function TrackPlayers(game, characterCallback)
         if client == nil then
             beeObjectManager.RemoveAllPlayerBees(player)
             returnPlot(player.id)
+
+            local stats = {Role = 0, Cash = 0, WorkXP = 0, CustXP = 0}
+            stats.Role = players[player].Role.value
+            stats.Cash = players[player].Cash.value
+            stats.WorkXP = players[player].WorkXP.value
+            stats.CustXP = players[player].CustXP.value
+        
+            -- Save the stats to storage and handle any errors
+            Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
+            print(player.name .. " Stats Saved")
         end
         players[player] = nil
     end)
@@ -312,11 +322,6 @@ local function SaveStats(player)
     stats.Cash = players[player].Cash.value
     stats.WorkXP = players[player].WorkXP.value
     stats.CustXP = players[player].CustXP.value
-
-    -- Save the stats to storage and handle any errors
-    Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)
-        --print(player.name .. " Stats Saved")
-    end)
 end
 
 -- Function to initialize the server-side logic
