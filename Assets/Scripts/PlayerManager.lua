@@ -92,37 +92,6 @@ local function returnPlot(id)
     end
 end
 
-local function LookupBeeEarnRate(Bee)
-    if Bee == "Common Bee" then
-        return 6
-    elseif Bee == "Stone Bee" then
-        return 8
-    elseif Bee == "Forest Bee" then
-        return 8
-    elseif Bee == "Aquatic Bee" then
-        return 14
-    elseif Bee == "Giant Bee" then
-        return 16
-    elseif Bee == "Silver Bee" then
-        return 22
-    elseif Bee == "Muddy Bee" then
-        return 16
-    elseif Bee == "Frigid Bee" then
-        return 18
-    elseif Bee == "Steel Bee" then
-        return 18
-    elseif Bee == "Magma Bee" then
-        return 26
-    elseif Bee == "Ghostly Bee" then
-        return 28
-    elseif Bee == "Golden Bee" then
-        return 44
-    else
-        return 0
-        -- todo - add other bees
-    end
-end
-
 -- Function to remove all items from a player's inventory
 function RemoveAllPlayerItems(player)
     -- First, retrieve all the player's items
@@ -144,7 +113,7 @@ local function RecalculatePlayerEarnRate(player)
         for i, item in ipairs(items) do
             -- print("checking item " .. item.id)
             if string.find(item.id, "Bee") then
-                rate = rate + LookupBeeEarnRate(item.id) * item.amount
+                rate = rate + beeObjectManager.LookupBeeEarnRate(item.id) * item.amount
             end
         end
 
