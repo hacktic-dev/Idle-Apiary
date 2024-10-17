@@ -9,45 +9,84 @@ rotateSpeed = 5.0     -- Rotation speed of the object
 pauseDuration = 2.0   -- Duration to pause after reaching a target
 targetPosition = nil  -- Current target position
 timer = 0             -- Timer for pauses
-moving = false         -- Is the object currently moving?
+moving = false        -- Is the object currently moving?
+
+-- Define parameters for bobbing behavior
+baseBobFrequency = 1.0 -- Base frequency of bobbing (how fast the bee bobs up and down)
+baseBobAmplitude = 0.35 -- Amplitude of bobbing (range of motion in Y)
+yOffset = 1.5         -- Base Y value (midpoint between 0.5 and 2.0)
+bobFrequency = nil     -- Frequency for individual bees (randomized)
+bobOffset = nil        -- Random phase offset for each bee
+
+-- Time variable for controlling the sine wave
+bobTime = 0
 
 function SetSpawnPosition(position)
- spawnPosition = position
+    spawnPosition = position
+
+    -- Randomize bobFrequency and bobOffset for each bee
+    bobFrequency = baseBobFrequency + math.random() * 0.5 -- Slightly randomize frequency (within 0.5 of base)
+    bobOffset = math.random() * math.pi * 2 -- Random initial phase offset (0 to 2π)
 end
 
--- Randomly choose a new target position within a 5x5 area
+-- Randomly choose a new target position within a 5x5 area (X and Z)
 function ChooseNewTarget()
     local randomX = math.random(-5, 5)
     local randomZ = math.random(-5, 5)
+    -- Ignore Y-axis for wandering (X and Z only)
     targetPosition = spawnPosition + Vector3.new(randomX, 0, randomZ)
 end
 
 -- Rotate towards the target position
 function RotateTowardsTarget()
-    local direction = targetPosition - self.transform.position
+    local direction = Vector3.new(targetPosition.x, self.transform.position.y, targetPosition.z) - self.transform.position
     local targetRotation = Quaternion.LookRotation(direction)
     self.transform.rotation = Quaternion.Slerp(self.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime)
 end
 
--- Move towards the target position
+-- Move towards the target position in X and Z
 function MoveTowardsTarget()
     if targetPosition then
-        local direction = (targetPosition - self.transform.position).normalized
+        -- Ignore the Y axis for movement, move only in X and Z
+        local direction = Vector3.new(targetPosition.x, self.transform.position.y, targetPosition.z) - self.transform.position
         local step = moveSpeed * Time.deltaTime
-        self.transform.position = Vector3.MoveTowards(self.transform.position, targetPosition, step)
+
+        -- Move towards the target position in X and Z only
+        local newPosition = Vector3.MoveTowards(self.transform.position, targetPosition, step)
+
+        -- Set the new position with updated X and Z
+        self.transform.position = Vector3.new(newPosition.x, self.transform.position.y, newPosition.z)
     end
 end
 
--- Check if the object has reached the target position
+-- Update the Y position for bobbing movement
+function UpdateBobbing()
+    -- Advance bobbing time
+    bobTime = bobTime + Time.deltaTime * bobFrequency
+
+    -- Calculate bobbing Y value using sine wave, with randomized offset and amplitude
+    local bobbingY = yOffset + math.sin(bobTime + bobOffset) * baseBobAmplitude
+
+    -- Update the Y position of the object
+    self.transform.position = Vector3.new(self.transform.position.x, bobbingY, self.transform.position.z)
+end
+
+-- Check if the object has reached the target position (ignore Y-axis)
 function HasReachedTarget()
     if targetPosition then
-        return Vector3.Distance(self.transform.position, targetPosition) < 0.1
+        -- Only check X and Z distance
+        local currentPositionXZ = Vector3.new(self.transform.position.x, 0, self.transform.position.z)
+        local targetPositionXZ = Vector3.new(targetPosition.x, 0, targetPosition.z)
+        return Vector3.Distance(currentPositionXZ, targetPositionXZ) < 0.1
     end
     return false
 end
 
 -- Function to handle wandering behavior inside Update
 function self:Update()
+    -- Update the bobbing behavior independently of movement
+    UpdateBobbing()
+
     -- If currently moving towards the target
     if moving then
         -- Rotate towards and move to the target position
