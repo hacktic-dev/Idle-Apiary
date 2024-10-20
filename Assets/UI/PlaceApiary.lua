@@ -19,9 +19,17 @@ local function placeApiary()
     end
 end
 
-ApiaryManager.notifyApiaryPlacementFailed:Connect(function()
+ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
     _statusLabel.visible = true
-    _statusLabel:SetPrelocalizedText("Apiary cannot not be placed here.")
+    local why = ""
+    if reason == 1 then
+        why = " You are too close to the border fence."
+    elseif reason == 2 then
+        why = " Try moving further away from spawn."
+    elseif reason == 3 then
+        why = " You are too close to another players apiary."
+    end
+    _statusLabel:SetPrelocalizedText("Apiary cannot not be placed here." .. why)
 end)
 
 ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()

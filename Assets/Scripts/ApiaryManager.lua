@@ -9,7 +9,7 @@ local apiaryPositions = {} -- Server-side table to track all apiary positions
 local playerApiaries = {} -- Table to track which apiaries belong to which player
 
 -- Distance threshold to prevent overlapping apiaries
-local MIN_DISTANCE = 18.75
+local MIN_DISTANCE = 21
 
 -- Table to store active apiary GameObjects on the client side
 local apiaries = {}
@@ -32,13 +32,22 @@ notifyApiaryPlacementSucceeded = Event.new("NotifyApiaryPlacementSucceeded")
 
 -- Function to check if a position is valid (i.e., does not overlap with existing apiaries)
 local function isPositionValid(position)
+
+    if math.abs(position.x) > 100 or math.abs(position.z) > 100 then
+        return 1
+    end
+
+    if math.abs(position.x) < 30 and math.abs(position.z) < 30 then
+        return 2
+    end
+
     for _, existingPosition in pairs(apiaryPositions) do
         local distance = (existingPosition - position).magnitude
         if distance < MIN_DISTANCE then
-            return false
+            return 3
         end
     end
-    return true
+    return 0
 end
 
 function GetPlayerApiaryLocation(player)
@@ -66,7 +75,8 @@ end
 apiaryPlacementRequest:Connect(function(player, position)
     position = player.character:GetComponent(Transform).position
     -- Check if the position is valid
-    if isPositionValid(position) then
+    local ok = isPositionValid(position)
+    if ok == 0 then
         -- Store the apiary position
         apiaryPositions[player] = position
         -- Notify all clients to place the new apiary
@@ -88,7 +98,7 @@ apiaryPlacementRequest:Connect(function(player, position)
     else
         -- Notify the player that the placement was invalid
         print("Invalid apiary placement for " .. player.name .. " due to overlap.")
-        notifyApiaryPlacementFailed:FireClient(player)
+        notifyApiaryPlacementFailed:FireClient(player, ok)
     end
 end)
 
