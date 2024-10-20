@@ -6,6 +6,7 @@ local saveStatsRequest = Event.new("SaveStatsRequest")
 local incrementStatRequest = Event.new("IncrementStatRequest")
 local setRoleRequest = Event.new("SetRoleRequest")
 
+local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 
 -- Variable to hold the player's statistics GUI component
@@ -14,83 +15,16 @@ local playerStatGui = nil
 -- Table to keep track of players and their associated stats
 players = {}
 
--- Table to manage the pool of plots (0 to 7)
-local plotPool = {0, 1, 2, 3, 4, 5, 6, 7}
-
--- Table to track which plot is assigned to each player
-local playerPlots = {}
-
 -- Track money accumulation speeds per player
 local playerMoneyEarnRates = {}
 
 local playerTimers = {}
-
--- List of predefined spawn locations for each plot (0 to 7)
-local spawnLocations = {
-    {x = -13, y = 0, z = -21}, -- Spawn location for plot 0
-    {x = -13, y = 0, z = -7.5}, -- Spawn location for plot 1
-    {x = -13, y = 0, z = 7.5}, -- SpaFwn location for plot 2
-    {x = -13, y = 0, z = 21}, -- Spawn location for plot 3
-    {x = 13, y = 0, z = -21}, -- Spawn location for plot 4
-    {x = 13, y = 0, z = -7.5}, -- Spawn location for plot 5
-    {x = 13, y = 0, z = 7.5}, -- Spawn location for plot 6
-    {x = 13, y = 0, z = 21}  -- Spawn location for plot 7
-}
-
-local plotAssignedEvent = Event.new("PlotAssigned")
 
 giveBeeRequest = Event.new("GiveBee")
 
 local restartTimerRequest = Event.new("RestartTimer")
 
 local MoneyTimer = nil
-
--- Function to spawn a player at their assigned plot's spawn location
-local function spawnAtPlot(player, plot)
-    local spawnLocation = spawnLocations[plot.value + 1] -- Plot numbers are 0-7, but Lua tables are 1-based
-    if spawnLocation then
-        -- Set player's position to the spawn location
-        player.character:Teleport(Vector3.new(spawnLocation.x, spawnLocation.y, spawnLocation.z))
-        print(player.name .. " has been spawned at plot " .. plot.value .. " location.")
-    else
-        print("ERROR: No valid spawn location for plot " .. plot.value .. " for player " .. player.name)
-    end
-end
-
--- Function to assign a plot to a player
-local function assignPlot(playerInfo)
-    if #plotPool > 0 then
-        -- Take a plot from the pool and assign it to the player
-        local plot = table.remove(plotPool, 1)
-        playerPlots[playerInfo.player.id] = plot
-        playerInfo.Plot.value = plot
-        print(playerInfo.player.name .. " has been assigned plot " .. playerInfo.Plot.value)
-    else
-        -- If no plots are available, print an error
-        print("ERROR: No available plots for player " .. player.name)
-    end
-end
-
--- Function to return a plot to the pool when a player leaves
-local function returnPlot(id)
-
-    plot = playerPlots[id]
-
-    for id, plot in pairs(playerPlots) do
-        print("plot " .. plot .. " has id " .. id)
-    end
-
-    print("Id to be returned - " .. id)
-
-    if plot ~= nil then
-        -- Return the player's plot to the pool
-        table.insert(plotPool, plot)
-        print("Plot " .. plot .. " has been returned to the pool.")
-        playerPlots[id] = nil -- Clear the player's assigned plot
-    else
-        print("Error - Player had no plot.")
-    end
-end
 
 -- Function to remove all items from a player's inventory
 function RemoveAllPlayerItems(player)
@@ -107,7 +41,7 @@ function RemoveAllPlayerItems(player)
     end)
 end
 
-local function RecalculatePlayerEarnRate(player)
+function RecalculatePlayerEarnRate(player)
     Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
         local rate = 0
         for i, item in ipairs(items) do
@@ -131,7 +65,6 @@ local function TrackPlayers(game, characterCallback)
         -- Initialize player's stats and store them in the players table
         players[player] = {
             player = player,
-            Plot = IntValue.new("Plot" .. tostring(player.id), -1),
             Role = IntValue.new("Role" .. tostring(player.id), -1), -- Role: 1 = Employee, 0 = Customer, -1 = Undefined
             Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
             WorkXP = IntValue.new("WorkXP" .. tostring(player.id), 0), -- Initial work experience
@@ -141,21 +74,14 @@ local function TrackPlayers(game, characterCallback)
         if client == nil then
             --RemoveAllPlayerItems(player)
 
+            ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
-            Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
-                for i, item in ipairs(items) do
-                    if string.find(item.id, "Bee") then
-                        for n = 1, item.amount do
-                            beeObjectManager.SpawnBee(player, item.id, spawnLocations[players[player].Plot.value + 1])
-                        end
-                    end
-                end
-            end)
+
         end
 
         if client == nil then
             playerTimers[player] = nil
-            RecalculatePlayerEarnRate(player)
+            --
         end
 
         -- Connect to the event when the player's character changes (e.g., respawn)
@@ -179,7 +105,7 @@ local function TrackPlayers(game, characterCallback)
         print(player.name .. " with id " .. player.id .. " is leaving")
         if client == nil then
             beeObjectManager.RemoveAllPlayerBees(player)
-            returnPlot(player.id)
+            ApiaryManager.RemoveAllPlayerApiaries(player)
 
             local stats = {Role = 0, Cash = 0, WorkXP = 0, CustXP = 0}
             stats.Role = players[player].Role.value
@@ -240,8 +166,6 @@ function self:ClientAwake()
         local player = playerinfo.player
         local character = player.character
         
-       spawnAtPlot(player, playerinfo.Plot)
-
         -- Handle changes in the player's role
         playerinfo.Role.Changed:Connect(function(currentRole, oldVal)
             if player == client.localPlayer then
@@ -329,10 +253,6 @@ function self:ServerAwake()
     -- Track players joining and leaving the game
     TrackPlayers(server) 
 
-    scene.PlayerJoined:Connect(function(scene, player)
-        assignPlot(players[player])
-    end)
-
     -- Fetch a player's stats from storage when they join
     getStatsRequest:Connect(function(player)
         Storage.GetPlayerValue(player, "PlayerStats", function(stats)
@@ -382,7 +302,7 @@ function self:ServerAwake()
         local transaction = InventoryTransaction.new():GivePlayer(player, name, 1)
         Inventory.CommitTransaction(transaction)
     
-        beeObjectManager.SpawnBee(player, name, spawnLocations[players[player].Plot.value + 1])
+        beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player))
 
         Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
             -- Your logic for handling the retrieved items goes here

@@ -1,0 +1,35 @@
+.apiary-ui {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    flex-grow: 1;
+}
+
+.apiary-ui__status {
+    position: absolute;
+    align-self: center;
+    top: 40px;
+    font-size: 30px;
+    color: #fff;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.apiary-ui__buttons {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    bottom: 0;
+}
+
+.primary-button {
+    background-color: #007bff; /* Blue */
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.primary-button:hover {
+    background-color: rgba(0, 123, 255, 0.7); /* Slightly transparent blue on hover */
+}

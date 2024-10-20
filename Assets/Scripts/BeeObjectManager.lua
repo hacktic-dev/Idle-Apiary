@@ -139,7 +139,7 @@ function self:ClientAwake()
             bees[beeID] = newBee
 
             -- Set the position with a slight random offset
-            newBee.transform.position = position + Vector3.new(math.random() + math.random(-5, 4), 0, math.random() + math.random(-5, 4))
+            newBee.transform.position = position + Vector3.new(math.random() + math.random(-8, 7), 0, math.random() + math.random(-8, 7))
             
             -- Initialize bee behavior by setting its spawn position
             newBee:GetComponent(BeeWandererScript).SetSpawnPosition(position)

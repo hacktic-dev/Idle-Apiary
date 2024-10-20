@@ -29,10 +29,10 @@ function SetSpawnPosition(position)
     bobOffset = math.random() * math.pi * 2 -- Random initial phase offset (0 to 2π)
 end
 
--- Randomly choose a new target position within a 5x5 area (X and Z)
+-- Randomly choose a new target position within a 16x16 area (X and Z)
 function ChooseNewTarget()
-    local randomX = math.random(-5, 5)
-    local randomZ = math.random(-5, 5)
+    local randomX = math.random(-8, 8)
+    local randomZ = math.random(-8, 8)
     -- Ignore Y-axis for wandering (X and Z only)
     targetPosition = spawnPosition + Vector3.new(randomX, 0, randomZ)
 end
