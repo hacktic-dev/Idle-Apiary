@@ -7,6 +7,8 @@ local Orders_Root : UIScrollView = nil -- Reference to the root UI element for o
 local closeButton : UIButton = nil -- Reference to the button for closing the UI.
 --!Bind
 local closeLabel : UILabel = nil -- Reference to the label for the close button.
+--!Bind
+local statusLabel : UILabel = nil -- Reference to status label.
 
 local orderManager = require("OrderManager") -- Accesses order management functions.
 local playerManager = require("PlayerManager") -- Accesses player management functions.
@@ -83,7 +85,15 @@ function CreateQuestItem(Name, Id, Cash)
                 return
             end
             
-            playerManager.GiveBee(GenerateBee(Id)) -- Increment customer XP.
+            local bee = GenerateBee(Id)
+            playerManager.GiveBee(bee) -- Increment customer XP.
+            statusLabel.visible = true
+            statusLabel:SetPrelocalizedText("You recieved a " ..  bee .. "!")
+            Timer.new(5, function() statusLabel.visible = false end, false)
+        else
+            statusLabel.visible = true
+            statusLabel:SetPrelocalizedText("You don't have enough honey.")
+            Timer.new(5, function() statusLabel.visible = false end, false)
         end
     end, true, true, true)
 
@@ -100,6 +110,7 @@ end
 
 -- Called when the UI object this script is attached to is initialized.
 function self:Awake()
+    statusLabel.visible = false
     SetVisible(false) -- Hide the UI initially.
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
     

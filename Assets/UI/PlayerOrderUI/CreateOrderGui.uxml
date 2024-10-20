@@ -8,6 +8,8 @@
 >
 
   <hr:UILuaView class="create-order-gui">
+    <hr:UILabel class="shop-ui_status" name="statusLabel" picking-mode="Ignore" text="" />
+
     <hr:UIScrollView name="Orders_Root" mode="Vertical">
     <hr:UIButton name="closeButton" class="order-item"><hr:UILabel name="closeLabel" class="title"/></hr:UIButton>
     </hr:UIScrollView>

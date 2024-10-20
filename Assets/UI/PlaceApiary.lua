@@ -30,6 +30,7 @@ ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
         why = " You are too close to another players apiary."
     end
     _statusLabel:SetPrelocalizedText("Apiary cannot not be placed here." .. why)
+    Timer.new(5, function() _statusLabel.visible = false end, false)
 end)
 
 ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()

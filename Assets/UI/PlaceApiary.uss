@@ -9,8 +9,8 @@
 .apiary-ui__status {
     position: absolute;
     align-self: center;
-    top: 40px;
-    font-size: 30px;
+    top: 250px;
+    font-size: 40px;
     color: #fff;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
