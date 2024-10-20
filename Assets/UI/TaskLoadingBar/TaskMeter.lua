@@ -70,11 +70,6 @@ end
 -- Function called when the script starts
 function self:Start()
     UpdateMeter(0)
-
-    -- Listen for changes in the player's role and set the visibility of the task UI accordingly
-    playerManager.players[client.localPlayer].Role.Changed:Connect(function(newVal, oldVal)
-        SetVisible(newVal == 1)
-    end)
 end
 
 -- Function called every frame

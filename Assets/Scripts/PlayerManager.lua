@@ -4,7 +4,6 @@
 local getStatsRequest = Event.new("GetStatsRequest")
 local saveStatsRequest = Event.new("SaveStatsRequest")
 local incrementStatRequest = Event.new("IncrementStatRequest")
-local setRoleRequest = Event.new("SetRoleRequest")
 
 local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
@@ -65,10 +64,8 @@ local function TrackPlayers(game, characterCallback)
         -- Initialize player's stats and store them in the players table
         players[player] = {
             player = player,
-            Role = IntValue.new("Role" .. tostring(player.id), -1), -- Role: 1 = Employee, 0 = Customer, -1 = Undefined
             Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
-            WorkXP = IntValue.new("WorkXP" .. tostring(player.id), 0), -- Initial work experience
-            CustXP = IntValue.new("CustXp" .. tostring(player.id), 0) -- Initial customer experience
+            Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
         }
         
         if client == nil then
@@ -107,11 +104,9 @@ local function TrackPlayers(game, characterCallback)
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
 
-            local stats = {Role = 0, Cash = 0, WorkXP = 0, CustXP = 0}
-            stats.Role = players[player].Role.value
+            local stats = {Cash = 0, Nets = 0}
             stats.Cash = players[player].Cash.value
-            stats.WorkXP = players[player].WorkXP.value
-            stats.CustXP = players[player].CustXP.value
+            stats.Nets = players[player].Nets.value
         
             -- Save the stats to storage and handle any errors
             Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
@@ -146,11 +141,6 @@ end
 
 --]]
 
--- Function to change the player's role by sending a request to the server
-function ChangeRole()
-    setRoleRequest:FireServer()
-end
-
 -- Function to get the local player's cash
 function GetPlayerCash()
     return players[client.localPlayer].Cash.value
@@ -165,24 +155,6 @@ function self:ClientAwake()
     function OnCharacterInstantiate(playerinfo)
         local player = playerinfo.player
         local character = player.character
-        
-        -- Handle changes in the player's role
-        playerinfo.Role.Changed:Connect(function(currentRole, oldVal)
-            if player == client.localPlayer then
-                local roleText = ""
-                if currentRole == 0 then 
-                    roleText = "Customer"
-                    playerStatGui.SetXpUI(playerinfo.CustXP.value)
-                elseif currentRole == 1 then 
-                    roleText = "Employee" 
-                    playerStatGui.SetXpUI(playerinfo.WorkXP.value)
-                end
-                -- Update the local UI to reflect the new role
-                playerStatGui.SetRoleUI(roleText)
-                -- Request the server to save the updated stats
-                saveStatsRequest:FireServer()
-            end
-        end)
 
         -- Handle changes in the player's cash
         playerinfo.Cash.Changed:Connect(function(currentCash, oldVal)
@@ -192,11 +164,10 @@ function self:ClientAwake()
             end
         end)
 
-        -- Handle changes in the player's work experience
-        playerinfo.WorkXP.Changed:Connect(function(currentXP, oldVal)
-            if player == client.localPlayer and playerinfo.Role.value == 1 then
-                -- Update the local UI to reflect the new work experience value
-                playerStatGui.SetXpUI(currentXP)
+        playerinfo.Nets.Changed:Connect(function(currentNets, oldVal)
+            if player == client.localPlayer then
+                -- Update the local UI to reflect the new cash value
+                playerStatGui.SetNetsUI(currentNets)
             end
         end)
 
@@ -205,14 +176,6 @@ function self:ClientAwake()
                 MoneyTimer:Stop()
             end
             MoneyTimer = Timer.new(60/rate, function() IncrementStat("Cash", 1) end, true)
-        end)
-
-        -- Handle changes in the player's customer experience
-        playerinfo.CustXP.Changed:Connect(function(currentXP, oldVal)
-            if player == client.localPlayer and playerinfo.Role.value == 0 then
-                -- Update the local UI to reflect the new customer experience value
-                playerStatGui.SetXpUI(currentXP)
-            end
         end)
     end
 
@@ -241,11 +204,9 @@ end
 -- Function to save a player's stats to persistent storage
 local function SaveStats(player)
     -- Create a table to store the player's current stats
-    local stats = {Role = 0, Cash = 0, WorkXP = 0, CustXP = 0}
-    stats.Role = players[player].Role.value
+    local stats = {Cash = 0, Nets = 0}
     stats.Cash = players[player].Cash.value
-    stats.WorkXP = players[player].WorkXP.value
-    stats.CustXP = players[player].CustXP.value
+    stats.Nets = players[player].Nets.value
 end
 
 -- Function to initialize the server-side logic
@@ -258,15 +219,13 @@ function self:ServerAwake()
         Storage.GetPlayerValue(player, "PlayerStats", function(stats)
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Role = 1, Cash = 100, WorkXP = 0, CustXP = 0}
+                stats = {Cash = 100, Nets = 0}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
             -- Update the player's current networked stats from storage
-            players[player].Role.value = stats.Role
             players[player].Cash.value = stats.Cash
-            players[player].WorkXP.value = stats.WorkXP
-            players[player].CustXP.value = stats.CustXP
+            players[player].Nets.value = stats.Nets
 
             --[[
             -- Uncomment the following lines to print the player's stats to the console for debugging
@@ -284,13 +243,10 @@ function self:ServerAwake()
 
     -- Increment a player's stat when requested by the client
     incrementStatRequest:Connect(function(player, stat, value)
-         --Override the Role Stat of the player to 'value' with =
-         if stat == "Role" then players[player].Role.value = value end
 
-         --Increment the  Cash / WorkXP / CustXp Stat of the player by 'value' with +=
+         --Increment the  Cash / Nets / Stat of the player by 'value' with +=
          if stat == "Cash" then players[player].Cash.value += value end
-         if stat == "WorkXP" then players[player].WorkXP.value += value end
-         if stat == "CustXP" then players[player].CustXP.value += value end
+         if stat == "Nets" then players[player].Nets.value += value end
          -- Save the updated stats to storage
          SaveStats(player)
     end)
@@ -314,24 +270,5 @@ function self:ServerAwake()
         end)
 
         RecalculatePlayerEarnRate(player)
-    end)
-
-    -- Change a player's role when requested by the client
-    setRoleRequest:Connect(function(player)
-        -- Retrieve the current role of the player from the players table.
-        local currentRole = players[player].Role.value
-
-        if currentRole == 0 then -- Check if the current role is Customer (0).
-            currentRole = 1  -- Change role to Employee (1).
-
-        elseif currentRole == 1 then -- Check if the current role is Employee (1).
-            currentRole = 0  -- Change role to Customer (0).
-
-        else -- If the current role is neither Customer (0) nor Employee (1), print an error message.
-            print("ERROR: player outside Role bounds")
-            return  -- Exit the function to prevent further execution.
-        end
-        -- Update the player's role
-        players[player].Role.value = currentRole
     end)
 end

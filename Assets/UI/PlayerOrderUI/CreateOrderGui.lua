@@ -74,10 +74,16 @@ function CreateQuestItem(Name, Id, Cash)
     questItem:RegisterPressCallback(function()
         -- Check if the player is a customer and has enough cash to buy the item.
         if playerManager.GetPlayerCash() >= Cash then
-            -- Create the order and deduct the cash from the player's balance.
-            -- orderManager.CreateOrderClient(Name, XP, Cash)
-            playerManager.GiveBee(GenerateBee(Id)) -- Increment customer XP.
+            
             playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
+
+            -- Give player a net if that's what they bought
+            if Id == "Net" then
+                playerManager.IncrementStat("Nets", 1)
+                return
+            end
+            
+            playerManager.GiveBee(GenerateBee(Id)) -- Increment customer XP.
         end
     end, true, true, true)
 
@@ -104,5 +110,6 @@ function self:Awake()
 end
 
 -- Create quest items for the UI.
+local NetMenuItem = CreateQuestItem("Bee Net", "Net", 100)
 local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50)
 local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Silver Set", "Silver", 250)
