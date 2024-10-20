@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 53
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 258248712, guid: a215bd465061e3c4abe0b86c7c8c3d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _assetMappings:
+  - Guid: 88eeb5e5ae7b81748a4991e350a350ec
+    StoreId: 665901566e9f2ad62c40e963
+    Name: Tree 5
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/665901566e9f2ad62c40e963/18fcbad66d0_0.jpg
+    AdditionalAssetGUIDs: []
+  - Guid: 9e0da7de82ec64b468744c47cf118cbb
+    StoreId: 6659013e6e9f2ad62c40e961
+    Name: Tree 4
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/6659013e6e9f2ad62c40e961/18fcbad0910_0.jpg
+    AdditionalAssetGUIDs: []
+  - Guid: fa4b438306acc5a4585f82f8aab19395
+    StoreId: 665901296e9f2ad62c40e95f
+    Name: Tree 3
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/665901296e9f2ad62c40e95f/18fcbacaf38_0.jpg
+    AdditionalAssetGUIDs: []
+  - Guid: 9254a49ff2476964b91f4289da59fa38
+    StoreId: 6658b4736e9f2ad62c40e70e
+    Name: Bush 2
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/6658b4736e9f2ad62c40e70e/18fca82b5f8_0.jpg
+    AdditionalAssetGUIDs: []
+  - Guid: 2c8f9c84f29dbad4fabb8fedade1750f
+    StoreId: 6620238071d0a0535503a6dd
+    Name: Fence 01
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/6620238071d0a0535503a6dd/18eed8d4028_0.jpg
+    AdditionalAssetGUIDs: []
+  - Guid: ff94193021516dc4684a11172e77478a
+    StoreId: 6658fb576e9f2ad62c40e952
+    Name: Tall Grass 3
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/6658fb576e9f2ad62c40e952/18fcb95fea0_0.jpg
+    AdditionalAssetGUIDs: []
