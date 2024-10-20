@@ -10945,6 +10945,7 @@ GameObject:
   - component: {fileID: 559923213}
   - component: {fileID: 559923214}
   - component: {fileID: 559923215}
+  - component: {fileID: 559923216}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11114,6 +11115,38 @@ MonoBehaviour:
     rid: -2
   m_ApiaryPrefab: {fileID: 487156055491970327, guid: 71598928e09b67a4191778c1db6bfb07,
     type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &559923216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559923208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724f9c8e6fe2b181b2aa08d0e34dcf34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: c8909c5bd53db154087508055992cfe1, type: 3}
+  _properties: []
+  _uiOutput: 0
+  _uiOutputSettings:
+    rid: -2
+  m_CommonBeePrefab: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
+    type: 3}
+  m_StoneBeePrefab: {fileID: 5446098579520547776, guid: a80d2aedfdce0414d8e772567ebda49f,
+    type: 3}
+  m_ForestBeePrefab: {fileID: 5446098579520547776, guid: 36434e4a1449bbb46ac9623d100d18a1,
+    type: 3}
+  m_AquaticBeePrefab: {fileID: 0}
+  m_GiantBeePrefab: {fileID: 0}
+  m_SilverBeePrefab: {fileID: 0}
   references:
     version: 2
     RefIds:
