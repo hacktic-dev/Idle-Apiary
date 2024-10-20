@@ -22,20 +22,25 @@ local beeSpecies = {
     { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor = 50 },
     { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor = 45 }, 
     { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor = 45 } ,
-    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 15 } ,
-    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 10 } ,
-    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 5 } 
+    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 10 } ,
+    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 8 } ,
+    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 4 } 
 }
 
-local MIN_SPAWN_DISTANCE = 40 -- Minimum distance from player to spawn a bee
-local MAX_SPAWN_DISTANCE = 70 -- Maximum distance from player to spawn a bee
-local DESPAWN_DISTANCE = 85 -- Distance beyond which the bee despawns
-local MAX_BEES = 8 -- Maximum number of bees allowed
+local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
+local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee
+local MAX_SPAWN_DISTANCE = 100 -- Maximum distance from player to spawn a bee
+local DESPAWN_DISTANCE = 120 -- Distance beyond which the bee despawns
+local MAX_BEES = 10 -- Maximum number of bees allowed
 
 local beeSpawnInterval = 0.1 -- Time in seconds between bee spawn attempts
 
+beeCaptureRequest = Event.new("BeeCaptureRequest")
+notifyCaptureFailed = Event.new("NotifyCaptureFailed")
+notifyCaptureSucceeded = Event.new("NotifyCaptureSucceeded")
+
 -- Table to track spawned wild bees
-local wildBees = {}
+wildBees = {}
 
 -- Function to calculate total spawn factor
 local function getTotalSpawnFactor()
@@ -106,49 +111,34 @@ local function despawnWildBee(bee)
 end
 
 -- Function to check if a player is near a bee (for UI purposes)
-local function isPlayerNearBee(player, bee)
+function isPlayerNearBee(player, bee)
     local playerPosition = player.character:GetComponent(Transform).position
     local beePosition = bee.transform.position
 
     local distance = (beePosition - playerPosition).magnitude
-    return distance < MIN_SPAWN_DISTANCE
+    return distance < MIN_CAPTURE_DISTANCE
 end
 
 -- Function to handle bee capture when the player presses the capture button
-local function captureBee(player, bee, speciesName)
+function captureBee(bee, speciesName)
     -- Check if the player has a net available
-    local netsAvailable = playerManager.players[player].Nets.value
+    local netsAvailable = playerManager.players[client.localPlayer].Nets.value
 
     if netsAvailable > 0 then
         -- Decrement the player's net count
-        playerManager.IncrementStat(player, "Nets", -1)
+        playerManager.IncrementStat("Nets", -1)
 
         -- Give the captured bee species to the player
-        playerManager.GiveBee(player, speciesName)
+        playerManager.GiveBee(speciesName)
 
         -- Remove the bee from the wild bees list and despawn it
         despawnWildBee(bee)
 
-        print("Bee captured and moved to apiary for player: " .. player.name)
+        print("Bee captured and moved to apiary for player: " .. client.localPlayer.name)
+        notifyCaptureSucceeded:Fire(speciesName)
     else
-        print("No nets available for player: " .. player.name)
-    end
-end
-
--- Function to display the capture UI when the player is near a wild bee
-local function showCaptureUI(player)
-    -- Find the nearest bee
-    for _, data in ipairs(wildBees) do
-        local bee = data.bee
-        local speciesName = data.speciesName
-
-        if isPlayerNearBee(player, bee) then
-            -- Show the capture button UI
-            -- Assuming a function `showCaptureButton` that takes player and bee data
-            showCaptureButton(player, function()
-                captureBee(player, bee, speciesName)
-            end)
-        end
+        print("No nets available for player: " .. client.localPlayer.name)
+        notifyCaptureFailed:Fire()
     end
 end
 

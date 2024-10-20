@@ -1,35 +1,57 @@
-.apiary-ui {
+.combined-ui {
     position: relative;
     display: flex;
     flex-direction: column;
     align-self: center;
     flex-grow: 1;
+    height: 100%; /* Ensure it occupies full height for alignment */
 }
 
+/* Apiary UI Styles */
 .apiary-ui__status {
     position: absolute;
     align-self: center;
-    top: 250px;
+    top: 100px; /* Adjust this value for positioning */
     font-size: 40px;
     color: #fff;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
-.apiary-ui__buttons {
+.buttons-container {
     position: absolute;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Stack buttons vertically */
     align-self: center;
-    bottom: 0;
+    bottom: 30px; /* Position from the bottom of the screen */
+    gap: 20px; /* Space between buttons */
+}
+
+/* Button Styles */
+.primary-button, .capture-button {
+    width: 200px; /* Uniform width for buttons */
+    height: 50px; /* Uniform height for buttons */
 }
 
 .primary-button {
     background-color: #007bff; /* Blue */
     color: white;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 10px;
+    padding: 12px;
 }
 
 .primary-button:hover {
     background-color: rgba(0, 123, 255, 0.7); /* Slightly transparent blue on hover */
+}
+
+.capture-button {
+    background-color: #ffcc00;
+    font-size: 18px;
+    color: #000;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.capture-button:hover {
+    background-color: #ffaa00;
 }

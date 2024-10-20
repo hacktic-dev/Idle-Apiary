@@ -6,14 +6,23 @@
     xmlns:editor="UnityEditor.UIElements"
     xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
 >
+    <hr:UILuaView class="combined-ui">
+        <!-- Apiary UI Section -->
+        <hr:UILabel class="apiary-ui__status" name="_statusLabel" picking-mode="Ignore" text="Press the button to place an apiary." />
 
- <hr:UILuaView class="apiary-ui">
-    <hr:UILabel class="apiary-ui__status" name="_statusLabel" picking-mode="Ignore" text="Press the button to place an apiary." />
-    <VisualElement class="apiary-ui__buttons">
-        <hr:UIButton class="primary-button" name="_placeApiaryButton">
-            <Label text="Place Apiary" />
-        </hr:UIButton>
-    </VisualElement>
-</hr:UILuaView>
+        <!-- Vertical Container for Buttons -->
+        <VisualElement class="buttons-container">
+            <VisualElement class="apiary-ui__buttons">
+                <hr:UIButton class="primary-button" name="_placeApiaryButton">
+                    <Label text="Place Apiary" />
+                </hr:UIButton>
+            </VisualElement>
 
+            <VisualElement class="bee-capture__container">
+                <hr:UIButton class="capture-button" name="_CaptureButton">
+                    <Label text="Capture Bee"/>
+                </hr:UIButton>
+            </VisualElement>
+        </VisualElement>
+    </hr:UILuaView>
 </UXML>

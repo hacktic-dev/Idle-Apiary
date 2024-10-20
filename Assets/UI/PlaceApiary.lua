@@ -9,6 +9,18 @@ local ApiaryManager = require("ApiaryManager")
 
 local hasPlacedApiary = false
 
+--!Bind
+local _CaptureButton : UIButton = nil
+
+local wildBeeManager = require("WildBeeManager")
+
+-- Table to store the current UI state (whether the button is visible)
+local captureUIVisible = true
+
+local species = ""
+local nearBee = nil
+
+
 -- Function to place an apiary at the player's position
 local function placeApiary()
     if not hasPlacedApiary then
@@ -39,6 +51,18 @@ ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()
     _placeApiaryButton.visible = false
 end)
 
+wildBeeManager.notifyCaptureFailed:Connect(function()
+    _statusLabel:SetPrelocalizedText("You don't have any bee nets!")
+    _statusLabel.visible = true
+    Timer.new(5, function() _statusLabel.visible = false end, false)
+end)
+
+wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
+    _statusLabel:SetPrelocalizedText("You caught a wild " .. species .. "!")
+    _statusLabel.visible = true
+    Timer.new(5, function() _statusLabel.visible = false end, false)
+end))
+
 -- Register a callback for when the button is pressed
 _placeApiaryButton:RegisterPressCallback(function()
     placeApiary() -- Call the function to place an apiary
@@ -46,4 +70,60 @@ end, true, true, true)
 
 function self:ClientAwake()
     _statusLabel.visible = false
+end
+
+-- Function to show the Capture Button
+local function showCaptureButton()
+    if not captureUIVisible then
+        _CaptureButton.visible = true
+        captureUIVisible = true
+    end
+end
+
+-- Function to hide the Capture Button
+local function hideCaptureButton()
+    if captureUIVisible then
+        _CaptureButton.visible = false
+        captureUIVisible = false
+    end
+end
+
+-- Function to handle the button press (captures the bee)
+local function onCaptureButtonPressed(bee, speciesName)
+    -- Send a signal to the capture script when the button is pressed
+    wildBeeManager.captureBee(bee, species)
+end
+
+-- Register the button press callback
+_CaptureButton:RegisterPressCallback(function()
+    -- Assuming `player` and `bee` data is stored globally or passed here
+    onCaptureButtonPressed(nearBee, species)
+end, true, true, true)
+
+-- Function to check player's proximity to bees and show the UI accordingly
+local function updateCaptureUI(player)
+    local isNearBee = false
+    for _, data in ipairs(wildBeeManager.wildBees) do
+        local bee = data.bee
+
+        if wildBeeManager.isPlayerNearBee(player, bee) then
+            --print(player.name .. " is close to a " .. data.speciesName .. " at position " .. tostring(bee.transform.position))
+            nearBee = data.bee
+            species = data.speciesName
+            showCaptureButton() -- Show the button if the player is near a bee
+            isNearBee = true
+            break
+        end
+    end
+
+    -- If the player is not near any bees, hide the capture button
+    if not isNearBee then
+        hideCaptureButton()
+    end
+end
+
+-- Periodically update the Capture UI
+function self:Update()
+    hideCaptureButton()
+    updateCaptureUI(client.localPlayer)
 end

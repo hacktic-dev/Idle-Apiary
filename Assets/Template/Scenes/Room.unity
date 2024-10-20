@@ -3104,7 +3104,30 @@ MonoBehaviour:
   _networkId: 0
   _script: {fileID: -974389366465450183, guid: 8b1cf7926a94d824d92a75aece9f03a5, type: 3}
   _properties: []
-  _uiOutput: 2
+  _uiOutput: 3
+  _uiOutputSettings:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &166921965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166921951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55afb15b8ddba501d157fd94088f8942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: ef70b18e3704a5d46b88fd41b2508997, type: 3}
+  _properties: []
+  _uiOutput: 3
   _uiOutputSettings:
     rid: -2
   references:
@@ -11144,9 +11167,12 @@ MonoBehaviour:
     type: 3}
   m_ForestBeePrefab: {fileID: 5446098579520547776, guid: 36434e4a1449bbb46ac9623d100d18a1,
     type: 3}
-  m_AquaticBeePrefab: {fileID: 0}
-  m_GiantBeePrefab: {fileID: 0}
-  m_SilverBeePrefab: {fileID: 0}
+  m_AquaticBeePrefab: {fileID: 5446098579520547776, guid: 2ce966ef9ebde52479d4ab33d95999bd,
+    type: 3}
+  m_GiantBeePrefab: {fileID: 5446098579520547776, guid: 5e60b535ae7204d4ebdcfdfef5667b90,
+    type: 3}
+  m_SilverBeePrefab: {fileID: 5446098579520547776, guid: b29e41e18c6c1594dad435e29ca80711,
+    type: 3}
   references:
     version: 2
     RefIds:
@@ -44414,6 +44440,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 166921958}
+    - targetCorrespondingSourceObject: {fileID: 727390526123083709, guid: 5eb5f74b36f1513418ce71d8f66e3e3b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 166921965}
   m_SourcePrefab: {fileID: 100100000, guid: 5eb5f74b36f1513418ce71d8f66e3e3b, type: 3}
 --- !u!1 &5626140199795754234
 GameObject:
