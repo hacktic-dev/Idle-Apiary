@@ -22,16 +22,16 @@ local beeSpecies = {
     { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor = 50 },
     { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor = 45 }, 
     { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor = 45 } ,
-    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 10 } ,
-    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 8 } ,
-    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 4 } 
+    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 12 } ,
+    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 10 } ,
+    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 5 } 
 }
 
 local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
 local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee
-local MAX_SPAWN_DISTANCE = 100 -- Maximum distance from player to spawn a bee
-local DESPAWN_DISTANCE = 120 -- Distance beyond which the bee despawns
-local MAX_BEES = 10 -- Maximum number of bees allowed
+local MAX_SPAWN_DISTANCE = 125 -- Maximum distance from player to spawn a bee
+local DESPAWN_DISTANCE = 130 -- Distance beyond which the bee despawns
+local MAX_BEES = 14 -- Maximum number of bees allowed
 
 local beeSpawnInterval = 0.1 -- Time in seconds between bee spawn attempts
 

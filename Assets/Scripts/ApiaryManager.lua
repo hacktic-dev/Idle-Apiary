@@ -37,7 +37,7 @@ local function isPositionValid(position)
         return 1
     end
 
-    if math.abs(position.x) < 30 and math.abs(position.z) < 30 then
+    if math.abs(position.x) < 37 and math.abs(position.z) < 37 then
         return 2
     end
 
