@@ -86,10 +86,8 @@ function CreateQuestItem(Name, Id, Cash)
             end
             
             local bee = GenerateBee(Id)
+            playerManager.notifyBeePurchased:Fire(bee)
             playerManager.GiveBee(bee) -- Increment customer XP.
-            statusLabel.visible = true
-            statusLabel:SetPrelocalizedText("You recieved a " ..  bee .. "!")
-            Timer.new(5, function() statusLabel.visible = false end, false)
         else
             statusLabel.visible = true
             statusLabel:SetPrelocalizedText("You don't have enough honey.")
@@ -121,6 +119,6 @@ function self:Awake()
 end
 
 -- Create quest items for the UI.
-local NetMenuItem = CreateQuestItem("Bee Net", "Net", 100)
-local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50)
+local NetMenuItem = CreateQuestItem("Bee Net", "Net", 150)
+local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 100)
 local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Silver Set", "Silver", 250)

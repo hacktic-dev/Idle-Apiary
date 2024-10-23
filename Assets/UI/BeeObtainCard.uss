@@ -1,0 +1,31 @@
+.bee-obtain-card
+{
+    margin : 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.bee-card__container {
+    display: flex;
+    flex-shrink: 1;
+    max-width: none;
+    width: 500px;
+    height: 400px;
+    background-color: rgba(0,0,0,.5);
+    border-radius: 10px;
+    overflow: scroll;
+    margin-right: auto;
+    color: #FFFFFF;
+    font-size: 36px;
+    bottom: 180px
+}
+
+.bee-label
+{
+    align-self: center;
+}
+
+.bee-image
+{
+    background-image: url("project://database/Assets/Icons/honey.png");
+}

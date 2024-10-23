@@ -22,7 +22,7 @@
     display: flex;
     flex-direction: column; /* Stack buttons vertically */
     align-self: center;
-    bottom: 30px; /* Position from the bottom of the screen */
+    bottom: 0px; /* Position from the bottom of the screen */
     gap: 20px; /* Space between buttons */
 }
 

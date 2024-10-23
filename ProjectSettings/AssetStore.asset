@@ -178,3 +178,8 @@ MonoBehaviour:
     Name: Log Road Sign 1
     ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/6658dc506e9f2ad62c40e81f/18fcb1ccb48_0.jpg
     AdditionalAssetGUIDs: []
+  - Guid: 3c2df89b67546d749979b0463b5e0dfe
+    StoreId: 665903686e9f2ad62c40e98c
+    Name: Wooden Bench
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/665903686e9f2ad62c40e98c/18fcbb57550_0.jpg
+    AdditionalAssetGUIDs: []

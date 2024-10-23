@@ -22,9 +22,19 @@ local beeSpecies = {
     { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor = 50 },
     { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor = 45 }, 
     { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor = 45 } ,
-    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 12 } ,
-    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 10 } ,
-    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 5 } 
+    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 10 } ,
+    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 8 } ,
+    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 4 } 
+}
+
+-- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
+local beeData = {
+    ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 1 },
+    ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1 },
+    ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1 },
+    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 2 },
+    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 2 },
+    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 5 }
 }
 
 local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
@@ -41,6 +51,39 @@ notifyCaptureSucceeded = Event.new("NotifyCaptureSucceeded")
 
 -- Table to track spawned wild bees
 wildBees = {}
+
+-- Function to get honey generation rate based on species name
+function getHoneyRate(speciesName)
+    local species = beeData[speciesName]
+    if species then
+        return species.honeyRate
+    else
+        print("Species not found: " .. speciesName)
+        return nil
+    end
+end
+
+-- Function to get sell price based on species name
+function getSellPrice(speciesName)
+    local species = beeData[speciesName]
+    if species then
+        return species.sellPrice
+    else
+        print("Species not found: " .. speciesName)
+        return nil
+    end
+end
+
+-- Function to get time to grow up based on species name
+function getGrowTime(speciesName)
+    local species = beeData[speciesName]
+    if species then
+        return species.growTime
+    else
+        print("Species not found: " .. speciesName)
+        return nil
+    end
+end
 
 -- Function to calculate total spawn factor
 local function getTotalSpawnFactor()

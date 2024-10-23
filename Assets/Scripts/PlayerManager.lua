@@ -7,6 +7,7 @@ local incrementStatRequest = Event.new("IncrementStatRequest")
 
 local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
+local wildBeeManager = require("WildBeeManager")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
@@ -20,6 +21,7 @@ local playerMoneyEarnRates = {}
 local playerTimers = {}
 
 giveBeeRequest = Event.new("GiveBee")
+notifyBeePurchased = Event.new("NotifyBeePurchased")
 
 local restartTimerRequest = Event.new("RestartTimer")
 
@@ -46,7 +48,7 @@ function RecalculatePlayerEarnRate(player)
         for i, item in ipairs(items) do
             -- print("checking item " .. item.id)
             if string.find(item.id, "Bee") then
-                rate = rate + beeObjectManager.LookupBeeEarnRate(item.id) * item.amount
+                rate = rate + wildBeeManager.getHoneyRate(item.id) * item.amount
             end
         end
 
@@ -64,7 +66,7 @@ local function TrackPlayers(game, characterCallback)
         -- Initialize player's stats and store them in the players table
         players[player] = {
             player = player,
-            Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
+            Cash = IntValue.new("Cash" .. tostring(player.id), 200), -- Initial cash value
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
         }
         
@@ -219,7 +221,7 @@ function self:ServerAwake()
         Storage.GetPlayerValue(player, "PlayerStats", function(stats)
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 100, Nets = 0}
+                stats = {Cash = 200, Nets = 0}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
@@ -258,7 +260,9 @@ function self:ServerAwake()
         local transaction = InventoryTransaction.new():GivePlayer(player, name, 1)
         Inventory.CommitTransaction(transaction)
     
-        beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player))
+        if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
+            beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player))
+        end
 
         Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
             -- Your logic for handling the retrieved items goes here
@@ -269,6 +273,9 @@ function self:ServerAwake()
             end
         end)
 
-        RecalculatePlayerEarnRate(player)
+        -- Only have non zero rate if apiary is placed
+        if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
+            RecalculatePlayerEarnRate(player)
+        end
     end)
 end
