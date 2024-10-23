@@ -16,6 +16,7 @@ local apiaries = {}
 
 local playerManager = require("PlayerManager")
 local beeObjectManager = require("BeeObjectManager")
+local wildBeeManager = require("WildBeeManager")
 
 --!SerializeField
 local ApiaryPrefab : GameObject = nil
@@ -85,7 +86,7 @@ apiaryPlacementRequest:Connect(function(player, position)
 
        playerManager.GetBeeList(player, function(bees)
             for i, bee in ipairs(bees) do
-                beeObjectManager.SpawnBee(player, bee.species, position)
+                beeObjectManager.SpawnBee(player, bee.species, position, bee.beeId, bee.adult, bee.timeToGrowUp, wildBeeManager.getGrowTime(bee.species))
              end
           end)
 

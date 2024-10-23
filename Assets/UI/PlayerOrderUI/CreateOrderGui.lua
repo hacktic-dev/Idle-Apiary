@@ -95,7 +95,7 @@ function CreateQuestItem(Name, Id, Cash)
             
             local bee = GenerateBee(Id)
             playerManager.notifyBeePurchased:Fire(bee)
-            playerManager.GiveBee(bee) -- Increment customer XP.
+            playerManager.GiveBee(bee, false)
         else
             statusLabel.visible = true
             statusLabel:SetPrelocalizedText("You don't have enough honey.")

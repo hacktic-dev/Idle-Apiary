@@ -29,12 +29,12 @@ local beeSpecies = {
 
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
 local beeData = {
-    ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 1, rarity = "Common" },
-    ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1, rarity = "Common" },
-    ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1, rarity = "Common" },
-    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 2, rarity = "Uncommon" },
-    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 2, rarity = "Uncommon" },
-    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 5, rarity = "Rare" }
+    ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 60, rarity = "Common" },
+    ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common" },
+    ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common" },
+    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 120, rarity = "Uncommon" },
+    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 120, rarity = "Uncommon" },
+    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 300, rarity = "Rare" }
 }
 
 local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
@@ -193,7 +193,7 @@ function captureBee(bee, speciesName)
     playerManager.IncrementStat("Nets", -1)
 
     -- Give the captured bee species to the player
-    playerManager.GiveBee(speciesName)
+    playerManager.GiveBee(speciesName, true)
 
     -- Remove the bee from the wild bees list and despawn it
     despawnWildBee(bee)

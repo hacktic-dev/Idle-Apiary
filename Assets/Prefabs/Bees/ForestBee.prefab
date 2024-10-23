@@ -115,6 +115,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2711836196418280312}
   - component: {fileID: 2838578943467238863}
+  - component: {fileID: 8131590566241413642}
+  - component: {fileID: 8022597142580585906}
   m_Layer: 0
   m_Name: ForestBee
   m_TagString: Untagged
@@ -152,6 +154,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkId: 0
   _script: {fileID: -974389366465450183, guid: ba573cce4b0ae8b459bb5c26fb8c671d, type: 3}
+  _properties: []
+  _uiOutput: 0
+  _uiOutputSettings:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &8131590566241413642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446098579520547776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfa4df749db3141e2402e7678589c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: f6254d22f3043194589f2ea3c2879cca, type: 3}
+  _properties: []
+  _uiOutput: 1
+  _uiOutputSettings:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &8022597142580585906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446098579520547776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e95c530ccf3e8121c294b33eaa85d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: 33365c86b6103e549b1d946684758500, type: 3}
   _properties: []
   _uiOutput: 0
   _uiOutputSettings:

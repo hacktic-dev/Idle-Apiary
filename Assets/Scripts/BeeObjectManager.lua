@@ -24,11 +24,6 @@ updateBeePositionRequest = Event.new("UpdateBeePosition")
 addNewBeeRequest = Event.new("AddNewBee")
 removeBeeRequest = Event.new("RemoveBee")
 
--- Function to generate unique ID for bees
-local function generateBeeID()
-    return tostring(math.random(100000, 999999)) .. "-" .. tostring(os.time())
-end
-
 function RemoveAllPlayerBees(player)
     -- Check if the player has any bees stored
     if playerBees[player] then
@@ -60,10 +55,7 @@ function SpawnAllBeesForPlayer(player)
     end
 end
 
-function SpawnBee(player, species, location)
-    -- Generate a unique ID for the new bee
-    local beeID = generateBeeID()
-    
+function SpawnBee(player, species, location, beeID, isAdult, growTimeRemaining, totalGrowTime)
     -- Add bee to player's list of bees on the server with full data (id, species, location)
     if not playerBees[player] then
         playerBees[player] = {}
@@ -72,7 +64,7 @@ function SpawnBee(player, species, location)
     table.insert(playerBees[player], {id = beeID, species = species, location = Vector3.new(location.x, location.y, location.z)})
 
     -- Fire the client event to spawn this bee for all clients
-    addNewBeeRequest:FireAllClients(species, beeID, Vector3.new(location.x, location.y, location.z))
+    addNewBeeRequest:FireAllClients(species, beeID, Vector3.new(location.x, location.y, location.z), isAdult, growTimeRemaining, totalGrowTime)
 end
 
 -- Client side functionality
@@ -84,7 +76,7 @@ function self:ClientAwake()
         end
     end)
 
-    addNewBeeRequest:Connect(function(species, beeID, position)
+    addNewBeeRequest:Connect(function(species, beeID, position, isAdult, growTimeRemaining, totalGrowTime)
         local Bee = nil
         if species == "Common Bee" then
             Bee = CommonBee
@@ -100,7 +92,7 @@ function self:ClientAwake()
             Bee = SilverBee
         end
 
-        print("Spawning bee " .. " on client")
+        print("Spawning bee " .. species .. " on client")
 
         if Bee then
             -- Instantiate the bee
@@ -108,6 +100,17 @@ function self:ClientAwake()
 
             -- Store the bee on the client, indexed by its ID
             bees[beeID] = newBee
+
+            if(isAdult == false) then
+                newBee.transform.localScale = Vector3.new(0.5,0.5,0.5)
+                newBee:GetComponent(TaskMeter).SetVisible(true)
+                newBee:GetComponent(TaskMeter).StartMeter(totalGrowTime, 0.1, totalGrowTime-growTimeRemaining)
+                newBee:GetComponent(BeeCountdown).Enable()
+                newBee:GetComponent(BeeCountdown).SetTimeRemaining(growTimeRemaining)
+                newBee:GetComponent(BeeCountdown).SetId(beeID)
+            else
+                newBee.GetComponent(TaskMeter).SetVisible(false)
+            end
 
             -- Set the position with a slight random offset
             newBee.transform.position = position + Vector3.new(math.random() + math.random(-8, 7), 0, math.random() + math.random(-8, 7))

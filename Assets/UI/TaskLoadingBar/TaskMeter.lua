@@ -47,10 +47,10 @@ local running = false
 local cooling = false
 
 -- Function to start the meter with specified durations
-function StartMeter(duration, coolDown)
+function StartMeter(duration, coolDown, startTime)
     runDuration = duration
     cooldDuration = coolDown
-    elapsedTime = 0
+    elapsedTime = startTime or 0  -- Use the provided start time or default to 0
     value = 0
     running = true
     cooling = false

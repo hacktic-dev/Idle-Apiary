@@ -4,6 +4,7 @@
 local getStatsRequest = Event.new("GetStatsRequest")
 local saveStatsRequest = Event.new("SaveStatsRequest")
 local incrementStatRequest = Event.new("IncrementStatRequest")
+local setBeeAdultRequest = Event.new("SetBeeAdultRequest")
 
 local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
@@ -62,25 +63,46 @@ local function SaveBeeStorage(player)
     end
 end
 
--- Function to add a bee to the player's storage
+-- Function to initialize bee storage for a player by loading from storage
+local function InitializeBeeStorageSync(player)
+    -- Fetch the player's bee data from storage and wait for the result
+    local storedBees = Storage.GetPlayerValue(player, "BeeStorage")
+    
+    -- If there is no data in storage, initialize an empty table
+    if storedBees == nil then
+        storedBees = {}
+    end
+
+    -- Store the player's bee data in memory
+    playerBeeStorage[player] = storedBees
+end
+
+-- Function to add a bee to the player's storage and return its ID
 function AddBee(player, speciesName, isAdult, timeToGrowUp)
-    InitializeBeeStorage(player, function(storedBees)
-        -- Create a new bee structure with a unique ID
-        local bee = {
-            beeId = GenerateUniqueBeeId(),
-            species = speciesName,
-            adult = isAdult,
-            timeToGrowUp = timeToGrowUp
-        }
+    -- Ensure bee storage is initialized for the player
+    if playerBeeStorage[player] == nil then
+        InitializeBeeStorageSync(player) -- Synchronously load storage if needed
+    end
 
-        -- Add the bee to the player's storage in memory
-        table.insert(storedBees, bee)
+    -- Create a new bee structure with a unique ID
+    local bee = {
+        beeId = GenerateUniqueBeeId(),
+        species = speciesName,
+        adult = isAdult,
+        timeToGrowUp = timeToGrowUp
+    }
 
-        -- Save the updated bee storage back to persistent storage
-        SaveBeeStorage(player)
+    -- Add the bee to the player's storage in memory
+    table.insert(playerBeeStorage[player], bee)
 
-        print(player.name .. " received a new bee (ID: " .. bee.beeId .. ") of species: " .. speciesName)
-    end)
+    -- Save the updated bee storage back to persistent storage
+    SaveBeeStorage(player)
+
+    -- Print the bee information (for debugging purposes)
+    print(player.name .. " received a new bee (ID: " .. bee.beeId .. ") of species: " .. speciesName)
+
+    -- Return the bee ID
+    return bee.beeId
 end
 
 -- Function to remove a bee from the player's storage by bee ID
@@ -103,6 +125,10 @@ function RemoveBee(player, beeId)
     end)
 end
 
+function SetBeeAdult(id)
+    setBeeAdultRequest:FireServer(id)
+end
+
 -- Function to get the list of all bees in the player's storage
 function GetBeeList(player, callback)
     InitializeBeeStorage(player, function(storedBees)
@@ -118,7 +144,9 @@ function RecalculatePlayerEarnRate(player)
         local rate = 0
         for i, bee in ipairs(bees) do
             -- print("checking item " .. item.id)
-            rate = rate + wildBeeManager.getHoneyRate(bee.species)
+            if bee.adult then
+                rate = rate + wildBeeManager.getHoneyRate(bee.species)
+            end
         end
 
         playerMoneyEarnRates[player] = rate
@@ -267,8 +295,8 @@ function self:ClientAwake()
     TrackPlayers(client, OnCharacterInstantiate)
 end
 
-function GiveBee(player, name)
-    giveBeeRequest:FireServer(player, value)
+function GiveBee(player, name, isCapture)
+    giveBeeRequest:FireServer(player, value, isCapture)
     IncrementStat("Bees", 1)
 end
 
@@ -337,19 +365,52 @@ function self:ServerAwake()
          end
     end)
 
-    giveBeeRequest:Connect(function(player, name)
+    giveBeeRequest:Connect(function(player, name, isCapture)
 
         print(player.name .. " recieved a " .. name .. "!")
+
+        if isCapture then
+            isAdult = true
+            growTime = 0
+        else
+            isAdult = false
+            growTime =  wildBeeManager.getGrowTime(name)
+        end
         
-        AddBee(player, name, true, 0)
+        id = AddBee(player, name, isAdult, growTime)
     
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-            beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player))
+            beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player), id, isAdult, growTime, wildBeeManager.getGrowTime(name))
         end
 
         -- Only have non zero rate if apiary is placed
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
             RecalculatePlayerEarnRate(player)
         end
+    end)
+
+    setBeeAdultRequest:Connect(function(player, id)
+        print("Bee with id " .. id .. " is growing up")
+        -- Ensure the bee storage is loaded for the player
+        GetBeeList(player, function(storedBees)
+            -- Loop through the player's bees to find the one with the matching ID
+            for _, bee in ipairs(storedBees) do
+                print(bee.species .. " " .. bee.beeId)
+                if bee.beeId == id then
+                    -- Set the bee to adult and grow time to zero
+                    bee.adult = true
+                    bee.timeToGrowUp = 0
+    
+                    -- Save the updated bee storage back to persistent storage
+                    SaveBeeStorage(player)
+                    RecalculatePlayerEarnRate(player)
+    
+                    print("Bee with ID " .. id .. " is now an adult with grow time set to 0.")
+                    return
+                end
+            end
+    
+            print("Bee with ID " .. id .. " not found in " .. player.name .. "'s storage.")
+        end)
     end)
 end
