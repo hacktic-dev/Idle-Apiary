@@ -29,12 +29,12 @@ local beeSpecies = {
 
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
 local beeData = {
-    ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 1 },
-    ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1 },
-    ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1 },
-    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 2 },
-    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 2 },
-    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 5 }
+    ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 1, rarity = "Common" },
+    ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1, rarity = "Common" },
+    ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 1, rarity = "Common" },
+    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 2, rarity = "Uncommon" },
+    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 2, rarity = "Uncommon" },
+    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 5, rarity = "Rare" }
 }
 
 local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
@@ -79,6 +79,16 @@ function getGrowTime(speciesName)
     local species = beeData[speciesName]
     if species then
         return species.growTime
+    else
+        print("Species not found: " .. speciesName)
+        return nil
+    end
+end
+
+function getRarity(speciesName)
+    local species = beeData[speciesName]
+    if species then
+        return species.rarity
     else
         print("Species not found: " .. speciesName)
         return nil

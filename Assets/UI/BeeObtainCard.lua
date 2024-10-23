@@ -10,6 +10,8 @@ local _honeyRateLabel : UILabel = nil
 local _sellPriceLabel : UILabel = nil
 --!Bind
 local _beeImage : UIImage = nil
+--!Bind
+local _rarity : UILabel = nil
 
 local wildBeeManager = require("WildBeeManager")
 
@@ -22,8 +24,8 @@ _beeCard.visible = false
 --_beeImage:SetImage("bee_image.png")
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
-    print("Here!")
     _beeLabel:SetPrelocalizedText("You caught a wild " .. species .. "!")
+    _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
     _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
     _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
     _beeCard.visible = true
@@ -31,8 +33,8 @@ wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
 end))
 
 playerManager.notifyBeePurchased:Connect((function(species)
-    print("Here!")
     _beeLabel:SetPrelocalizedText("You recieved a " .. species .. "!")
+    _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
     _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
     _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
     _beeCard.visible = true
