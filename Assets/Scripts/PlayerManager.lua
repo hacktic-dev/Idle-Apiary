@@ -15,6 +15,9 @@ local playerStatGui = nil
 -- Table to keep track of players and their associated stats
 players = {}
 
+-- Table to hold players' bee storage in memory
+local playerBeeStorage = {}
+
 -- Track money accumulation speeds per player
 local playerMoneyEarnRates = {}
 
@@ -27,29 +30,100 @@ local restartTimerRequest = Event.new("RestartTimer")
 
 local MoneyTimer = nil
 
--- Function to remove all items from a player's inventory
-function RemoveAllPlayerItems(player)
-    -- First, retrieve all the player's items
-    Inventory.GetPlayerItems(player, 10, nil, function(items, newCursorId, errorCode)
-        -- Loop through each item and queue it for removal
-        for _, item in ipairs(items) do
-            local transaction = InventoryTransaction.new()
-            transaction:TakePlayer(player, item.id, item.amount)
-            Inventory.CommitTransaction(transaction)
+-- Function to generate a unique ID for each bee
+local function GenerateUniqueBeeId()
+    return tostring(os.time()) .. "-" .. tostring(math.random(1000, 9999))
+end
+
+-- Function to initialize bee storage for a player by loading from storage
+local function InitializeBeeStorage(player, callback)
+    -- Fetch the player's bee data from storage
+    Storage.GetPlayerValue(player, "BeeStorage", function(storedBees)
+        -- If there is no data in storage, initialize an empty table
+        if storedBees == nil then
+            storedBees = {}
+        end
+        -- Store the player's bee data in memory
+        playerBeeStorage[player] = storedBees
+
+        -- If a callback is provided (for async operations), call it once storage is loaded
+        if callback then
+            callback(storedBees)
+        end
+    end)
+end
+
+-- Function to save the player's bee storage back to persistent storage
+local function SaveBeeStorage(player)
+    if playerBeeStorage[player] ~= nil then
+        -- Save the bee storage to persistent storage
+        Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
+            if errorCode == nil then
+                print(player.name .. "'s bee storage saved successfully.")
+            else
+                print("Error saving " .. player.name .. "'s bee storage: " .. errorCode)
+            end
+        end)
+    end
+end
+
+-- Function to add a bee to the player's storage
+function AddBee(player, speciesName, isAdult, timeToGrowUp)
+    InitializeBeeStorage(player, function(storedBees)
+        -- Create a new bee structure with a unique ID
+        local bee = {
+            beeId = GenerateUniqueBeeId(),
+            species = speciesName,
+            adult = isAdult,
+            timeToGrowUp = timeToGrowUp
+        }
+
+        -- Add the bee to the player's storage in memory
+        table.insert(storedBees, bee)
+
+        -- Save the updated bee storage back to persistent storage
+        SaveBeeStorage(player)
+
+        print(player.name .. " received a new bee (ID: " .. bee.beeId .. ") of species: " .. speciesName)
+    end)
+end
+
+-- Function to remove a bee from the player's storage by bee ID
+function RemoveBee(player, beeId)
+    InitializeBeeStorage(player, function(storedBees)
+        -- Loop through the bee storage to find the bee to remove by beeId
+        for index, bee in ipairs(storedBees) do
+            if bee.beeId == beeId then
+                table.remove(storedBees, index)
+
+                -- Save the updated bee storage back to persistent storage
+                SaveBeeStorage(player)
+
+                print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
+                return
+            end
         end
 
-        print("All items removed from player: " .. player.name)
+        print("Bee with ID " .. beeId .. " not found in " .. player.name .. "'s storage.")
+    end)
+end
+
+-- Function to get the list of all bees in the player's storage
+function GetBeeList(player, callback)
+    InitializeBeeStorage(player, function(storedBees)
+        -- Return the list of bees using the callback function
+        if callback then
+            callback(storedBees)
+        end
     end)
 end
 
 function RecalculatePlayerEarnRate(player)
-    Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
+    GetBeeList(player, function(bees)
         local rate = 0
-        for i, item in ipairs(items) do
+        for i, bee in ipairs(bees) do
             -- print("checking item " .. item.id)
-            if string.find(item.id, "Bee") then
-                rate = rate + wildBeeManager.getHoneyRate(item.id) * item.amount
-            end
+            rate = rate + wildBeeManager.getHoneyRate(bee.species)
         end
 
         playerMoneyEarnRates[player] = rate
@@ -229,6 +303,8 @@ function self:ServerAwake()
             players[player].Cash.value = stats.Cash
             players[player].Nets.value = stats.Nets
 
+            InitializeBeeStorage(player)
+
             --[[
             -- Uncomment the following lines to print the player's stats to the console for debugging
             for stat, value in pairs(stats) do
@@ -256,22 +332,12 @@ function self:ServerAwake()
     giveBeeRequest:Connect(function(player, name)
 
         print(player.name .. " recieved a " .. name .. "!")
-
-        local transaction = InventoryTransaction.new():GivePlayer(player, name, 1)
-        Inventory.CommitTransaction(transaction)
+        
+        AddBee(player, name, true, 0)
     
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
             beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player))
         end
-
-        Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
-            -- Your logic for handling the retrieved items goes here
-            print("Player " .. player.name .. " has:")
-            for i, item in ipairs(items) do
-                -- Print the name of each item
-                print("Item " .. i .. ": " .. item.id .. " | Quantity: " .. item.amount)
-            end
-        end)
 
         -- Only have non zero rate if apiary is placed
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then

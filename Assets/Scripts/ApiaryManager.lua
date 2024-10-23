@@ -83,13 +83,9 @@ apiaryPlacementRequest:Connect(function(player, position)
         SpawnApiary(player, position)
         print("Apiary placed by " .. player.name .. " at " .. tostring(position))
 
-        Inventory.GetPlayerItems(player, 10, "", function(items, newCursorId, errorCode)
-            for i, item in ipairs(items) do
-                   if string.find(item.id, "Bee") then
-                     for n = 1, item.amount do
-                        beeObjectManager.SpawnBee(player, item.id, position)
-                    end
-                 end
+       playerManager.GetBeeList(player, function(bees)
+            for i, bee in ipairs(bees) do
+                beeObjectManager.SpawnBee(player, bee.species, position)
              end
           end)
 

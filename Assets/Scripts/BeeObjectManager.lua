@@ -100,6 +100,8 @@ function self:ClientAwake()
             Bee = SilverBee
         end
 
+        print("Spawning bee " .. " on client")
+
         if Bee then
             -- Instantiate the bee
             local newBee = Object.Instantiate(Bee)
