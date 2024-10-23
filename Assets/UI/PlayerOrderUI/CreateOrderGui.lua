@@ -75,6 +75,14 @@ function CreateQuestItem(Name, Id, Cash)
     -- Add a press callback to the quest item button.
     questItem:RegisterPressCallback(function()
         -- Check if the player is a customer and has enough cash to buy the item.
+
+        if(Id ~= "Net" and playerManager.players[client.localPlayer].Bees.value > 11) then
+            statusLabel.visible = true
+            statusLabel:SetPrelocalizedText("You already have the maximum number of bees.")
+            Timer.new(5, function() statusLabel.visible = false end, false)
+            return
+        end
+
         if playerManager.GetPlayerCash() >= Cash then
             
             playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.

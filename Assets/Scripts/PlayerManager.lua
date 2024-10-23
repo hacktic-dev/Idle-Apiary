@@ -58,11 +58,6 @@ local function SaveBeeStorage(player)
     if playerBeeStorage[player] ~= nil then
         -- Save the bee storage to persistent storage
         Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
-            if errorCode == nil then
-                print(player.name .. "'s bee storage saved successfully.")
-            else
-                print("Error saving " .. player.name .. "'s bee storage: " .. errorCode)
-            end
         end)
     end
 end
@@ -133,6 +128,17 @@ function RecalculatePlayerEarnRate(player)
     end)
 end
 
+local function UpdateStorage(player)
+    local stats = {Cash = 0, Nets = 0, Bees = 0}
+    stats.Cash = players[player].Cash.value
+    stats.Nets = players[player].Nets.value
+    stats.Bees = players[player].Bees.value
+
+    -- Save the stats to storage and handle any errors
+    Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
+    print(player.name .. " Stats Saved")
+end
+
 -- Function to track players joining and leaving the game
 local function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game
@@ -142,6 +148,7 @@ local function TrackPlayers(game, characterCallback)
             player = player,
             Cash = IntValue.new("Cash" .. tostring(player.id), 200), -- Initial cash value
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
+            Bees = IntValue.new("Bees" .. tostring(player.id), 0), -- Initial work experience
         }
         
         if client == nil then
@@ -179,14 +186,7 @@ local function TrackPlayers(game, characterCallback)
         if client == nil then
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
-
-            local stats = {Cash = 0, Nets = 0}
-            stats.Cash = players[player].Cash.value
-            stats.Nets = players[player].Nets.value
-        
-            -- Save the stats to storage and handle any errors
-            Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
-            print(player.name .. " Stats Saved")
+            UpdateStorage(player)
         end
         players[player] = nil
     end)
@@ -269,6 +269,7 @@ end
 
 function GiveBee(player, name)
     giveBeeRequest:FireServer(player, value)
+    IncrementStat("Bees", 1)
 end
 
 --[[
@@ -280,9 +281,10 @@ end
 -- Function to save a player's stats to persistent storage
 local function SaveStats(player)
     -- Create a table to store the player's current stats
-    local stats = {Cash = 0, Nets = 0}
+    local stats = {Cash = 0, Nets = 0, Bees = 0}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
+    stats.Bees = players[player].Bees.value
 end
 
 -- Function to initialize the server-side logic
@@ -295,13 +297,14 @@ function self:ServerAwake()
         Storage.GetPlayerValue(player, "PlayerStats", function(stats)
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 200, Nets = 0}
+                stats = {Cash = 200, Nets = 0, Bees = 0}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
             -- Update the player's current networked stats from storage
             players[player].Cash.value = stats.Cash
             players[player].Nets.value = stats.Nets
+            players[player].Bees.value = stats.Bees
 
             InitializeBeeStorage(player)
 
@@ -325,8 +328,13 @@ function self:ServerAwake()
          --Increment the  Cash / Nets / Stat of the player by 'value' with +=
          if stat == "Cash" then players[player].Cash.value += value end
          if stat == "Nets" then players[player].Nets.value += value end
+         if stat == "Bees" then players[player].Bees.value += value end
          -- Save the updated stats to storage
          SaveStats(player)
+
+         if(stat ~= "Cash") then
+            UpdateStorage(player)
+         end
     end)
 
     giveBeeRequest:Connect(function(player, name)

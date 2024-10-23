@@ -166,23 +166,31 @@ end
 function captureBee(bee, speciesName)
     -- Check if the player has a net available
     local netsAvailable = playerManager.players[client.localPlayer].Nets.value
+    local beeCount = playerManager.players[client.localPlayer].Bees.value
+    print("Bee count: " .. beeCount)
 
-    if netsAvailable > 0 then
-        -- Decrement the player's net count
-        playerManager.IncrementStat("Nets", -1)
-
-        -- Give the captured bee species to the player
-        playerManager.GiveBee(speciesName)
-
-        -- Remove the bee from the wild bees list and despawn it
-        despawnWildBee(bee)
-
-        print("Bee captured and moved to apiary for player: " .. client.localPlayer.name)
-        notifyCaptureSucceeded:Fire(speciesName)
-    else
+    if netsAvailable == 0 then
         print("No nets available for player: " .. client.localPlayer.name)
-        notifyCaptureFailed:Fire()
+        notifyCaptureFailed:Fire(1)
+        return
+    elseif beeCount > 11 then
+        print("Max bees owned: " .. client.localPlayer.name)
+        notifyCaptureFailed:Fire(2)
+        return
     end
+
+    -- Decrement the player's net count
+    playerManager.IncrementStat("Nets", -1)
+
+    -- Give the captured bee species to the player
+    playerManager.GiveBee(speciesName)
+
+    -- Remove the bee from the wild bees list and despawn it
+    despawnWildBee(bee)
+
+    print("Bee captured and moved to apiary for player: " .. client.localPlayer.name)
+    notifyCaptureSucceeded:Fire(speciesName)
+
 end
 
 -- Periodically spawn wild bees for the player

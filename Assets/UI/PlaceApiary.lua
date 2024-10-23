@@ -51,17 +51,17 @@ ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()
     _placeApiaryButton.visible = false
 end)
 
-wildBeeManager.notifyCaptureFailed:Connect(function()
-    _statusLabel:SetPrelocalizedText("You don't have any bee nets!")
+wildBeeManager.notifyCaptureFailed:Connect(function(reason)
+    local why = ""
+    if reason == 1 then
+        why = "You don't have any bee nets!"
+    elseif reason == 2 then
+        why = "You already have the maximum number of bees."
+    end
+    _statusLabel:SetPrelocalizedText(why)
     _statusLabel.visible = true
     Timer.new(5, function() _statusLabel.visible = false end, false)
 end)
-
-wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
-    _statusLabel:SetPrelocalizedText("You caught a wild " .. species .. "!")
-    _statusLabel.visible = true
-    Timer.new(5, function() _statusLabel.visible = false end, false)
-end))
 
 -- Register a callback for when the button is pressed
 _placeApiaryButton:RegisterPressCallback(function()
