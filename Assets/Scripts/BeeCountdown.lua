@@ -4,6 +4,7 @@ local timeRemaining = 0
 local id = nil
 local isEnabled = false
 local isOwningClient = false
+local timeToUpdate = 5
 
 playerManager = require("PlayerManager")
 
@@ -29,7 +30,15 @@ function self:Update()
         return
     end
 
-    timeRemaining -= Time.deltaTime
+    if timeRemaining > 0 then
+        timeRemaining -= Time.deltaTime
+        timeToUpdate -= Time.deltaTime
+
+        if timeToUpdate < 0 then
+            playerManager.UpdateBeeAge(id, timeRemaining)
+            timeToUpdate = 5
+        end
+    end
 
     if timeRemaining < 0 then
         print("Time ran out for bee with id " .. id)

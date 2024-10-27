@@ -5,6 +5,7 @@ local getStatsRequest = Event.new("GetStatsRequest")
 local saveStatsRequest = Event.new("SaveStatsRequest")
 local incrementStatRequest = Event.new("IncrementStatRequest")
 local setBeeAdultRequest = Event.new("SetBeeAdultRequest")
+local updateBeeAgeRequest = Event.new("UpdateBeeAgeRequest")
 
 local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
@@ -127,6 +128,10 @@ end
 
 function SetBeeAdult(id)
     setBeeAdultRequest:FireServer(id)
+end
+
+function UpdateBeeAge(id, timeLeft)
+    updateBeeAgeRequest:FireServer(id,timeLeft)
 end
 
 -- Function to get the list of all bees in the player's storage
@@ -411,6 +416,20 @@ function self:ServerAwake()
             end
     
             print("Bee with ID " .. id .. " not found in " .. player.name .. "'s storage.")
+        end)
+    end)
+
+    updateBeeAgeRequest:Connect(function(player, id, timeLeft)
+        GetBeeList(player, function(storedBees)
+            -- Loop through the player's bees to find the one with the matching ID
+            for _, bee in ipairs(storedBees) do
+                print(bee.species .. " " .. bee.beeId)
+                if bee.beeId == id then
+                    bee.timeToGrowUp = timeLeft
+                    SaveBeeStorage(player)
+                    return
+                end
+            end
         end)
     end)
 end
