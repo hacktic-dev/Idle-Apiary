@@ -50,7 +50,7 @@ function SpawnAllBeesForPlayer(player)
     for owner, beeList in pairs(playerBees) do
         for _, beeData in ipairs(beeList) do
             -- Fire an event to the specific player to spawn each bee with its species, ID, and location
-            addNewBeeRequest:FireClient(player, beeData.species, beeData.id, beeData.location)
+            addNewBeeRequest:FireClient(player, beeData.species, beeData.id, beeData.location, true, 0, 0, owner)
         end
     end
 end
@@ -64,7 +64,7 @@ function SpawnBee(player, species, location, beeID, isAdult, growTimeRemaining, 
     table.insert(playerBees[player], {id = beeID, species = species, location = Vector3.new(location.x, location.y, location.z)})
 
     -- Fire the client event to spawn this bee for all clients
-    addNewBeeRequest:FireAllClients(species, beeID, Vector3.new(location.x, location.y, location.z), isAdult, growTimeRemaining, totalGrowTime)
+    addNewBeeRequest:FireAllClients(species, beeID, Vector3.new(location.x, location.y, location.z), isAdult, growTimeRemaining, totalGrowTime, player)
 end
 
 -- Client side functionality
@@ -76,7 +76,7 @@ function self:ClientAwake()
         end
     end)
 
-    addNewBeeRequest:Connect(function(species, beeID, position, isAdult, growTimeRemaining, totalGrowTime)
+    addNewBeeRequest:Connect(function(species, beeID, position, isAdult, growTimeRemaining, totalGrowTime, player)
         local Bee = nil
         if species == "Common Bee" then
             Bee = CommonBee
@@ -108,8 +108,11 @@ function self:ClientAwake()
                 newBee:GetComponent(BeeCountdown).Enable()
                 newBee:GetComponent(BeeCountdown).SetTimeRemaining(growTimeRemaining)
                 newBee:GetComponent(BeeCountdown).SetId(beeID)
+                if player == client.localPlayer then
+                    newBee:GetComponent(BeeCountdown).SetIsOwningClient()
+                end
             else
-                newBee.GetComponent(TaskMeter).SetVisible(false)
+                newBee:GetComponent(TaskMeter).SetVisible(false)
             end
 
             -- Set the position with a slight random offset
