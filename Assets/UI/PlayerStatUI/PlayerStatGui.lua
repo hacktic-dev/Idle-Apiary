@@ -38,7 +38,8 @@ end
 
 _viewBeesButton:RegisterPressCallback(function()
     playerManager.RequestBeeList()
-
+    BeeListObject:GetComponent(BeeListMenu).SetVisible(true)
+    ShopObject:GetComponent(CreateOrderGui).SetVisible(false)
 end, true, true, true)
 
 _beestiaryButton:RegisterPressCallback(function()
@@ -52,7 +53,5 @@ SetNetsUI(0)
 function self:ClientAwake()
  playerManager.receiveBeeList:Connect(function(bees)
     BeeListObject:GetComponent(BeeListMenu).PopulateBeeList(bees)
-    BeeListObject:GetComponent(BeeListMenu).SetVisible(true)
-    ShopObject:GetComponent(CreateOrderGui).SetVisible(false)
  end)
 end
