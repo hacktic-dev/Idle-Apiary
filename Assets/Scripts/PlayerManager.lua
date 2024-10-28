@@ -39,6 +39,8 @@ local requestBeeList = Event.new("RequestBeeList")
 -- Event to receive bee data from the server
 receiveBeeList = Event.new("ReceiveBeeList")
 
+updateBeeList = Event.new("UpdateBeeList")
+
 -- Function to request the bee list for the local player
 function RequestBeeList()
     requestBeeList:FireServer() -- Sends a request to the server with the player ID
@@ -306,11 +308,14 @@ function self:ClientAwake()
 
     -- Track players joining and leaving, and handle character instantiation
     TrackPlayers(client, OnCharacterInstantiate)
+
+    updateBeeList:Connect(function() RequestBeeList() end)
 end
 
 function GiveBee(name, isCapture)
     giveBeeRequest:FireServer(name, isCapture)
     IncrementStat("Bees", 1)
+    RequestBeeList() -- Update the bee list if it's open
 end
 
 --[[
@@ -438,6 +443,7 @@ function self:ServerAwake()
                     -- Save the updated bee storage back to persistent storage
                     SaveBeeStorage(player)
                     RecalculatePlayerEarnRate(player)
+                    updateBeeList:FireClient(player)
     
                     print("Bee with ID " .. id .. " is now an adult with grow time set to 0.")
                     return

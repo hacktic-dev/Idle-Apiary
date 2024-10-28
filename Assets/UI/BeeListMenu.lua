@@ -29,6 +29,10 @@ function CreateBeeItem(bee)
     nameLabel:AddToClassList("bee-name")
     nameLabel:SetPrelocalizedText(bee.species)
 
+    local baybeeLabel = UILabel.new()
+    baybeeLabel:AddToClassList("bee-name")
+    baybeeLabel:SetPrelocalizedText(bee.adult and "Adult Bee" or "Baybee")
+
     local rarityLabel = UILabel.new()
     rarityLabel:AddToClassList("bee-name")
     rarityLabel:SetPrelocalizedText(wildBeeManager.getRarity(bee.species))
@@ -42,6 +46,7 @@ function CreateBeeItem(bee)
     sellLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(bee.species))
 
     beeItem:Add(nameLabel)
+    beeItem:Add(baybeeLabel)
     beeItem:Add(rarityLabel)
     beeItem:Add(rateLabel)
     beeItem:Add(sellLabel)
