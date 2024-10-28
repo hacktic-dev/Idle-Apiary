@@ -131,6 +131,7 @@ end
 function SellBee(beeSpecies, beeId)
     sellBeeRequest:FireServer(beeId)
     IncrementStat("Cash", wildBeeManager.getSellPrice(beeSpecies))
+    IncrementStat("Bees", -1)
 end
 
 function SetBeeAdult(id)
