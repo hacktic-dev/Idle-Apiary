@@ -79,7 +79,7 @@ function CreateBeeItem(bee)
 end
 
 -- Function to handle selling a bee
-function SellBee(species, id)
+function SellBee(species, id, isAdult)
     print("Selling bee with id " .. id)
 
     -- Check if the bee item exists in the beeItems table
@@ -90,7 +90,7 @@ function SellBee(species, id)
         -- Optionally, remove the bee item from the table
         beeItems[id] = nil
 
-        playerManager.SellBee(species, id)
+        playerManager.SellBee(species, id, isAdult)
     else
         print("Bee item with id " .. id .. " not found.")
     end
