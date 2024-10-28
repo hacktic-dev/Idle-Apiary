@@ -39,6 +39,7 @@ end
 _viewBeesButton:RegisterPressCallback(function()
     playerManager.RequestBeeList()
     BeeListObject:GetComponent(BeeListMenu).SetVisible(true)
+    ShopObject:GetComponent(BeeObtainCard).SetVisible(false)
     ShopObject:GetComponent(CreateOrderGui).SetVisible(false)
 end, true, true, true)
 

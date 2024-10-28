@@ -23,6 +23,10 @@ _beeCard.visible = false
 
 --_beeImage:SetImage("bee_image.png")
 
+function SetVisible(enabled)
+    _beeCard.visible = enabled
+end
+
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     _beeLabel:SetPrelocalizedText("You caught a wild " .. species .. "!")
     _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
