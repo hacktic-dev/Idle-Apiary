@@ -424,7 +424,7 @@ function self:ServerAwake()
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
                     SaveBeeStorage(player)
-    
+                    RecalculatePlayerEarnRate(player)
                     print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
                     return
                 end
@@ -463,7 +463,6 @@ function self:ServerAwake()
         GetBeeList(player, function(storedBees)
             -- Loop through the player's bees to find the one with the matching ID
             for _, bee in ipairs(storedBees) do
-                print(bee.species .. " " .. bee.beeId)
                 if bee.beeId == id then
                     bee.timeToGrowUp = timeLeft
                     SaveBeeStorage(player)
