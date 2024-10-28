@@ -179,7 +179,7 @@ local function TrackPlayers(game, characterCallback)
         -- Initialize player's stats and store them in the players table
         players[player] = {
             player = player,
-            Cash = IntValue.new("Cash" .. tostring(player.id), 200), -- Initial cash value
+            Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
             Bees = IntValue.new("Bees" .. tostring(player.id), 0), -- Initial work experience
         }
@@ -330,7 +330,7 @@ function self:ServerAwake()
         Storage.GetPlayerValue(player, "PlayerStats", function(stats)
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 200, Nets = 0, Bees = 0}
+                stats = {Cash = 100, Nets = 0, Bees = 0}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 

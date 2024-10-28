@@ -24,5 +24,5 @@ function SetNetsUI(nets)
 end
 
 -- Initialize the UI with default values for role, cash, and XP
-SetCashUI(200)
+SetCashUI(100)
 SetNetsUI(0)

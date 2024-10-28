@@ -127,6 +127,6 @@ function self:Awake()
 end
 
 -- Create quest items for the UI.
-local NetMenuItem = CreateQuestItem("Bee Net", "Net", 150)
-local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 100)
+local NetMenuItem = CreateQuestItem("Bee Net", "Net", 100)
+local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50)
 local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Silver Set", "Silver", 250)
