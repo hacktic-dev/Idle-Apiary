@@ -44,6 +44,29 @@ function RemoveAllPlayerBees(player)
     end
 end
 
+-- Function to remove a specific bee by ID from a player's bee collection
+function RemoveBee(player, beeId)
+    -- Check if the player has any bees stored
+    if playerBees[player] then
+        -- Iterate through the player's bee list
+        for index, beeData in ipairs(playerBees[player]) do
+            if beeData.id == beeId then
+                -- Fire an event to all clients to remove this bee by its ID
+                removeBeeRequest:FireAllClients(beeId)
+
+                -- Remove the bee from the server's data structure for this player
+                table.remove(playerBees[player], index)
+                
+                print("Bee with ID " .. beeId .. " removed for player: " .. player.name)
+                return
+            end
+        end
+        print("Bee with ID " .. beeId .. " not found for player: " .. player.name)
+    else
+        print("No bees to remove for player: " .. player.name)
+    end
+end 
+
 -- Function to spawn all bees for the specific player's client
 function SpawnAllBeesForPlayer(player)
     -- Loop through all players and their bees

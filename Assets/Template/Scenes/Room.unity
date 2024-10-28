@@ -13744,12 +13744,12 @@ GameObject:
   m_Component:
   - component: {fileID: 559923209}
   - component: {fileID: 559923210}
-  - component: {fileID: 559923212}
   - component: {fileID: 559923211}
   - component: {fileID: 559923213}
   - component: {fileID: 559923214}
   - component: {fileID: 559923215}
   - component: {fileID: 559923216}
+  - component: {fileID: 559923217}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -13790,6 +13790,8 @@ MonoBehaviour:
   _uiOutput: 3
   _uiOutputSettings:
     rid: -2
+  m_BeeListObject: {fileID: 559923208}
+  m_ShopObject: {fileID: 800978002}
   references:
     version: 2
     RefIds:
@@ -13811,29 +13813,6 @@ MonoBehaviour:
   _script: {fileID: -974389366465450183, guid: b93c2cc49bf171445a7b2dc17cc4ef4b, type: 3}
   _properties: []
   _uiOutput: 0
-  _uiOutputSettings:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
---- !u!114 &559923212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559923208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: effdb1f303191291e07b689d268370c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkId: 0
-  _script: {fileID: -974389366465450183, guid: 5522b126b9c612445aa468489c5c7015, type: 3}
-  _properties: []
-  _uiOutput: 3
   _uiOutputSettings:
     rid: -2
   references:
@@ -13954,6 +13933,29 @@ MonoBehaviour:
     type: 3}
   m_SilverBeePrefab: {fileID: 5446098579520547776, guid: b29e41e18c6c1594dad435e29ca80711,
     type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &559923217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559923208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 735dfeb767d2697151e735a2f8735f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: c982fe62dd0d69a4eb38357742ac5f9e, type: 3}
+  _properties: []
+  _uiOutput: 3
+  _uiOutputSettings:
+    rid: -2
   references:
     version: 2
     RefIds:

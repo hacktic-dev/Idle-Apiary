@@ -18,15 +18,13 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/PlayerStatGui")]
-    [LuaRegisterType(0xa9ad8614a647b9e5, typeof(LuaBehaviour))]
-    public class PlayerStatGui : LuaBehaviourThunk
+    [AddComponentMenu("Lua/BeeListMenu")]
+    [LuaRegisterType(0x9fc4c5fa9faee898, typeof(LuaBehaviour))]
+    public class BeeListMenu : LuaBehaviourThunk
     {
-        private const string s_scriptGUID = "f354c3220213f704192db8b48d16f990";
+        private const string s_scriptGUID = "c982fe62dd0d69a4eb38357742ac5f9e";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public UnityEngine.GameObject m_BeeListObject = default;
-        [SerializeField] public UnityEngine.GameObject m_ShopObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -39,8 +37,6 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(1), null),
                 CreateSerializedProperty(_script.GetPropertyAt(2), null),
                 CreateSerializedProperty(_script.GetPropertyAt(3), null),
-                CreateSerializedProperty(_script.GetPropertyAt(4), m_BeeListObject),
-                CreateSerializedProperty(_script.GetPropertyAt(5), m_ShopObject),
             };
         }
     }

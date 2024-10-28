@@ -26,11 +26,32 @@ local playerMoneyEarnRates = {}
 local playerTimers = {}
 
 giveBeeRequest = Event.new("GiveBee")
+sellBeeRequest = Event.new("SellBee")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
 
 local restartTimerRequest = Event.new("RestartTimer")
 
 local MoneyTimer = nil
+
+-- Event to request bee data from the server
+local requestBeeList = Event.new("RequestBeeList")
+
+-- Event to receive bee data from the server
+receiveBeeList = Event.new("ReceiveBeeList")
+
+-- Function to request the bee list for the local player
+function RequestBeeList()
+    requestBeeList:FireServer() -- Sends a request to the server with the player ID
+end
+
+-- Server-side event to listen for bee list requests
+requestBeeList:Connect(function(player)
+    -- Retrieve the bee list from storage
+    GetBeeList(player, function(bees)
+        -- Send the retrieved bee list back to the client
+        receiveBeeList:FireClient(player, bees)
+    end)
+end)
 
 -- Function to generate a unique ID for each bee
 local function GenerateUniqueBeeId()
@@ -107,23 +128,9 @@ function AddBee(player, speciesName, isAdult, timeToGrowUp)
 end
 
 -- Function to remove a bee from the player's storage by bee ID
-function RemoveBee(player, beeId)
-    InitializeBeeStorage(player, function(storedBees)
-        -- Loop through the bee storage to find the bee to remove by beeId
-        for index, bee in ipairs(storedBees) do
-            if bee.beeId == beeId then
-                table.remove(storedBees, index)
-
-                -- Save the updated bee storage back to persistent storage
-                SaveBeeStorage(player)
-
-                print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
-                return
-            end
-        end
-
-        print("Bee with ID " .. beeId .. " not found in " .. player.name .. "'s storage.")
-    end)
+function SellBee(beeSpecies, beeId)
+    sellBeeRequest:FireServer(beeId)
+    IncrementStat("Cash", wildBeeManager.getSellPrice(beeSpecies))
 end
 
 function SetBeeAdult(id)
@@ -394,6 +401,26 @@ function self:ServerAwake()
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
             RecalculatePlayerEarnRate(player)
         end
+    end)
+
+    sellBeeRequest:Connect(function(player, beeId)
+    
+        InitializeBeeStorage(player, function(storedBees)
+            -- Loop through the bee storage to find the bee to remove by beeId
+            for index, bee in ipairs(storedBees) do
+                if bee.beeId == beeId then
+                    table.remove(storedBees, index)
+                    beeObjectManager.RemoveBee(player, beeId)
+                    -- Save the updated bee storage back to persistent storage
+                    SaveBeeStorage(player)
+    
+                    print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
+                    return
+                end
+            end
+    
+            print("Bee with ID " .. beeId .. " not found in " .. player.name .. "'s storage.")
+        end)
     end)
 
     setBeeAdultRequest:Connect(function(player, id)

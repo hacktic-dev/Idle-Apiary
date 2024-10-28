@@ -1,0 +1,66 @@
+.create-bee-gui {
+    margin: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.bee-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    margin: 5px;
+    padding: 10px;
+    background-color: rgba(0,0,0,.35); /* Soft yellow-orange for bee theme */
+    border-radius: 10px;
+}
+
+.bee-name {
+    font-size: 18px;
+    color: #FFFFFF;
+    text-align: center;
+    flex-grow: 1;
+    padding-left: 10px;
+}
+
+.sell-button {
+    background-color: rgba(255, 0, 0, 0.7); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+#BeeList_Root {
+    flex-shrink: 1;
+    max-width: none;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    overflow: scroll;
+    padding-bottom: 0px;
+    bottom: 00px;
+}
+
+.hidden {
+    display: none;
+}
+
+.bee-ui_status {
+    position: absolute;
+    align-self: center;
+    top: 250px;
+    font-size: 40px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+}

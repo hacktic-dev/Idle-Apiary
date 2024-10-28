@@ -112,6 +112,7 @@ end
 -- Sets the visibility of the UI.
 function SetVisible(visible)
     Orders_Root:EnableInClassList("hidden", not visible)
+    closeButton:EnableInClassList("hidden", not visible)
 end
 
 -- Called when the UI object this script is attached to is initialized.

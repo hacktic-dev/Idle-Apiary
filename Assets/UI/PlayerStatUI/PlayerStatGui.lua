@@ -14,6 +14,13 @@ local _viewBeesButton : UIButton = nil
 --!Bind
 local _beestiaryButton : UIButton = nil
 
+--!SerializeField
+local BeeListObject : GameObject = nil
+
+--!SerializeField
+local ShopObject : GameObject = nil
+
+
 -- Importing the PlayerManager module to handle player-related functionalities
 local playerManager = require("PlayerManager")
 
@@ -30,7 +37,8 @@ function SetNetsUI(nets)
 end
 
 _viewBeesButton:RegisterPressCallback(function()
-    print("Button pressed")
+    playerManager.RequestBeeList()
+
 end, true, true, true)
 
 _beestiaryButton:RegisterPressCallback(function()
@@ -40,3 +48,11 @@ end, true, true, true)
 -- Initialize the UI with default values for role, cash, and XP
 SetCashUI(100)
 SetNetsUI(0)
+
+function self:ClientAwake()
+ playerManager.receiveBeeList:Connect(function(bees)
+    BeeListObject:GetComponent(BeeListMenu).PopulateBeeList(bees)
+    BeeListObject:GetComponent(BeeListMenu).SetVisible(true)
+    ShopObject:GetComponent(CreateOrderGui).SetVisible(false)
+ end)
+end

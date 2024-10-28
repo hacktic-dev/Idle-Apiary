@@ -9,7 +9,7 @@
     flex-direction: row;
     align-items: center;
     margin: 5px;
-    background-color: rgba(0,0,0,.25);
+    background-color: rgba(0,0,0,.35);
     border-radius: 10px;
 }
 
@@ -26,7 +26,7 @@
     background-color: rgba(0,0,0,.25);
     border-radius: 10px;
     overflow: scroll;
-    bottom: 200px
+    bottom: 00px
 }
 
 .hidden {
@@ -40,4 +40,14 @@
     font-size: 40px;
     color: #fff;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+.close-button {
+    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
 }

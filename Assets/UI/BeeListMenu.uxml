@@ -7,14 +7,14 @@
     xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
 >
 
-  <hr:UILuaView class="create-order-gui">
-    <hr:UILabel class="shop-ui_status" name="statusLabel" picking-mode="Ignore" text="" />
+  <hr:UILuaView class="create-bee-gui">
+    <hr:UILabel class="bee-ui_status" name="statusLabel" picking-mode="Ignore" text="" />
 
-    <hr:UIScrollView name="Orders_Root" mode="Vertical">
+    <!-- Scrollable container for bee items -->
+    <hr:UIScrollView name="BeeList_Root" mode="Vertical">
     </hr:UIScrollView>
     <hr:UIButton name="closeButton" class="close-button">
       <hr:UILabel name="closeLabel" class="title" />
     </hr:UIButton>
   </hr:UILuaView>
-
 </UXML>
