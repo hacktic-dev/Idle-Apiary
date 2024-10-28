@@ -37,13 +37,23 @@ function CreateBeeItem(bee)
     rarityLabel:AddToClassList("bee-name")
     rarityLabel:SetPrelocalizedText(wildBeeManager.getRarity(bee.species))
 
+    local honeyRate = 0
+    if bee.adult then
+        honeyRate = wildBeeManager.getHoneyRate(bee.species)
+    end
+
     local rateLabel = UILabel.new()
     rateLabel:AddToClassList("bee-name")
-    rateLabel:SetPrelocalizedText("Honey Rate: " .. wildBeeManager.getHoneyRate(bee.species))
+    rateLabel:SetPrelocalizedText("Honey Rate: " .. honeyRate)
+
+    local sellPrice = wildBeeManager.getSellPrice(bee.species)
+    if not bee.adult then
+        sellPrice = math.floor(sellPrice / 3)
+    end
 
     local sellLabel = UILabel.new()
     sellLabel:AddToClassList("bee-name")
-    sellLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(bee.species))
+    sellLabel:SetPrelocalizedText("Sell price: " .. sellPrice)
 
     beeItem:Add(nameLabel)
     beeItem:Add(baybeeLabel)
@@ -59,7 +69,7 @@ function CreateBeeItem(bee)
     local sellButton = UIButton.new()
     sellButton:AddToClassList("sell-button")
     sellButton:RegisterPressCallback(function()
-        SellBee(bee.species, bee.beeId) -- Function to handle selling the bee
+        SellBee(bee.species, bee.beeId, bee.adult) -- Function to handle selling the bee
     end, true, true, true)
     sellButton:Add(sellNameLabel)
     beeItem:Add(sellButton)

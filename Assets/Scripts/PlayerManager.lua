@@ -130,9 +130,13 @@ function AddBee(player, speciesName, isAdult, timeToGrowUp)
 end
 
 -- Function to remove a bee from the player's storage by bee ID
-function SellBee(beeSpecies, beeId)
+function SellBee(beeSpecies, beeId, isAdult)
     sellBeeRequest:FireServer(beeId)
-    IncrementStat("Cash", wildBeeManager.getSellPrice(beeSpecies))
+    local sellPrice = wildBeeManager.getSellPrice(beeSpecies)
+    if not isAdult then
+        sellPrice = math.floor(sellPrice / 3)
+    end
+    IncrementStat("Cash", sellPrice)
     IncrementStat("Bees", -1)
 end
 
