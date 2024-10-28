@@ -8,6 +8,16 @@ local timeToUpdate = 5
 
 playerManager = require("PlayerManager")
 
+local isMeterInUse = false
+
+--!SerializeField
+local meterObject : GameObject = nil -- The UI GameObject associated with this task.
+
+function InitiateMeter(duration, coolDown, startTime)
+    isMeterInUse = true
+    meterObject:GetComponent(TaskMeter).StartMeter(duration, coolDown, startTime)
+end
+
 function SetTimeRemaining(time)
     timeRemaining = time
 end
@@ -22,6 +32,12 @@ end
 
 function SetIsOwningClient()
     isOwningClient = true
+end
+
+function self:Start()
+    if isMeterInUse == false then
+        meterObject:GetComponent(TaskMeter).SetVisible(false)
+    end
 end
 
 function self:Update()
@@ -42,8 +58,8 @@ function self:Update()
 
     if timeRemaining < 0 then
         print("Time ran out for bee with id " .. id)
-        self:GetComponent(TaskMeter).SetVisible(false)
         self:GetComponent(Transform).localScale = Vector3.new(1,1,1)
+        meterObject:GetComponent(TaskMeter).SetVisible(false)
         if isOwningClient then
             playerManager.SetBeeAdult(id)
         end

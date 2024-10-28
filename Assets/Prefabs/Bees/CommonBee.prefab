@@ -115,9 +115,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2711836196418280312}
   - component: {fileID: 1380883227896870940}
-  - component: {fileID: 6218831813989417300}
-  - component: {fileID: 3084317660672173157}
-  - component: {fileID: 8282127937269114195}
   - component: {fileID: -5019825691793867203}
   m_Layer: 0
   m_Name: CommonBee
@@ -139,6 +136,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 797945206118188116}
   - {fileID: 4913208990570405355}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -165,13 +163,72 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
---- !u!114 &6218831813989417300
+--- !u!114 &-5019825691793867203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5446098579520547776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e95c530ccf3e8121c294b33eaa85d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: 33365c86b6103e549b1d946684758500, type: 3}
+  _properties: []
+  _uiOutput: 0
+  _uiOutputSettings:
+    rid: -2
+  m_meterObject: {fileID: 5808700130782989462}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!1 &5808700130782989462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 797945206118188116}
+  - component: {fileID: 5035161701373278645}
+  - component: {fileID: 5222240824778672419}
+  - component: {fileID: 5348230351198797576}
+  - component: {fileID: 1571762943654294873}
+  m_Layer: 0
+  m_Name: MeterUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &797945206118188116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5808700130782989462}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.499, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2711836196418280312}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5035161701373278645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5808700130782989462}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cfa4df749db3141e2402e7678589c1f, type: 3}
@@ -182,32 +239,32 @@ MonoBehaviour:
   _properties: []
   _uiOutput: 1
   _uiOutputSettings:
-    rid: 7898055274045898893
+    rid: 7898055450770800640
   references:
     version: 2
     RefIds:
-    - rid: 7898055274045898893
+    - rid: 7898055450770800640
       type: {class: UIWorldOutputSettings, ns: Highrise.Client, asm: com.pz.highrise.game.client}
       data:
-        Renderer: {fileID: 8282127937269114195}
+        Renderer: {fileID: 5348230351198797576}
         Size: {x: 256, y: 256}
         ClearColor: 1
-        ClearColorValue: {r: 1, g: 1, b: 1, a: 1}
---- !u!33 &3084317660672173157
+        ClearColorValue: {r: 1, g: 1, b: 1, a: 0}
+--- !u!33 &5222240824778672419
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446098579520547776}
+  m_GameObject: {fileID: 5808700130782989462}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8282127937269114195
+--- !u!23 &5348230351198797576
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446098579520547776}
+  m_GameObject: {fileID: 5808700130782989462}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -243,24 +300,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-5019825691793867203
+--- !u!114 &1571762943654294873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446098579520547776}
+  m_GameObject: {fileID: 5808700130782989462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89e95c530ccf3e8121c294b33eaa85d5, type: 3}
+  m_Script: {fileID: 11500000, guid: e5ef3c9794e7de81723ab2974e81f998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _networkId: 0
-  _script: {fileID: -974389366465450183, guid: 33365c86b6103e549b1d946684758500, type: 3}
+  _script: {fileID: -974389366465450183, guid: 5f303c422e38de54c8e5b242f45ef94d, type: 3}
   _properties: []
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:

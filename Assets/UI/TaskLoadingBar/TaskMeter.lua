@@ -27,12 +27,6 @@ function UpdateMeter(arg)
     progressSlider:SetValueWithoutNotify(arg)
 end
 
--- Function to update the titles displayed on the UI
-function UpdateTitles(Name, Xp)
-    titleLabel1:SetPrelocalizedText("lvl " .. tostring((Xp/100) + 1), true)
-    titleLabel2:SetPrelocalizedText(Name, true)
-end
-
 -- Function to set the visibility of the task UI
 function SetVisible(hidden)
     taskUi:EnableInClassList("hiden", not hidden)
@@ -70,6 +64,8 @@ end
 -- Function called when the script starts
 function self:Start()
     UpdateMeter(0)
+    titleLabel1:SetPrelocalizedText("")
+    titleLabel2:SetPrelocalizedText("")
 end
 
 -- Function called every frame

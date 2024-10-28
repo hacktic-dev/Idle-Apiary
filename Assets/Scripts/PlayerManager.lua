@@ -300,8 +300,8 @@ function self:ClientAwake()
     TrackPlayers(client, OnCharacterInstantiate)
 end
 
-function GiveBee(player, name, isCapture)
-    giveBeeRequest:FireServer(player, value, isCapture)
+function GiveBee(name, isCapture)
+    giveBeeRequest:FireServer(name, isCapture)
     IncrementStat("Bees", 1)
 end
 
@@ -372,14 +372,16 @@ function self:ServerAwake()
 
     giveBeeRequest:Connect(function(player, name, isCapture)
 
-        print(player.name .. " recieved a " .. name .. "!")
+        
 
         if isCapture then
             isAdult = true
             growTime = 0
+            print(player.name .. " captured a " .. name .. "!")
         else
             isAdult = false
             growTime =  wildBeeManager.getGrowTime(name)
+            print(player.name .. " recieved a " .. name .. "!")
         end
         
         id = AddBee(player, name, isAdult, growTime)
@@ -400,7 +402,6 @@ function self:ServerAwake()
         GetBeeList(player, function(storedBees)
             -- Loop through the player's bees to find the one with the matching ID
             for _, bee in ipairs(storedBees) do
-                print(bee.species .. " " .. bee.beeId)
                 if bee.beeId == id then
                     -- Set the bee to adult and grow time to zero
                     bee.adult = true

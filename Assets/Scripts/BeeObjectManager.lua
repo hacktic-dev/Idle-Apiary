@@ -101,18 +101,15 @@ function self:ClientAwake()
             -- Store the bee on the client, indexed by its ID
             bees[beeID] = newBee
 
-            if(isAdult == false) then
+            if isAdult == false then
                 newBee.transform.localScale = Vector3.new(0.5,0.5,0.5)
-                newBee:GetComponent(TaskMeter).SetVisible(true)
-                newBee:GetComponent(TaskMeter).StartMeter(totalGrowTime, 0.1, totalGrowTime-growTimeRemaining)
+                newBee:GetComponent(BeeCountdown).InitiateMeter(totalGrowTime, 0.1, totalGrowTime-growTimeRemaining)
                 newBee:GetComponent(BeeCountdown).Enable()
                 newBee:GetComponent(BeeCountdown).SetTimeRemaining(growTimeRemaining)
                 newBee:GetComponent(BeeCountdown).SetId(beeID)
                 if player == client.localPlayer then
                     newBee:GetComponent(BeeCountdown).SetIsOwningClient()
                 end
-            else
-                newBee:GetComponent(TaskMeter).SetVisible(false)
             end
 
             -- Set the position with a slight random offset
