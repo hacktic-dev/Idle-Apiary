@@ -37,7 +37,7 @@
 #BeeList_Root {
     flex-shrink: 1;
     max-width: none;
-    width: 800px;
+    width: 810px;
     background-color: rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     overflow: scroll;
