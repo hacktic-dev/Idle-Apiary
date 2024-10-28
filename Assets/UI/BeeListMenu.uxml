@@ -11,6 +11,9 @@
     <hr:UILabel class="bee-ui_status" name="statusLabel" picking-mode="Ignore" text="" />
 
     <!-- Scrollable container for bee items -->
+    <hr:UIButton name="emptyButton" class="empty-button">
+    <hr:UILabel name="beeCountLabel" class="beeCount" text="0/12"/>
+    </hr:UIButton>
     <hr:UIScrollView name="BeeList_Root" mode="Vertical">
     </hr:UIScrollView>
     <hr:UIButton name="closeButton" class="close-button">

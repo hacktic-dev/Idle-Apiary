@@ -20,9 +20,18 @@
 .bee-name {
     font-size: 18px;
     color: #FFFFFF;
-    text-align: center;
+    -unity-text-align: middle-center;
     flex-grow: 1;
     padding-left: 10px;
+}
+
+.beeCount 
+{
+    font-size: 18px;
+    color: #FFFFFF;
+    -unity-text-align: upper-right;
+    flex-grow: 1;
+    width: 790px;
 }
 
 .sell-button {
@@ -61,6 +70,16 @@
 
 .close-button {
     background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.empty-button 
+{
+        background-color: rgba(255, 0, 0, 0); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;

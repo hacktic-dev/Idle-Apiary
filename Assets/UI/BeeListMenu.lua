@@ -9,6 +9,10 @@ local closeButton : UIButton = nil -- Reference to the button for closing the UI
 local closeLabel : UILabel = nil -- Reference to the label for the close button.
 --!Bind
 local statusLabel : UILabel = nil -- Reference to status label.
+--!Bind
+local beeCountLabel : UILabel = nil
+
+local count = 0;
 
 local playerManager = require("PlayerManager") -- Accesses player management functions.
 local wildBeeManager = require("WildBeeManager")
@@ -91,6 +95,8 @@ function SellBee(species, id, isAdult)
         beeItems[id] = nil
 
         playerManager.SellBee(species, id, isAdult)
+        count = count-1
+        beeCountLabel:SetPrelocalizedText(count .. "/12", true)
     else
         print("Bee item with id " .. id .. " not found.")
     end
@@ -103,12 +109,15 @@ function PopulateBeeList(bees)
     for _, bee in ipairs(bees) do
         CreateBeeItem(bee) -- Create and add each bee item to the UI
     end
+    count = #bees
+    beeCountLabel:SetPrelocalizedText(count .. "/12", true)
 end
 
 -- Sets the visibility of the UI.
 function SetVisible(visible)
     BeeList_Root:EnableInClassList("hidden", not visible)
     closeButton:EnableInClassList("hidden", not visible)
+    beeCountLabel:EnableInClassList("hidden", not visible)
 end
 
 -- Called when the UI object this script is attached to is initialized.
