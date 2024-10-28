@@ -54,4 +54,13 @@ function self:ClientAwake()
  playerManager.receiveBeeList:Connect(function(bees)
     BeeListObject:GetComponent(BeeListMenu).PopulateBeeList(bees)
  end)
+
+ playerManager.beeCountUpdated:Connect(function(count)
+    if count > 0 then
+        _viewBeesButton:EnableInClassList("hidden", false)
+    else
+        _viewBeesButton:EnableInClassList("hidden", true)
+        BeeListObject:GetComponent(BeeListMenu).SetVisible(false)
+    end
+    end)
 end

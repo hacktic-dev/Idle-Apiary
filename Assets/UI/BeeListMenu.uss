@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: space-between;
     width: 800px;
+    height: 50px;
     margin: 5px;
     padding: 10px;
     background-color: rgba(0,0,0,.35); /* Soft yellow-orange for bee theme */
@@ -36,11 +37,13 @@
 #BeeList_Root {
     flex-shrink: 1;
     max-width: none;
+    width: 800px;
     background-color: rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     overflow: scroll;
     padding-bottom: 0px;
     bottom: 00px;
+    height: 1100px;
 }
 
 .hidden {

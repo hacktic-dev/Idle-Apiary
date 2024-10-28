@@ -28,6 +28,7 @@ local playerTimers = {}
 giveBeeRequest = Event.new("GiveBee")
 sellBeeRequest = Event.new("SellBee")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
+beeCountUpdated = Event.new("BeeCountUpdated")
 
 local restartTimerRequest = Event.new("RestartTimer")
 
@@ -203,12 +204,7 @@ local function TrackPlayers(game, characterCallback)
 
             ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
-
-        end
-
-        if client == nil then
             playerTimers[player] = nil
-            --
         end
 
         -- Connect to the event when the player's character changes (e.g., respawn)
@@ -358,6 +354,8 @@ function self:ServerAwake()
 
             InitializeBeeStorage(player)
 
+            beeCountUpdated:FireClient(player, players[player].Bees.value)
+
             --[[
             -- Uncomment the following lines to print the player's stats to the console for debugging
             for stat, value in pairs(stats) do
@@ -378,7 +376,10 @@ function self:ServerAwake()
          --Increment the  Cash / Nets / Stat of the player by 'value' with +=
          if stat == "Cash" then players[player].Cash.value += value end
          if stat == "Nets" then players[player].Nets.value += value end
-         if stat == "Bees" then players[player].Bees.value += value end
+         if stat == "Bees" then
+             players[player].Bees.value += value
+             beeCountUpdated:FireClient(player, players[player].Bees.value)
+             end
          -- Save the updated stats to storage
          SaveStats(player)
 
