@@ -11,6 +11,7 @@ local closeLabel : UILabel = nil -- Reference to the label for the close button.
 local statusLabel : UILabel = nil -- Reference to status label.
 
 local playerManager = require("PlayerManager") -- Accesses player management functions.
+local wildBeeManager = require("WildBeeManager")
 
 -- Table to store each bee's UI element by beeId
 local beeItems = {}
@@ -27,7 +28,23 @@ function CreateBeeItem(bee)
     local nameLabel = UILabel.new()
     nameLabel:AddToClassList("bee-name")
     nameLabel:SetPrelocalizedText(bee.species)
+
+    local rarityLabel = UILabel.new()
+    rarityLabel:AddToClassList("bee-name")
+    rarityLabel:SetPrelocalizedText(wildBeeManager.getRarity(bee.species))
+
+    local rateLabel = UILabel.new()
+    rateLabel:AddToClassList("bee-name")
+    rateLabel:SetPrelocalizedText("Honey Rate: " .. wildBeeManager.getHoneyRate(bee.species))
+
+    local sellLabel = UILabel.new()
+    sellLabel:AddToClassList("bee-name")
+    sellLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(bee.species))
+
     beeItem:Add(nameLabel)
+    beeItem:Add(rarityLabel)
+    beeItem:Add(rateLabel)
+    beeItem:Add(sellLabel)
 
     -- Create a "Sell" button and add it to the bee item
     local sellNameLabel = UILabel.new()
