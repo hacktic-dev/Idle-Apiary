@@ -30,11 +30,24 @@
   */
 }
 
+.buttonLabel {
+  font-size: 24px;
+  /*
+  -unity-text-outline-width: 2px;
+  -unity-text-outline-color: white;
+  */
+}
+
 .button {
-  width: 32px;
-  height: 32px;
+  width: 150px;
+  height: 74px;
   margin-left: 10px;
-  background-color: rgba(0,0,0,.2);
+  margin-bottom: 10px;
+  background-color: rgba(0,0,0,.5);
+}
+
+.button:hover {
+    background-color: rgba(0,0,0,.4); /* Slightly transparent on hover */
 }
 
 .player-stat-gui #cashIcon{

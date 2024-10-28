@@ -8,6 +8,12 @@ local cashCount : UILabel = nil
 -- Binding the UILabel for displaying the player's current nets
 local xpCount : UILabel = nil
 
+--!Bind
+local _viewBeesButton : UIButton = nil
+
+--!Bind
+local _beestiaryButton : UIButton = nil
+
 -- Importing the PlayerManager module to handle player-related functionalities
 local playerManager = require("PlayerManager")
 
@@ -22,6 +28,14 @@ function SetNetsUI(nets)
     -- Converts XP to a formatted string to display progression and updates the UI
     xpCount:SetPrelocalizedText(tostring(nets), true)
 end
+
+_viewBeesButton:RegisterPressCallback(function()
+    print("Button pressed")
+end, true, true, true)
+
+_beestiaryButton:RegisterPressCallback(function()
+    print("Button pressed")
+end, true, true, true)
 
 -- Initialize the UI with default values for role, cash, and XP
 SetCashUI(100)
