@@ -13891,7 +13891,8 @@ MonoBehaviour:
     type: 3}
   m_PetalBee: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
     type: 3}
-  m_GalacticBee: {fileID: 0}
+  m_GalacticBee: {fileID: 5446098579520547776, guid: a50dce02d250c03418f4b1c8ebb62bb9,
+    type: 3}
   m_RadiantBee: {fileID: 5446098579520547776, guid: 6488bbea9a747954c8f8213d0d5ac0df,
     type: 3}
   m_RainbowBee: {fileID: 5446098579520547776, guid: b5baf652b528cd34ab3197a2c93ec489,
@@ -13974,7 +13975,8 @@ MonoBehaviour:
     type: 3}
   m_PetalBeePrefab: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
     type: 3}
-  m_GalacticBeePrefab: {fileID: 0}
+  m_GalacticBeePrefab: {fileID: 5446098579520547776, guid: a50dce02d250c03418f4b1c8ebb62bb9,
+    type: 3}
   m_RadiantBeePrefab: {fileID: 5446098579520547776, guid: 6488bbea9a747954c8f8213d0d5ac0df,
     type: 3}
   m_RainbowBeePrefab: {fileID: 5446098579520547776, guid: b5baf652b528cd34ab3197a2c93ec489,
@@ -28680,6 +28682,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1094158798}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1094672579
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.627598
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.9066515
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2711836196418280312, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446098579520547776, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+        type: 3}
+      propertyPath: m_Name
+      value: RadiantBee
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6488bbea9a747954c8f8213d0d5ac0df, type: 3}
 --- !u!1001 &1101216616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55319,3 +55389,4 @@ SceneRoots:
   - {fileID: 2115225246}
   - {fileID: 446716252}
   - {fileID: 800978008}
+  - {fileID: 1094672579}
