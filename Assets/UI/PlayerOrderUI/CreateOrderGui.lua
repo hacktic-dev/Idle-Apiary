@@ -41,12 +41,25 @@ function GenerateBee(setId)
         elseif number < 20 then
             return "Ghostly Bee"
         else
-            return "Golden Bee"
+            return "Storm Bee"
         end
-    else
-        return "Rainbow Bee"
+    elseif setId == "Gold" then
+        if number < 6 then
+            return "Sandy Bee"
+        elseif number < 11 then
+            return "Autumnal Bee"
+        elseif number < 16 then
+            return "Petal Bee"
+        elseif number < 18 then
+            return "Galactic Bee"
+        elseif number < 20 then
+            return "Radiant Bee"
+        else
+            return "Rainbow Bee"
+        end
     end
 end
+
 
 -- Creates a new quest item in the UI.
 function CreateQuestItem(Name, Id, Cash)
@@ -131,3 +144,4 @@ end
 local NetMenuItem = CreateQuestItem("Bee Net", "Net", 100)
 local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50)
 local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Silver Set", "Silver", 250)
+local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Gold Set", "Gold", 1250)

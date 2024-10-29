@@ -16,26 +16,86 @@ local AquaticBeePrefab : GameObject = nil
 local GiantBeePrefab : GameObject = nil
 --!SerializeField
 local SilverBeePrefab : GameObject = nil
+--!SerializeField
+local MuddyBeePrefab : GameObject = nil
+--!SerializeField
+local FrigidBeePrefab : GameObject = nil
+--!SerializeField
+local SteelBeePrefab : GameObject = nil
+--!SerializeField
+local MagmaBeePrefab : GameObject = nil
+--!SerializeField
+local GhostlyBeePrefab : GameObject = nil
+--!SerializeField
+local StormBeePrefab : GameObject = nil
+--!SerializeField
+local SandyBeePrefab : GameObject = nil
+--!SerializeField
+local AutumnalBeePrefab : GameObject = nil
+--!SerializeField
+local PetalBeePrefab : GameObject = nil
+--!SerializeField
+local GalacticBeePrefab : GameObject = nil
+--!SerializeField
+local RadiantBeePrefab : GameObject = nil
+--!SerializeField
+local RainbowBeePrefab : GameObject = nil
 
 -- Bee spawning parameters
 local beeSpecies = {
-    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor = 50 },
-    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor = 45 }, 
-    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor = 45 } ,
-    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 10 } ,
-    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 8 } ,
-    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 4 } 
+    -- Bronze Set
+    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor = 300 },
+    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor = 270 },
+    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor = 270 },
+    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 80 },
+    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 75 },
+    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 40 },
+
+    -- Silver Set
+    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 58 },
+    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 56 },
+    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 54 },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 26 },
+    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 22 },
+    { prefab = StormBeePrefab, name = "Storm Bee", spawnFactor = 8 },
+
+    -- Gold Set
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 16 },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 14 },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 14 },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 8 },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 6 },
+    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor = 2 }
 }
+
 
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
 local beeData = {
+    -- Bronze Set - 50 Honey to Purchase
     ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 60, rarity = "Common" },
     ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common" },
     ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common" },
     ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 120, rarity = "Uncommon" },
     ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 120, rarity = "Uncommon" },
-    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 300, rarity = "Rare" }
+    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 300, rarity = "Rare" },
+
+    -- Silver Set - 250 Honey to Purchase
+    ["Muddy Bee"] = { honeyRate = 18, sellPrice = 250, growTime = 60, rarity = "Uncommon" },
+    ["Frigid Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon" },
+    ["Steel Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon" },
+    ["Magma Bee"] = { honeyRate = 28, sellPrice = 360, growTime = 120, rarity = "Rare" },
+    ["Ghostly Bee"] = { honeyRate = 30, sellPrice = 380, growTime = 120, rarity = "Rare" },
+    ["Storm Bee"] = { honeyRate = 46, sellPrice = 500, growTime = 300, rarity = "Epic" },
+
+    -- Gold Set - 1250 Honey to Purchase
+    ["Sandy Bee"] = { honeyRate = 36, sellPrice = 1250, growTime = 60, rarity = "Rare" },
+    ["Autumnal Bee"] = { honeyRate = 38, sellPrice = 1300, growTime = 60, rarity = "Rare" },
+    ["Petal Bee"] = { honeyRate = 40, sellPrice = 1300, growTime = 60, rarity = "Rare" },
+    ["Galactic Bee"] = { honeyRate = 56, sellPrice = 1500, growTime = 120, rarity = "Epic" },
+    ["Radiant Bee"] = { honeyRate = 58, sellPrice = 1500, growTime = 120, rarity = "Epic" },
+    ["Rainbow Bee"] = { honeyRate = 70, sellPrice = 2000, growTime = 300, rarity = "Legendary" }
 }
+
 
 local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
 local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee

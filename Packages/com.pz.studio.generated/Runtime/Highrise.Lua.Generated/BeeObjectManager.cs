@@ -31,6 +31,18 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_AquaticBee = default;
         [SerializeField] public UnityEngine.GameObject m_GiantBee = default;
         [SerializeField] public UnityEngine.GameObject m_SilverBee = default;
+        [SerializeField] public UnityEngine.GameObject m_MuddyBee = default;
+        [SerializeField] public UnityEngine.GameObject m_FrigidBee = default;
+        [SerializeField] public UnityEngine.GameObject m_SteelBee = default;
+        [SerializeField] public UnityEngine.GameObject m_MagmaBee = default;
+        [SerializeField] public UnityEngine.GameObject m_GhostlyBee = default;
+        [SerializeField] public UnityEngine.GameObject m_StormBee = default;
+        [SerializeField] public UnityEngine.GameObject m_SandyBee = default;
+        [SerializeField] public UnityEngine.GameObject m_AutumnalBee = default;
+        [SerializeField] public UnityEngine.GameObject m_PetalBee = default;
+        [SerializeField] public UnityEngine.GameObject m_GalacticBee = default;
+        [SerializeField] public UnityEngine.GameObject m_RadiantBee = default;
+        [SerializeField] public UnityEngine.GameObject m_RainbowBee = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -45,6 +57,18 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(3), m_AquaticBee),
                 CreateSerializedProperty(_script.GetPropertyAt(4), m_GiantBee),
                 CreateSerializedProperty(_script.GetPropertyAt(5), m_SilverBee),
+                CreateSerializedProperty(_script.GetPropertyAt(6), m_MuddyBee),
+                CreateSerializedProperty(_script.GetPropertyAt(7), m_FrigidBee),
+                CreateSerializedProperty(_script.GetPropertyAt(8), m_SteelBee),
+                CreateSerializedProperty(_script.GetPropertyAt(9), m_MagmaBee),
+                CreateSerializedProperty(_script.GetPropertyAt(10), m_GhostlyBee),
+                CreateSerializedProperty(_script.GetPropertyAt(11), m_StormBee),
+                CreateSerializedProperty(_script.GetPropertyAt(12), m_SandyBee),
+                CreateSerializedProperty(_script.GetPropertyAt(13), m_AutumnalBee),
+                CreateSerializedProperty(_script.GetPropertyAt(14), m_PetalBee),
+                CreateSerializedProperty(_script.GetPropertyAt(15), m_GalacticBee),
+                CreateSerializedProperty(_script.GetPropertyAt(16), m_RadiantBee),
+                CreateSerializedProperty(_script.GetPropertyAt(17), m_RainbowBee),
             };
         }
     }

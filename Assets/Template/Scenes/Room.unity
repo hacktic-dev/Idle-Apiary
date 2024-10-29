@@ -13861,7 +13861,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
-  m_CommonBee: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
+  m_CommonBee: {fileID: 5446098579520547776, guid: fbf9fc1f611002541b0a213a1159f3ce,
     type: 3}
   m_StoneBee: {fileID: 5446098579520547776, guid: a80d2aedfdce0414d8e772567ebda49f,
     type: 3}
@@ -13872,6 +13872,29 @@ MonoBehaviour:
   m_GiantBee: {fileID: 5446098579520547776, guid: 5e60b535ae7204d4ebdcfdfef5667b90,
     type: 3}
   m_SilverBee: {fileID: 5446098579520547776, guid: b29e41e18c6c1594dad435e29ca80711,
+    type: 3}
+  m_MuddyBee: {fileID: 5446098579520547776, guid: b3fe74e6985d73d40ba1ab3bba2faba2,
+    type: 3}
+  m_FrigidBee: {fileID: 5446098579520547776, guid: c0d44e3afeefe7343b265c8a8440ab93,
+    type: 3}
+  m_SteelBee: {fileID: 5446098579520547776, guid: f59e06ef253c07144b030a0a7a987021,
+    type: 3}
+  m_MagmaBee: {fileID: 5446098579520547776, guid: 328154216b13caf47ba005ca9e55c0a0,
+    type: 3}
+  m_GhostlyBee: {fileID: 5446098579520547776, guid: 8c7c4ef4fba5f2640a1cb0837757cb5a,
+    type: 3}
+  m_StormBee: {fileID: 5446098579520547776, guid: 7868b84c04ac26441a0266d77e2bf2bf,
+    type: 3}
+  m_SandyBee: {fileID: 5446098579520547776, guid: 7a15360968f96444e98776e16cf0bacd,
+    type: 3}
+  m_AutumnalBee: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
+    type: 3}
+  m_PetalBee: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
+    type: 3}
+  m_GalacticBee: {fileID: 0}
+  m_RadiantBee: {fileID: 5446098579520547776, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+    type: 3}
+  m_RainbowBee: {fileID: 5446098579520547776, guid: b5baf652b528cd34ab3197a2c93ec489,
     type: 3}
   references:
     version: 2
@@ -13921,7 +13944,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
-  m_CommonBeePrefab: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
+  m_CommonBeePrefab: {fileID: 5446098579520547776, guid: fbf9fc1f611002541b0a213a1159f3ce,
     type: 3}
   m_StoneBeePrefab: {fileID: 5446098579520547776, guid: a80d2aedfdce0414d8e772567ebda49f,
     type: 3}
@@ -13932,6 +13955,29 @@ MonoBehaviour:
   m_GiantBeePrefab: {fileID: 5446098579520547776, guid: 5e60b535ae7204d4ebdcfdfef5667b90,
     type: 3}
   m_SilverBeePrefab: {fileID: 5446098579520547776, guid: b29e41e18c6c1594dad435e29ca80711,
+    type: 3}
+  m_MuddyBeePrefab: {fileID: 5446098579520547776, guid: b3fe74e6985d73d40ba1ab3bba2faba2,
+    type: 3}
+  m_FrigidBeePrefab: {fileID: 5446098579520547776, guid: c0d44e3afeefe7343b265c8a8440ab93,
+    type: 3}
+  m_SteelBeePrefab: {fileID: 5446098579520547776, guid: f59e06ef253c07144b030a0a7a987021,
+    type: 3}
+  m_MagmaBeePrefab: {fileID: 5446098579520547776, guid: 328154216b13caf47ba005ca9e55c0a0,
+    type: 3}
+  m_GhostlyBeePrefab: {fileID: 5446098579520547776, guid: 8c7c4ef4fba5f2640a1cb0837757cb5a,
+    type: 3}
+  m_StormBeePrefab: {fileID: 5446098579520547776, guid: 7868b84c04ac26441a0266d77e2bf2bf,
+    type: 3}
+  m_SandyBeePrefab: {fileID: 5446098579520547776, guid: 7a15360968f96444e98776e16cf0bacd,
+    type: 3}
+  m_AutumnalBeePrefab: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
+    type: 3}
+  m_PetalBeePrefab: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
+    type: 3}
+  m_GalacticBeePrefab: {fileID: 0}
+  m_RadiantBeePrefab: {fileID: 5446098579520547776, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+    type: 3}
+  m_RainbowBeePrefab: {fileID: 5446098579520547776, guid: b5baf652b528cd34ab3197a2c93ec489,
     type: 3}
   references:
     version: 2

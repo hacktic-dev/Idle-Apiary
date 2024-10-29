@@ -14,6 +14,30 @@ local AquaticBee : GameObject = nil
 local GiantBee : GameObject = nil
 --!SerializeField
 local SilverBee : GameObject = nil
+--!SerializeField
+local MuddyBee : GameObject = nil
+--!SerializeField
+local FrigidBee : GameObject = nil
+--!SerializeField
+local SteelBee : GameObject = nil
+--!SerializeField
+local MagmaBee : GameObject = nil
+--!SerializeField
+local GhostlyBee : GameObject = nil
+--!SerializeField
+local StormBee : GameObject = nil
+--!SerializeField
+local SandyBee : GameObject = nil
+--!SerializeField
+local AutumnalBee : GameObject = nil
+--!SerializeField
+local PetalBee : GameObject = nil
+--!SerializeField
+local GalacticBee : GameObject = nil
+--!SerializeField
+local RadiantBee : GameObject = nil
+--!SerializeField
+local RainbowBee : GameObject = nil
 
 -- Server-side table to track which bees belong to which player
 local playerBees = {}
@@ -113,7 +137,32 @@ function self:ClientAwake()
             Bee = GiantBee
         elseif species == "Silver Bee" then
             Bee = SilverBee
+        elseif species == "Muddy Bee" then
+            Bee = MuddyBee
+        elseif species == "Frigid Bee" then
+            Bee = FrigidBee
+        elseif species == "Steel Bee" then
+            Bee = SteelBee
+        elseif species == "Magma Bee" then
+            Bee = MagmaBee
+        elseif species == "Ghostly Bee" then
+            Bee = GhostlyBee
+        elseif species == "Storm Bee" then
+            Bee = StormBee
+        elseif species == "Sandy Bee" then
+            Bee = SandyBee
+        elseif species == "Autumnal Bee" then
+            Bee = AutumnalBee
+        elseif species == "Petal Bee" then
+            Bee = PetalBee
+        elseif species == "Galactic Bee" then
+            Bee = GalacticBee
+        elseif species == "Radiant Bee" then
+            Bee = RadiantBee
+        elseif species == "Rainbow Bee" then
+            Bee = RainbowBee
         end
+        
 
         print("Spawning bee " .. species .. " on client")
 
