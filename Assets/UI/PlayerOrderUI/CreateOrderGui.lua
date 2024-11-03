@@ -10,6 +10,9 @@ local closeLabel : UILabel = nil -- Reference to the label for the close button.
 --!Bind
 local statusLabel : UILabel = nil -- Reference to status label.
 
+--!SerializeField
+local BeeListObject : GameObject = nil
+
 local orderManager = require("OrderManager") -- Accesses order management functions.
 local playerManager = require("PlayerManager") -- Accesses player management functions.
 
@@ -126,6 +129,9 @@ end
 function SetVisible(visible)
     Orders_Root:EnableInClassList("hidden", not visible)
     closeButton:EnableInClassList("hidden", not visible)
+    if visible == true then
+        BeeListObject:GetComponent(BeeListMenu).SetVisible(false)
+    end
 end
 
 -- Called when the UI object this script is attached to is initialized.
