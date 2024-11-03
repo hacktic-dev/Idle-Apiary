@@ -424,7 +424,9 @@ function self:ServerAwake()
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
                     SaveBeeStorage(player)
-                    RecalculatePlayerEarnRate(player)
+                    if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
+                        RecalculatePlayerEarnRate(player)
+                    end
                     print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
                     return
                 end
