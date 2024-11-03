@@ -27,7 +27,7 @@ local MagmaBeePrefab : GameObject = nil
 --!SerializeField
 local GhostlyBeePrefab : GameObject = nil
 --!SerializeField
-local StormBeePrefab : GameObject = nil
+local IridescentBeePrefab : GameObject = nil
 --!SerializeField
 local SandyBeePrefab : GameObject = nil
 --!SerializeField
@@ -57,7 +57,7 @@ local beeSpecies = {
     { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 40 },
     { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 20 },
     { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 18 },
-    { prefab = StormBeePrefab, name = "Storm Bee", spawnFactor = 6 },
+    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 6 },
 
     -- Gold Set
     { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 12 },
@@ -85,7 +85,7 @@ local beeData = {
     ["Steel Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon" },
     ["Magma Bee"] = { honeyRate = 28, sellPrice = 360, growTime = 120, rarity = "Rare" },
     ["Ghostly Bee"] = { honeyRate = 30, sellPrice = 380, growTime = 120, rarity = "Rare" },
-    ["Storm Bee"] = { honeyRate = 46, sellPrice = 500, growTime = 300, rarity = "Epic" },
+    ["Iridescent Bee"] = { honeyRate = 46, sellPrice = 500, growTime = 300, rarity = "Epic" },
 
     -- Gold Set - 1250 Honey to Purchase
     ["Sandy Bee"] = { honeyRate = 36, sellPrice = 1250, growTime = 60, rarity = "Rare" },

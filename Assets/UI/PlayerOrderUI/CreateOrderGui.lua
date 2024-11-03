@@ -41,7 +41,7 @@ function GenerateBee(setId)
         elseif number < 20 then
             return "Ghostly Bee"
         else
-            return "Storm Bee"
+            return "Iridescent Bee"
         end
     elseif setId == "Gold" then
         if number < 6 then

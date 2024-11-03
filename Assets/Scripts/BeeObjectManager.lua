@@ -25,7 +25,7 @@ local MagmaBee : GameObject = nil
 --!SerializeField
 local GhostlyBee : GameObject = nil
 --!SerializeField
-local StormBee : GameObject = nil
+local IridescentBee : GameObject = nil
 --!SerializeField
 local SandyBee : GameObject = nil
 --!SerializeField
@@ -147,8 +147,8 @@ function self:ClientAwake()
             Bee = MagmaBee
         elseif species == "Ghostly Bee" then
             Bee = GhostlyBee
-        elseif species == "Storm Bee" then
-            Bee = StormBee
+        elseif species == "Iridescent Bee" then
+            Bee = IridescentBee
         elseif species == "Sandy Bee" then
             Bee = SandyBee
         elseif species == "Autumnal Bee" then

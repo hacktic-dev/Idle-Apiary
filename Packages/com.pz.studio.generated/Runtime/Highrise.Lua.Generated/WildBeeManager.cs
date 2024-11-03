@@ -36,7 +36,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_SteelBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_MagmaBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_GhostlyBeePrefab = default;
-        [SerializeField] public UnityEngine.GameObject m_StormBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_IridescentBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_SandyBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_AutumnalBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_PetalBeePrefab = default;
@@ -62,7 +62,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(8), m_SteelBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(9), m_MagmaBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(10), m_GhostlyBeePrefab),
-                CreateSerializedProperty(_script.GetPropertyAt(11), m_StormBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(11), m_IridescentBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(12), m_SandyBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(13), m_AutumnalBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(14), m_PetalBeePrefab),
