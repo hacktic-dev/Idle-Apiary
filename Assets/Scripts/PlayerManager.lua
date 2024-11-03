@@ -23,6 +23,9 @@ local playerBeeStorage = {}
 -- Track money accumulation speeds per player
 local playerMoneyEarnRates = {}
 
+-- Table to hold players' bee species in memory
+local playerSeenBeeSpecies = {}
+
 local playerTimers = {}
 
 giveBeeRequest = Event.new("GiveBee")
@@ -41,6 +44,46 @@ local requestBeeList = Event.new("RequestBeeList")
 receiveBeeList = Event.new("ReceiveBeeList")
 
 updateBeeList = Event.new("UpdateBeeList")
+
+-- Function to initialize bee species list for a player by loading from storage
+local function InitializeSeenBeeSpecies(player, callback)
+    -- Fetch the player's bee species data from storage
+    Storage.GetPlayerValue(player, "SeenBeeSpecies", function(storedSpecies)
+        -- If there is no data in storage, initialize an empty table
+        if storedSpecies == nil then
+            storedSpecies = {}
+        end
+        -- Store the player's bee species in memory
+        playerSeenBeeSpecies[player] = storedSpecies
+
+        -- If a callback is provided, call it once storage is loaded
+        if callback then
+            callback(storedSpecies)
+        end
+    end)
+end
+
+-- Function to save the player's bee species list back to persistent storage
+local function SaveSeenBeeSpecies(player)
+    if playerSeenBeeSpecies[player] ~= nil then
+        -- Save the bee species list to persistent storage
+        Storage.SetPlayerValue(player, "SeenBeeSpecies", playerSeenBeeSpecies[player], function(errorCode)
+            if errorCode then
+                print("Error saving bee species for " .. player.name .. ": " .. tostring(errorCode))
+            end
+        end)
+    end
+end
+
+-- Function to get the list of all bee species a player has obtained
+function GetSeenBeeSpeciesList(player, callback)
+    InitializeSeenBeeSpecies(player, function(storedSpecies)
+        -- Return the list of species using the callback function
+        if callback then
+            callback(storedSpecies)
+        end
+    end)
+end
 
 -- Function to request the bee list for the local player
 function RequestBeeList()
@@ -353,6 +396,7 @@ function self:ServerAwake()
             players[player].Bees.value = stats.Bees
 
             InitializeBeeStorage(player)
+            InitializeSeenBeeSpecies(player)
 
             beeCountUpdated:FireClient(player, players[player].Bees.value)
 
@@ -402,6 +446,18 @@ function self:ServerAwake()
             print(player.name .. " recieved a " .. name .. "!")
         end
         
+        -- Ensure the bee species list is initialized for the player
+        if playerSeenBeeSpecies[player] == nil then
+            InitializeSeenBeeSpecies(player)
+        end
+
+        -- Check if the species is already in the list; if not, add it
+        if not table.find(playerSeenBeeSpecies[player], name) then
+            table.insert(playerSeenBeeSpecies[player], name)
+            SaveSeenBeeSpecies(player) -- Save the updated species list
+        end
+
+
         id = AddBee(player, name, isAdult, growTime)
     
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
