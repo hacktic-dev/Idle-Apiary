@@ -72,11 +72,22 @@ function OpenBeeList()
     BeeListObject:GetComponent(BeeListMenu).Init()
 end
 
+function CloseBeeList()
+    ToggleUI("BeeList", false)
+    ToggleUI("PlaceButtons", true)
+end
+
 function OpenShop()
     ToggleUI("BeeList", false)
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", true)
+    ToggleUI("PlaceButtons", false)
     CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
+end
+
+function CloseShop()
+    ToggleUI("ShopUi", false)
+    ToggleUI("PlaceButtons", true)
 end
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)

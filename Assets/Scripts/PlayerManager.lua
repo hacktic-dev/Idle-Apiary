@@ -177,9 +177,6 @@ end
 function SellBee(beeSpecies, beeId, isAdult)
     sellBeeRequest:FireServer(beeId)
     local sellPrice = wildBeeManager.getSellPrice(beeSpecies)
-    if not isAdult then
-        sellPrice = math.floor(sellPrice / 3)
-    end
     IncrementStat("Cash", sellPrice)
     IncrementStat("Bees", -1)
 end

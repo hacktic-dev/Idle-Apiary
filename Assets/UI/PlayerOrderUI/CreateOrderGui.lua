@@ -133,7 +133,7 @@ function Init()
     
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
-        UIManager.ToggleUI("ShopUi", false)
+        UIManager.CloseShop()
     end, true, true, true)
 end
 

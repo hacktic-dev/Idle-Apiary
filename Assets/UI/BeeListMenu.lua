@@ -52,9 +52,6 @@ function CreateBeeItem(bee)
     rateLabel:SetPrelocalizedText("Honey Rate: " .. honeyRate)
 
     local sellPrice = wildBeeManager.getSellPrice(bee.species)
-    if not bee.adult then
-        sellPrice = math.floor(sellPrice / 3)
-    end
 
     local sellLabel = UILabel.new()
     sellLabel:AddToClassList("bee-name")
@@ -66,18 +63,21 @@ function CreateBeeItem(bee)
     beeItem:Add(rateLabel)
     beeItem:Add(sellLabel)
 
-    -- Create a "Sell" button and add it to the bee item
-    local sellNameLabel = UILabel.new()
-    sellNameLabel:AddToClassList("bee-name")
-    sellNameLabel:SetPrelocalizedText("Sell")
+    -- Only able to sell adults
+    if bee.adult then
+        -- Create a "Sell" button and add it to the bee item
+        local sellNameLabel = UILabel.new()
+        sellNameLabel:AddToClassList("bee-name")
+        sellNameLabel:SetPrelocalizedText("Sell")
 
-    local sellButton = UIButton.new()
-    sellButton:AddToClassList("sell-button")
-    sellButton:RegisterPressCallback(function()
-        SellBee(bee.species, bee.beeId, bee.adult) -- Function to handle selling the bee
-    end, true, true, true)
-    sellButton:Add(sellNameLabel)
-    beeItem:Add(sellButton)
+        local sellButton = UIButton.new()
+        sellButton:AddToClassList("sell-button")
+        sellButton:RegisterPressCallback(function()
+            SellBee(bee.species, bee.beeId, bee.adult) -- Function to handle selling the bee
+        end, true, true, true)
+        sellButton:Add(sellNameLabel)
+        beeItem:Add(sellButton)
+    end
 
     -- Add the bee item to the BeeList_Root UI list
     BeeList_Root:Add(beeItem)
@@ -121,6 +121,6 @@ function Init()
 
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
-        UIManager.ToggleUI("BeeList", false)
+        UIManager.CloseBeeList()
     end, true, true, true)
 end

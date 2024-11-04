@@ -61,7 +61,7 @@ function self:ClientAwake()
         _viewBeesButton:EnableInClassList("hidden", false)
     else
         _viewBeesButton:EnableInClassList("hidden", true)
-        UIManager.ToggleUI("BeeList", false)
+        UIManager.CloseBeeList()
     end
     end)
 end
