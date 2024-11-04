@@ -15,6 +15,7 @@ local BeeListObject : GameObject = nil
 
 local orderManager = require("OrderManager") -- Accesses order management functions.
 local playerManager = require("PlayerManager") -- Accesses player management functions.
+local UIManager = require("UIManager") -- Accesses player management functions.
 
 function GenerateBee(setId)
     local number = math.random(1, 20)
@@ -125,24 +126,14 @@ function CreateQuestItem(Name, Id, Cash)
     return questItem
 end
 
--- Sets the visibility of the UI.
-function SetVisible(visible)
-    Orders_Root:EnableInClassList("hidden", not visible)
-    closeButton:EnableInClassList("hidden", not visible)
-    if visible == true then
-        BeeListObject:GetComponent(BeeListMenu).SetVisible(false)
-    end
-end
-
 -- Called when the UI object this script is attached to is initialized.
-function self:Awake()
+function Init()
     statusLabel.visible = false
-    SetVisible(false) -- Hide the UI initially.
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
     
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
-        SetVisible(false)
+        UIManager.ToggleUI("ShopUi", false)
     end, true, true, true)
 end
 

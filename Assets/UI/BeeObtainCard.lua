@@ -17,30 +17,18 @@ local wildBeeManager = require("WildBeeManager")
 
 local playerManager = require("PlayerManager")
 
-_beeCard.visible = false
-
 -- Initialize UI text and image
 
---_beeImage:SetImage("bee_image.png")
-
-function SetVisible(enabled)
-    _beeCard.visible = enabled
-end
-
-wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
+function ShowCaughtWild(species)
     _beeLabel:SetPrelocalizedText("You caught a wild " .. species .. "!")
     _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
     _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
     _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
-    _beeCard.visible = true
-    Timer.new(5, function() _beeCard.visible = false end, false)
-end))
+end
 
-playerManager.notifyBeePurchased:Connect((function(species)
+function ShowRecieved(species)
     _beeLabel:SetPrelocalizedText("You recieved a " .. species .. "!")
     _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
     _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
     _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
-    _beeCard.visible = true
-    Timer.new(5, function() _beeCard.visible = false end, false)
-end))
+end

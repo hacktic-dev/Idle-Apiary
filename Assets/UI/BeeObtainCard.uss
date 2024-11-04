@@ -17,7 +17,7 @@
     margin-right: auto;
     color: #FFFFFF;
     font-size: 20px;
-    bottom: 0px
+    bottom: -350px
 }
 
 .bee-label

@@ -36,7 +36,7 @@
 .shop-ui_status {
     position: absolute;
     align-self: center;
-    top: 250px;
+    top: 275px;
     font-size: 40px;
     color: #fff;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);

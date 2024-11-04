@@ -52,7 +52,7 @@
     overflow: scroll;
     padding-bottom: 0px;
     bottom: 00px;
-    height: 1100px;
+    height: 800px;
 }
 
 .hidden {

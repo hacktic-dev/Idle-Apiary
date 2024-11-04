@@ -16,6 +16,7 @@ local count = 0;
 
 local playerManager = require("PlayerManager") -- Accesses player management functions.
 local wildBeeManager = require("WildBeeManager")
+local UIManager = require("UIManager")
 
 -- Table to store each bee's UI element by beeId
 local beeItems = {}
@@ -113,21 +114,13 @@ function PopulateBeeList(bees)
     beeCountLabel:SetPrelocalizedText(count .. "/12", true)
 end
 
--- Sets the visibility of the UI.
-function SetVisible(visible)
-    BeeList_Root:EnableInClassList("hidden", not visible)
-    closeButton:EnableInClassList("hidden", not visible)
-    beeCountLabel:EnableInClassList("hidden", not visible)
-end
-
 -- Called when the UI object this script is attached to is initialized.
-function self:Awake()
+function Init()
     statusLabel.visible = false
-    SetVisible(false) -- Hide the UI initially.
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
 
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
-        SetVisible(false)
+        UIManager.ToggleUI("BeeList", false)
     end, true, true, true)
 end

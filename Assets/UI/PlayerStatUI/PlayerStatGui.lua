@@ -23,6 +23,7 @@ local ShopObject : GameObject = nil
 
 -- Importing the PlayerManager module to handle player-related functionalities
 local playerManager = require("PlayerManager")
+local UIManager = require("UIManager")
 
 -- Function to set the cash count on the UI
 function SetCashUI(cash)
@@ -37,10 +38,8 @@ function SetNetsUI(nets)
 end
 
 _viewBeesButton:RegisterPressCallback(function()
+    UIManager.OpenBeeList()
     playerManager.RequestBeeList()
-    BeeListObject:GetComponent(BeeListMenu).SetVisible(true)
-    ShopObject:GetComponent(BeeObtainCard).SetVisible(false)
-    ShopObject:GetComponent(CreateOrderGui).SetVisible(false)
 end, true, true, true)
 
 _beestiaryButton:RegisterPressCallback(function()
@@ -57,11 +56,12 @@ function self:ClientAwake()
  end)
 
  playerManager.beeCountUpdated:Connect(function(count)
+    print("player has bees count " .. count)
     if count > 0 then
         _viewBeesButton:EnableInClassList("hidden", false)
     else
         _viewBeesButton:EnableInClassList("hidden", true)
-        BeeListObject:GetComponent(BeeListMenu).SetVisible(false)
+        UIManager.ToggleUI("BeeList", false)
     end
     end)
 end

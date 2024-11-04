@@ -4,6 +4,7 @@
 local anim = nil -- Reference to the Animator component.
 
 local playerManager = require("PlayerManager") -- Accesses player management functions.
+local UIManager = require("UIManager") -- Accesses player management functions.
 
 -- Called when the client object this script is attached to is initialized.
 function self:Awake()
@@ -19,7 +20,7 @@ function self:Awake()
         -- Check if the player's role is a Customer (0) to proceed.
         --if playerManager.players[client.localPlayer].Role.value == 0 then
             -- Set the GUI visible.
-            myGui.SetVisible(true)
+            UIManager.OpenShop()
             -- Trigger an interaction animation.
             anim:SetTrigger("interact")
        -- end

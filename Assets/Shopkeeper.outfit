@@ -1,0 +1,50 @@
+{
+  "IncludeFallbacks": true,
+  "Skeleton": "",
+  "Clothing": [
+    {
+      "Id": "body-flesh",
+      "Color": 0
+    },
+    {
+      "Id": "freckle-n_basic2018freckle04",
+      "Color": 0
+    },
+    {
+      "Id": "eye-m_12b",
+      "Color": 0
+    },
+    {
+      "Id": "freckle-n_basic2018freckle08",
+      "Color": 0
+    },
+    {
+      "Id": "nose-n_basic2018newnose05",
+      "Color": 0
+    },
+    {
+      "Id": "hair_front-n_animecollection2018coolguyhair",
+      "Color": 0
+    },
+    {
+      "Id": "hair_back-n_animecollection2018coolguyhair",
+      "Color": 0
+    },
+    {
+      "Id": "pants-n_starteritems2019cuffedjeansblue",
+      "Color": 0
+    },
+    {
+      "Id": "shirt-n_starteritems2019pulloverblack",
+      "Color": 0
+    },
+    {
+      "Id": "shoes-n_room12019sneakersblack",
+      "Color": 0
+    },
+    {
+      "Id": "glasses-n_starteritems2019roundframesblack",
+      "Color": -1
+    }
+  ]
+}
