@@ -52,19 +52,19 @@ local beeSpecies = {
     { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 28 },
 
     -- Silver Set
-    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 38 },
-    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 36 },
-    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 36 },
-    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 14 },
-    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 12 },
-    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 6 },
+    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 40 },
+    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 38 },
+    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 38 },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 15 },
+    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 13 },
+    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 7 },
 
     -- Gold Set
-    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 10 },
-    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 8 },
-    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 8 },
-    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 5 },
-    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 3 },
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 12 },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 9 },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 9 },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 6 },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 4 },
     { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor = 2 }
 }
 
@@ -101,7 +101,7 @@ local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
 local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee
 local MAX_SPAWN_DISTANCE = 125 -- Maximum distance from player to spawn a bee
 local DESPAWN_DISTANCE = 130 -- Distance beyond which the bee despawns
-local MAX_BEES = 25 -- Maximum number of bees allowed
+local MAX_BEES = 20 -- Maximum number of bees allowed
 
 local beeSpawnInterval = 0.1 -- Time in seconds between bee spawn attempts
 
