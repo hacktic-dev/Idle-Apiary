@@ -124,14 +124,16 @@ end
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("BeeCard", true)
+    ToggleUI("PlaceButtons", false)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowCaughtWild(species)
-    Timer.new(5, function() ToggleUI("BeeCard", false) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) end, false)
 end))
 
 playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("BeeCard", true)
+    ToggleUI("ShopUi", false)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowRecieved(species)
-    Timer.new(5, function() ToggleUI("BeeCard", false) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("Shop", true) end, false)
 end))
 
 function self:ClientAwake()
