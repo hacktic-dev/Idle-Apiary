@@ -29090,8 +29090,8 @@ MonoBehaviour:
     rid: -2
   m_beeTextures:
   - {fileID: 2800000, guid: d02a14b7d26702b41899e88596062ec4, type: 3}
-  - {fileID: 2800000, guid: 62a437b84d811264f87587d43cf5b129, type: 3}
   - {fileID: 2800000, guid: b0b528698c45e034b98446dcff24ad65, type: 3}
+  - {fileID: 2800000, guid: 62a437b84d811264f87587d43cf5b129, type: 3}
   - {fileID: 2800000, guid: a6177d9335291984e90967bfee0dd70f, type: 3}
   - {fileID: 2800000, guid: 256cd5107f614ae4da7cfed5c172a477, type: 3}
   - {fileID: 2800000, guid: 055aff7f52cb3664cb1efda59c10fd7e, type: 3}
