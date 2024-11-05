@@ -70,7 +70,7 @@ local beeSpecies = {
 
 
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
-local beeData = {
+beeData = {
     -- Bronze Set - 50 Honey to Purchase
     ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 60, rarity = "Common" },
     ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common" },

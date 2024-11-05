@@ -4,7 +4,7 @@
 local anim = nil -- Reference to the Animator component.
 
 local playerManager = require("PlayerManager") -- Accesses player management functions.
-local UIManager = require("UIManager") -- Accesses player management functions.
+local UIManager = require("UIManager")
 
 -- Called when the client object this script is attached to is initialized.
 function self:Awake()

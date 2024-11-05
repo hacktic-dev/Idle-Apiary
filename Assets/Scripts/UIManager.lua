@@ -9,6 +9,8 @@ local BeeObtainCardObject : GameObject = nil
 local PlaceApiaryObject : GameObject = nil
 --!SerializeField
 local CreateOrderGuiObject : GameObject = nil
+--!SerializeField
+local BeestiaryObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 
@@ -19,6 +21,7 @@ local uiMap = {
     BeeCard = BeeObtainCardObject,
     PlaceButtons = PlaceApiaryObject,
     ShopUi = CreateOrderGuiObject,
+    Beestiary = BeestiaryObject,
 }
 
   -- Activate the object if it is not active
@@ -67,8 +70,10 @@ end
 
 function OpenBeeList()
     ToggleUI("BeeList", true)
+    ToggleUI("Beestiary", false)
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", false)
+    ToggleUI("PlaceButtons", false)
     BeeListObject:GetComponent(BeeListMenu).Init()
 end
 
@@ -79,10 +84,25 @@ end
 
 function OpenShop()
     ToggleUI("BeeList", false)
+    ToggleUI("Beestiary", false)
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", true)
     ToggleUI("PlaceButtons", false)
     CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
+end
+
+function OpenBeestiary()
+    ToggleUI("BeeList", false)
+    ToggleUI("BeeCard", false)
+    ToggleUI("Beestiary", true)
+    ToggleUI("ShopUi", false)
+    ToggleUI("PlaceButtons", false)
+    BeestiaryObject:GetComponent(Beestiary).Init()
+end
+
+function CloseBeestiary()
+    ToggleUI("Beestiary", false)
+    ToggleUI("PlaceButtons", true)
 end
 
 function CloseShop()
@@ -107,5 +127,6 @@ function self:ClientAwake()
         ToggleUI("BeeList", false)
         ToggleUI("BeeCard", false)
         ToggleUI("ShopUi", false)
+        ToggleUI("Beestiary", false)
     end, false)
 end

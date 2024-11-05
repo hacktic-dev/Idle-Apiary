@@ -33,6 +33,9 @@ sellBeeRequest = Event.new("SellBee")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
 beeCountUpdated = Event.new("BeeCountUpdated")
 
+requestSeenBees = Event.new("RequestSeenBees")
+recieveSeenBees = Event.new("RecieveSeenBees")
+
 local restartTimerRequest = Event.new("RestartTimer")
 
 local MoneyTimer = nil
@@ -104,7 +107,7 @@ local function GenerateUniqueBeeId()
     return tostring(os.time()) .. "-" .. tostring(math.random(1000, 9999))
 end
 
--- Function to initialize bee storage for a player by loading from storage
+-- Function to initialize bee storage for a player by loading frequestSeenBeesrom storage
 local function InitializeBeeStorage(player, callback)
     -- Fetch the player's bee data from storage
     Storage.GetPlayerValue(player, "BeeStorage", function(storedBees)
@@ -524,6 +527,13 @@ function self:ServerAwake()
                     return
                 end
             end
+        end)
+    end)
+
+    requestSeenBees:Connect(function(player)
+        GetSeenBeeSpeciesList(player, function(bees)
+            -- Send the retrieved bee list back to the client
+            recieveSeenBees:FireClient(player, bees)
         end)
     end)
 end

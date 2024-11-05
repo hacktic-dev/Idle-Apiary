@@ -43,7 +43,7 @@ _viewBeesButton:RegisterPressCallback(function()
 end, true, true, true)
 
 _beestiaryButton:RegisterPressCallback(function()
-    print("Button pressed")
+    UIManager.OpenBeestiary()
 end, true, true, true)
 
 -- Initialize the UI with default values for role, cash, and XP
