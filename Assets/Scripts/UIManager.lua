@@ -11,6 +11,10 @@ local PlaceApiaryObject : GameObject = nil
 local CreateOrderGuiObject : GameObject = nil
 --!SerializeField
 local BeestiaryObject : GameObject = nil
+--!SerializeField
+local TutorialObject : GameObject = nil
+--!SerializeField
+local StatsObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 
@@ -22,6 +26,8 @@ local uiMap = {
     PlaceButtons = PlaceApiaryObject,
     ShopUi = CreateOrderGuiObject,
     Beestiary = BeestiaryObject,
+    Tutorial = TutorialObject,
+    PlayerStats = StatsObject
 }
 
   -- Activate the object if it is not active
@@ -110,6 +116,12 @@ function CloseShop()
     ToggleUI("PlaceButtons", true)
 end
 
+function HideTutorial()
+    ToggleUI("PlayerStats", true)
+    ToggleUI("Tutorial", false)
+    ToggleUI("PlaceButtons", true)
+end
+
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("BeeCard", true)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowCaughtWild(species)
@@ -128,5 +140,9 @@ function self:ClientAwake()
         ToggleUI("BeeCard", false)
         ToggleUI("ShopUi", false)
         ToggleUI("Beestiary", false)
+        ToggleUI("Tutorial", true)
+        ToggleUI("PlaceButtons", false)
+        ToggleUI("PlayerStats", false)
+        TutorialObject:GetComponent(Tutorial).Init()
     end, false)
 end

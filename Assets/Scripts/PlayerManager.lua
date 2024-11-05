@@ -48,6 +48,9 @@ receiveBeeList = Event.new("ReceiveBeeList")
 
 updateBeeList = Event.new("UpdateBeeList")
 
+--!SerializeField
+local playerStatObject : GameObject = nil
+
 -- Function to initialize bee species list for a player by loading from storage
 local function InitializeSeenBeeSpecies(player, callback)
     -- Fetch the player's bee species data from storage
@@ -311,7 +314,7 @@ end
 -- Function to initialize the client-side logic
 function self:ClientAwake()
     -- Get the PlayerStatGui component from the game object to interact with the player's stat UI
-    playerStatGui = self.gameObject:GetComponent(PlayerStatGui)
+    playerStatGui = playerStatObject:GetComponent(PlayerStatGui)
 
     -- Function to handle character instantiation for a player
     function OnCharacterInstantiate(playerinfo)

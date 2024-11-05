@@ -18,14 +18,13 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/PlayerManager")]
-    [LuaRegisterType(0xfe9baceb5f86083f, typeof(LuaBehaviour))]
-    public class PlayerManager : LuaBehaviourThunk
+    [AddComponentMenu("Lua/Tutorial")]
+    [LuaRegisterType(0x47e65f4f8332798f, typeof(LuaBehaviour))]
+    public class Tutorial : LuaBehaviourThunk
     {
-        private const string s_scriptGUID = "b93c2cc49bf171445a7b2dc17cc4ef4b";
+        private const string s_scriptGUID = "a9c53b52b11d12849835e166869cb00b";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public UnityEngine.GameObject m_playerStatObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -34,7 +33,11 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
-                CreateSerializedProperty(_script.GetPropertyAt(0), m_playerStatObject),
+                CreateSerializedProperty(_script.GetPropertyAt(0), null),
+                CreateSerializedProperty(_script.GetPropertyAt(1), null),
+                CreateSerializedProperty(_script.GetPropertyAt(2), null),
+                CreateSerializedProperty(_script.GetPropertyAt(3), null),
+                CreateSerializedProperty(_script.GetPropertyAt(4), null),
             };
         }
     }
