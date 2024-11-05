@@ -93,7 +93,7 @@ function CreateQuestItem(Name, Id, Cash)
     questItem:RegisterPressCallback(function()
         -- Check if the player is a customer and has enough cash to buy the item.
 
-        if(Id ~= "Net" and playerManager.players[client.localPlayer].Bees.value > 11) then
+        if(Id ~= "Net" and playerManager.clientBeeCount > 11) then
             statusLabel.visible = true
             statusLabel:SetPrelocalizedText("You already have the maximum number of bees.")
             Timer.new(5, function() statusLabel.visible = false end, false)

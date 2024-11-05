@@ -40,6 +40,8 @@ local restartTimerRequest = Event.new("RestartTimer")
 
 local MoneyTimer = nil
 
+clientBeeCount = 0
+
 -- Event to request bee data from the server
 local requestBeeList = Event.new("RequestBeeList")
 
@@ -121,6 +123,8 @@ local function InitializeBeeStorage(player, callback)
         -- Store the player's bee data in memory
         playerBeeStorage[player] = storedBees
 
+        beeCountUpdated:FireClient(player, #playerBeeStorage[player])
+        
         -- If a callback is provided (for async operations), call it once storage is loaded
         if callback then
             callback(storedBees)
@@ -134,6 +138,8 @@ local function SaveBeeStorage(player)
         -- Save the bee storage to persistent storage
         Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
         end)
+
+        beeCountUpdated:FireClient(player, #playerBeeStorage[player])
     end
 end
 
@@ -184,7 +190,6 @@ function SellBee(beeSpecies, beeId, isAdult)
     sellBeeRequest:FireServer(beeId)
     local sellPrice = wildBeeManager.getSellPrice(beeSpecies)
     IncrementStat("Cash", sellPrice)
-    IncrementStat("Bees", -1)
 end
 
 function SetBeeAdult(id)
@@ -226,7 +231,6 @@ local function UpdateStorage(player)
     local stats = {Cash = 0, Nets = 0, Bees = 0}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
-    stats.Bees = players[player].Bees.value
 
     -- Save the stats to storage and handle any errors
     Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
@@ -242,7 +246,6 @@ local function TrackPlayers(game, characterCallback)
             player = player,
             Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
-            Bees = IntValue.new("Bees" .. tostring(player.id), 0), -- Initial work experience
         }
         
         if client == nil then
@@ -360,7 +363,6 @@ end
 
 function GiveBee(name, isCapture)
     giveBeeRequest:FireServer(name, isCapture)
-    IncrementStat("Bees", 1)
     RequestBeeList() -- Update the bee list if it's open
 end
 
@@ -376,7 +378,6 @@ local function SaveStats(player)
     local stats = {Cash = 0, Nets = 0, Bees = 0}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
-    stats.Bees = players[player].Bees.value
 end
 
 -- Function to initialize the server-side logic
@@ -396,12 +397,9 @@ function self:ServerAwake()
             -- Update the player's current networked stats from storage
             players[player].Cash.value = stats.Cash
             players[player].Nets.value = stats.Nets
-            players[player].Bees.value = stats.Bees
 
             InitializeBeeStorage(player)
             InitializeSeenBeeSpecies(player)
-
-            beeCountUpdated:FireClient(player, players[player].Bees.value)
 
             --[[
             -- Uncomment the following lines to print the player's stats to the console for debugging
@@ -423,10 +421,6 @@ function self:ServerAwake()
          --Increment the  Cash / Nets / Stat of the player by 'value' with +=
          if stat == "Cash" then players[player].Cash.value += value end
          if stat == "Nets" then players[player].Nets.value += value end
-         if stat == "Bees" then
-             players[player].Bees.value += value
-             beeCountUpdated:FireClient(player, players[player].Bees.value)
-             end
          -- Save the updated stats to storage
          SaveStats(player)
 

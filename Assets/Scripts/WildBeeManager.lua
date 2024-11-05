@@ -246,7 +246,7 @@ end
 function captureBee(bee, speciesName)
     -- Check if the player has a net available
     local netsAvailable = playerManager.players[client.localPlayer].Nets.value
-    local beeCount = playerManager.players[client.localPlayer].Bees.value
+    local beeCount = playerManager.clientBeeCount
     print("Bee count: " .. beeCount)
 
     if netsAvailable == 0 then
