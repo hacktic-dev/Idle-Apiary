@@ -9,7 +9,7 @@
 
 <hr:UILuaView class="bee-obtain-card">
    <VisualElement name="_beeCard" class="bee-card__container">
-       <hr:UILabel name="_beeLabel" class="bee-label" text="You caught a bee" />
+       <hr:UILabel name="_beeLabel" class="bee-main-label" text="You caught a bee" />
        <hr:UIImage name="_beeImage" class="bee-image" src="bee_image.png" />
        <hr:UILabel name="_rarity" class="bee-label" text="" />
        <hr:UILabel name="_honeyRateLabel" class="bee-label" text="Honey rate:" />

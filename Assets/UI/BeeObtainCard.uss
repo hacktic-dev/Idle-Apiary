@@ -3,6 +3,8 @@
     margin : 10px;
     margin-right: auto;
     margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .bee-card__container {
@@ -16,13 +18,19 @@
     overflow: scroll;
     margin-right: auto;
     color: #FFFFFF;
-    font-size: 20px;
-    bottom: -350px
+    justify-content: center;
 }
 
 .bee-label
 {
     align-self: center;
+    font-size: 16px;
+}
+
+.bee-main-label
+{
+    align-self: center;
+    font-size: 24px;
 }
 
 .bee-image
