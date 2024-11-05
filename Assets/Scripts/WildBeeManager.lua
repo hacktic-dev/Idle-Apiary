@@ -75,25 +75,25 @@ beeData = {
     ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 60, rarity = "Common", set = "Bronze Set" },
     ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
     ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
-    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
-    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
-    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 300, rarity = "Rare", set = "Bronze Set" },
+    ["Aquatic Bee"] = { honeyRate = 12, sellPrice = 100, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
+    ["Giant Bee"] = { honeyRate = 14, sellPrice = 110, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
+    ["Silver Bee"] = { honeyRate = 18, sellPrice = 180, growTime = 300, rarity = "Rare", set = "Bronze Set" },
 
     -- Silver Set - 250 Honey to Purchase
-    ["Muddy Bee"] = { honeyRate = 18, sellPrice = 250, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Frigid Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Steel Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Magma Bee"] = { honeyRate = 28, sellPrice = 360, growTime = 120, rarity = "Rare", set = "Silver Set" },
-    ["Ghostly Bee"] = { honeyRate = 30, sellPrice = 380, growTime = 120, rarity = "Rare", set = "Silver Set" },
-    ["Iridescent Bee"] = { honeyRate = 46, sellPrice = 500, growTime = 300, rarity = "Epic", set = "Silver Set" },
+    ["Muddy Bee"] = { honeyRate = 14, sellPrice = 250, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
+    ["Frigid Bee"] = { honeyRate = 16, sellPrice = 270, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
+    ["Steel Bee"] = { honeyRate = 16, sellPrice = 270, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
+    ["Magma Bee"] = { honeyRate = 24, sellPrice = 360, growTime = 120, rarity = "Rare", set = "Silver Set" },
+    ["Ghostly Bee"] = { honeyRate = 24, sellPrice = 380, growTime = 120, rarity = "Rare", set = "Silver Set" },
+    ["Iridescent Bee"] = { honeyRate = 30, sellPrice = 500, growTime = 300, rarity = "Epic", set = "Silver Set" },
 
     -- Gold Set - 1250 Honey to Purchase
-    ["Sandy Bee"] = { honeyRate = 36, sellPrice = 1250, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Autumnal Bee"] = { honeyRate = 38, sellPrice = 1300, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Petal Bee"] = { honeyRate = 40, sellPrice = 1300, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Galactic Bee"] = { honeyRate = 56, sellPrice = 1500, growTime = 120, rarity = "Epic", set = "Gold Set" },
-    ["Radiant Bee"] = { honeyRate = 58, sellPrice = 1500, growTime = 120, rarity = "Epic", set = "Gold Set" },
-    ["Rainbow Bee"] = { honeyRate = 70, sellPrice = 2000, growTime = 300, rarity = "Legendary", set = "Gold Set" }
+    ["Sandy Bee"] = { honeyRate = 26, sellPrice = 1250, growTime = 60, rarity = "Rare", set = "Gold Set" },
+    ["Autumnal Bee"] = { honeyRate = 28, sellPrice = 1300, growTime = 60, rarity = "Rare", set = "Gold Set" },
+    ["Petal Bee"] = { honeyRate = 28, sellPrice = 1300, growTime = 60, rarity = "Rare", set = "Gold Set" },
+    ["Galactic Bee"] = { honeyRate = 34, sellPrice = 1500, growTime = 120, rarity = "Epic", set = "Gold Set" },
+    ["Radiant Bee"] = { honeyRate = 38, sellPrice = 1500, growTime = 120, rarity = "Epic", set = "Gold Set" },
+    ["Rainbow Bee"] = { honeyRate = 50, sellPrice = 2000, growTime = 300, rarity = "Legendary", set = "Gold Set" }
 }
 
 
