@@ -52,19 +52,19 @@ local beeSpecies = {
     { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 28 },
 
     -- Silver Set
-    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 44 },
-    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 40 },
-    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 40 },
-    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 18 },
-    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 16 },
-    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 8 },
+    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 38 },
+    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 36 },
+    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 36 },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 14 },
+    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 12 },
+    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 6 },
 
     -- Gold Set
-    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 12 },
-    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 10 },
-    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 10 },
-    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 6 },
-    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 4 },
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 10 },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 8 },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 8 },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 5 },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 3 },
     { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor = 2 }
 }
 
