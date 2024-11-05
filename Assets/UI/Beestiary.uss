@@ -283,3 +283,27 @@
   width: 37px;
   height: 37px;
 }
+
+.bee-card__container {
+    display: flex;
+    flex-shrink: 1;
+    max-width: none;
+    width: 350px;
+    height: 250px;
+    background-color: rgba(0,0,0,.45);
+    border-radius: 10px;
+    overflow: scroll;
+    color: #FFFFFF;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    justify-content: center;
+}
+
+.bee-label
+{
+    align-self: center;
+    font-size: 30px;
+    color: white;
+}

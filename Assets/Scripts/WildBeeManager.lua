@@ -55,45 +55,45 @@ local beeSpecies = {
     { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 44 },
     { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 40 },
     { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 40 },
-    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 20 },
-    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 18 },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 18 },
+    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 16 },
     { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 8 },
 
     -- Gold Set
-    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 14 },
-    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 12 },
-    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 12 },
-    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 8 },
-    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 6 },
-    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor = 3 }
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 12 },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 10 },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 10 },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 6 },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 4 },
+    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor = 2 }
 }
 
 
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
 beeData = {
     -- Bronze Set - 50 Honey to Purchase
-    ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 60, rarity = "Common" },
-    ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common" },
-    ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common" },
-    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 120, rarity = "Uncommon" },
-    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 120, rarity = "Uncommon" },
-    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 300, rarity = "Rare" },
+    ["Common Bee"] = { honeyRate = 6, sellPrice = 50, growTime = 60, rarity = "Common", set = "Bronze Set" },
+    ["Stone Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
+    ["Forest Bee"] = { honeyRate = 8, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
+    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 100, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
+    ["Giant Bee"] = { honeyRate = 16, sellPrice = 110, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
+    ["Silver Bee"] = { honeyRate = 22, sellPrice = 180, growTime = 300, rarity = "Rare", set = "Bronze Set" },
 
     -- Silver Set - 250 Honey to Purchase
-    ["Muddy Bee"] = { honeyRate = 18, sellPrice = 250, growTime = 60, rarity = "Uncommon" },
-    ["Frigid Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon" },
-    ["Steel Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon" },
-    ["Magma Bee"] = { honeyRate = 28, sellPrice = 360, growTime = 120, rarity = "Rare" },
-    ["Ghostly Bee"] = { honeyRate = 30, sellPrice = 380, growTime = 120, rarity = "Rare" },
-    ["Iridescent Bee"] = { honeyRate = 46, sellPrice = 500, growTime = 300, rarity = "Epic" },
+    ["Muddy Bee"] = { honeyRate = 18, sellPrice = 250, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
+    ["Frigid Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
+    ["Steel Bee"] = { honeyRate = 20, sellPrice = 270, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
+    ["Magma Bee"] = { honeyRate = 28, sellPrice = 360, growTime = 120, rarity = "Rare", set = "Silver Set" },
+    ["Ghostly Bee"] = { honeyRate = 30, sellPrice = 380, growTime = 120, rarity = "Rare", set = "Silver Set" },
+    ["Iridescent Bee"] = { honeyRate = 46, sellPrice = 500, growTime = 300, rarity = "Epic", set = "Silver Set" },
 
     -- Gold Set - 1250 Honey to Purchase
-    ["Sandy Bee"] = { honeyRate = 36, sellPrice = 1250, growTime = 60, rarity = "Rare" },
-    ["Autumnal Bee"] = { honeyRate = 38, sellPrice = 1300, growTime = 60, rarity = "Rare" },
-    ["Petal Bee"] = { honeyRate = 40, sellPrice = 1300, growTime = 60, rarity = "Rare" },
-    ["Galactic Bee"] = { honeyRate = 56, sellPrice = 1500, growTime = 120, rarity = "Epic" },
-    ["Radiant Bee"] = { honeyRate = 58, sellPrice = 1500, growTime = 120, rarity = "Epic" },
-    ["Rainbow Bee"] = { honeyRate = 70, sellPrice = 2000, growTime = 300, rarity = "Legendary" }
+    ["Sandy Bee"] = { honeyRate = 36, sellPrice = 1250, growTime = 60, rarity = "Rare", set = "Gold Set" },
+    ["Autumnal Bee"] = { honeyRate = 38, sellPrice = 1300, growTime = 60, rarity = "Rare", set = "Gold Set" },
+    ["Petal Bee"] = { honeyRate = 40, sellPrice = 1300, growTime = 60, rarity = "Rare", set = "Gold Set" },
+    ["Galactic Bee"] = { honeyRate = 56, sellPrice = 1500, growTime = 120, rarity = "Epic", set = "Gold Set" },
+    ["Radiant Bee"] = { honeyRate = 58, sellPrice = 1500, growTime = 120, rarity = "Epic", set = "Gold Set" },
+    ["Rainbow Bee"] = { honeyRate = 70, sellPrice = 2000, growTime = 300, rarity = "Legendary", set = "Gold Set" }
 }
 
 
@@ -111,6 +111,16 @@ notifyCaptureSucceeded = Event.new("NotifyCaptureSucceeded")
 
 -- Table to track spawned wild bees
 wildBees = {}
+
+function getSet(speciesName)
+    local species = beeData[speciesName]
+    if species then
+        return species.set
+    else
+        print("Species not found: " .. speciesName)
+        return nil
+    end
+end
 
 -- Function to get honey generation rate based on species name
 function getHoneyRate(speciesName)
