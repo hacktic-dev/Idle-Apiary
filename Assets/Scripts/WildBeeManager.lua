@@ -101,7 +101,7 @@ local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
 local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee
 local MAX_SPAWN_DISTANCE = 125 -- Maximum distance from player to spawn a bee
 local DESPAWN_DISTANCE = 130 -- Distance beyond which the bee despawns
-local MAX_BEES = 24 -- Maximum number of bees allowed
+local MAX_BEES = 20 -- Maximum number of bees allowed
 
 local beeSpawnInterval = 0.1 -- Time in seconds between bee spawn attempts
 
