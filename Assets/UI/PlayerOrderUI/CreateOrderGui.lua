@@ -104,6 +104,7 @@ function CreateQuestItem(Name, Id, Cash)
         if playerManager.GetPlayerCash() >= Cash then
             
             playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
+            audioManager.PlaySound("purchaseSound", 1)
 
             -- Give player a net if that's what they bought
             if Id == "Net" then
@@ -114,7 +115,6 @@ function CreateQuestItem(Name, Id, Cash)
             local bee = GenerateBee(Id)
             playerManager.notifyBeePurchased:Fire(bee)
             playerManager.GiveBee(bee, false)
-            audioManager.PlaySound("purchaseSound", 1)
         else
             statusLabel.visible = true
             statusLabel:SetPrelocalizedText("You don't have enough honey.")
