@@ -17,6 +17,7 @@ local count = 0;
 local playerManager = require("PlayerManager") -- Accesses player management functions.
 local wildBeeManager = require("WildBeeManager")
 local UIManager = require("UIManager")
+local audioManager = require("AudioManager")
 
 -- Table to store each bee's UI element by beeId
 local beeItems = {}
@@ -95,6 +96,7 @@ function SellBee(species, id, isAdult)
         -- Optionally, remove the bee item from the table
         beeItems[id] = nil
 
+        audioManager.PlaySound("purchaseSound", 1)
         playerManager.SellBee(species, id, isAdult)
         count = count-1
         beeCountLabel:SetPrelocalizedText(count .. "/12", true)

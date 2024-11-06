@@ -16,6 +16,7 @@ local BeeListObject : GameObject = nil
 local orderManager = require("OrderManager") -- Accesses order management functions.
 local playerManager = require("PlayerManager") -- Accesses player management functions.
 local UIManager = require("UIManager") -- Accesses player management functions.
+local audioManager = require("AudioManager")
 
 function GenerateBee(setId)
     local number = math.random(1, 20)
@@ -113,6 +114,7 @@ function CreateQuestItem(Name, Id, Cash)
             local bee = GenerateBee(Id)
             playerManager.notifyBeePurchased:Fire(bee)
             playerManager.GiveBee(bee, false)
+            audioManager.PlaySound("purchaseSound", 1)
         else
             statusLabel.visible = true
             statusLabel:SetPrelocalizedText("You don't have enough honey.")

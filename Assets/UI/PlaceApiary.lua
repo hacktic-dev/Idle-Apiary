@@ -13,6 +13,7 @@ local hasPlacedApiary = false
 local _CaptureButton : UIButton = nil
 
 local wildBeeManager = require("WildBeeManager")
+local audioManager = require("AudioManager")
 
 -- Table to store the current UI state (whether the button is visible)
 local captureUIVisible = true
@@ -49,6 +50,7 @@ ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()
     _statusLabel:SetPrelocalizedText("")
     _statusLabel.visible = false
     _placeApiaryButton.visible = false
+    audioManager.PlaySound("placeSound", 1)
 end)
 
 wildBeeManager.notifyCaptureFailed:Connect(function(reason)

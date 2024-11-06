@@ -17,8 +17,8 @@ local TutorialObject : GameObject = nil
 local StatsObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
-
 local playerManager = require("PlayerManager")
+local audioManager = require("AudioManager")
 
 local uiMap = {
     BeeList = BeeListObject,
@@ -126,6 +126,7 @@ wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlaceButtons", false)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowCaughtWild(species)
+    audioManager.PlaySound("captureSound", 1)
     Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) end, false)
 end))
 
