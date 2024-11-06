@@ -45,12 +45,11 @@ ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
         why = " You are too close to another players apiary."
     end
     statusObject:GetComponent("PlaceApiaryStatus").SetStatus("Apiary cannot not be placed here." .. why)
-    Timer.new(5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+    Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
 
 ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()
-    _statusLabel:SetPrelocalizedText("")
-    _statusLabel.visible = false
+    UIManager.ToggleUI("PlaceStatus", false)
     _placeApiaryButton.visible = false
     audioManager.PlaySound("placeSound", 1)
 end)
@@ -64,7 +63,7 @@ wildBeeManager.notifyCaptureFailed:Connect(function(reason)
     end
     statusObject:GetComponent("PlaceApiaryStatus").SetStatus(why)
     UIManager.ToggleUI("PlaceStatus", true)
-    Timer.new(5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+    Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
 
 -- Register a callback for when the button is pressed

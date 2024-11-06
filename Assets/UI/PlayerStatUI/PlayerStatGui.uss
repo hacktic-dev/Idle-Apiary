@@ -4,7 +4,7 @@
   left: 0;
   flex-direction: column;
   width: 165px;
-  max-width: 20%;
+  max-width: 26%;
 }
 
 .container {
@@ -37,8 +37,8 @@
 }
 
 .number {
-
-  margin-top: 5px;
+  color: #fff;
+  margin-top: 8px;
   -unity-font-style: bold;
   /*
   -unity-text-outline-width: 2px;
@@ -50,6 +50,7 @@
   margin-top: 10px;
   -unity-text-align: middle-center;
   white-space: normal;
+  color: #fff
 }
 
 .landscape .button {

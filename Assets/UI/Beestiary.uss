@@ -34,12 +34,12 @@
 
 .beestiary {
     margin-top : 0px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     margin-right: auto;
     margin-left: auto;
-    min-height: 400px;
-    height: 85%;
-    max-height: 1000px
+    min-height: 500px;
+    height: 98%;
+    max-height: 1000px;
 }
 
 .title {

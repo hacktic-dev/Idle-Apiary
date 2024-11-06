@@ -10,10 +10,10 @@
     min-height: 350px; /* Minimum height */
     min-width: 350px; /* Minimum width */
 
-    width: 30%;
+    width: 35%;
 
     max-height: 660px; /* Maximum height */
-    max-width: 2000px; /* Maximum width */
+    max-width: 1000px; /* Maximum width */
 
     background-color: rgba(0,0,0,.45);
     border-radius: 10px;
@@ -67,6 +67,7 @@
     color: white;
     font-size: 16px;
     margin-top: 10px;
+    min-width: 150px;
     width: 20%;
     align-self: center;
     margin-bottom: auto;
