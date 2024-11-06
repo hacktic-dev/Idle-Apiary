@@ -134,7 +134,7 @@ playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("ShopUi", false)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowRecieved(species)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("Shop", true) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("Shop", true) ToggleUI("PlaceButtons", true) end, false)
 end))
 
 function self:ClientAwake()
