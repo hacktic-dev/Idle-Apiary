@@ -7,9 +7,6 @@
     xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
 >
     <hr:UILuaView class="combined-ui">
-        <!-- Apiary UI Section -->
-        <hr:UILabel class="apiary-ui__status" name="_statusLabel" picking-mode="Ignore" text="Press the button to place an apiary." />
-
         <!-- Vertical Container for Buttons -->
         <VisualElement class="buttons-container">
             <VisualElement class="apiary-ui__buttons">

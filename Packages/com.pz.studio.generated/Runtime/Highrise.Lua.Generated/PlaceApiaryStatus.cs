@@ -18,14 +18,13 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/PlaceApiary")]
-    [LuaRegisterType(0x9a184e97b09695fa, typeof(LuaBehaviour))]
-    public class PlaceApiary : LuaBehaviourThunk
+    [AddComponentMenu("Lua/PlaceApiaryStatus")]
+    [LuaRegisterType(0xe296bc2450435a24, typeof(LuaBehaviour))]
+    public class PlaceApiaryStatus : LuaBehaviourThunk
     {
-        private const string s_scriptGUID = "8b1cf7926a94d824d92a75aece9f03a5";
+        private const string s_scriptGUID = "b3d1c886ee49c354fb28cdb5798245e7";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public UnityEngine.GameObject m_statusObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -35,8 +34,6 @@ namespace Highrise.Lua.Generated
             return new SerializedPropertyValue[]
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), null),
-                CreateSerializedProperty(_script.GetPropertyAt(1), m_statusObject),
-                CreateSerializedProperty(_script.GetPropertyAt(2), null),
             };
         }
     }

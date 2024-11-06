@@ -1,0 +1,18 @@
+.place-apiary-status {
+    width: 100%;
+}
+
+/* Apiary UI Styles */
+.apiary-ui__status {
+    position: absolute;
+    align-self: center;
+    top: 100px; /* Adjust this value for positioning */
+    font-size: 24px;
+    white-space: normal;
+    width: 100%;
+    margin-top: 150px;
+    flex-wrap: wrap;
+    color: #fff;
+    -unity-text-align: middle-center;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}

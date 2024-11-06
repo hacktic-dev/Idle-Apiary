@@ -3,7 +3,10 @@
   top: 0;
   left: 0;
   flex-direction: column;
+  width: 165px;
+  max-width: 20%;
 }
+
 .container {
   padding: 8px;
   display: flex;
@@ -13,16 +16,29 @@
   margin-left: 10px;
   background-color: rgba(0,0,0,.5);
   border-radius: 10px;
+  max-height: 13%;
+  width: 100%;
+  height: 100px;
 }
 
 .icon {
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
   margin-right: 10px;
 }
 
+.landscape .number {
+    font-size: 24px;
+}
+
+.portrait .number {
+    font-size: 14px;
+}
+
 .number {
-  font-size: 36px;
+
+  margin-top: 5px;
   -unity-font-style: bold;
   /*
   -unity-text-outline-width: 2px;
@@ -31,19 +47,27 @@
 }
 
 .buttonLabel {
-  font-size: 24px;
-  /*
-  -unity-text-outline-width: 2px;
-  -unity-text-outline-color: white;
-  */
+  margin-top: 10px;
+  -unity-text-align: middle-center;
+  white-space: normal;
+}
+
+.landscape .button {
+    font-size: 24px;
+}
+
+.portrait .button {
+    font-size: 14px;
 }
 
 .button {
-  width: 150px;
-  height: 74px;
+  width: 100%;
+  height: 100px;
+  max-height: 13%;
   margin-left: 10px;
   margin-bottom: 10px;
   background-color: rgba(0,0,0,.5);
+  -unity-text-align: middle-center;
 }
 
 .button:hover {

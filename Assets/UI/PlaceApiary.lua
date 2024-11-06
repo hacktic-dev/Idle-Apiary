@@ -1,19 +1,21 @@
 --!Type(UI)
 
 --!Bind
-local _statusLabel : UILabel = nil
---!Bind
 local _placeApiaryButton : UIButton = nil
 
 local ApiaryManager = require("ApiaryManager")
 
 local hasPlacedApiary = false
 
+--!SerializeField
+local statusObject : GameObject = nil
+
 --!Bind
 local _CaptureButton : UIButton = nil
 
 local wildBeeManager = require("WildBeeManager")
 local audioManager = require("AudioManager")
+local UIManager = require("UIManager")
 
 -- Table to store the current UI state (whether the button is visible)
 local captureUIVisible = true
@@ -33,7 +35,7 @@ local function placeApiary()
 end
 
 ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
-    _statusLabel.visible = true
+    UIManager.ToggleUI("PlaceStatus", true)
     local why = ""
     if reason == 1 then
         why = " You are too close to the border fence."
@@ -42,8 +44,8 @@ ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
     elseif reason == 3 then
         why = " You are too close to another players apiary."
     end
-    _statusLabel:SetPrelocalizedText("Apiary cannot not be placed here." .. why)
-    Timer.new(5, function() _statusLabel.visible = false end, false)
+    statusObject:GetComponent("PlaceApiaryStatus").SetStatus("Apiary cannot not be placed here." .. why)
+    Timer.new(5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
 
 ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()
@@ -60,19 +62,15 @@ wildBeeManager.notifyCaptureFailed:Connect(function(reason)
     elseif reason == 2 then
         why = "You already have the maximum number of bees."
     end
-    _statusLabel:SetPrelocalizedText(why)
-    _statusLabel.visible = true
-    Timer.new(5, function() _statusLabel.visible = false end, false)
+    statusObject:GetComponent("PlaceApiaryStatus").SetStatus(why)
+    UIManager.ToggleUI("PlaceStatus", true)
+    Timer.new(5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
 
 -- Register a callback for when the button is pressed
 _placeApiaryButton:RegisterPressCallback(function()
     placeApiary() -- Call the function to place an apiary
 end, true, true, true)
-
-function self:ClientAwake()
-    _statusLabel.visible = false
-end
 
 -- Function to show the Capture Button
 local function showCaptureButton()
