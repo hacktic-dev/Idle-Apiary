@@ -4,7 +4,7 @@
     margin-bottom: auto;
     flex-direction: row;
     position: absolute;
-    bottom: 125px;
+    bottom: 112px;
     height: 10%;
 }
 
