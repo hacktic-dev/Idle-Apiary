@@ -107,6 +107,7 @@ function OpenShop()
     ToggleUI("Beestiary", false)
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", true)
+    HideButtons()
     ToggleUI("PlaceButtons", false)
     --ToggleUI("PlayerStats", false)
     CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
@@ -122,6 +123,14 @@ function OpenBeestiary()
     BeestiaryObject:GetComponent(Beestiary).Init()
 end
 
+function HideButtons()
+    StatsObject:GetComponent(PlayerStatGui).HideButtons()
+end
+
+function ShowButtons()
+    StatsObject:GetComponent(PlayerStatGui).ShowButtons()
+end
+
 function CloseBeestiary()
     if not IsActive("Beestiary") then
         return
@@ -135,6 +144,7 @@ function CloseShop()
     if not IsActive("ShopUi") then
         return
     end
+    ShowButtons()
     ToggleUI("ShopUi", false)
     --ToggleUI("PlayerStats", true)
     ToggleUI("PlaceButtons", true)
@@ -175,7 +185,7 @@ playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("PlayerStats", false)
     ToggleUI("ShopUi", false)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowRecieved(species)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) ToggleUI("PlayerStats", true) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end, false)
 end))
 
 function self:ClientAwake()

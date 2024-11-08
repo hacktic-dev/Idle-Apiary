@@ -4,7 +4,7 @@
     position: absolute;
     margin-top: auto;
     margin-bottom: auto;
-    bottom: 36%;
+    bottom: 35%;
     width: 100%;
 }
 

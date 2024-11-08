@@ -4,7 +4,7 @@
     margin-bottom: auto;
     flex-direction: row;
     position: absolute;
-    bottom: 115px;
+    bottom: 125px;
     height: 10%;
 }
 
@@ -12,7 +12,7 @@
 .apiary-ui__status {
     position: absolute;
     align-self: center;
-    font-size: 24px;
+    font-size: 20px;
     white-space: normal;
     width: 100%;
     flex-wrap: wrap;

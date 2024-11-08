@@ -79,3 +79,17 @@ function self:ClientAwake()
     end
     end)
 end
+
+function ShowButtons()
+    _viewTutorialButton.visible = true
+    _openShopButton.visible = true
+    _beestiaryButton.visible = true
+    _viewBeesButton.visible = true
+end
+
+function HideButtons(boolean : isVisible)
+    _viewTutorialButton.visible = false
+    _openShopButton.visible = false
+    _beestiaryButton.visible = false
+    _viewBeesButton.visible = false
+end
