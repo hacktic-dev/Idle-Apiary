@@ -2,9 +2,8 @@
     margin: 10px;
     margin-right: auto;
     margin-left: auto;
-    width: 40%;
-    max-width: 100%;
-    min-width: 360px;
+    width: 700px;
+    max-width: 90%;
 }
 
 .bee-item {

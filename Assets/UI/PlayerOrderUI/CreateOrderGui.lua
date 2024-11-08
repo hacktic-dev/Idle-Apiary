@@ -7,8 +7,8 @@ local Orders_Root : UIScrollView = nil -- Reference to the root UI element for o
 local closeButton : UIButton = nil -- Reference to the button for closing the UI.
 --!Bind
 local closeLabel : UILabel = nil -- Reference to the label for the close button.
---!Bind
-local statusLabel : UILabel = nil -- Reference to status label.
+--!SerializeField
+local statusObject : GameObject = nil
 
 --!SerializeField
 local BeeListObject : GameObject = nil
@@ -95,9 +95,9 @@ function CreateQuestItem(Name, Id, Cash)
         -- Check if the player is a customer and has enough cash to buy the item.
 
         if(Id ~= "Net" and playerManager.clientBeeCount > 11) then
-            statusLabel.visible = true
-            statusLabel:SetPrelocalizedText("You already have the maximum number of bees.")
-            Timer.new(5, function() statusLabel.visible = false end, false)
+            UIManager.ToggleUI("PlaceStatus", true)
+            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
+            Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
             return
         end
 
@@ -116,9 +116,9 @@ function CreateQuestItem(Name, Id, Cash)
             playerManager.notifyBeePurchased:Fire(bee)
             playerManager.GiveBee(bee, false)
         else
-            statusLabel.visible = true
-            statusLabel:SetPrelocalizedText("You don't have enough honey.")
-            Timer.new(5, function() statusLabel.visible = false end, false)
+            UIManager.ToggleUI("PlaceStatus", true)
+            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
+            Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
         end
     end, true, true, true)
 
@@ -130,7 +130,6 @@ end
 
 -- Called when the UI object this script is attached to is initialized.
 function Init()
-    statusLabel.visible = false
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
     
     -- Add a callback to the close button to hide the UI when pressed.

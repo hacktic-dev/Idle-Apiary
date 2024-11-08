@@ -62,6 +62,10 @@ function ToggleAll(visible: boolean, except)
     end
 end
 
+function IsActive(ui : string)
+    return uiMap[ui].activeSelf
+end
+
 --- Toggles the visibility of a specific UI component
 function ToggleUI(ui: string, visible: boolean)
     local uiComponent = uiMap[ui]
@@ -71,8 +75,10 @@ function ToggleUI(ui: string, visible: boolean)
     end
 
     if visible then
+       print("[ToggleUI] UI component activated " .. ui)
        ActivateObject(uiComponent)
     else
+        print("[ToggleUI] UI component deactivated " .. ui)
        DeactivateObject(uiComponent)
     end
 end
@@ -88,6 +94,9 @@ function OpenBeeList()
 end
 
 function CloseBeeList()
+    if not IsActive("BeeList") then
+        return
+    end
     ToggleUI("BeeList", false)
     ToggleUI("PlaceButtons", true)
     ToggleUI("PlayerStats", true)
@@ -99,7 +108,7 @@ function OpenShop()
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", true)
     ToggleUI("PlaceButtons", false)
-    ToggleUI("PlayerStats", false)
+    --ToggleUI("PlayerStats", false)
     CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
 end
 
@@ -114,48 +123,63 @@ function OpenBeestiary()
 end
 
 function CloseBeestiary()
+    if not IsActive("Beestiary") then
+        return
+    end
     ToggleUI("Beestiary", false)
     ToggleUI("PlayerStats", true)
     ToggleUI("PlaceButtons", true)
 end
 
 function CloseShop()
+    if not IsActive("ShopUi") then
+        return
+    end
     ToggleUI("ShopUi", false)
-    ToggleUI("PlayerStats", true)
+    --ToggleUI("PlayerStats", true)
     ToggleUI("PlaceButtons", true)
 end
 
 function HideTutorial()
+    if not IsActive("Tutorial") then
+        return
+    end
     ToggleUI("PlayerStats", true)
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceButtons", true)
 end
 
+function OpenTutorial()
+    ToggleUI("BeeList", false)
+    ToggleUI("BeeCard", false)
+    ToggleUI("ShopUi", false)
+    ToggleUI("Beestiary", false)
+    ToggleUI("Tutorial", true)
+    ToggleUI("PlaceButtons", false)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("PlaceStatus", false)
+    TutorialObject:GetComponent(Tutorial).Init()
+end
+
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlaceButtons", false)
+    ToggleUI("PlayerStats", false)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowCaughtWild(species)
     audioManager.PlaySound("captureSound", 1)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) end, false)
 end))
 
 playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("BeeCard", true)
+    ToggleUI("PlayerStats", false)
     ToggleUI("ShopUi", false)
     BeeObtainCardObject:GetComponent(BeeObtainCard).ShowRecieved(species)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("Shop", true) ToggleUI("PlaceButtons", true) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) ToggleUI("PlayerStats", true) end, false)
 end))
 
 function self:ClientAwake()
     Timer.new(.1, function() 
-        ToggleUI("BeeList", false)
-        ToggleUI("BeeCard", false)
-        ToggleUI("ShopUi", false)
-        ToggleUI("Beestiary", false)
-        ToggleUI("Tutorial", true)
-        ToggleUI("PlaceButtons", false)
-        ToggleUI("PlayerStats", false)
-        ToggleUI("PlaceStatus", false)
-        TutorialObject:GetComponent(Tutorial).Init()
+        OpenTutorial()
     end, false)
 end

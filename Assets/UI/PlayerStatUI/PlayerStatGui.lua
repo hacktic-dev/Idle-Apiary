@@ -14,6 +14,12 @@ local _viewBeesButton : UIButton = nil
 --!Bind
 local _beestiaryButton : UIButton = nil
 
+--!Bind
+local _openShopButton : UIButton = nil
+
+--!Bind
+local _viewTutorialButton : UIButton = nil
+
 --!SerializeField
 local BeeListObject : GameObject = nil
 
@@ -44,6 +50,14 @@ end, true, true, true)
 
 _beestiaryButton:RegisterPressCallback(function()
     UIManager.OpenBeestiary()
+end, true, true, true)
+
+_openShopButton:RegisterPressCallback(function()
+    UIManager.OpenShop()
+end, true, true, true)
+
+_viewTutorialButton:RegisterPressCallback(function()
+    UIManager.OpenTutorial()
 end, true, true, true)
 
 -- Initialize the UI with default values for role, cash, and XP

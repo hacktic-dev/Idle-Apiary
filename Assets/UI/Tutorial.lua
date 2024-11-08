@@ -19,8 +19,12 @@ local playerManager = require("PlayerManager")
 function Init()
     page = 0
     closeLabel:SetPrelocalizedText("Next")
-    _tutorial1:SetPrelocalizedText("Welcome to Idle Apiary!\n\nTo get started, talk to the shopkeeper and buy your first bee from the bronze set, then find a good spot and place down your apiary to start generating honey.")
+    _tutorial1:SetPrelocalizedText("Welcome to Idle Apiary!\n\nTo get started, open the shop and buy your first bee from the bronze set, then find a good spot and place down your apiary to start generating honey.")
+    _tutorialImage:RemoveFromClassList("bee-image")
     _tutorialImage:AddToClassList("shopkeeper-image")
+end
+
+function self:ClientAwake()
 
     closeButton:RegisterPressCallback(function()
         if page == 0 then
