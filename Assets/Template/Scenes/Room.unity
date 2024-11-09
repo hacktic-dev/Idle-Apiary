@@ -31885,12 +31885,17 @@ PrefabInstance:
     - target: {fileID: 3551931345751937580, guid: 4db44322431f6d6439fa69e352e81b67,
         type: 3}
       propertyPath: m_zoom
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3551931345751937580, guid: 4db44322431f6d6439fa69e352e81b67,
         type: 3}
       propertyPath: m_zoomMax
-      value: 35
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3551931345751937580, guid: 4db44322431f6d6439fa69e352e81b67,
+        type: 3}
+      propertyPath: m_zoomMin
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3551931345751937580, guid: 4db44322431f6d6439fa69e352e81b67,
         type: 3}
