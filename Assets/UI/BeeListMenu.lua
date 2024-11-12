@@ -99,7 +99,7 @@ function SellBee(species, id, isAdult)
         audioManager.PlaySound("purchaseSound", 1)
         playerManager.SellBee(species, id, isAdult)
         count = count-1
-        beeCountLabel:SetPrelocalizedText(count .. "/12", true)
+        beeCountLabel:SetPrelocalizedText(count .. "/" .. playerManager.GetPlayerBeeCapacity(), true)
     else
         print("Bee item with id " .. id .. " not found.")
     end
@@ -113,7 +113,7 @@ function PopulateBeeList(bees)
         CreateBeeItem(bee) -- Create and add each bee item to the UI
     end
     count = #bees
-    beeCountLabel:SetPrelocalizedText(count .. "/12", true)
+    beeCountLabel:SetPrelocalizedText(count .. "/" .. playerManager.GetPlayerBeeCapacity(), true)
 end
 
 -- Called when the UI object this script is attached to is initialized.

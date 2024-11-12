@@ -253,7 +253,7 @@ function captureBee(bee, speciesName)
         print("No nets available for player: " .. client.localPlayer.name)
         notifyCaptureFailed:Fire(1)
         return
-    elseif beeCount > 11 then
+    elseif beeCount + 1 > playerManager.GetPlayerBeeCapacity() then
         print("Max bees owned: " .. client.localPlayer.name)
         notifyCaptureFailed:Fire(2)
         return

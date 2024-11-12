@@ -39,9 +39,13 @@ _cosmeticsTab:RegisterPressCallback(function()
 local success = ButtonPressed("cosmetics")
 end, true, true, true)
 
-local function InitUpgradesTab()
+function InitUpgradesTab(capacity)
     Orders_Root:Clear()
     CreateQuestItem("Bee Net", "Net", 100)
+
+    if capacity < 20 then
+        CreateQuestItem("Upgrade Bee Capacity to " .. capacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(capacity + 1))
+    end
 end
 
 local function InitBeesTab()
@@ -59,7 +63,7 @@ function ButtonPressed(btn: string)
       _upgradesTab:RemoveFromClassList("nav-button--deselected")
       _beesTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
-      InitUpgradesTab()
+      InitUpgradesTab(playerManager.GetPlayerBeeCapacity())
       --audioManager.PlaySound("paperSound1", 1)
       return true
     elseif btn == "bees" then
@@ -84,6 +88,29 @@ function ButtonPressed(btn: string)
     end
   end
   
+function LookupBeeCapacityUpgradePrice(capacity)
+    if capacity == 11 then
+        return 200
+    elseif capacity == 12 then
+        return 500
+    elseif capacity == 13 then
+        return 1000
+    elseif capacity == 14 then
+        return 2000
+    elseif capacity == 15 then
+        return 5000
+    elseif capacity == 16 then
+        return 8000
+    elseif capacity == 17 then
+        return 10000
+    elseif capacity == 18 then
+        return 15000
+    elseif capacity == 19 then
+        return 25000
+    elseif capacity == 20 then
+        return 50000
+    end
+end
 
 function GenerateBee(setId)
     local number = math.random(1, 20)
@@ -161,7 +188,7 @@ function CreateQuestItem(Name, Id, Cash)
     questItem:RegisterPressCallback(function()
         -- Check if the player is a customer and has enough cash to buy the item.
 
-        if(Id ~= "Net" and playerManager.clientBeeCount > 11) then
+        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
@@ -176,6 +203,10 @@ function CreateQuestItem(Name, Id, Cash)
             -- Give player a net if that's what they bought
             if Id == "Net" then
                 playerManager.IncrementStat("Nets", 1)
+                return
+            elseif Id == "BeeCapacity" then
+                InitUpgradesTab(playerManager.GetPlayerBeeCapacity() + 1)
+                playerManager.IncrementStat("BeeCapacity", 1)
                 return
             end
             
@@ -198,7 +229,8 @@ end
 -- Called when the UI object this script is attached to is initialized.
 function Init()
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
-    InitUpgradesTab()
+    ButtonPressed("upgrades")
+    InitUpgradesTab(playerManager.GetPlayerBeeCapacity())
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
         UIManager.CloseShop()

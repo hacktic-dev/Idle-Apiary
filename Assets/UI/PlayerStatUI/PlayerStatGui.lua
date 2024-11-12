@@ -94,6 +94,7 @@ function self:ClientAwake()
 
  playerManager.beeCountUpdated:Connect(function(count)
     playerManager.clientBeeCount = count
+    print("Bee count: " .. count)
     if count > 0 then
         _viewBeesButton:EnableInClassList("hidden", false)
     else
