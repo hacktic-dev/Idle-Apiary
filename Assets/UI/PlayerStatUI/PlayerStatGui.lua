@@ -20,6 +20,9 @@ local _openShopButton : UIButton = nil
 --!Bind
 local _viewTutorialButton : UIButton = nil
 
+--!Bind
+local _hamburgerButton : UIButton = nil
+
 --!SerializeField
 local BeeListObject : GameObject = nil
 
@@ -30,6 +33,8 @@ local ShopObject : GameObject = nil
 -- Importing the PlayerManager module to handle player-related functionalities
 local playerManager = require("PlayerManager")
 local UIManager = require("UIManager")
+
+local useHamburger = false
 
 -- Function to set the cash count on the UI
 function SetCashUI(cash)
@@ -60,11 +65,29 @@ _viewTutorialButton:RegisterPressCallback(function()
     UIManager.OpenTutorial()
 end, true, true, true)
 
+_hamburgerButton:RegisterPressCallback(function()
+    OpenMenu()
+end, true, true, true)
+
+
 -- Initialize the UI with default values for role, cash, and XP
 SetCashUI(100)
 SetNetsUI(0)
 
 function self:ClientAwake()
+
+    _viewTutorialButton:AddToClassList("hide")
+    _viewTutorialButton:AddToClassList("hide")
+    _viewTutorialButton:AddToClassList("hide")
+    _viewTutorialButton:AddToClassList("hide")
+    _hamburgerButton:AddToClassList("hide")
+
+    if Screen.height > Screen.width then
+        useHamburger = true
+    end
+
+    ShowMenu()
+
  playerManager.receiveBeeList:Connect(function(bees)
     BeeListObject:GetComponent(BeeListMenu).PopulateBeeList(bees)
  end)
@@ -80,11 +103,28 @@ function self:ClientAwake()
     end)
 end
 
+function OpenMenu()
+    _viewTutorialButton:EnableInClassList("hide", false)
+    _openShopButton:EnableInClassList("hide", false)
+    _beestiaryButton:EnableInClassList("hide", false)
+    _viewBeesButton:EnableInClassList("hide", false)
+    _hamburgerButton:EnableInClassList("hide", true)
+end
+
+function ShowMenu()
+    _viewTutorialButton:EnableInClassList("hide", useHamburger)
+    _openShopButton:EnableInClassList("hide", useHamburger)
+    _beestiaryButton:EnableInClassList("hide", useHamburger)
+    _viewBeesButton:EnableInClassList("hide", useHamburger)
+    _hamburgerButton:EnableInClassList("hide", not useHamburger)
+end
+
 function ShowButtons()
     _viewTutorialButton.visible = true
     _openShopButton.visible = true
     _beestiaryButton.visible = true
     _viewBeesButton.visible = true
+    _hamburgerButton.visible = true
 end
 
 function HideButtons(boolean : isVisible)
@@ -92,4 +132,5 @@ function HideButtons(boolean : isVisible)
     _openShopButton.visible = false
     _beestiaryButton.visible = false
     _viewBeesButton.visible = false
+    _hamburgerButton.visible = false
 end

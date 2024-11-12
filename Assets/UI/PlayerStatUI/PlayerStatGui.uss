@@ -4,8 +4,8 @@
   left: 0;
   flex-direction: column;
   width: 165px;
-  height: 30%;
-  min-height: 300px;
+  height: 12%;
+  min-height: 50px;
   max-width: 26%;
 }
 
@@ -30,6 +30,7 @@
   width: 32px;
   height: 32px;
   margin-right: 10px;
+  margin-top: 10px;
 }
 
 .landscape .number {
@@ -40,6 +41,11 @@
 .portrait .number {
     font-size: 14px;
     margin-top: 4px;
+}
+
+.hide 
+{
+    display: none;
 }
 
 .number {
@@ -54,6 +60,7 @@
 .buttonLabel {
   -unity-text-align: middle-center;
   white-space: normal;
+  padding-top: 10px;
   color: #fff
 }
 
@@ -65,7 +72,7 @@
     font-size: 14px;
 }
 
-.button {
+.regularButton {
   max-height: 20%;
   min-width: 120px;
   max-width: 300px;
@@ -79,12 +86,31 @@
   -unity-text-align: middle-center;
 }
 
+.hamburgerButton {
+  width: 64px;
+  height: 64px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background-color: rgba(0,0,0,.5);
+  -unity-text-align: middle-center;
+}
+
+.hamburger {
+  width: 48px;
+  height: 48px;
+}
+
+
 .button:hover {
     background-color: rgba(0,0,0,.4); /* Slightly transparent on hover */
 }
 
 .player-stat-gui #cashIcon{
     background-image: url("project://database/Assets/Icons/honey.png");
+}
+
+.player #hamburgerIcon{
+   background-image: url("project://database/Assets/Icons/burger-bar.png");
 }
 
 .player-stat-gui #cashCount{

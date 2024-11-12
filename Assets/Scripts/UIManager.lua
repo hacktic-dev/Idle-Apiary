@@ -99,7 +99,7 @@ function CloseBeeList()
     end
     ToggleUI("BeeList", false)
     ToggleUI("PlaceButtons", true)
-    ToggleUI("PlayerStats", true)
+    ShowMenu()
 end
 
 function OpenShop()
@@ -136,7 +136,7 @@ function CloseBeestiary()
         return
     end
     ToggleUI("Beestiary", false)
-    ToggleUI("PlayerStats", true)
+    ShowMenu()
     ToggleUI("PlaceButtons", true)
 end
 
@@ -145,6 +145,7 @@ function CloseShop()
         return
     end
     ShowButtons()
+    ShowMenu()
     ToggleUI("ShopUi", false)
     --ToggleUI("PlayerStats", true)
     ToggleUI("PlaceButtons", true)
@@ -154,7 +155,7 @@ function HideTutorial()
     if not IsActive("Tutorial") then
         return
     end
-    ToggleUI("PlayerStats", true)
+    ShowMenu()
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceButtons", true)
 end
@@ -192,4 +193,9 @@ function self:ClientAwake()
     Timer.new(.1, function() 
         OpenTutorial()
     end, false)
+end
+
+function ShowMenu()
+    ToggleUI("PlayerStats", true)
+    StatsObject:GetComponent("PlayerStatGui").ShowMenu()
 end

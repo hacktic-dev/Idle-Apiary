@@ -18,19 +18,23 @@
         <hr:UILabel class="number" name="xpCount"/>
       </VisualElement>
 
-      <hr:UIButton class="button" name="_openShopButton">
+      <hr:UIButton class="hamburgerButton" name="_hamburgerButton">
+       <hr:UIImage class="hamburger" name="hamburgerIcon"/>
+      </hr:UIButton>
+
+      <hr:UIButton class="regularButton" name="_openShopButton">
        <Label class="buttonLabel" text="Shop" />
       </hr:UIButton>
 
-      <hr:UIButton class="button" name="_viewTutorialButton">
+      <hr:UIButton class="regularButton" name="_viewTutorialButton">
        <Label class="buttonLabel" text="View Tutorial" />
       </hr:UIButton>
 
-      <hr:UIButton class="button" name="_viewBeesButton">
+      <hr:UIButton class="regularButton" name="_viewBeesButton">
        <Label class="buttonLabel" text="View Bees" />
       </hr:UIButton>
 
-       <hr:UIButton class="button" name="_beestiaryButton">
+       <hr:UIButton class="regularButton" name="_beestiaryButton">
        <Label class="buttonLabel" text="Beestiary" />
       </hr:UIButton>
   </hr:UILuaView>
