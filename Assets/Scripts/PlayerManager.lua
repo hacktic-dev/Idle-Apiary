@@ -57,16 +57,14 @@ local playerStatObject : GameObject = nil
 local function InitializeSeenBeeSpecies(player, callback)
     -- Fetch the player's bee species data from storage
     Storage.GetPlayerValue(player, "SeenBeeSpecies", function(storedSpecies, errorCode)
-
-        if not errorCode == 0 then
-            return
-        end
-
+        
         if playerSeenBeeSpecies[player] ~= nil then
             if #playerSeenBeeSpecies[player] ~= 0 then
-                return playerSeenBeeSpecies[player]
+                callback(playerSeenBeeSpecies[player])
+                return
             end
         end
+
 
         -- If there is no data in storage, initialize an empty table
         if storedSpecies == nil then
