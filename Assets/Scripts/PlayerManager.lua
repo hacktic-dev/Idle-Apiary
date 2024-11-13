@@ -62,6 +62,12 @@ local function InitializeSeenBeeSpecies(player, callback)
             return
         end
 
+        if playerSeenBeeSpecies[player] ~= nil then
+            if #playerSeenBeeSpecies[player] ~= 0 then
+                return playerSeenBeeSpecies[player]
+            end
+        end
+
         -- If there is no data in storage, initialize an empty table
         if storedSpecies == nil then
             storedSpecies = {}
