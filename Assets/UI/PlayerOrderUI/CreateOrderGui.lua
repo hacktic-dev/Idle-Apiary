@@ -139,7 +139,7 @@ function Init()
 end
 
 -- Create quest items for the UI.
-local NetMenuItem = CreateQuestItem("Bee Net", "Net", 100)
+local NetMenuItem = CreateQuestItem("Bee Net", "Net", 120)
 local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50)
 local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Silver Set", "Silver", 250)
 local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Gold Set", "Gold", 1250)

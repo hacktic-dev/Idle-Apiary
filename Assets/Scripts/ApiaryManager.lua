@@ -9,7 +9,7 @@ local apiaryPositions = {} -- Server-side table to track all apiary positions
 local playerApiaries = {} -- Table to track which apiaries belong to which player
 
 -- Distance threshold to prevent overlapping apiaries
-local MIN_DISTANCE = 21
+local MIN_DISTANCE = 23
 
 -- Table to store active apiary GameObjects on the client side
 local apiaries = {}

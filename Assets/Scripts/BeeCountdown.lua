@@ -62,6 +62,10 @@ function self:Update()
         meterObject:GetComponent(TaskMeter).SetVisible(false)
         if isOwningClient then
             playerManager.SetBeeAdult(id)
+            Timer.new(3, function() playerManager.SetBeeAdult(id) end, false)
+            Timer.new(6, function() playerManager.SetBeeAdult(id) end, false)
+            Timer.new(9, function() playerManager.SetBeeAdult(id) end, false)
+            Timer.new(15, function() playerManager.SetBeeAdult(id) end, false)
         end
         isEnabled = false
     end

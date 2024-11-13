@@ -119,20 +119,30 @@ end
 
 -- Function to initialize bee storage for a player by loading frequestSeenBeesrom storage
 local function InitializeBeeStorage(player, callback)
+
+    if playerBeeStorage[player] ~= nil then
+        callback(playerBeeStorage[player])
+        return
+    end
+
     -- Fetch the player's bee data from storage
     Storage.GetPlayerValue(player, "BeeStorage", function(storedBees, errorCode)
-
         if not errorCode == 0 then
             return
         end
 
         -- If there is no data in storage, initialize an empty table
         if storedBees == nil then
+
+            if #playerBeeStorage[player] ~= 0 then
+                callback(playerBeeStorage[player])
+                return
+            end
+
             storedBees = {}
         end
         -- Store the player's bee data in memory
         playerBeeStorage[player] = storedBees
-
         beeCountUpdated:FireClient(player, #playerBeeStorage[player])
         
         -- If a callback is provided (for async operations), call it once storage is loaded
@@ -148,7 +158,6 @@ local function SaveBeeStorage(player)
         -- Save the bee storage to persistent storage
         Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
         end)
-
         beeCountUpdated:FireClient(player, #playerBeeStorage[player])
     end
 end
@@ -161,7 +170,7 @@ local function InitializeBeeStorageSync(player)
     -- If there is no data in storage, initialize an empty table
     if storedBees == nil then
 
-        if not playerBeeStorage[player] == nil then
+        if #playerBeeStorage[player] ~= 0 then
             return
         end
 

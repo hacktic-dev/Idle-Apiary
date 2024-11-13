@@ -53,6 +53,11 @@
     background-image: url("project://database/Assets/Textures/Bee.png");
 }
 
+.baybee-image
+{
+    background-image: url("project://database/Assets/Textures/tutorial2.png");
+}
+
 .title {
     font-size: 20px;
     margin: 5px;
