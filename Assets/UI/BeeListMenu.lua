@@ -78,6 +78,16 @@ function CreateBeeItem(bee)
         end, true, true, true)
         sellButton:Add(sellNameLabel)
         beeItem:Add(sellButton)
+    else
+        -- Create a "Sell" button and add it to the bee item
+        local sellNameLabel = UILabel.new()
+        sellNameLabel:AddToClassList("bee-name")
+        sellNameLabel:SetPrelocalizedText("Wait")
+
+        local sellButton = UIButton.new()
+        sellButton:AddToClassList("sell-button-greyed")
+        sellButton:Add(sellNameLabel)
+        beeItem:Add(sellButton)
     end
 
     -- Add the bee item to the BeeList_Root UI list
