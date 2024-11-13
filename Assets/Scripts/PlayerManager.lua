@@ -283,7 +283,7 @@ local function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             playerTimers[player] = nil
 
-            Storage.SetPlayerValue(player, "PlayerName", player.name)
+            Storage.SetPlayerValue(player, player.name, player.name)
         end
 
         -- Connect to the event when the player's character changes (e.g., respawn)
