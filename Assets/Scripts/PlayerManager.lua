@@ -134,9 +134,11 @@ local function InitializeBeeStorage(player, callback)
         -- If there is no data in storage, initialize an empty table
         if storedBees == nil then
 
-            if #playerBeeStorage[player] ~= 0 then
-                callback(playerBeeStorage[player])
-                return
+            if playerBeeStorage[player] ~= nil then
+                if #playerBeeStorage[player] ~= 0 then
+                    callback(playerBeeStorage[player])
+                    return
+                end
             end
 
             storedBees = {}
@@ -170,8 +172,10 @@ local function InitializeBeeStorageSync(player)
     -- If there is no data in storage, initialize an empty table
     if storedBees == nil then
 
-        if #playerBeeStorage[player] ~= 0 then
-            return
+        if playerBeeStorage[player] ~= nil then
+            if #playerBeeStorage[player] ~= 0 then
+                return
+            end
         end
 
         storedBees = {}
