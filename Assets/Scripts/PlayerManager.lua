@@ -56,7 +56,12 @@ local playerStatObject : GameObject = nil
 -- Function to initialize bee species list for a player by loading from storage
 local function InitializeSeenBeeSpecies(player, callback)
     -- Fetch the player's bee species data from storage
-    Storage.GetPlayerValue(player, "SeenBeeSpecies", function(storedSpecies)
+    Storage.GetPlayerValue(player, "SeenBeeSpecies", function(storedSpecies, errorCode)
+
+        if not errorCode == 0 then
+            return
+        end
+
         -- If there is no data in storage, initialize an empty table
         if storedSpecies == nil then
             storedSpecies = {}
@@ -114,15 +119,30 @@ end
 
 -- Function to initialize bee storage for a player by loading frequestSeenBeesrom storage
 local function InitializeBeeStorage(player, callback)
+
+    if playerBeeStorage[player] ~= nil then
+        callback(playerBeeStorage[player])
+        return
+    end
+
     -- Fetch the player's bee data from storage
-    Storage.GetPlayerValue(player, "BeeStorage", function(storedBees)
+    Storage.GetPlayerValue(player, "BeeStorage", function(storedBees, errorCode)
+        if not errorCode == 0 then
+            return
+        end
+
         -- If there is no data in storage, initialize an empty table
         if storedBees == nil then
+
+            if #playerBeeStorage[player] ~= 0 then
+                callback(playerBeeStorage[player])
+                return
+            end
+
             storedBees = {}
         end
         -- Store the player's bee data in memory
         playerBeeStorage[player] = storedBees
-
         beeCountUpdated:FireClient(player, #playerBeeStorage[player])
         
         -- If a callback is provided (for async operations), call it once storage is loaded
@@ -138,7 +158,6 @@ local function SaveBeeStorage(player)
         -- Save the bee storage to persistent storage
         Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
         end)
-
         beeCountUpdated:FireClient(player, #playerBeeStorage[player])
     end
 end
@@ -150,6 +169,11 @@ local function InitializeBeeStorageSync(player)
     
     -- If there is no data in storage, initialize an empty table
     if storedBees == nil then
+
+        if #playerBeeStorage[player] ~= 0 then
+            return
+        end
+
         storedBees = {}
     end
 
@@ -256,6 +280,8 @@ local function TrackPlayers(game, characterCallback)
             ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             playerTimers[player] = nil
+
+            Storage.SetPlayerValue(player, "PlayerName", player.name)
         end
 
         -- Connect to the event when the player's character changes (e.g., respawn)
@@ -394,7 +420,12 @@ function self:ServerAwake()
 
     -- Fetch a player's stats from storage when they join
     getStatsRequest:Connect(function(player)
-        Storage.GetPlayerValue(player, "PlayerStats", function(stats)
+        Storage.GetPlayerValue(player, "PlayerStats", function(stats, errorCode)
+
+            if not errorCode == 0 then
+                return
+            end
+
             -- If no existing stats are found, create default stats
             if stats == nil then 
                 stats = {Cash = 100, Nets = 0, BeeCapacity = 10}

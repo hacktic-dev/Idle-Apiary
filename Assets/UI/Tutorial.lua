@@ -28,12 +28,18 @@ function self:ClientAwake()
 
     closeButton:RegisterPressCallback(function()
         if page == 0 then
-            _tutorial1:SetPrelocalizedText("Each bee set contains 6 bees of varying rarities, and you'll recieve a random bee from the set. You can also capture bees out in the wild, so stock up on bee nets and keep an eye out for rare bees.\n\nCollect them all for a special reward!")
-            closeLabel:SetPrelocalizedText("Close")
+            _tutorial1:SetPrelocalizedText("When you purchase a bee, it will be a baybee. Baybees have to grow up into adult bees before they will start generating honey or can be sold.")
+            closeLabel:SetPrelocalizedText("Next")
             _tutorialImage:RemoveFromClassList("shopkeeper-image")
-            _tutorialImage:AddToClassList("bee-image")
+            _tutorialImage:AddToClassList("baybee-image")
             page = 1
         elseif page == 1 then
+            _tutorial1:SetPrelocalizedText("Each bee set contains 6 bees of varying rarities, and you'll recieve a random bee from the set. You can also capture bees out in the wild, so stock up on bee nets and keep an eye out for rare bees.\n\nTry to collect them all!")
+            closeLabel:SetPrelocalizedText("Close")
+            _tutorialImage:RemoveFromClassList("baybee-image")
+            _tutorialImage:AddToClassList("bee-image")
+            page = 2
+        elseif page == 2 then
             UIManager.HideTutorial()
             playerManager.IncrementStat("Cash", 0)
             playerManager.IncrementStat("Nets", 0)

@@ -56,6 +56,17 @@
     margin-left: 10px;
 }
 
+.sell-button-greyed {
+    background-color: rgba(0, 0, 0, 0.7); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 14px;
+    height: 100%;
+    width: 10%;
+    margin-left: 10px;
+}
+
 #BeeList_Root {
     flex-shrink: 1;
     width: 100%;

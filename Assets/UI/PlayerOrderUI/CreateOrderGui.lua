@@ -41,7 +41,7 @@ end, true, true, true)
 
 function InitUpgradesTab(capacity)
     Orders_Root:Clear()
-    CreateQuestItem("Bee Net", "Net", 100)
+    CreateQuestItem("Bee Net", "Net", 120)
 
     if capacity < 20 then
         CreateQuestItem("Upgrade Bee Capacity to " .. capacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(capacity + 1))
