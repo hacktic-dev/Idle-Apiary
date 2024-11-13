@@ -573,3 +573,8 @@ function self:ServerAwake()
         end)
     end)
 end
+
+function GiveCash(player, amount)
+    players[player].Cash.value += amount 
+    SaveStats(player)
+end

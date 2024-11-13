@@ -7,12 +7,27 @@
     xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
 >
 
-  <hr:UILuaView class="create-order-gui">
+<hr:UILuaView class="create-order-gui">
+  <VisualElement class="shop__container" name="_ShopContainer">
+    <VisualElement class="shop__header">
+
+      <VisualElement class="navigation">
+        <VisualElement class="nav-button--selected" name="_upgradesTab">
+          <Label class="nav-text" text="Items / Bees" />
+        </VisualElement>
+        <VisualElement class="nav-button--deselected" name="_beesTab">
+          <Label class="nav-text" text="Honey" />
+        </VisualElement>
+      </VisualElement>
+    </VisualElement>
+
     <hr:UIScrollView name="Orders_Root" mode="Vertical">
     </hr:UIScrollView>
     <hr:UIButton name="closeButton" class="close-button">
       <hr:UILabel name="closeLabel" class="title" />
     </hr:UIButton>
-  </hr:UILuaView>
+
+  </VisualElement>
+</hr:UILuaView>
 
 </UXML>

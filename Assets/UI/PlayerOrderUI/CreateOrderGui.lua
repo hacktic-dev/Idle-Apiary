@@ -1,22 +1,89 @@
 --!Type(UI)
--- Specifies that this script manages UI elements.
+
 
 --!Bind
-local Orders_Root : UIScrollView = nil -- Reference to the root UI element for orders.
+local Orders_Root : UIScrollView = nil
 --!Bind
-local closeButton : UIButton = nil -- Reference to the button for closing the UI.
+local closeButton : UIButton = nil
 --!Bind
-local closeLabel : UILabel = nil -- Reference to the label for the close button.
+local closeLabel : UILabel = nil
+--!Bind
+local _upgradesTab : UIButton = nil
+--!Bind
+local _beesTab : UIButton = nil
+--!Bind
+local _cosmeticsTab : UIButton = nil
+
 --!SerializeField
 local statusObject : GameObject = nil
 
 --!SerializeField
 local BeeListObject : GameObject = nil
 
-local orderManager = require("OrderManager") -- Accesses order management functions.
-local playerManager = require("PlayerManager") -- Accesses player management functions.
-local UIManager = require("UIManager") -- Accesses player management functions.
+local orderManager = require("OrderManager")
+local playerManager = require("PlayerManager")
+local UIManager = require("UIManager") 
 local audioManager = require("AudioManager")
+local purchaseHandler = require("PurchaseHandler")
+
+local state = 0 -- Which tab are we on?
+
+_upgradesTab:RegisterPressCallback(function()
+    local success = ButtonPressed("upgrades")
+  end, true, true, true)
+  
+_beesTab:RegisterPressCallback(function()
+local success = ButtonPressed("bees")
+end, true, true, true)
+
+local function InitUpgradesTab()
+    Orders_Root:Clear()
+    CreateQuestItem("Bee Net", "Net", 120, false)
+    CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50, false)
+    CreateQuestItem("Random Bee from the Silver Set", "Silver", 250, false)
+    CreateQuestItem("Random Bee from the Gold Set", "Gold", 1250, false)
+end
+
+local function InitBeesTab()
+    Orders_Root:Clear()
+    CreateQuestItem("250 Honey", "honey_1", 100, true)
+    CreateQuestItem("1000 Honey", "honey_2", 200, true)
+    CreateQuestItem("3000 Honey", "honey_3", 500, true)
+end
+
+function ButtonPressed(btn: string)
+    if btn == "upgrades" then
+      if state == 0 then return end -- Already in Poles
+      state = 0
+      _upgradesTab:AddToClassList("nav-button--selected")
+      _upgradesTab:RemoveFromClassList("nav-button--deselected")
+      _beesTab:AddToClassList("nav-button--deselected")
+      --_cosmeticsTab:AddToClassList("nav-button--deselected")
+      InitUpgradesTab()
+      --audioManager.PlaySound("paperSound1", 1)
+      return true
+    elseif btn == "bees" then
+      if state == 1 then return end -- Already in Bait
+      state = 1
+      _beesTab:AddToClassList("nav-button--selected")
+      _beesTab:RemoveFromClassList("nav-button--deselected")
+      _upgradesTab:AddToClassList("nav-button--deselected")
+     -- _cosmeticsTab:AddToClassList("nav-button--deselected")
+      InitBeesTab()
+      --audioManager.PlaySound("paperSound1", 1)
+      return true
+    elseif btn == "cosmetics" then
+      state = 2
+      _cosmeticsTab:AddToClassList("nav-button--selected")
+      _cosmeticsTab:RemoveFromClassList("nav-button--deselected")
+      _beesTab:AddToClassList("nav-button--deselected")
+      _upgradesTab:AddToClassList("nav-button--deselected")
+      --PopulateShop(Deals)
+      --audioManager.PlaySound("paperSound1", 1)
+      return true
+    end
+  end
+  
 
 function GenerateBee(setId)
     local number = math.random(1, 20)
@@ -67,7 +134,7 @@ end
 
 
 -- Creates a new quest item in the UI.
-function CreateQuestItem(Name, Id, Cash)
+function CreateQuestItem(Name, Id, Cash, isGold)
     -- Create a new button for the quest item.
     local questItem = UIButton.new()
     questItem:AddToClassList("order-item") -- Add a class to style the quest item.
@@ -75,7 +142,7 @@ function CreateQuestItem(Name, Id, Cash)
     -- Create a label for the quest item's title and add it to the quest item.
     local _titleLabel = UILabel.new()
     _titleLabel:AddToClassList("title")
-    _titleLabel:SetPrelocalizedText("Buy: " .. Name) -- Set the text to display the quest item's name.
+    _titleLabel:SetPrelocalizedText(Name.. " -") -- Set the text to display the quest item's name.
     questItem:Add(_titleLabel)
 
     -- Create a label for the quest item's XP reward and add it to the quest item.
@@ -84,17 +151,32 @@ function CreateQuestItem(Name, Id, Cash)
     -- _xpLabel:SetPrelocalizedText(tostring(XP).."xp") -- Set the text to display the XP reward.
    --  questItem:Add(_xpLabel)
 
+    if not isGold then
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_honey")
+        questItem:Add(_icon)
+    else
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_gold")
+        questItem:Add(_icon)
+    end
+
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
     _cashLabel:AddToClassList("title")
-    _cashLabel:SetPrelocalizedText("$"..tostring(Cash)) -- Set the text to display the cash cost.
+    _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
     questItem:Add(_cashLabel)
 
     -- Add a press callback to the quest item button.
     questItem:RegisterPressCallback(function()
         -- Check if the player is a customer and has enough cash to buy the item.
 
-        if(Id ~= "Net" and playerManager.clientBeeCount > 11) then
+        if isGold then
+            purchaseHandler.PromptTokenPurchase(Id)
+            return
+        end
+
+        if Id ~= "Net" and playerManager.clientBeeCount > 11 then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
@@ -131,15 +213,10 @@ end
 -- Called when the UI object this script is attached to is initialized.
 function Init()
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
-    
+    ButtonPressed("upgrades")
+    InitUpgradesTab()
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
         UIManager.CloseShop()
     end, true, true, true)
 end
-
--- Create quest items for the UI.
-local NetMenuItem = CreateQuestItem("Bee Net", "Net", 120)
-local BronzeBeeMenuItem = CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50)
-local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Silver Set", "Silver", 250)
-local SilverBeeMenuItem = CreateQuestItem("Random Bee from the Gold Set", "Gold", 1250)
