@@ -57,10 +57,14 @@ local playerStatObject : GameObject = nil
 local function InitializeSeenBeeSpecies(player, callback)
     -- Fetch the player's bee species data from storage
     Storage.GetPlayerValue(player, "SeenBeeSpecies", function(storedSpecies, errorCode)
-
-        if not errorCode == 0 then
-            return
+        
+        if playerSeenBeeSpecies[player] ~= nil then
+            if #playerSeenBeeSpecies[player] ~= 0 then
+                callback(playerSeenBeeSpecies[player])
+                return
+            end
         end
+
 
         -- If there is no data in storage, initialize an empty table
         if storedSpecies == nil then
@@ -134,9 +138,11 @@ local function InitializeBeeStorage(player, callback)
         -- If there is no data in storage, initialize an empty table
         if storedBees == nil then
 
-            if #playerBeeStorage[player] ~= 0 then
-                callback(playerBeeStorage[player])
-                return
+            if playerBeeStorage[player] ~= nil then
+                if #playerBeeStorage[player] ~= 0 then
+                    callback(playerBeeStorage[player])
+                    return
+                end
             end
 
             storedBees = {}
@@ -170,8 +176,10 @@ local function InitializeBeeStorageSync(player)
     -- If there is no data in storage, initialize an empty table
     if storedBees == nil then
 
-        if #playerBeeStorage[player] ~= 0 then
-            return
+        if playerBeeStorage[player] ~= nil then
+            if #playerBeeStorage[player] ~= 0 then
+                return
+            end
         end
 
         storedBees = {}
@@ -281,7 +289,7 @@ local function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             playerTimers[player] = nil
 
-            Storage.SetPlayerValue(player, "PlayerName", player.name)
+            Storage.SetPlayerValue(player, player.name, player.name)
         end
 
         -- Connect to the event when the player's character changes (e.g., respawn)
@@ -428,7 +436,7 @@ function self:ServerAwake()
 
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 100, Nets = 0, BeeCapacity = 10}
+                stats = {Cash = 100, Nets = 1, BeeCapacity = 10}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
@@ -573,4 +581,9 @@ function self:ServerAwake()
             recieveSeenBees:FireClient(player, bees)
         end)
     end)
+end
+
+function GiveCash(player, amount)
+    players[player].Cash.value += amount 
+    SaveStats(player)
 end

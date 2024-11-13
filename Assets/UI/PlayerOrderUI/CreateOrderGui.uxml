@@ -18,6 +18,9 @@
         <VisualElement class="nav-button--deselected" name="_beesTab">
           <Label class="nav-text" text="Bees" />
         </VisualElement>
+        <VisualElement class="nav-button--deselected" name="_honeyTab">
+          <Label class="nav-text" text="Honey" />
+        </VisualElement>
         <VisualElement class="nav-button--deselected" name="_cosmeticsTab">
           <Label class="nav-text" text="Hats" />
         </VisualElement>
