@@ -14,6 +14,8 @@ local BeestiaryObject : GameObject = nil
 --!SerializeField
 local TutorialObject : GameObject = nil
 --!SerializeField
+local ShearsTutorialObject : GameObject = nil
+--!SerializeField
 local StatsObject : GameObject = nil
 --!SerializeField
 local StatusObject : GameObject = nil
@@ -30,7 +32,8 @@ local uiMap = {
     Beestiary = BeestiaryObject,
     Tutorial = TutorialObject,
     PlayerStats = StatsObject,
-    PlaceStatus = StatusObject;
+    PlaceStatus = StatusObject,
+    ShearsTutorial = ShearsTutorialObject
 }
 
   -- Activate the object if it is not active
@@ -162,6 +165,7 @@ end
 
 function OpenTutorial()
     ToggleUI("BeeList", false)
+    ToggleUI("ShearsTutorial", false)
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", false)
     ToggleUI("Beestiary", false)
@@ -170,6 +174,20 @@ function OpenTutorial()
     ToggleUI("PlayerStats", false)
     ToggleUI("PlaceStatus", false)
     TutorialObject:GetComponent(Tutorial).Init()
+end
+
+function OpenShearsTutorial()
+    ToggleUI("ShopUi", false)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("ShearsTutorial", true)
+    ShearsTutorialObject:GetComponent(ShearsTutorial).Init()
+end
+
+function CloseShearsTutorial()
+    ToggleUI("ShopUi", true)
+    ToggleUI("PlayerStats", true)
+    ToggleUI("ShearsTutorial", false)
+    CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
 end
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)

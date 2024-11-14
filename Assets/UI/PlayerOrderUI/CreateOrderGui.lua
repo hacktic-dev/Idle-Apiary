@@ -55,6 +55,12 @@ function InitUpgradesTab(capacity)
     if capacity < 20 then
         CreateQuestItem("Upgrade Bee Capacity to " .. capacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(capacity + 1), false)
     end
+
+    if playerManager.players[client.localPlayer].HasShears.value == false then
+        CreateQuestItem("Buy Shears to Pick Flowers", "Shears", 5000, false)
+    else
+        -- TODO: increase flower capacity
+    end
 end
 
 local function InitBeesTab()
@@ -73,7 +79,7 @@ end
 
 function ButtonPressed(btn: string)
     if btn == "upgrades" then
-      if state == 0 then return end -- Already in Poles
+      if state == 0 then return end
       state = 0
       _upgradesTab:AddToClassList("nav-button--selected")
       _upgradesTab:RemoveFromClassList("nav-button--deselected")
@@ -84,7 +90,7 @@ function ButtonPressed(btn: string)
       --audioManager.PlaySound("paperSound1", 1)
       return true
     elseif btn == "bees" then
-      if state == 1 then return end -- Already in Bait
+      if state == 1 then return end
       state = 1
       _beesTab:AddToClassList("nav-button--selected")
       _beesTab:RemoveFromClassList("nav-button--deselected")
@@ -95,7 +101,7 @@ function ButtonPressed(btn: string)
       --audioManager.PlaySound("paperSound1", 1)
       return true
     elseif btn == "honey" then
-        if state == 2 then return end -- Already in Bait
+        if state == 2 then return end
         state = 2
         _honeyTab:AddToClassList("nav-button--selected")
         _honeyTab:RemoveFromClassList("nav-button--deselected")
@@ -104,7 +110,7 @@ function ButtonPressed(btn: string)
         _cosmeticsTab:AddToClassList("nav-button--deselected")
         InitHoneyTab()
     elseif btn == "cosmetics" then
-    if state == 3 then return end -- Already in Bait
+    if state == 3 then return end
       state = 3
       _cosmeticsTab:AddToClassList("nav-button--selected")
       _cosmeticsTab:RemoveFromClassList("nav-button--deselected")
@@ -223,15 +229,15 @@ function CreateQuestItem(Name, Id, Cash, isGold)
     _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
     questItem:Add(_cashLabel)
 
-    -- Add a press callback to the quest item button.
-    questItem:RegisterPressCallback(function()
-        -- Check if the player is a customer and has enough cash to buy the item.
 
+    questItem:RegisterPressCallback(function()
+        -- Handle gold payments
         if isGold then
             purchaseHandler.PromptTokenPurchase(Id)
             return
         end
 
+        -- Check bee capacity
         if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
@@ -240,7 +246,7 @@ function CreateQuestItem(Name, Id, Cash, isGold)
         end
 
         if playerManager.GetPlayerCash() >= Cash then
-            
+              
             playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
             audioManager.PlaySound("purchaseSound", 1)
 
@@ -251,6 +257,10 @@ function CreateQuestItem(Name, Id, Cash, isGold)
             elseif Id == "BeeCapacity" then
                 InitUpgradesTab(playerManager.GetPlayerBeeCapacity() + 1)
                 playerManager.IncrementStat("BeeCapacity", 1)
+                return
+            elseif Id == "Shears" then
+                playerManager.GiveShears()
+                UIManager.OpenShearsTutorial()
                 return
             end
             
@@ -270,11 +280,9 @@ function CreateQuestItem(Name, Id, Cash, isGold)
     return questItem
 end
 
--- Called when the UI object this script is attached to is initialized.
 function Init()
-    closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
+    closeLabel:SetPrelocalizedText("Close", true)
     ButtonPressed("bees")
-    -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
         UIManager.CloseShop()
     end, true, true, true)

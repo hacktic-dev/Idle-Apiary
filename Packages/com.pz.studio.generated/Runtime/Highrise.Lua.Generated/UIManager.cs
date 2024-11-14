@@ -31,6 +31,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_CreateOrderGuiObject = default;
         [SerializeField] public UnityEngine.GameObject m_BeestiaryObject = default;
         [SerializeField] public UnityEngine.GameObject m_TutorialObject = default;
+        [SerializeField] public UnityEngine.GameObject m_ShearsTutorialObject = default;
         [SerializeField] public UnityEngine.GameObject m_StatsObject = default;
         [SerializeField] public UnityEngine.GameObject m_StatusObject = default;
 
@@ -47,8 +48,9 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(3), m_CreateOrderGuiObject),
                 CreateSerializedProperty(_script.GetPropertyAt(4), m_BeestiaryObject),
                 CreateSerializedProperty(_script.GetPropertyAt(5), m_TutorialObject),
-                CreateSerializedProperty(_script.GetPropertyAt(6), m_StatsObject),
-                CreateSerializedProperty(_script.GetPropertyAt(7), m_StatusObject),
+                CreateSerializedProperty(_script.GetPropertyAt(6), m_ShearsTutorialObject),
+                CreateSerializedProperty(_script.GetPropertyAt(7), m_StatsObject),
+                CreateSerializedProperty(_script.GetPropertyAt(8), m_StatusObject),
             };
         }
     }

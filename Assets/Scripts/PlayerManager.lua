@@ -33,6 +33,7 @@ sellBeeRequest = Event.new("SellBee")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
 beeCountUpdated = Event.new("BeeCountUpdated")
 playerEarnRateChanged = Event.new("PlayerEarnRateChanged")
+giveShearsRequest = Event.new("GiveShearsRequest")
 
 requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
@@ -262,10 +263,11 @@ function RecalculatePlayerEarnRate(player)
 end
 
 local function UpdateStorage(player)
-    local stats = {Cash = 0, Nets = 0, BeeCapacity = 0}
+    local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, HasShears = false}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
     stats.BeeCapacity = players[player].BeeCapacity.value
+    stats.HasShears = players[player].HasShears.value
 
     -- Save the stats to storage and handle any errors
     Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
@@ -282,6 +284,7 @@ local function TrackPlayers(game, characterCallback)
             Cash = IntValue.new("Cash" .. tostring(player.id), 100),
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), 
             BeeCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 10),
+            HasShears = BoolValue.new("HasShears" .. tostring(player.id), false)
         }
         
         if client == nil then
@@ -394,6 +397,10 @@ function self:ClientAwake()
         incrementStatRequest:FireServer(stat, value)
     end
 
+    function GiveShears()
+        giveShearsRequest:FireServer()
+    end
+
     -- Request the server to send the player's stats
     getStatsRequest:FireServer()
 
@@ -421,6 +428,7 @@ local function SaveStats(player)
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
     stats.BeeCapacity = players[player].BeeCapacity.value
+    stats.HasShears = players[player].HasShears.value
 end
 
 -- Function to initialize the server-side logic
@@ -438,7 +446,7 @@ function self:ServerAwake()
 
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 100, Nets = 1, BeeCapacity = 10}
+                stats = {Cash = 100, Nets = 1, BeeCapacity = 10, HasShears = false}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
@@ -446,6 +454,12 @@ function self:ServerAwake()
             players[player].Cash.value = stats.Cash
             players[player].Nets.value = stats.Nets
             players[player].BeeCapacity.value = stats.BeeCapacity
+
+            if stats.HasShears ~= nil then
+                players[player].HasShears.value = stats.HasShears
+            else
+                players[player].HasShears.value = false
+            end
 
             InitializeBeeStorage(player)
             InitializeSeenBeeSpecies(player)
@@ -478,6 +492,13 @@ function self:ServerAwake()
             UpdateStorage(player)
          end
     end)
+
+    giveShearsRequest:Connect(function(player)
+        players[player].HasShears.value = true
+        SaveStats(player)
+        UpdateStorage(player)
+    end
+    )
 
     giveBeeRequest:Connect(function(player, name, isCapture)
 
