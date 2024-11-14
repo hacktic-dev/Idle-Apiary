@@ -11,6 +11,8 @@ local closeLabel : UILabel = nil -- Reference to the label for the close button.
 local statusLabel : UILabel = nil -- Reference to status label.
 --!Bind
 local beeCountLabel : UILabel = nil
+--!Bind
+local totalHoneyRateLabel : UILabel = nil
 
 local count = 0;
 
@@ -124,6 +126,7 @@ function PopulateBeeList(bees)
     end
     count = #bees
     beeCountLabel:SetPrelocalizedText(count .. "/" .. playerManager.GetPlayerBeeCapacity(), true)
+    
 end
 
 -- Called when the UI object this script is attached to is initialized.
@@ -135,4 +138,12 @@ function Init()
     closeButton:RegisterPressCallback(function()
         UIManager.CloseBeeList()
     end, true, true, true)
+end
+
+function self:ClientAwake()
+    totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. 0)
+
+    playerManager.playerEarnRateChanged:Connect(function(rate)
+        totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. rate)
+    end)
 end

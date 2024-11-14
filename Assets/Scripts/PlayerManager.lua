@@ -17,13 +17,13 @@ local playerStatGui = nil
 -- Table to keep track of players and their associated stats
 players = {}
 
--- Table to hold players' bee storage in memory
+-- Table to hold players' bee storage in memory (server)
 local playerBeeStorage = {}
 
--- Track money accumulation speeds per player
+-- Track money accumulation speeds per player (server)
 local playerMoneyEarnRates = {}
 
--- Table to hold players' bee species in memory
+-- Table to hold players' bee species in memory (server)
 local playerSeenBeeSpecies = {}
 
 local playerTimers = {}
@@ -32,6 +32,7 @@ giveBeeRequest = Event.new("GiveBee")
 sellBeeRequest = Event.new("SellBee")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
 beeCountUpdated = Event.new("BeeCountUpdated")
+playerEarnRateChanged = Event.new("PlayerEarnRateChanged")
 
 requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
@@ -255,6 +256,7 @@ function RecalculatePlayerEarnRate(player)
         playerMoneyEarnRates[player] = rate
         print("New earn rate for " .. player.name .. " is " .. rate)
         
+        playerEarnRateChanged:FireClient(player, rate)
         restartTimerRequest:FireClient(player, rate)
     end)
 end
