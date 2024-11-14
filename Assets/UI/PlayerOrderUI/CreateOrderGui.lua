@@ -42,24 +42,20 @@ _honeyTab:RegisterPressCallback(function()
     local success = ButtonPressed("honey")
     end, true, true, true)
 
-local function InitUpgradesTab()
+function InitUpgradesTab(beeCapacity, flowerCapacity)
     Orders_Root:Clear()
     CreateQuestItem("Bee Net", "Net", 120, false)
 
-end
-
-function InitUpgradesTab(capacity)
-    Orders_Root:Clear()
-    CreateQuestItem("Bee Net", "Net", 120, false)
-
-    if capacity < 20 then
-        CreateQuestItem("Upgrade Bee Capacity to " .. capacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(capacity + 1), false)
+    if beeCapacity < 20 then
+        CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
         CreateQuestItem("Buy Shears to Pick Flowers", "Shears", 5000, false)
     else
-        -- TODO: increase flower capacity
+       if flowerCapacity < 10 then
+        CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false)
+       end
     end
 end
 
@@ -86,7 +82,7 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
-      InitUpgradesTab(playerManager.GetPlayerBeeCapacity())
+      InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity())
       --audioManager.PlaySound("paperSound1", 1)
       return true
     elseif btn == "bees" then
@@ -123,6 +119,20 @@ function ButtonPressed(btn: string)
     end
   end
   
+function LookupFlowerCapacityUpgradePrice(capacity)
+    if capacity == 6 then
+        return 5000 
+    elseif capacity == 7 then
+        return 8000 
+    elseif capacity == 8 then
+        return 12000 
+    elseif capacity == 9 then
+        return 15000 
+    elseif capacity == 10 then
+        return 20000 
+    end
+end
+
 function LookupBeeCapacityUpgradePrice(capacity)
     if capacity == 11 then
         return 200
@@ -255,8 +265,12 @@ function CreateQuestItem(Name, Id, Cash, isGold)
                 playerManager.IncrementStat("Nets", 1)
                 return
             elseif Id == "BeeCapacity" then
-                InitUpgradesTab(playerManager.GetPlayerBeeCapacity() + 1)
+                InitUpgradesTab(playerManager.GetPlayerBeeCapacity() + 1, playerManager.GetPlayerFlowerCapacity())
                 playerManager.IncrementStat("BeeCapacity", 1)
+                return
+            elseif Id == "FlowerCapacity" then
+                InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity() + 1)
+                playerManager.IncrementStat("FlowrCapacity", 1)
                 return
             elseif Id == "Shears" then
                 playerManager.GiveShears()

@@ -263,10 +263,11 @@ function RecalculatePlayerEarnRate(player)
 end
 
 local function UpdateStorage(player)
-    local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, HasShears = false}
+    local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, FlowerCapacity = 0, HasShears = false}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
     stats.BeeCapacity = players[player].BeeCapacity.value
+    stats.FlowerCapacity = players[player].FlowerCapacity.value
     stats.HasShears = players[player].HasShears.value
 
     -- Save the stats to storage and handle any errors
@@ -283,6 +284,7 @@ local function TrackPlayers(game, characterCallback)
             player = player,
             Cash = IntValue.new("Cash" .. tostring(player.id), 100),
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), 
+            FlowerCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 5),
             BeeCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 10),
             HasShears = BoolValue.new("HasShears" .. tostring(player.id), false)
         }
@@ -358,6 +360,10 @@ end
 function GetPlayerBeeCapacity()
     return players[client.localPlayer].BeeCapacity.value
 end
+
+function GetPlayerFlowerCapacity()
+    return players[client.localPlayer].FlowerCapacity.value
+end 
 
 -- Function to initialize the client-side logic
 function self:ClientAwake()
@@ -446,7 +452,7 @@ function self:ServerAwake()
 
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 100, Nets = 1, BeeCapacity = 10, HasShears = false}
+                stats = {Cash = 100, Nets = 1, BeeCapacity = 10, FlowerCapacity = 5, HasShears = false}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
@@ -459,6 +465,12 @@ function self:ServerAwake()
                 players[player].HasShears.value = stats.HasShears
             else
                 players[player].HasShears.value = false
+            end
+
+            if stats.FlowerCapacity ~= nil then
+                players[player].FlowerCapacity.value = stats.FlowerCapacity
+            else
+                players[player].FlowerCapacity.value = 5
             end
 
             InitializeBeeStorage(player)
@@ -485,6 +497,7 @@ function self:ServerAwake()
          if stat == "Cash" then players[player].Cash.value += value end
          if stat == "Nets" then players[player].Nets.value += value end
          if stat == "BeeCapacity" then players[player].BeeCapacity.value += value end
+         if stat == "FlowerCapacity" then players[player].FlowerCapacity.value += value end
          -- Save the updated stats to storage
          SaveStats(player)
 
