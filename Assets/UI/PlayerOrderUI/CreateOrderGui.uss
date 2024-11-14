@@ -10,8 +10,8 @@
 }
 
 .portrait .create-order-gui {
-    bottom: 20%;
-    height: 60%
+    bottom: 27%;
+    height: 55%
 }
 
 .landscape .create-order-gui {
