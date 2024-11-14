@@ -4,12 +4,21 @@
     position: absolute;
     margin-top: auto;
     margin-bottom: auto;
-    bottom: 30%;
     width: 100%;
     max-width: 95%;
     align-self: center;
+}
+
+.portrait .create-order-gui {
+    bottom: 20%;
+    height: 60%
+}
+
+.landscape .create-order-gui {
+    bottom: 30%;
     height: 50%
 }
+
 
 .order-item {
     display: flex;
@@ -24,9 +33,16 @@
 }
 
 .title {
-    font-size: 16px;
     margin: 5px;
     color: white;
+}
+
+.portrait .title {
+    font-size: 13px;
+}
+
+.landscape .title {
+    font-size: 16px;
 }
 
 
