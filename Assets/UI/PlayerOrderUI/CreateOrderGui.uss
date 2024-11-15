@@ -10,13 +10,13 @@
 }
 
 .portrait .create-order-gui {
-    bottom: 27%;
-    height: 55%
+    bottom: 10%;
+    height: 75%
 }
 
 .landscape .create-order-gui {
-    bottom: 30%;
-    height: 50%
+    bottom: 22.5%;
+    height: 60%
 }
 
 
@@ -24,17 +24,21 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 2.5%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
     background-color: rgba(0,0,0,.35);
     border-radius: 10px;
     height: 100px;
-    width: 45%;
+    width: 48%;
 }
 
 .scroll-view__content-container
 {
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left:2.5%;
+  margin-right:2.5%;
 }
 
 .button .button__content
