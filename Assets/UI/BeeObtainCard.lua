@@ -32,3 +32,17 @@ function ShowRecieved(species)
     _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
     _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
 end
+
+function showPurchasedHoney(id)
+    if id == "honey_1" then
+        _beeLabel:SetPrelocalizedText("You purchased 250 honey!")
+    elseif id == "honey_2" then
+        _beeLabel:SetPrelocalizedText("You purchased 1000 honey!")
+    elseif id == "honey_3" then
+        _beeLabel:SetPrelocalizedText("You purchased 3000 honey!")
+    end
+
+    _rarity:SetPrelocalizedText("Thank you for your purchase!")
+    _honeyRateLabel:SetPrelocalizedText("Please reach out to hacktic if there are any issues.")
+    _sellPriceLabel:SetPrelocalizedText("")
+end

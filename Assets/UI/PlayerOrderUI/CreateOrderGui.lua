@@ -46,9 +46,9 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("250 Honey", "honey_1", 100, true)
-    CreateQuestItem("1000 Honey", "honey_2", 200, true)
-    CreateQuestItem("3000 Honey", "honey_3", 500, true)
+    CreateQuestItem("Purchase 250 Honey", "honey_1", 100, true)
+    CreateQuestItem("Purchase 1000 Honey", "honey_2", 200, true)
+    CreateQuestItem("Purchase 3000 Honey", "honey_3", 500, true)
 end
 
 function ButtonPressed(btn: string)
