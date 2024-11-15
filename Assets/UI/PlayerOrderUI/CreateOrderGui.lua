@@ -44,14 +44,14 @@ _honeyTab:RegisterPressCallback(function()
 
 function InitUpgradesTab(beeCapacity, flowerCapacity)
     Orders_Root:Clear()
-    CreateQuestItem("Bee Net", "Net", 120, false)
+    CreateQuestItem("Purchase a Bee Net", "Net", 120, false)
 
     if beeCapacity < 20 then
-        CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
+        CreateQuestItem("Upgrade Bee Capacity to\n" .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
-        CreateQuestItem("Buy Shears to Pick Flowers", "Shears", 5000, false)
+        CreateQuestItem("Purchase Shears\nCan be used to pick Flowers", "Shears", 5000, false)
     else
        if flowerCapacity < 10 then
         CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false)
@@ -61,9 +61,9 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Random Bee from the Bronze Set", "Bronze", 50)
-    CreateQuestItem("Random Bee from the Silver Set", "Silver", 250)
-    CreateQuestItem("Random Bee from the Gold Set", "Gold", 1250)
+    CreateQuestItem("Purcahse a Random Bee\nfrom the Bronze Set", "Bronze", 50)
+    CreateQuestItem("Purchase a Random Bee\nfrom the Silver Set", "Silver", 250)
+    CreateQuestItem("Purchase a Random Bee\nfrom the Gold Set", "Gold", 1250)
 end
 
 local function InitHoneyTab()
@@ -214,7 +214,7 @@ function CreateQuestItem(Name, Id, Cash, isGold)
     -- Create a label for the quest item's title and add it to the quest item.
     local _titleLabel = UILabel.new()
     _titleLabel:AddToClassList("title")
-    _titleLabel:SetPrelocalizedText(Name.. " -") -- Set the text to display the quest item's name.
+    _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
     questItem:Add(_titleLabel)
 
     -- Create a label for the quest item's XP reward and add it to the quest item.
@@ -222,23 +222,25 @@ function CreateQuestItem(Name, Id, Cash, isGold)
     -- _xpLabel:AddToClassList("title")
     -- _xpLabel:SetPrelocalizedText(tostring(XP).."xp") -- Set the text to display the XP reward.
    --  questItem:Add(_xpLabel)
+    local _priceContainer = VisualElement.new()
+    _priceContainer:AddToClassList("priceContainer")
 
     if not isGold then
         local _icon = UIImage.new()
         _icon:AddToClassList("icon_honey")
-        questItem:Add(_icon)
+        _priceContainer:Add(_icon)
     else
         local _icon = UIImage.new()
         _icon:AddToClassList("icon_gold")
-        questItem:Add(_icon)
+        _priceContainer:Add(_icon)
     end
 
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
     _cashLabel:AddToClassList("title")
     _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
-    questItem:Add(_cashLabel)
-
+    _priceContainer:Add(_cashLabel)
+    questItem:Add(_priceContainer)
 
     questItem:RegisterPressCallback(function()
         -- Handle gold payments

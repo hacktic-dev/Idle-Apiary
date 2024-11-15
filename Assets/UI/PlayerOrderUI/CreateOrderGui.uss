@@ -24,17 +24,29 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 2.5%;
     background-color: rgba(0,0,0,.35);
     border-radius: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    height: 100px;
+    width: 45%;
+}
+
+.scroll-view__content-container
+{
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.button .button__content
+{
+  flex-direction: column;
 }
 
 .title {
     margin: 5px;
     color: white;
+    align-self: center;
+    -unity-text-align: middle-center;
 }
 
 .portrait .title {
@@ -42,7 +54,7 @@
 }
 
 .landscape .title {
-    font-size: 16px;
+    font-size: 15px;
 }
 
 
@@ -194,4 +206,10 @@
   width: 20px;
   height: 20px;
   background-image: url("project://database/Assets/Icons/gold.png");
+}
+
+.priceContainer
+{
+  flex-direction: row;
+  align-self: center;
 }
