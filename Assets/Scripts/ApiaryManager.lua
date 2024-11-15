@@ -140,9 +140,9 @@ function SpawnAllApiariesForPlayer(player)
         for _, apiaryData in ipairs(apiaryList) do
             playerManager.GetSeenBeeSpeciesList(owner, function(bees)
                 if #bees == 18 then
-                    addNewApiaryRequest:FireClient(player, apiaryData.id, apiaryData.location, true)
+                    addNewApiaryRequest:FireClient(player, owner, apiaryData.id, apiaryData.location, true)
                 else
-                    addNewApiaryRequest:FireClient(player, apiaryData.id, apiaryData.location, false)
+                    addNewApiaryRequest:FireClient(player, owner, apiaryData.id, apiaryData.location, false)
                 end
             end)
         end
@@ -164,9 +164,9 @@ function SpawnApiary(player, location)
     playerManager.GetSeenBeeSpeciesList(player, function(bees)
         -- Send the retrieved bee list back to the client
         if #bees == 18 then
-            addNewApiaryRequest:FireAllClients(apiaryID, Vector3.new(location.x, location.y, location.z), true)
+            addNewApiaryRequest:FireAllClients(apiaryID, owner, Vector3.new(location.x, location.y, location.z), true)
         else
-            addNewApiaryRequest:FireAllClients(apiaryID, Vector3.new(location.x, location.y, location.z), false)
+            addNewApiaryRequest:FireAllClients(apiaryID, owner, Vector3.new(location.x, location.y, location.z), false)
         end
         print("Apiary placed for player: " .. player.name .. " at location: " .. tostring(location))
     end)
@@ -176,7 +176,7 @@ end
 
 function self:ClientAwake()
     -- Listen for new apiary spawning requests
-    addNewApiaryRequest:Connect(function(apiaryID, position, isGold)
+    addNewApiaryRequest:Connect(function(apiaryID, owner, position, isGold)
         if ApiaryPrefab then
             -- Instantiate the apiary prefab
             local newApiary = Object.Instantiate(ApiaryPrefab)
@@ -191,6 +191,8 @@ function self:ClientAwake()
                 newApiary:GetComponent(ApiaryPrefabOwner).GetRegularBox():SetActive(true)
                 newApiary:GetComponent(ApiaryPrefabOwner).GetGoldBox():SetActive(false)
             end
+
+            newApiary:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi):GetLabel():SetPrelocalizedText(owner)
 
             -- Set the position of the new apiary
             newApiary.transform.position = position
