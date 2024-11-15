@@ -263,11 +263,12 @@ function RecalculatePlayerEarnRate(player)
 end
 
 local function UpdateStorage(player)
-    local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, FlowerCapacity = 0, HasShears = false}
+    local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, FlowerCapacity = 0, SweetScentLevel = 0, HasShears = false}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
     stats.BeeCapacity = players[player].BeeCapacity.value
     stats.FlowerCapacity = players[player].FlowerCapacity.value
+    stats.SweetScentLevel = players[player].SweetScentLevel.value
     stats.HasShears = players[player].HasShears.value
 
     -- Save the stats to storage and handle any errors
@@ -285,6 +286,7 @@ local function TrackPlayers(game, characterCallback)
             Cash = IntValue.new("Cash" .. tostring(player.id), 100),
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), 
             FlowerCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 5),
+            SweetScentLevel = IntValue.new("SweetScentLevel"..tostring(player.id), 0),
             BeeCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 10),
             HasShears = BoolValue.new("HasShears" .. tostring(player.id), false)
         }
@@ -352,7 +354,8 @@ end
 
 --]]
 
--- Function to get the local player's cash
+-- Functions to get player stats --
+
 function GetPlayerCash()
     return players[client.localPlayer].Cash.value
 end
@@ -361,11 +364,15 @@ function GetPlayerBeeCapacity()
     return players[client.localPlayer].BeeCapacity.value
 end
 
+function GetPlayerSweetScentLevel()
+    return players[client.localPlayer].SweetScentLevel.value
+end
+
 function GetPlayerFlowerCapacity()
     return players[client.localPlayer].FlowerCapacity.value
 end 
 
--- Function to initialize the client-side logic
+-- Client-side logic
 function self:ClientAwake()
     -- Get the PlayerStatGui component from the game object to interact with the player's stat UI
     playerStatGui = playerStatObject:GetComponent(PlayerStatGui)
@@ -452,7 +459,7 @@ function self:ServerAwake()
 
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 100, Nets = 1, BeeCapacity = 10, FlowerCapacity = 5, HasShears = false}
+                stats = {Cash = 100, Nets = 1, BeeCapacity = 10, FlowerCapacity = 5, SweetScentLevel = 0, HasShears = false}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
@@ -461,10 +468,17 @@ function self:ServerAwake()
             players[player].Nets.value = stats.Nets
             players[player].BeeCapacity.value = stats.BeeCapacity
 
+            -- Init 1.1.x values if player is coming from 1.0.x
             if stats.HasShears ~= nil then
                 players[player].HasShears.value = stats.HasShears
             else
                 players[player].HasShears.value = false
+            end
+
+            if stats.SweetScentLevel ~= nil then
+                players[player].SweetScentLevel.value = stats.SweetScentLevel
+            else
+                players[player].SweetScentLevel.value = 0
             end
 
             if stats.FlowerCapacity ~= nil then
@@ -497,6 +511,7 @@ function self:ServerAwake()
          if stat == "Cash" then players[player].Cash.value += value end
          if stat == "Nets" then players[player].Nets.value += value end
          if stat == "BeeCapacity" then players[player].BeeCapacity.value += value end
+         if stat == "SweetScentLevel" then players[player].SweetScentLevel.value += value end
          if stat == "FlowerCapacity" then players[player].FlowerCapacity.value += value end
          -- Save the updated stats to storage
          SaveStats(player)
