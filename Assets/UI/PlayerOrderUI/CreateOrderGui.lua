@@ -44,7 +44,16 @@ _honeyTab:RegisterPressCallback(function()
 
 function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     Orders_Root:Clear()
-    CreateQuestItem("Purchase a Bee Net", "Net", 120, false)
+
+    if sweetScentLevel == 0 then
+        netPrice = 120
+    elseif sweetScentLevel == 1 then
+        netPrice = 300
+    elseif sweetScentLevel == 2 then
+        netPrice = 500
+    end
+
+    CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false)
 
     if beeCapacity < 20 then
         CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)

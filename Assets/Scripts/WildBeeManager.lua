@@ -44,28 +44,28 @@ local RainbowBeePrefab : GameObject = nil
 -- Bee spawning parameters
 local beeSpecies = {
     -- Bronze Set
-    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor = 275 },
-    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor = 250 },
-    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor = 250 },
-    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 60 },
-    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 48 },
-    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 28 },
+    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 200, spawnFactor_2 = 120 },
+    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 175, spawnFactor_2 = 110   },
+    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 175, spawnFactor_2 = 110   },
+    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor_0 = 70, spawnFactor_1 = 60, spawnFactor_2 = 35   },
+    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30   },
+    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor_0 = 30, spawnFactor_1 = 30, spawnFactor_2 = 20   },
 
     -- Silver Set
-    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 40 },
-    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 38 },
-    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 38 },
-    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 15 },
-    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 13 },
-    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 7 },
+    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor_0 = 40, spawnFactor_1 = 55, spawnFactor_2 = 90   },
+    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 80   },
+    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 80   },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor_0 = 15, spawnFactor_1 = 30, spawnFactor_2 = 60   },
+    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor_0 = 13, spawnFactor_1 = 30, spawnFactor_2 = 40   },
+    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor_0 = 7, spawnFactor_1 = 15, spawnFactor_2 = 25   },
 
     -- Gold Set
-    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 12 },
-    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 9 },
-    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 9 },
-    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 6 },
-    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 4 },
-    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor = 2 }
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor_0 = 12, spawnFactor_1 = 20, spawnFactor_2 = 30   },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor_0 = 9, spawnFactor_1 = 18, spawnFactor_2 = 28   },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor_0 = 9, spawnFactor_1 = 15, spawnFactor_2 = 22   },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor_0 = 6, spawnFactor_1 = 12, spawnFactor_2 = 17   },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 13   },
+    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 2, spawnFactor_1 = 4, spawnFactor_2 = 7   }
 }
 
 
@@ -168,8 +168,20 @@ end
 -- Function to calculate total spawn factor
 local function getTotalSpawnFactor()
     local totalFactor = 0
+
+    local level = playerManager.GetPlayerSweetScentLevel()
+
     for _, species in ipairs(beeSpecies) do
-        totalFactor = totalFactor + species.spawnFactor
+
+        if level == 0 then
+            factor = species.spawnFactor_0
+        elseif level == 1 then
+            factor = species.spawnFactor_1
+        elseif level == 2 then
+            factor = species.spawnFactor_2
+        end
+
+        totalFactor = totalFactor + factor
     end
     return totalFactor
 end
@@ -180,8 +192,19 @@ local function chooseBeeSpecies()
     local rand = math.random() * totalSpawnFactor
     local cumulativeFactor = 0
 
+    local level = playerManager.GetPlayerSweetScentLevel()
+
     for _, species in ipairs(beeSpecies) do
-        cumulativeFactor = cumulativeFactor + species.spawnFactor
+
+        if level == 0 then
+            factor = species.spawnFactor_0
+        elseif level == 1 then
+            factor = species.spawnFactor_1
+        elseif level == 2 then
+            factor = species.spawnFactor_2
+        end
+
+        cumulativeFactor = cumulativeFactor + factor
         if rand <= cumulativeFactor then
             return species
         end
