@@ -42,12 +42,16 @@ _honeyTab:RegisterPressCallback(function()
     local success = ButtonPressed("honey")
     end, true, true, true)
 
-function InitUpgradesTab(beeCapacity, flowerCapacity)
+function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     Orders_Root:Clear()
     CreateQuestItem("Purchase a Bee Net", "Net", 120, false)
 
     if beeCapacity < 20 then
         CreateQuestItem("Upgrade Bee Capacity to\n" .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
+    end
+
+    if sweetScentLevel < 2 then
+        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1 .. "\nRarer bees spawn more frequently", "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false)
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
@@ -82,7 +86,7 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
-      InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity())
+      InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
       --audioManager.PlaySound("paperSound1", 1)
       return true
     elseif btn == "bees" then
@@ -119,6 +123,14 @@ function ButtonPressed(btn: string)
     end
   end
   
+function LookupSweetScentLevelPrice(level)
+    if level == 1 then
+        return 1000
+    elseif level == 2 then
+        return 5000
+    end
+end
+
 function LookupFlowerCapacityUpgradePrice(capacity)
     if capacity == 6 then
         return 5000 
@@ -267,12 +279,16 @@ function CreateQuestItem(Name, Id, Cash, isGold)
                 playerManager.IncrementStat("Nets", 1)
                 return
             elseif Id == "BeeCapacity" then
-                InitUpgradesTab(playerManager.GetPlayerBeeCapacity() + 1, playerManager.GetPlayerFlowerCapacity())
+                InitUpgradesTab(playerManager.GetPlayerBeeCapacity() + 1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
                 playerManager.IncrementStat("BeeCapacity", 1)
                 return
             elseif Id == "FlowerCapacity" then
-                InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity() + 1)
-                playerManager.IncrementStat("FlowrCapacity", 1)
+                InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity() + 1, playerManager.GetPlayerSweetScentLevel())
+                playerManager.IncrementStat("FlowerCapacity", 1)
+                return
+            elseif Id == "SweetScentLevel" then
+                InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel() + 1)
+                playerManager.IncrementStat("SweetScentLevel", 1)
                 return
             elseif Id == "Shears" then
                 playerManager.GiveShears()
