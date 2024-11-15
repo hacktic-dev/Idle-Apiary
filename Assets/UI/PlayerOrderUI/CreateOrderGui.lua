@@ -47,7 +47,7 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     CreateQuestItem("Purchase a Bee Net", "Net", 120, false)
 
     if beeCapacity < 20 then
-        CreateQuestItem("Upgrade Bee Capacity to\n" .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
+        CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
     end
 
     if sweetScentLevel < 2 then
@@ -65,9 +65,9 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purcahse a Random Bee\nfrom the Bronze Set", "Bronze", 50)
-    CreateQuestItem("Purchase a Random Bee\nfrom the Silver Set", "Silver", 250)
-    CreateQuestItem("Purchase a Random Bee\nfrom the Gold Set", "Gold", 1250)
+    CreateQuestItem("Purchase a Random Bee from the Bronze Set", "Bronze", 50)
+    CreateQuestItem("Purchase a Random Bee from the Silver Set", "Silver", 250)
+    CreateQuestItem("Purchase a Random Bee from the Gold Set", "Gold", 1250)
 end
 
 local function InitHoneyTab()

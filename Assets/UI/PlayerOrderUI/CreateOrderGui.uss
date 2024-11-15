@@ -46,11 +46,12 @@
     margin: 5px;
     color: white;
     align-self: center;
+    white-space: normal;
     -unity-text-align: middle-center;
 }
 
 .portrait .title {
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .landscape .title {
