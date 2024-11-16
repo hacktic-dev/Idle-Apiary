@@ -43943,6 +43943,7 @@ MonoBehaviour:
   - {fileID: 2959491017258182191, guid: a2532d00c2833a4449b2227e6856fbfe, type: 3}
   - {fileID: 2959491017258182191, guid: d21d13d56d982e440a582d7a8f6bbeff, type: 3}
   - {fileID: 2959491017258182191, guid: 396e8dd2f02824744b4fcbc3d7cab199, type: 3}
+  m_InfoCard: {fileID: 1281290780}
   references:
     version: 2
     RefIds:

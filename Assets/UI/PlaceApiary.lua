@@ -12,10 +12,15 @@ local statusObject : GameObject = nil
 
 --!Bind
 local _CaptureButton : UIButton = nil
+--!Bind
+local _PickFlowerButton : UIButton = nil
+--!Bind
+local _flowerLabel : UILabel = nil
 
 local wildBeeManager = require("WildBeeManager")
 local audioManager = require("AudioManager")
 local UIManager = require("UIManager")
+local flowerManager = require("FlowerManager")
 
 -- Table to store the current UI state (whether the button is visible)
 local captureUIVisible = true
@@ -87,6 +92,14 @@ local function hideCaptureButton()
     end
 end
 
+local function showFlowerUi()
+    _PickFlowerButton.visible = true
+end
+
+local function hideFlowerUi()
+    _PickFlowerButton.visible = false
+end
+
 -- Function to handle the button press (captures the bee)
 local function onCaptureButtonPressed(bee, speciesName)
     -- Send a signal to the capture script when the button is pressed
@@ -98,6 +111,11 @@ _CaptureButton:RegisterPressCallback(function()
     -- Assuming `player` and `bee` data is stored globally or passed here
     onCaptureButtonPressed(nearBee, species)
 end, true, true, true)
+
+_PickFlowerButton:RegisterPressCallback(function()
+    flowerManager.getFlower()
+end, true, true, true
+)
 
 -- Function to check player's proximity to bees and show the UI accordingly
 local function updateCaptureUI(player)
@@ -125,4 +143,17 @@ end
 function self:Update()
     hideCaptureButton()
     updateCaptureUI(client.localPlayer)
+end
+
+function self:ClientAwake()
+    _flowerLabel:SetPrelocalizedText("Pick Flower")
+    hideFlowerUi()
+
+    flowerManager.flowerAreaEnteredEvent:Connect(function()
+        showFlowerUi()
+    end)
+
+    flowerManager.flowerAreaExitedEvent:Connect(function()
+        hideFlowerUi()
+    end)
 end

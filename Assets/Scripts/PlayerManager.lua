@@ -372,6 +372,10 @@ function GetPlayerFlowerCapacity()
     return players[client.localPlayer].FlowerCapacity.value
 end 
 
+function GetPlayerOwnsShears()
+    return players[client.localPlayer].HasShears.value
+end 
+
 -- Client-side logic
 function self:ClientAwake()
     -- Get the PlayerStatGui component from the game object to interact with the player's stat UI
