@@ -5,6 +5,9 @@
   This is currently stored locally, but you should store it in Storage or Inventory for persistence
 ]]
 
+--!SerializeField
+local BeeObtainCardObject : GameObject = nil
+
 local playerManager = require("PlayerManager")
 audioManager = require("AudioManager")
 local UIManager = require("UIManager")
@@ -14,6 +17,8 @@ local statusObject : GameObject = nil
 
 testServer = Event.new("testServer")
 serverResponse = Event.new("serverResponse")
+
+hideUiEvent = Event.new("HideUiEvent")
 
 responseTesting = false
 
@@ -92,10 +97,23 @@ function self:ClientAwake()
         Payments:PromptPurchase(id, function(paid)
             if paid then
               print("Purchase successful")
+              UIManager.ToggleUI("BeeCard", true)
+              UIManager.ToggleUI("ShopUi", false)
+              UIManager.ToggleUI("PlayerStats", false)
+              BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
+              hideUiEvent:Fire()
               audioManager.PlaySound("purchaseSound", 1)
             else
               print("Purchase failed")
             end
           end)
     end)
+    
+    hideUiEvent:Connect(function()
+        Timer.new(5, function() UIManager.ToggleUI("BeeCard", false)
+            UIManager.ToggleUI("ShopUi", true)
+            UIManager.HideButtons()
+            UIManager.ToggleUI("PlayerStats", true) end, false)
+end
+    )
 end
