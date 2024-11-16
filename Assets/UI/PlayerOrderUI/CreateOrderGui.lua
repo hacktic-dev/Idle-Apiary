@@ -134,9 +134,9 @@ function ButtonPressed(btn: string)
   
 function LookupSweetScentLevelPrice(level)
     if level == 1 then
-        return 1000
+        return 500
     elseif level == 2 then
-        return 5000
+        return 2000
     end
 end
 

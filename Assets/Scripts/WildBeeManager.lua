@@ -44,9 +44,9 @@ local RainbowBeePrefab : GameObject = nil
 -- Bee spawning parameters
 local beeSpecies = {
     -- Bronze Set
-    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 200, spawnFactor_2 = 120 },
-    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 175, spawnFactor_2 = 110   },
-    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 175, spawnFactor_2 = 110   },
+    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 175, spawnFactor_2 = 115 },
+    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 108   },
+    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 108   },
     { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor_0 = 70, spawnFactor_1 = 60, spawnFactor_2 = 35   },
     { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30   },
     { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor_0 = 30, spawnFactor_1 = 30, spawnFactor_2 = 20   },
