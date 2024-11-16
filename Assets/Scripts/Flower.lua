@@ -2,8 +2,6 @@
 
 --!SerializeField
 local id : string = ""
---!SerializeField
-local desc : string = ""
 
 timeAlive = 0
 
@@ -18,7 +16,7 @@ function self:Update()
 
     if (not inRange) and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) < 3 then
         inRange = true
-        flowerManager.flowerAreaEntered(self:GetComponent(Transform).gameObject, id, desc)
+        flowerManager.flowerAreaEntered(self:GetComponent(Transform).gameObject, id, flowerManager.LookupFlowerDescription(id))
     elseif inRange and  Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) > 3 then
         inRange = false
         flowerManager.flowerAreaExited()

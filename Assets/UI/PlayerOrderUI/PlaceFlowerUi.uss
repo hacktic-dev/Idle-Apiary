@@ -1,0 +1,222 @@
+.place-flower-ui {
+    margin-right: auto;
+    margin-left: auto;
+    position: absolute;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    max-width: 95%;
+    align-self: center;
+    align-items: center;
+}
+
+.portrait .place-flower-ui {
+    bottom: 10%;
+    height: 85%
+}
+
+.landscape .place-flower-ui {
+    bottom: 20%;
+    height: 70%
+}
+
+
+.flower-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    background-color: rgba(0,0,0,.35);
+    border-radius: 10px;
+    height: 45%;
+    width: 48%;
+}
+
+.scroll-view__content-container
+{
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left:2.5%;
+  margin-right:2.5%;
+  height: 100%;
+}
+
+.button .button__content
+{
+  flex-direction: column;
+}
+
+.title {
+    margin: 5px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.close{
+    margin: 10px;
+    color: white;
+    font-size: 12px;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .title {
+    padding-top: 10%;
+    font-size: 18px;
+}
+
+.landscape .title {
+    padding-top: 5%;
+    font-size: 24px;
+}
+
+
+.description {
+    margin: 5px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.button__content
+{
+  width: 100%;
+  height: 100%;
+}
+
+.amount {
+  position: absolute;
+  margin: 5px;
+  color: white;
+  align-self: center;
+  white-space: normal;
+  -unity-text-align: middle-center;
+}
+
+.portrait .amount {
+    font-size: 10px;
+    top: 0.5%;
+    right: 0.5%;
+}
+
+.landscape .amount {
+    font-size: 20px;
+    top: 1.5%;
+    right: 1.5%;
+}
+
+.portrait .description {
+    font-size: 10px;
+}
+
+.landscape .description {
+    font-size: 16px;
+}
+
+#Flowers_Root {
+    margin-top: 10px;
+    position: relative;
+    flex-shrink: 1;
+    background-color: rgba(0,0,0,0);
+    border-radius: 10px;
+    overflow: scroll;
+    bottom: 0px;
+    align-self: center;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+.shop-ui_status {
+    position: absolute;
+    align-self: center;
+    top: 275px;
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+.close-button {
+    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    position: relative;
+}
+
+.flower_container {
+  display: flex;
+  overflow: hidden;
+
+  padding: 6px;
+  min-height: 250px;
+  min-width: 250px;
+
+  max-height: 800px;
+  max-width: 600px;
+
+  width: 100%;
+  height: 100%;
+
+  border-width: 2px;
+  border-radius: 8px;
+  background-color: rgba(0,0,0,.25);
+}
+
+.priceContainer
+{
+  flex-direction: row;
+  align-self: center;
+}
+
+.portrait .image
+{
+    height: 100px;
+    width: 100px;
+}
+
+.landscape .image
+{
+    height: 150px;
+    width: 150px;
+}
+
+.Red-flower-image
+{
+    background-image: url("project://database/Assets/Textures/red_flower.png");
+    align-self: center;
+}
+
+.Yellow-flower-image
+{
+    background-image: url("project://database/Assets/Textures/yellow_flower.png");
+    align-self: center;
+}
+
+.Purple-flower-image
+{
+    background-image: url("project://database/Assets/Textures/purple_flower.png");
+    align-self: center;
+}
+
+.White-flower-image
+{
+    background-image: url("project://database/Assets/Textures/white_flower.png");
+    align-self: center;
+}

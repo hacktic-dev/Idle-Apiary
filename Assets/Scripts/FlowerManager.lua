@@ -9,6 +9,9 @@ local Flowers : {GameObject} = nil
 --!SerializeField
 local InfoCard : GameObject = nil
 
+--!SerializeField
+local flowerPlaceUi : GameObject = nil
+
 local UIManager = require("UIManager")
 local audioManager = require("AudioManager")
 local playerManager = require("PlayerManager")
@@ -17,7 +20,7 @@ local apiaryManager = require("ApiaryManager")
 giveFlower = Event.new("giveFlowerEvent")
 
 function self:ClientAwake()
- Timer.new(.2, function() TrySpawnFlower() end, true)
+    Timer.new(.2, function() TrySpawnFlower() end, true)
 end
 
 local MIN_SPAWN_DISTANCE = 45 
@@ -26,6 +29,9 @@ flowerAreaEnteredEvent = Event.new("FlowerAreaEnteredEvent")
 flowerAreaExitedEvent = Event.new("FlowerAreaExitedEvent")
 apiaryCanPlaceFlower = Event.new("ApiaryCanPlaceFlowerEvent")
 apiaryCannotPlaceFlower = Event.new("ApiaryCannotPlaceFlowerEvent")
+queryOwnedFlowers = Event.new("queryOwnedFlowers")
+recieveOwnedFlowers = Event.new("recieveOwnedFlowers")
+
 
 canPlaceFLower = true
 
@@ -92,6 +98,23 @@ function self:ServerAwake()
         local transaction = InventoryTransaction.new():GivePlayer(player, flower, 1)
         Inventory.CommitTransaction(transaction)
     end)
+
+    queryOwnedFlowers:Connect(function(player)
+        Inventory.GetPlayerItems(player, 4, "", function(items, newCursorId, errorCode)
+
+            if items == nil then
+                print(errorCode)
+            end
+
+            if #items == 0 then 
+                print("No owned flowers")
+                -- TODO
+            end
+            for index, item in items do
+                recieveOwnedFlowers:FireClient(player, item.id, item.amount)
+            end
+        end)
+    end)
 end
 
 function self:Update()
@@ -116,3 +139,21 @@ function self:Update()
         end
     end
 end
+
+function LookupFlowerDescription(name)
+    if name == "Red" then
+        return "Increase honey rate by 0.1% for every bee of the SAME species in your apiary."
+    elseif name == "Purple" then
+        return "Increase honey rate by 0.1% for each player in the room."
+    elseif name == "Yellow" then
+        return "Increase honey rate by 0.1% for each bee wearing a hat."
+    elseif name == "White" then
+        return "Increase honey rate by 0.1% for each bee of a UNIQUE species in your apiary.";
+    end
+end
+
+recieveOwnedFlowers:Connect(function(name, amount)
+    print("recieved!")
+    flowerPlaceUi:GetComponent(PlaceFlowerUi).AddFlowerCard(name, amount)  
+    end)
+

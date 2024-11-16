@@ -53,7 +53,6 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_id: Purple
-  m_desc: Increase honey rate by 0.1% for each player in the room.
   references:
     version: 2
     RefIds:
@@ -101,7 +100,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.84
+      value: -3.2870798
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
@@ -111,27 +110,27 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.87
+      value: -0.17074029
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.4291485
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.90323395
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
@@ -141,7 +140,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -230.827
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0642ee9bb4d47d94496e95b3a70186f9,
         type: 3}

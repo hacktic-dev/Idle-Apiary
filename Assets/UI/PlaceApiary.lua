@@ -104,6 +104,11 @@ _PickFlowerButton:RegisterPressCallback(function()
 end, true, true, true
 )
 
+_PlaceFlowerButton:RegisterPressCallback(function()
+    UIManager.OpenPlaceFlowerMenu()
+end, true, true, true
+)
+
 -- Function to check player's proximity to bees and show the UI accordingly
 local function updateCaptureUI(player)
     local isNearBee = false
