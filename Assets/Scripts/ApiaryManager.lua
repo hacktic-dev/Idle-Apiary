@@ -31,6 +31,8 @@ apiaryRemoveRequest = Event.new("ApiaryRemoveRequest")
 notifyApiaryPlacementFailed = Event.new("NotifyApiaryPlacementFailed")
 notifyApiaryPlacementSucceeded = Event.new("NotifyApiaryPlacementSucceeded")
 
+localApiaryPosition = nil --client value for local players apiary pos
+
 -- Function to check if a position is valid (i.e., does not overlap with existing apiaries)
 local function isPositionValid(position)
 
@@ -49,6 +51,10 @@ local function isPositionValid(position)
         end
     end
     return 0
+end
+
+function GetLocalPlayerApiaryLocation()
+    return localApiaryPosition
 end
 
 function GetPlayerApiaryLocation(player)
@@ -91,7 +97,7 @@ apiaryPlacementRequest:Connect(function(player, position)
           end)
 
         playerManager.RecalculatePlayerEarnRate(player)
-        notifyApiaryPlacementSucceeded:FireClient(player)
+        notifyApiaryPlacementSucceeded:FireClient(player, position)
     else
         -- Notify the player that the placement was invalid
         print("Invalid apiary placement for " .. player.name .. " due to overlap.")

@@ -46,6 +46,7 @@
 .flower-button {
     background-color: #06660a;
     font-size: 18px;
+    color: #fff
     border-radius: 10px;
     padding: 12px;
     margin-top: 10px;
@@ -58,4 +59,12 @@
 
 .label{
     color: #ffffff
+}
+
+.hidden{
+    display: none;
+}
+
+.shown{
+    display: flex;
 }

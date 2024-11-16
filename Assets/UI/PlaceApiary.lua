@@ -15,7 +15,7 @@ local _CaptureButton : UIButton = nil
 --!Bind
 local _PickFlowerButton : UIButton = nil
 --!Bind
-local _flowerLabel : UILabel = nil
+local _PlaceFlowerButton : UIButton = nil
 
 local wildBeeManager = require("WildBeeManager")
 local audioManager = require("AudioManager")
@@ -53,8 +53,9 @@ ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
     Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
 
-ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()
+ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function(position)
     UIManager.ToggleUI("PlaceStatus", false)
+    ApiaryManager.localApiaryPosition = position 
     _placeApiaryButton.visible = false
     audioManager.PlaySound("placeSound", 1)
 end)
@@ -76,28 +77,14 @@ _placeApiaryButton:RegisterPressCallback(function()
     placeApiary() -- Call the function to place an apiary
 end, true, true, true)
 
--- Function to show the Capture Button
-local function showCaptureButton()
-    if not captureUIVisible then
-        _CaptureButton.visible = true
-        captureUIVisible = true
+local function toggleUIElement(element, shouldShow)
+    if shouldShow then
+        element:AddToClassList("shown")
+        element:RemoveFromClassList("hidden")
+    else
+        element:AddToClassList("hidden")
+        element:RemoveFromClassList("shown")
     end
-end
-
--- Function to hide the Capture Button
-local function hideCaptureButton()
-    if captureUIVisible then
-        _CaptureButton.visible = false
-        captureUIVisible = false
-    end
-end
-
-local function showFlowerUi()
-    _PickFlowerButton.visible = true
-end
-
-local function hideFlowerUi()
-    _PickFlowerButton.visible = false
 end
 
 -- Function to handle the button press (captures the bee)
@@ -127,7 +114,7 @@ local function updateCaptureUI(player)
             --print(player.name .. " is close to a " .. data.speciesName .. " at position " .. tostring(bee.transform.position))
             nearBee = data.bee
             species = data.speciesName
-            showCaptureButton() -- Show the button if the player is near a bee
+            toggleUIElement(_CaptureButton, true) -- Show the button if the player is near a bee
             isNearBee = true
             break
         end
@@ -135,25 +122,33 @@ local function updateCaptureUI(player)
 
     -- If the player is not near any bees, hide the capture button
     if not isNearBee then
-        hideCaptureButton()
+        toggleUIElement(_CaptureButton, false)
     end
 end
 
 -- Periodically update the Capture UI
 function self:Update()
-    hideCaptureButton()
+    toggleUIElement(_CaptureButton, false)
     updateCaptureUI(client.localPlayer)
 end
 
 function self:ClientAwake()
-    _flowerLabel:SetPrelocalizedText("Pick Flower")
-    hideFlowerUi()
+    toggleUIElement(_PickFlowerButton, false)
+    toggleUIElement(_PlaceFlowerButton, false)
 
     flowerManager.flowerAreaEnteredEvent:Connect(function()
-        showFlowerUi()
+        toggleUIElement(_PickFlowerButton, true)
     end)
 
     flowerManager.flowerAreaExitedEvent:Connect(function()
-        hideFlowerUi()
+        toggleUIElement(_PickFlowerButton, false)
+    end)
+
+    flowerManager.apiaryCanPlaceFlower:Connect(function()
+        toggleUIElement(_PlaceFlowerButton, true)
+    end)
+
+    flowerManager.apiaryCannotPlaceFlower:Connect(function()
+        toggleUIElement(_PlaceFlowerButton, false)
     end)
 end

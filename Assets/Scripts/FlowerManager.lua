@@ -12,6 +12,7 @@ local InfoCard : GameObject = nil
 local UIManager = require("UIManager")
 local audioManager = require("AudioManager")
 local playerManager = require("PlayerManager")
+local apiaryManager = require("ApiaryManager")
 
 giveFlower = Event.new("giveFlowerEvent")
 
@@ -23,6 +24,10 @@ local MIN_SPAWN_DISTANCE = 45
 
 flowerAreaEnteredEvent = Event.new("FlowerAreaEnteredEvent")
 flowerAreaExitedEvent = Event.new("FlowerAreaExitedEvent")
+apiaryCanPlaceFlower = Event.new("ApiaryCanPlaceFlowerEvent")
+apiaryCannotPlaceFlower = Event.new("ApiaryCannotPlaceFlowerEvent")
+
+canPlaceFLower = true
 
 local flower : GameObject = nil
 local id : string = nil
@@ -87,4 +92,27 @@ function self:ServerAwake()
         local transaction = InventoryTransaction.new():GivePlayer(player, flower, 1)
         Inventory.CommitTransaction(transaction)
     end)
+end
+
+function self:Update()
+    if client == nil then
+        return 
+    end
+
+    position = apiaryManager.GetLocalPlayerApiaryLocation()
+    playerPosition = client.localPlayer.character:GetComponent(Transform).position
+
+    -- Check if the player is within the square
+    if (position ~= nil ) and (playerPosition.x >= position.x - 9 and playerPosition.x <= position.x + 9) and
+    (playerPosition.z >= position.z - 9 and playerPosition.z <= position.z + 9) and playerManager.GetPlayerOwnsShears() then
+        if canPlaceFLower == false then
+            canPlaceFLower = true
+            apiaryCanPlaceFlower:Fire()
+        end
+    else
+        if canPlaceFLower == true then
+            canPlaceFLower = false
+            apiaryCannotPlaceFlower:Fire()
+        end
+    end
 end

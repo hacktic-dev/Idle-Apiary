@@ -21,9 +21,15 @@
                 </hr:UIButton>
             </VisualElement>
 
-                        <VisualElement class="bee-capture__container">
+            <VisualElement class="bee-capture__container">
                 <hr:UIButton class="flower-button" name="_PickFlowerButton">
-                    <hr:UILabel name="_flowerLabel" class="label" text="Pick Flower"/>
+                    <Label text="Pick Flower"/>
+                </hr:UIButton>
+            </VisualElement>
+
+            <VisualElement class="bee-capture__container">
+                <hr:UIButton class="flower-button" name="_PlaceFlowerButton">
+                    <Label text="Place Flower"/>
                 </hr:UIButton>
             </VisualElement>
         </VisualElement>
