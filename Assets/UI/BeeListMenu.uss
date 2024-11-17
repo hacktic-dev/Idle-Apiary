@@ -8,24 +8,51 @@
 
 .bee-item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     align-self: center;
-    justify-content: space-between;
-    width: 95%;
-    height: 50px;
+    justify-content: flex-start;
     margin: 5px;
     padding: 10px;
     background-color: rgba(0,0,0,.35); /* Soft yellow-orange for bee theme */
     border-radius: 10px;
 }
 
+.landscape .bee-item{
+        width: 31.8%;
+        height: 300px;
+}
+
+.portrait .bee-item{
+    width: 45%;
+    height: 200px;
+}
+
+.bee-title{
+    color: #FFFFFF;
+    -unity-text-align: middle-center;
+    -unity-text-ouline-width: 2px;
+    -unity-text-ouline-color: #fff;
+    flex-grow: 1;
+}
+
+.landscape .bee-title
+{
+    font-size: 23px;
+}
+
+.portrait .bee-title
+{
+    font-size: 20px;
+}
+
 .landscape .bee-name {
-    font-size: 17px;
+    font-size: 16px;
+    margin-bottom: 0px;
 }
 
 .portrait .bee-name {
-    font-size: 9px;
+    font-size: 13px;
 }
 
 .bee-name {
@@ -61,15 +88,16 @@
     flex-direction: row;
 }
 
+
 .sell-button {
     background-color: rgba(255, 0, 0, 0.7); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
     font-size: 14px;
-    height: 100%;
-    width: 10%;
-    margin-left: 10px;
+    height: 10%;
+    width: 50%;
+    margin-top: 10px;
 }
 
 .sell-button-greyed {
@@ -81,6 +109,17 @@
     height: 100%;
     width: 10%;
     margin-left: 10px;
+}
+
+.scroll-view__content-container
+{
+    display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  flex-wrap: wrap;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: space-around;
 }
 
 #BeeList_Root {

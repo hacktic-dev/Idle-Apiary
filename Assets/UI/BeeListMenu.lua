@@ -20,6 +20,7 @@ local playerManager = require("PlayerManager") -- Accesses player management fun
 local wildBeeManager = require("WildBeeManager")
 local UIManager = require("UIManager")
 local audioManager = require("AudioManager")
+local Utils = require("Utils")
 
 -- Table to store each bee's UI element by beeId
 local beeItems = {}
@@ -34,8 +35,12 @@ function CreateBeeItem(bee)
 
     -- Create a label for the bee name and add it to the bee item
     local nameLabel = UILabel.new()
-    nameLabel:AddToClassList("bee-name")
+    nameLabel:AddToClassList("bee-title")
     nameLabel:SetPrelocalizedText(bee.species)
+
+    local _image = UIImage.new()
+    _image:AddToClassList("inventory__item__icon__image")
+    _image.image = Utils.BeeImage[bee.species]
 
     local baybeeLabel = UILabel.new()
     baybeeLabel:AddToClassList("bee-name")
@@ -43,7 +48,7 @@ function CreateBeeItem(bee)
 
     local rarityLabel = UILabel.new()
     rarityLabel:AddToClassList("bee-name")
-    rarityLabel:SetPrelocalizedText(wildBeeManager.getRarity(bee.species))
+    rarityLabel:SetPrelocalizedText(wildBeeManager.getRarity(bee.species) .. " Rarity")
 
     local honeyRate = 0
     if bee.adult then
@@ -61,6 +66,7 @@ function CreateBeeItem(bee)
     sellLabel:SetPrelocalizedText("Sell price: " .. sellPrice)
 
     beeItem:Add(nameLabel)
+    beeItem:Add(_image)
     beeItem:Add(baybeeLabel)
     beeItem:Add(rarityLabel)
     beeItem:Add(rateLabel)
