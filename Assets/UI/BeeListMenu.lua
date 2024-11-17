@@ -144,6 +144,11 @@ function self:ClientAwake()
     totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. 0)
 
     playerManager.playerEarnRateChanged:Connect(function(rate)
-        totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. rate)
+        totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. sigFig(rate, 5))
     end)
+end
+
+function sigFig(num,figures)
+    local x=figures - math.ceil(math.log10(math.abs(num)))
+    return(math.floor(num*10^x+0.5)/10^x)
 end

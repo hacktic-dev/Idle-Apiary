@@ -97,7 +97,6 @@ apiaryPlacementRequest:Connect(function(player, position)
              end
           end)
 
-        playerManager.RecalculatePlayerEarnRate(player)
         flowerManager.SpawnPlayerFlowersOnAllClients(player, position)
         notifyApiaryPlacementSucceeded:FireClient(player, position)
     else

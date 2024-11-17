@@ -243,16 +243,80 @@ function GetBeeList(player, callback)
     end)
 end
 
-function RecalculatePlayerEarnRate(player)
+function RecalculatePlayerEarnRate(player, isDc)
     GetBeeList(player, function(bees)
         local rate = 0
+
+        uniqueBees = {}
+        beeCounts = {}
+
         for i, bee in ipairs(bees) do
             -- print("checking item " .. item.id)
             if bee.adult then
+                if not table.find(uniqueBees, bee.species) then
+                    table.insert(uniqueBees, bee.species)
+                    beeCounts[bee.species] = 0
+                end
+                beeCounts[bee.species] = beeCounts[bee.species] + 1
                 rate = rate + wildBeeManager.getHoneyRate(bee.species)
             end
         end
 
+        totalEffect = 1
+        if flowerManager.GetPlacedFlowers(player) ~= nil then
+            redCount = 0
+            whiteCount = 0
+            yellowCount = 0
+            purpleCount = 0
+
+            -- Calculate flowers amount
+            for index , flower in ipairs(flowerManager.GetPlacedFlowers(player)) do
+                if flower.name == "Red" then
+                    redCount = redCount + 1
+                elseif flower.name == "White" then
+                    whiteCount = whiteCount + 1
+                elseif flower.name == "Yellow" then
+                    yellowCount = yellowCount + 1
+                elseif flower.name == "Purple" then
+                    purpleCount = purpleCount + 1
+                end
+            end
+            
+            most = 0
+            for bee, count in ipairs(beeCounts) do
+                if count > most then
+                    most = count
+                end
+            end
+
+            -- Calculate flower effects
+            whiteEffect = #uniqueBees * whiteCount * 0.001
+
+            redEffect = most * redCount * 0.001
+
+            yellowEffect = 0 -- Todo
+
+            purpleEffect = 0
+
+            for key, value in pairs(players) do
+                purpleEffect = purpleEffect + 1
+            end
+
+            if isDc ~= nil then
+                print("was dc")
+                purpleEffect = purpleEffect - 1
+            end
+
+            purpleEffect = purpleEffect * purpleCount * 0.001
+            
+            print("player count: " .. purpleEffect)
+
+            totalEffect = 1 + whiteEffect + redEffect + yellowEffect + purpleEffect
+
+            print("Flower effect: " .. totalEffect)
+        end
+
+        rate = rate * totalEffect
         playerMoneyEarnRates[player] = rate
         print("New earn rate for " .. player.name .. " is " .. rate)
         
@@ -298,6 +362,10 @@ local function TrackPlayers(game, characterCallback)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
 
+            for player, playerData in pairs(players) do
+                RecalculatePlayerEarnRate(player)
+            end
+
             Storage.SetPlayerValue(player, player.name, player.name)
         end
 
@@ -328,6 +396,10 @@ local function TrackPlayers(game, characterCallback)
             UpdateStorage(player, id)
             flowerManager.SaveFlowerPositions(player, id)
             flowerManager.RemoveAllPlayerFlowers(player)
+            for player, playerData in pairs(players) do
+                RecalculatePlayerEarnRate(player, true)
+            end
+
         end
                 -- Remove the player from the players table
         players[player] = nil

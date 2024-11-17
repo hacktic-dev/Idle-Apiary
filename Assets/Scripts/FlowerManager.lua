@@ -61,6 +61,10 @@ local nearPlacedId = nil
 
 local apiaryPosition = nil
 
+function GetPlacedFlowers(player)
+    return placedFlowers[player]
+end
+
 function TrySpawnFlower()
     if math.random(0, 100) > 20 then
         return -- failed
@@ -125,6 +129,7 @@ function self:ServerAwake()
             for index, flower in ipairs(placedFlowers[player]) do
                 if flower.id == placedId then
                     table.remove(placedFlowers[player], index)
+                    playerManager.RecalculatePlayerEarnRate(player)
                 end
             end
 
@@ -221,6 +226,7 @@ function SpawnPlayerFlowersOnAllClients(player, _apiaryPosition)
         end
         
         placedFlowers[player] = storedFlowers
+        playerManager.RecalculatePlayerEarnRate(player)
 
         for _, flower in ipairs(storedFlowers) do
             clientSpawnFlower:FireAllClients(flower.name, flower.id, player.user.id, apiaryPosition + flower.position)
@@ -266,6 +272,7 @@ requestPlaceFlower:Connect(function(player, name, position)
     local flower = {name = name, owner = player.user.id, position = localPosition, id = id}
 
     table.insert(placedFlowers[player], flower)
+    playerManager.RecalculatePlayerEarnRate(player)
 
     local transaction = InventoryTransaction.new():TakePlayer(player, name, 1)
     Inventory.CommitTransaction(transaction)
