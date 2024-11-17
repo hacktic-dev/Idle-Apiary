@@ -13,6 +13,23 @@ local statusLabel : UILabel = nil -- Reference to status label.
 local beeCountLabel : UILabel = nil
 --!Bind
 local totalHoneyRateLabel : UILabel = nil
+--!Bind
+local _alphabeticalSortLabel : UILabel = nil
+--!Bind
+local _alphabeticalSort : UIButton = nil
+--!Bind
+local _raritySortLabel : UILabel = nil
+--!Bind
+local _raritySort : UIButton = nil
+--!Bind
+local _honeyRateSortLabel : UILabel = nil
+--!Bind
+local _honeyRateSort : UIButton = nil
+--!Bind
+local _sellPriceSortLabel : UILabel = nil
+--!Bind
+local _sellPriceSort : UIButton = nil
+
 
 local count = 0;
 
@@ -22,8 +39,25 @@ local UIManager = require("UIManager")
 local audioManager = require("AudioManager")
 local Utils = require("Utils")
 
+local sortMode = 0
+
 -- Table to store each bee's UI element by beeId
 local beeItems = {}
+
+function MapRarity(rarity)
+    if rarity == "Common" then
+        return 0
+    elseif rarity == "Uncommon" then
+        return 1
+    elseif rarity == "Rare" then
+        return 2
+    elseif rarity == "Epic" then
+        return 3
+    elseif rarity == "Legendary" then
+        return 4
+    end
+end
+    
 
 -- Function to create a bee item as a VisualElement with a sell button
 function CreateBeeItem(bee)
@@ -102,6 +136,32 @@ function CreateBeeItem(bee)
     BeeList_Root:Add(beeItem)
 end
 
+_alphabeticalSort:RegisterPressCallback(function()
+    sortMode = 0
+    BeeList_Root:Clear()
+    playerManager.RequestBeeList()
+end, true, true, true)
+
+
+_raritySort:RegisterPressCallback(function()
+    sortMode = 1
+    BeeList_Root:Clear()
+    playerManager.RequestBeeList()
+end, true, true, true)
+
+_honeyRateSort:RegisterPressCallback(function()
+    sortMode = 2
+    BeeList_Root:Clear()
+    playerManager.RequestBeeList()
+end, true, true, true)
+
+_sellPriceSort:RegisterPressCallback(function()
+    sortMode = 3
+    BeeList_Root:Clear()
+    playerManager.RequestBeeList()
+end, true, true, true)
+
+
 -- Function to handle selling a bee
 function SellBee(species, id, isAdult)
     print("Selling bee with id " .. id)
@@ -125,6 +185,18 @@ end
 
 -- Function to populate the UI with a list of bees
 function PopulateBeeList(bees)
+    table.sort(bees, function(a, b)
+        if sortMode == 0 then
+            return a.species < b.species
+        elseif sortMode == 1 then
+            return MapRarity(wildBeeManager.getRarity(a.species)) > MapRarity(wildBeeManager.getRarity(b.species))
+        elseif sortMode == 2 then
+            return wildBeeManager.getHoneyRate(a.species) > wildBeeManager.getHoneyRate(b.species)
+        elseif sortMode == 3 then
+            return wildBeeManager.getSellPrice(a.species) >  wildBeeManager.getSellPrice(b.species)
+        end
+    end
+    )
     BeeList_Root:Clear() -- Clear any previous items in the list
     beeItems = {} -- Reset the beeItems table
     for _, bee in ipairs(bees) do
@@ -138,6 +210,18 @@ end
 -- Called when the UI object this script is attached to is initialized.
 function Init()
     statusLabel.visible = false
+    _alphabeticalSortLabel:SetPrelocalizedText("Sort Alphabetically")
+    _raritySortLabel:SetPrelocalizedText("Sort by Rarity")
+    _honeyRateSortLabel:SetPrelocalizedText("Sort by Honey Rate")
+    _sellPriceSortLabel:SetPrelocalizedText("Sort by Sell Price")
+    
+    if Screen.height > Screen.width then
+        _alphabeticalSort:AddToClassList("hidden")
+        _raritySort:AddToClassList("hidden")
+        _sellPriceSort:AddToClassList("hidden")
+        _honeyRateSort:AddToClassList("hidden")
+    end
+
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
 
     -- Add a callback to the close button to hide the UI when pressed.
