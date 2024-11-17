@@ -52,6 +52,8 @@ canPlaceFLower = true
 local flower : GameObject = nil
 local id : string = nil
 local desc : string = nil
+local nearOwner = nil
+local nearPlacedId = nil
 
 function TrySpawnFlower()
     if math.random(0, 100) > 20 then
@@ -73,7 +75,7 @@ function TrySpawnFlower()
     flower.transform.position = position
 end
 
-function flowerAreaEntered(_flower, _id, _desc)
+function flowerAreaEntered(_flower, _id, _desc, _owner, _placedId)
 
     if playerManager.GetPlayerOwnsShears() == false then
         return
@@ -82,6 +84,8 @@ function flowerAreaEntered(_flower, _id, _desc)
     flower = _flower
     id = _id
     desc = _desc
+    nearOwner = _owner
+    nearPlacedId = _placedId
     flowerAreaEnteredEvent:Fire()
 end
 
@@ -96,8 +100,7 @@ function getFlower()
         UIManager.ToggleUI("PlaceButtons", true)
         UIManager.ToggleUI("PlayerStats", true) end, false)
 
-    giveFlower:FireServer(id)
-
+    giveFlower:FireServer(id, nearOwner, nearPlacedId)
 
     Object.Destroy(flower)
     flowerAreaExitedEvent:Fire()
@@ -108,7 +111,13 @@ function flowerAreaExited()
 end
 
 function self:ServerAwake()
-    giveFlower:Connect(function(player, flower)
+    giveFlower:Connect(function(player, flower, owner, placedId)
+
+        if owner ~= nil then
+            print(placedId)
+            removeFlowerRequest:FireAllClients(placedId)
+        end
+
         local transaction = InventoryTransaction.new():GivePlayer(player, flower, 1)
         Inventory.CommitTransaction(transaction)
     end)
@@ -216,6 +225,7 @@ clientSpawnFlower:Connect(function(name, id, owner, position)
     local flower = Object.Instantiate(flowerObjects[name])
     flower:GetComponent(Transform).position = position
     flower:GetComponent(Flower).SetOwner(owner)
+    flower:GetComponent(Flower).SetPlacedId(id)
     spawnedFlowers[id] = flower
 end)
 
