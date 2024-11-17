@@ -32,7 +32,20 @@ apiaryCannotPlaceFlower = Event.new("ApiaryCannotPlaceFlowerEvent")
 queryOwnedFlowers = Event.new("queryOwnedFlowers")
 recieveOwnedFlowers = Event.new("recieveOwnedFlowers")
 noFlowersOwned = Event.new("noFlowersOwned")
+requestPlaceFlower = Event.new("requestPlaceFlower")
 
+clientSpawnFlower = Event.new("clientSpawnFlower")
+
+local placedFlowers = {} -- Placed flowers across all players (server)
+
+local spawnedFlowers = {} -- Spawned flowers on client
+
+local flowerObjects = {
+    ["Yellow"] = Flowers[1],
+    ["Purple"] = Flowers[2],
+    ["White"] = Flowers[3],
+    ["Red"] = Flowers[4],
+}
 
 canPlaceFLower = true
 
@@ -153,6 +166,10 @@ function LookupFlowerDescription(name)
     end
 end
 
+function PlaceFlower(name, position) -- client
+    requestPlaceFlower:FireServer(name , position)
+end
+
 noFlowersOwned:Connect(function()
     flowerPlaceUi:GetComponent(PlaceFlowerUi).NoFlowers()
 end)
@@ -162,4 +179,26 @@ recieveOwnedFlowers:Connect(function(name, amount)
     flowerPlaceUi:GetComponent(PlaceFlowerUi).AddFlowerCard(name, amount)  
     end)
 
-    
+requestPlaceFlower:Connect(function(player, name, position)
+    apiaryPosition = apiaryManager.GetPlayerApiaryLocation(player)
+    localPosition = position - apiaryManager.GetPlayerApiaryLocation(player)
+
+    local id = playerManager.GenerateUniqueID()
+
+    clientSpawnFlower:FireAllClients(name, id, player, position)
+
+    if placedFlowers[player] == nil then
+        placedFlowers[player] = {}
+    end
+
+    local flower = {name = name, owner = player, position = localPosition, id}
+
+    table.insert(placedFlowers[player], flower)
+end)
+
+clientSpawnFlower:Connect(function(name, id, owner, position)
+    local flower = Object.Instantiate(flowerObjects[name])
+    flower:GetComponent(Transform).position = position
+    flower:GetComponent(Flower).SetOwner(owner)
+    spawnedFlowers[id] = flower
+end)

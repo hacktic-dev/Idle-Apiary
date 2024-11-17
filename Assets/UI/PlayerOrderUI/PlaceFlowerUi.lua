@@ -12,6 +12,7 @@ local orderManager = require("OrderManager")
 local playerManager = require("PlayerManager")
 local UIManager = require("UIManager") 
 local audioManager = require("AudioManager")
+local apiaryManager = require("ApiaryManager")
 local purchaseHandler = require("PurchaseHandler")
 
 local state = 0 -- Which tab are we on?
@@ -51,6 +52,11 @@ function AddFlowerCard(name, amount)
     amountLabel:AddToClassList("amount")
     amountLabel:SetPrelocalizedText("x" .. amount)
     flowerCard:Add(amountLabel)
+
+    flowerCard:RegisterPressCallback(function()
+        position = client.localPlayer.character:GetComponent(Transform).position
+        flowerManager.PlaceFlower(name, position)
+    end, true, true, true)
 
     Flowers_Root:Add(flowerCard)
 end

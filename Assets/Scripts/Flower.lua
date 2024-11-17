@@ -3,6 +3,8 @@
 --!SerializeField
 local id : string = ""
 
+owner = nil
+
 timeAlive = 0
 
 local MIN_SPAWN_DISTANCE = 45
@@ -11,10 +13,16 @@ local flowerManager = require("FlowerManager")
 
 local inRange = false
 
-function self:Update()
-    timeAlive += Time.deltaTime
+function SetOwner(_owner)
+    owner = _owner
+end
 
-    if (not inRange) and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) < 3 then
+function self:Update()
+    if owner == nil then
+        timeAlive += Time.deltaTime
+    end
+
+    if (not inRange) and (owner == nil or owner == client.localPlayer) and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) < 3 then
         inRange = true
         flowerManager.flowerAreaEntered(self:GetComponent(Transform).gameObject, id, flowerManager.LookupFlowerDescription(id))
     elseif inRange and  Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) > 3 then

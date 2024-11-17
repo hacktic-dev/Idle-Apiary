@@ -119,7 +119,7 @@ requestBeeList:Connect(function(player)
 end)
 
 -- Function to generate a unique ID for each bee
-local function GenerateUniqueBeeId()
+function GenerateUniqueID()
     return tostring(os.time()) .. "-" .. tostring(math.random(1000, 9999))
 end
 
@@ -200,7 +200,7 @@ function AddBee(player, speciesName, isAdult, timeToGrowUp)
 
     -- Create a new bee structure with a unique ID
     local bee = {
-        beeId = GenerateUniqueBeeId(),
+        beeId = GenerateUniqueID(),
         species = speciesName,
         adult = isAdult,
         timeToGrowUp = timeToGrowUp
