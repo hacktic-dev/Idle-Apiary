@@ -344,8 +344,13 @@ end
 --]]
 
 -- Function to get the local player's cash
-function GetPlayerCash()
-    return players[client.localPlayer].Cash.value
+function GetPlayerCash(player)
+
+    if player == nil then
+        return players[client.localPlayer].Cash.value
+    else
+        return players[player].Cash.value
+    end
 end
 
 -- Function to initialize the client-side logic
