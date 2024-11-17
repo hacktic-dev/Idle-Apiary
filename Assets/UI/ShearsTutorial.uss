@@ -33,6 +33,7 @@
     font-size: 24px
     color: white;
     white-space: normal;
+    -unity-text-align: middle-center;
 }
 
 .image
@@ -43,19 +44,19 @@
     margin-bottom: 10px;
 }
 
-.shopkeeper-image
+.image-1
 {
-    background-image: url("project://database/Assets/Textures/Shopkeeper.png");
+    background-image: url("project://database/Assets/Textures/shears_tut_1.png");
 }
 
-.bee-image
+.image-2
 {
-    background-image: url("project://database/Assets/Textures/Bee.png");
+    background-image: url("project://database/Assets/Textures/shears_tut_2.png");
 }
 
-.baybee-image
+.image-3
 {
-    background-image: url("project://database/Assets/Textures/tutorial2.png");
+    background-image: url("project://database/Assets/Textures/shears_tut_3.png");
 }
 
 .title {
