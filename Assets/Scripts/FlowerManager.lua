@@ -55,6 +55,8 @@ local desc : string = nil
 local nearOwner = nil
 local nearPlacedId = nil
 
+local apiaryPosition = nil
+
 function TrySpawnFlower()
     if math.random(0, 100) > 20 then
         return -- failed
@@ -115,6 +117,13 @@ function self:ServerAwake()
 
         if owner ~= nil then
             print(placedId)
+
+            for index, flower in ipairs(placedFlowers[player]) do
+                if flower.id == placedId then
+                    table.remove(placedFlowers[player], index)
+                end
+            end
+
             removeFlowerRequest:FireAllClients(placedId)
         end
 
@@ -198,8 +207,21 @@ function SaveFlowerPositions(player, id) -- server
     end
 end
 
-function SpawnIncomingPlayerFlowersForAllClients(player)
+function SpawnPlayerFlowersOnAllClients(player, _apiaryPosition)
+    apiaryPosition = _apiaryPosition
+    Storage.GetPlayerValue(player, "PlacedFlowers", function(storedFlowers, errorCode)
 
+        if storedFlowers == nil then
+            placedFlowers[player] = {}
+            return
+        end
+        
+        placedFlowers[player] = storedFlowers
+
+        for _, flower in ipairs(storedFlowers) do
+            clientSpawnFlower:FireAllClients(flower.name, flower.id, player.user.id, apiaryPosition + flower.position)
+        end
+    end)
 end
 
 function SpawnAllFlowersForIncomingPlayer(player)

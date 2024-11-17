@@ -17,6 +17,7 @@ local apiaries = {}
 local playerManager = require("PlayerManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
+local flowerManager = require("FlowerManager")
 
 --!SerializeField
 local ApiaryPrefab : GameObject = nil
@@ -97,6 +98,7 @@ apiaryPlacementRequest:Connect(function(player, position)
           end)
 
         playerManager.RecalculatePlayerEarnRate(player)
+        flowerManager.SpawnPlayerFlowersOnAllClients(player, position)
         notifyApiaryPlacementSucceeded:FireClient(player, position)
     else
         -- Notify the player that the placement was invalid
