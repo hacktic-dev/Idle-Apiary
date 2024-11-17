@@ -10,6 +10,7 @@ local updateBeeAgeRequest = Event.new("UpdateBeeAgeRequest")
 local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
+local flowerManager = require("FlowerManager")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
@@ -323,6 +324,7 @@ local function TrackPlayers(game, characterCallback)
         if client == nil then
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
+            flowerManager.RemoveAllPlayerFlowers(player)
             UpdateStorage(player)
         end
         players[player] = nil

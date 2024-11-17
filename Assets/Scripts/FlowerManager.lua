@@ -32,9 +32,9 @@ apiaryCannotPlaceFlower = Event.new("ApiaryCannotPlaceFlowerEvent")
 queryOwnedFlowers = Event.new("queryOwnedFlowers")
 recieveOwnedFlowers = Event.new("recieveOwnedFlowers")
 noFlowersOwned = Event.new("noFlowersOwned")
-requestPlaceFlower = Event.new("requestPlaceFlower")
-
-clientSpawnFlower = Event.new("clientSpawnFlower")
+requestPlaceFlower = Event.new("requestPlaceFlower") -- client to server
+removeFlowerRequest = Event.new("removeFlowerRequest") -- server to client
+clientSpawnFlower = Event.new("clientSpawnFlower") -- server to client
 
 local placedFlowers = {} -- Placed flowers across all players (server)
 
@@ -170,6 +170,19 @@ function PlaceFlower(name, position) -- client
     requestPlaceFlower:FireServer(name , position)
 end
 
+function RemoveAllPlayerFlowers(player) -- server
+    print("removing all flowers for player " .. player.name)
+    if placedFlowers[player] then
+        for _ , flower in ipairs(placedFlowers[player]) do
+            local id = flower.id
+
+            removeFlowerRequest:FireAllClients(id)
+        end
+
+        placedFlowers[player] = nil
+    end
+end
+
 noFlowersOwned:Connect(function()
     flowerPlaceUi:GetComponent(PlaceFlowerUi).NoFlowers()
 end)
@@ -191,7 +204,7 @@ requestPlaceFlower:Connect(function(player, name, position)
         placedFlowers[player] = {}
     end
 
-    local flower = {name = name, owner = player, position = localPosition, id}
+    local flower = {name = name, owner = player, position = localPosition, id = id}
 
     table.insert(placedFlowers[player], flower)
 
@@ -205,3 +218,11 @@ clientSpawnFlower:Connect(function(name, id, owner, position)
     flower:GetComponent(Flower).SetOwner(owner)
     spawnedFlowers[id] = flower
 end)
+
+removeFlowerRequest:Connect(function(id)
+    print("removing flower with id " .. id)
+    if spawnedFlowers[id] then
+        Object.Destroy(spawnedFlowers[id])
+        spawnedFlowers[id] = nil
+    end
+ end)
