@@ -33,8 +33,10 @@
 
 .bee-main-label
 {
+    white-space: normal;
     align-self: center;
     font-size: 24px;
+    -unity-text-align: middle-center;
 }
 
 .bee-image

@@ -354,10 +354,14 @@ end
 
 --]]
 
--- Functions to get player stats --
+-- Function to get the local player's cash
+function GetPlayerCash(player)
 
-function GetPlayerCash()
-    return players[client.localPlayer].Cash.value
+    if player == nil then
+        return players[client.localPlayer].Cash.value
+    else
+        return players[player].Cash.value
+    end
 end
 
 function GetPlayerBeeCapacity()

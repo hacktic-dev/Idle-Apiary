@@ -53,3 +53,10 @@ function showPurchasedHoney(id)
     _honeyRateLabel:SetPrelocalizedText("Please reach out to hacktic if there are any issues.")
     _sellPriceLabel:SetPrelocalizedText("")
 end
+
+function showPurchasedHoneyFailed()
+    _beeLabel:SetPrelocalizedText("There was an error while purchasing")
+    _rarity:SetPrelocalizedText("Please try again later")
+    _honeyRateLabel:SetPrelocalizedText("Your gold has not been deducted.")
+    _sellPriceLabel:SetPrelocalizedText("")
+end

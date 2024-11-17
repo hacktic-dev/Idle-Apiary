@@ -20,6 +20,9 @@ serverResponse = Event.new("serverResponse")
 
 hideUiEvent = Event.new("HideUiEvent")
 
+purchaseSucceededEvent = Event.new("purchaseSucceededEvent")
+purchaseFailedEvent = Event.new("purchaseFailedEvent")
+
 responseTesting = false
 
 -- Function to Prompt the player to purchase a token (Client Side)
@@ -53,6 +56,8 @@ function ServerHandlePurchase(purchase, player: Player)
   -- The amount of tokens to give the player
   local tokensToGive = 0 -- Initialize the amount of tokens to give
 
+  local cash = playerManager.GetPlayerCash(player)
+
   -- Assuming you have multiple products to purchase (e.g., "token_100", "token_500")
   if productId == "honey_1" then
     tokensToGive = 250
@@ -60,25 +65,31 @@ function ServerHandlePurchase(purchase, player: Player)
     tokensToGive = 1000
   elseif productId == "honey_3" then
     tokensToGive = 3000
-  else
-    -- No product found, reject the purchase and return
-    Payments.AcknowledgePurchase(purchase, false)
-    -- Add an extra message to the console to help with debugging
-    print("Unknown product ID: " .. productId)
-    return
   end
 
-  -- The purchase was successful, acknowledge the purchase and give the player the tokens
-  Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
-    -- Check for any errors when acknowledging the purchase
-    if ackErr ~= PaymentsError.None then
-      print("Error acknowledging purchase: " .. ackErr)
-      return
-    end
+  -- Add the tokens to the player's account (calling the IncrementTokens function)
+  IncrementTokens(player, tokensToGive)
 
-    -- Add the tokens to the player's account (calling the IncrementTokens function)
-    IncrementTokens(player, tokensToGive)
-  end)
+  Timer.new(0.3, function() 
+    print(playerManager.GetPlayerCash(player) - 1000 .. " vs. " .. cash)
+
+    if playerManager.GetPlayerCash(player) - 200 > cash then
+      Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+        -- Check for any errors when acknowledging the purchase
+        if ackErr ~= PaymentsError.None then
+          print("Error acknowledging purchase: " .. ackErr)
+          purchaseFailedEvent:FireClient(player)
+          return
+
+        end
+        purchaseSucceededEvent:FireClient(player, productId)
+      end)
+    else
+      print("no purchase")
+      Payments.AcknowledgePurchase(purchase, false)
+      purchaseFailedEvent:FireClient(player)
+    end
+  end, false)
 end
 
 -- Initialize the module
@@ -94,21 +105,30 @@ end
 function self:ClientAwake()
     serverResponse:Connect(function(id)
         responseTesting = false
-        Payments:PromptPurchase(id, function(paid)
-            if paid then
-              print("Purchase successful")
-              UIManager.ToggleUI("BeeCard", true)
-              UIManager.ToggleUI("ShopUi", false)
-              UIManager.ToggleUI("PlayerStats", false)
-              BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
-              hideUiEvent:Fire()
-              audioManager.PlaySound("purchaseSound", 1)
-            else
-              print("Purchase failed")
-            end
-          end)
+        Payments:PromptPurchase(id, function(paid) end)
     end)
     
+    purchaseSucceededEvent:Connect(function(id)
+      print("Purchase successful")
+      print(id)
+      UIManager.ToggleUI("BeeCard", true)
+      UIManager.ToggleUI("ShopUi", false)
+      UIManager.ToggleUI("PlayerStats", false)
+      BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
+      hideUiEvent:Fire()
+      audioManager.PlaySound("purchaseSound", 1)
+    end)
+
+        
+    purchaseFailedEvent:Connect(function()
+      print("Purchase failed")
+      UIManager.ToggleUI("BeeCard", true)
+      UIManager.ToggleUI("ShopUi", false)
+      UIManager.ToggleUI("PlayerStats", false)
+      BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoneyFailed()
+      hideUiEvent:Fire()
+    end)
+
     hideUiEvent:Connect(function()
         Timer.new(5, function() UIManager.ToggleUI("BeeCard", false)
             UIManager.ToggleUI("ShopUi", true)
