@@ -31,6 +31,7 @@ apiaryCanPlaceFlower = Event.new("ApiaryCanPlaceFlowerEvent")
 apiaryCannotPlaceFlower = Event.new("ApiaryCannotPlaceFlowerEvent")
 queryOwnedFlowers = Event.new("queryOwnedFlowers")
 recieveOwnedFlowers = Event.new("recieveOwnedFlowers")
+noFlowersOwned = Event.new("noFlowersOwned")
 
 
 canPlaceFLower = true
@@ -108,7 +109,7 @@ function self:ServerAwake()
 
             if #items == 0 then 
                 print("No owned flowers")
-                -- TODO
+                noFlowersOwned:FireClient(player)
             end
             for index, item in items do
                 recieveOwnedFlowers:FireClient(player, item.id, item.amount)
@@ -152,8 +153,13 @@ function LookupFlowerDescription(name)
     end
 end
 
+noFlowersOwned:Connect(function()
+    flowerPlaceUi:GetComponent(PlaceFlowerUi).NoFlowers()
+end)
+
 recieveOwnedFlowers:Connect(function(name, amount)
     print("recieved!")
     flowerPlaceUi:GetComponent(PlaceFlowerUi).AddFlowerCard(name, amount)  
     end)
 
+    

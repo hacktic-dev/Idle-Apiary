@@ -55,6 +55,13 @@ function AddFlowerCard(name, amount)
     Flowers_Root:Add(flowerCard)
 end
 
+function NoFlowers()
+    local titleLabel = UILabel.new()
+    titleLabel:AddToClassList("title")
+    titleLabel:SetPrelocalizedText("You don't have any flowers :(")
+    Flowers_Root:Add(titleLabel)
+end
+
 function self:ClientAwake()
   
 end

@@ -54,6 +54,7 @@
     align-self: center;
     white-space: normal;
     -unity-text-align: middle-center;
+    width: 100%;
 }
 
 .close{

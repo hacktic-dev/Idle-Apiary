@@ -19,7 +19,7 @@ using Highrise.Lua;
 namespace Highrise.Lua.Generated
 {
     [AddComponentMenu("Lua/FlowerManager")]
-    [LuaRegisterType(0x3c4c59969887e0f6, typeof(LuaBehaviour))]
+    [LuaRegisterType(0xf2dffed5231892a5, typeof(LuaBehaviour))]
     public class FlowerManager : LuaBehaviourThunk
     {
         private const string s_scriptGUID = "a11b0d0f6b7d4fa48ab14a8a565f7b04";
