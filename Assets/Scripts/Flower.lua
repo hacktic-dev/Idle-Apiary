@@ -28,7 +28,7 @@ function self:Update()
         timeAlive += Time.deltaTime
     end
 
-    if (not inRange) and (owner == nil or owner == client.localPlayer) and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) < 3 then
+    if (not inRange) and (owner == nil or owner == client.localPlayer.user.id) and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) < 3 then
         inRange = true
         flowerManager.flowerAreaEntered(self:GetComponent(Transform).gameObject, id, flowerManager.LookupFlowerDescription(id), owner, placedId)
     elseif inRange and  Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) > 3 then

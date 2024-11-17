@@ -84,12 +84,12 @@ local function InitializeSeenBeeSpecies(player, callback)
 end
 
 -- Function to save the player's bee species list back to persistent storage
-local function SaveSeenBeeSpecies(player)
+local function SaveSeenBeeSpecies(player, id)
     if playerSeenBeeSpecies[player] ~= nil then
+        print("saving bees for " .. player.name)
         -- Save the bee species list to persistent storage
-        Storage.SetPlayerValue(player, "SeenBeeSpecies", playerSeenBeeSpecies[player], function(errorCode)
+        Storage.SetValue(id .. "/" ..  "SeenBeeSpecies", playerSeenBeeSpecies[player], function(errorCode)
             if errorCode then
-                print("Error saving bee species for " .. player.name .. ": " .. tostring(errorCode))
             end
         end)
     end
@@ -162,10 +162,10 @@ local function InitializeBeeStorage(player, callback)
 end
 
 -- Function to save the player's bee storage back to persistent storage
-local function SaveBeeStorage(player)
+local function SaveBeeStorage(player, id)
     if playerBeeStorage[player] ~= nil then
         -- Save the bee storage to persistent storage
-        Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
+        Storage.SetValue(id .. "/" ..  "BeeStorage", playerBeeStorage[player], function(errorCode)
         end)
     end
 end
@@ -261,7 +261,7 @@ function RecalculatePlayerEarnRate(player)
     end)
 end
 
-local function UpdateStorage(player)
+local function UpdateStorage(player, id)
     local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, FlowerCapacity = 0, SweetScentLevel = 0, HasShears = false}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
@@ -271,7 +271,7 @@ local function UpdateStorage(player)
     stats.HasShears = players[player].HasShears.value
 
     -- Save the stats to storage and handle any errors
-    Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
+    Storage.SetValue(id .. "/" .. "PlayerStats", stats, function(errorCode)    end)
     print(player.name .. " Stats Saved")
 end
 
@@ -317,16 +317,18 @@ local function TrackPlayers(game, characterCallback)
 
     -- Connect to the event when a player leaves the game
     game.PlayerDisconnected:Connect(function(player)
-        -- Remove the player from the players table
-        print(player.name .. " with id " .. player.id .. " is leaving")
         if client == nil then
+            id = player.user.id
+            print(player.name .. " with id " .. player.user.id .. " is leaving")
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
-            SaveBeeStorage(player)
+            SaveSeenBeeSpecies(player, id)
+            SaveBeeStorage(player, id)
+            UpdateStorage(player, id)
+            flowerManager.SaveFlowerPositions(player, id)
             flowerManager.RemoveAllPlayerFlowers(player)
-            UpdateStorage(player)
-            SaveSeenBeeSpecies(player)
         end
+                -- Remove the player from the players table
         players[player] = nil
     end)
 end
@@ -527,14 +529,14 @@ function self:ServerAwake()
          SaveStats(player)
 
          if(stat ~= "Cash") then
-            UpdateStorage(player)
+            UpdateStorage(player, player.user.id)
          end
     end)
 
     giveShearsRequest:Connect(function(player)
         players[player].HasShears.value = true
         SaveStats(player)
-        UpdateStorage(player)
+        UpdateStorage(player, player.user.id)
     end
     )
 

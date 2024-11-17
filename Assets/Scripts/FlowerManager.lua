@@ -192,6 +192,12 @@ function RemoveAllPlayerFlowers(player) -- server
     end
 end
 
+function SaveFlowerPositions(player, id) -- server
+    if placedFlowers[player] ~= nil then
+        Storage.SetValue(id .. "/" .. "PlacedFlowers", placedFlowers[player], function(errorCode) end)
+    end
+end
+
 noFlowersOwned:Connect(function()
     flowerPlaceUi:GetComponent(PlaceFlowerUi).NoFlowers()
 end)
@@ -207,13 +213,13 @@ requestPlaceFlower:Connect(function(player, name, position)
 
     local id = playerManager.GenerateUniqueID()
 
-    clientSpawnFlower:FireAllClients(name, id, player, position)
+    clientSpawnFlower:FireAllClients(name, id, player.user.id, position)
 
     if placedFlowers[player] == nil then
         placedFlowers[player] = {}
     end
 
-    local flower = {name = name, owner = player, position = localPosition, id = id}
+    local flower = {name = name, owner = player.user.id, position = localPosition, id = id}
 
     table.insert(placedFlowers[player], flower)
 
@@ -221,10 +227,10 @@ requestPlaceFlower:Connect(function(player, name, position)
     Inventory.CommitTransaction(transaction)
 end)
 
-clientSpawnFlower:Connect(function(name, id, owner, position)
+clientSpawnFlower:Connect(function(name, id, userId, position)
     local flower = Object.Instantiate(flowerObjects[name])
     flower:GetComponent(Transform).position = position
-    flower:GetComponent(Flower).SetOwner(owner)
+    flower:GetComponent(Flower).SetOwner(userId)
     flower:GetComponent(Flower).SetPlacedId(id)
     spawnedFlowers[id] = flower
 end)
