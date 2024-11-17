@@ -12,6 +12,9 @@ local InfoCard : GameObject = nil
 --!SerializeField
 local flowerPlaceUi : GameObject = nil
 
+--!SerializeField
+local statusObject : GameObject = nil
+
 local UIManager = require("UIManager")
 local audioManager = require("AudioManager")
 local playerManager = require("PlayerManager")
@@ -35,6 +38,7 @@ noFlowersOwned = Event.new("noFlowersOwned")
 requestPlaceFlower = Event.new("requestPlaceFlower") -- client to server
 removeFlowerRequest = Event.new("removeFlowerRequest") -- server to client
 clientSpawnFlower = Event.new("clientSpawnFlower") -- server to client
+notifyFlowerPlacementFailed = Event.new("notifyFlowerPlacementFailed")
 
 local placedFlowers = {} -- Placed flowers across all players (server)
 
@@ -242,6 +246,12 @@ recieveOwnedFlowers:Connect(function(name, amount)
     end)
 
 requestPlaceFlower:Connect(function(player, name, position)
+
+    if#placedFlowers[player] == playerManager.GetPlayerFlowerCapacity(player) then
+        notifyFlowerPlacementFailed:FireClient(player)
+        return
+    end
+
     apiaryPosition = apiaryManager.GetPlayerApiaryLocation(player)
     localPosition = position - apiaryManager.GetPlayerApiaryLocation(player)
 
@@ -275,4 +285,10 @@ removeFlowerRequest:Connect(function(id)
         Object.Destroy(spawnedFlowers[id])
         spawnedFlowers[id] = nil
     end
+ end)
+
+ notifyFlowerPlacementFailed:Connect(function()
+    statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of flowers placed.")
+    UIManager.ToggleUI("PlaceStatus", true)
+    Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
  end)

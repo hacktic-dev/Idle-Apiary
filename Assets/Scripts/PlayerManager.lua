@@ -377,8 +377,12 @@ function GetPlayerSweetScentLevel()
     return players[client.localPlayer].SweetScentLevel.value
 end
 
-function GetPlayerFlowerCapacity()
-    return players[client.localPlayer].FlowerCapacity.value
+function GetPlayerFlowerCapacity(player)
+    if player == nil then
+        return players[client.localPlayer].FlowerCapacity.value
+    else
+        return players[player].FlowerCapacity.value
+    end
 end 
 
 function GetPlayerOwnsShears()
