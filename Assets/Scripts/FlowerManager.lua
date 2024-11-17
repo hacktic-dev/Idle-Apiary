@@ -198,6 +198,18 @@ function SaveFlowerPositions(player, id) -- server
     end
 end
 
+function SpawnIncomingPlayerFlowersForAllClients(player)
+
+end
+
+function SpawnAllFlowersForIncomingPlayer(player)
+    for owner, flowerList in pairs(placedFlowers) do
+        for _, flower in ipairs(flowerList) do
+            clientSpawnFlower:FireClient(player, flower.name, flower.id, owner.user.id, apiaryManager.GetPlayerApiaryLocation(owner) + flower.position)
+        end
+    end
+end
+
 noFlowersOwned:Connect(function()
     flowerPlaceUi:GetComponent(PlaceFlowerUi).NoFlowers()
 end)

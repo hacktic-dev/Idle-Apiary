@@ -295,6 +295,7 @@ local function TrackPlayers(game, characterCallback)
 
             ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
+            flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
 
             Storage.SetPlayerValue(player, player.name, player.name)
