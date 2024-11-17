@@ -15,6 +15,8 @@ local _beesTab : UIButton = nil
 local _honeyTab : UIButton = nil
 --!Bind
 local _cosmeticsTab : UIButton = nil
+--!Bind
+local upgrades : UILabel = nil
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -60,11 +62,11 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     end
 
     if sweetScentLevel < 2 then
-        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1 .. "\nRarer bees spawn more frequently", "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false)
+        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1, "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false, "Rarer bees spawn more frequently")
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
-        CreateQuestItem("Purchase Shears\nCan be used to pick Flowers", "Shears", 5000, false)
+        CreateQuestItem("Purchase Shears", "Shears", 5000, false, "Can be used to pick flowers")
     else
        if flowerCapacity < 10 then
         CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false)
@@ -74,9 +76,9 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase a Random Bee from the Bronze Set", "Bronze", 50)
-    CreateQuestItem("Purchase a Random Bee from the Silver Set", "Silver", 250)
-    CreateQuestItem("Purchase a Random Bee from the Gold Set", "Gold", 1250)
+    CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set")
+    CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set")
+    CreateQuestItem("Purchase a Random Beet", "Gold", 1250, false, "Gold Set")
 end
 
 local function InitHoneyTab()
@@ -227,7 +229,7 @@ end
 
 
 -- Creates a new quest item in the UI.
-function CreateQuestItem(Name, Id, Cash, isGold)
+function CreateQuestItem(Name, Id, Cash, isGold, description)
     -- Create a new button for the quest item.
     local questItem = UIButton.new()
     questItem:AddToClassList("order-item") -- Add a class to style the quest item.
@@ -237,6 +239,13 @@ function CreateQuestItem(Name, Id, Cash, isGold)
     _titleLabel:AddToClassList("title")
     _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
     questItem:Add(_titleLabel)
+
+    if description~= nil then
+        local _descLabel = UILabel.new()
+        _descLabel:AddToClassList("description")
+        _descLabel:SetPrelocalizedText(description)
+        questItem:Add(_descLabel)
+    end
 
     -- Create a label for the quest item's XP reward and add it to the quest item.
     -- local _xpLabel = UILabel.new()
@@ -324,6 +333,11 @@ end
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
     ButtonPressed("bees")
+    if Screen.width > Screen.height then
+        upgrades:SetPrelocalizedText("Upgrades / Items")
+    else
+        upgrades:SetPrelocalizedText("Items")
+    end
     closeButton:RegisterPressCallback(function()
         UIManager.CloseShop()
     end, true, true, true)

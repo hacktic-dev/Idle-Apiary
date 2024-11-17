@@ -13,7 +13,7 @@
 
       <VisualElement class="navigation">
         <VisualElement class="nav-button--selected" name="_upgradesTab">
-          <Label class="nav-text" text="Upgrades / Items" />
+          <hr:UILabel name="upgrades" class="nav-text"/>
         </VisualElement>
         <VisualElement class="nav-button--deselected" name="_beesTab">
           <Label class="nav-text" text="Bees" />
