@@ -194,6 +194,9 @@ requestPlaceFlower:Connect(function(player, name, position)
     local flower = {name = name, owner = player, position = localPosition, id}
 
     table.insert(placedFlowers[player], flower)
+
+    local transaction = InventoryTransaction.new():TakePlayer(player, name, 1)
+    Inventory.CommitTransaction(transaction)
 end)
 
 clientSpawnFlower:Connect(function(name, id, owner, position)

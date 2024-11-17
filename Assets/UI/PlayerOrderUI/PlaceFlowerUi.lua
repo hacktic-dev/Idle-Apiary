@@ -56,6 +56,7 @@ function AddFlowerCard(name, amount)
     flowerCard:RegisterPressCallback(function()
         position = client.localPlayer.character:GetComponent(Transform).position
         flowerManager.PlaceFlower(name, position)
+        UIManager.ClosePlaceFlowerMenu()
     end, true, true, true)
 
     Flowers_Root:Add(flowerCard)
