@@ -167,7 +167,6 @@ local function SaveBeeStorage(player)
         -- Save the bee storage to persistent storage
         Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
         end)
-        beeCountUpdated:FireClient(player, #playerBeeStorage[player])
     end
 end
 
@@ -210,8 +209,7 @@ function AddBee(player, speciesName, isAdult, timeToGrowUp)
     -- Add the bee to the player's storage in memory
     table.insert(playerBeeStorage[player], bee)
 
-    -- Save the updated bee storage back to persistent storage
-    SaveBeeStorage(player)
+    beeCountUpdated:FireClient(player, #playerBeeStorage[player])
 
     -- Print the bee information (for debugging purposes)
     print(player.name .. " received a new bee (ID: " .. bee.beeId .. ") of species: " .. speciesName)
@@ -324,8 +322,10 @@ local function TrackPlayers(game, characterCallback)
         if client == nil then
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
+            SaveBeeStorage(player)
             flowerManager.RemoveAllPlayerFlowers(player)
             UpdateStorage(player)
+            SaveSeenBeeSpecies(player)
         end
         players[player] = nil
     end)
@@ -560,7 +560,6 @@ function self:ServerAwake()
         -- Check if the species is already in the list; if not, add it
         if not table.find(playerSeenBeeSpecies[player], name) then
             table.insert(playerSeenBeeSpecies[player], name)
-            SaveSeenBeeSpecies(player) -- Save the updated species list
         end
 
 
@@ -585,7 +584,7 @@ function self:ServerAwake()
                     table.remove(storedBees, index)
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
-                    SaveBeeStorage(player)
+                    beeCountUpdated:FireClient(player, #playerBeeStorage[player])
                     if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
                         RecalculatePlayerEarnRate(player)
                     end
@@ -610,7 +609,6 @@ function self:ServerAwake()
                     bee.timeToGrowUp = 0
     
                     -- Save the updated bee storage back to persistent storage
-                    SaveBeeStorage(player)
                     RecalculatePlayerEarnRate(player)
                     updateBeeList:FireClient(player)
     
@@ -629,7 +627,6 @@ function self:ServerAwake()
             for _, bee in ipairs(storedBees) do
                 if bee.beeId == id then
                     bee.timeToGrowUp = timeLeft
-                    SaveBeeStorage(player)
                     return
                 end
             end
