@@ -244,6 +244,14 @@ function GetBeeList(player, callback)
 end
 
 function RecalculatePlayerEarnRate(player, isDc)
+
+    if ApiaryManager.GetPlayerApiaryLocation(player) == nil then
+        playerEarnRateChanged:FireClient(player, 0)
+        restartTimerRequest:FireClient(player, 0)
+        playerMoneyEarnRates[player] = 0
+        return
+    end
+
     GetBeeList(player, function(bees)
         local rate = 0
 
@@ -648,10 +656,7 @@ function self:ServerAwake()
             beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player), id, isAdult, growTime, wildBeeManager.getGrowTime(name))
         end
 
-        -- Only have non zero rate if apiary is placed
-        if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-            RecalculatePlayerEarnRate(player)
-        end
+        RecalculatePlayerEarnRate(player)
     end)
 
     sellBeeRequest:Connect(function(player, beeId)
@@ -664,9 +669,7 @@ function self:ServerAwake()
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
                     beeCountUpdated:FireClient(player, #playerBeeStorage[player])
-                    if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-                        RecalculatePlayerEarnRate(player)
-                    end
+                    RecalculatePlayerEarnRate(player)
                     print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
                     return
                 end

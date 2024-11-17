@@ -31,7 +31,7 @@ local _sellPriceSortLabel : UILabel = nil
 local _sellPriceSort : UIButton = nil
 
 
-local count = 0;
+local count = 0
 
 local playerManager = require("PlayerManager") -- Accesses player management functions.
 local wildBeeManager = require("WildBeeManager")
@@ -39,7 +39,7 @@ local UIManager = require("UIManager")
 local audioManager = require("AudioManager")
 local Utils = require("Utils")
 
-local sortMode = 0
+local sortMode = 1
 
 -- Table to store each bee's UI element by beeId
 local beeItems = {}
@@ -234,7 +234,10 @@ function self:ClientAwake()
     totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. 0)
 
     playerManager.playerEarnRateChanged:Connect(function(rate)
-        totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. sigFig(rate, 5))
+        if rate ~= 0 then
+            rate = sigFig(rate, 5)
+        end
+        totalHoneyRateLabel:SetPrelocalizedText("Total Honey Rate: " .. rate)
     end)
 end
 

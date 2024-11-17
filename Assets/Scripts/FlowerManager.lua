@@ -222,6 +222,7 @@ function SpawnPlayerFlowersOnAllClients(player, _apiaryPosition)
 
         if storedFlowers == nil then
             placedFlowers[player] = {}
+            playerManager.RecalculatePlayerEarnRate(player)
             return
         end
         
