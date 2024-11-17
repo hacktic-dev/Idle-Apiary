@@ -4,8 +4,6 @@
     position: absolute;
     margin-top: auto;
     margin-bottom: auto;
-    width: 100%;
-    max-width: 95%;
     align-self: center;
     align-items: center;
 }
@@ -13,11 +11,16 @@
 .portrait .place-flower-ui {
     bottom: 10%;
     height: 85%
+    width: 100%;
+    max-width: 95%;
 }
 
 .landscape .place-flower-ui {
     bottom: 20%;
-    height: 70%
+    max-bottom: 100px;
+    height: 70%;
+    width: 100%;
+    min-width: 400px;
 }
 
 
@@ -73,7 +76,7 @@
 
 .landscape .title {
     padding-top: 5%;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 
@@ -117,7 +120,7 @@
 }
 
 .landscape .description {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 #Flowers_Root {
@@ -194,8 +197,8 @@
 
 .landscape .image
 {
-    height: 150px;
-    width: 150px;
+    height: 50%;
+    width:50%;
 }
 
 .Red-flower-image
