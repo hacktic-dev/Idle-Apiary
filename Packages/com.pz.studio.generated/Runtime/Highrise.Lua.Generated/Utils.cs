@@ -26,6 +26,7 @@ namespace Highrise.Lua.Generated
         public override string ScriptGUID => s_scriptGUID;
 
         [SerializeField] public System.Collections.Generic.List<UnityEngine.Texture> m_beeTextures = default;
+        [SerializeField] public System.Collections.Generic.List<UnityEngine.Texture> m_hatTextures = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -35,6 +36,7 @@ namespace Highrise.Lua.Generated
             return new SerializedPropertyValue[]
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), m_beeTextures),
+                CreateSerializedProperty(_script.GetPropertyAt(1), m_hatTextures),
             };
         }
     }

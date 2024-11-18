@@ -33,6 +33,7 @@ local playerManager = require("PlayerManager")
 local UIManager = require("UIManager") 
 local audioManager = require("AudioManager")
 local purchaseHandler = require("PurchaseHandler")
+local Utils = require("Utils")
 
 local state = 0 -- Which tab are we on?
 
@@ -123,18 +124,35 @@ local function timeUntilNextSeed()
     return formatTime(next_seed_time - now) -- Time remaining until the next 4-hour block
 end
 
-
 function InitCosmeticsTab()
     -- Seed the random number generator
     print("Seed: " .. getSeed())
     math.randomseed(getSeed())
     Orders_Root:Clear()
-    CreateHatItem("test1", "test_1", 100, false)
-    CreateHatItem("test2", "test_2", 200, false)
-    CreateHatItem("test3", "test_3", 500, false)
-    CreateHatItem("test4", "test_4", 1000, false)
-    CreateHatItem("test5", "test_5", 100, true)
-    CreateHatItem("test6", "test_6", 200, true)
+
+    local hats = {} 
+
+    local i = 0
+    -- First loop for premium hats
+    while i < 2 do
+        local hat = Utils.ChooseHat(true)
+        if hat and hats[hat.name] == nil then
+            hats[hat.name] = hat
+            CreateHatItem(hat.name, hat.name, hat.rarity, hat.goldCost, true)
+            i = i + 1
+        end
+    end
+
+    i = 0
+    -- Second loop for regular hats
+    while i < 4 do
+        local hat = Utils.ChooseHat(false)
+        if hat and hats[hat.name] == nil then
+            hats[hat.name] = hat
+            CreateHatItem(hat.name, hat.name, hat.rarity, hat.goldCost, false)
+            i = i + 1
+        end
+    end
 end
 
 function ButtonPressed(btn: string)
@@ -189,7 +207,7 @@ function ButtonPressed(btn: string)
       InitCosmeticsTab()
       return true
     end
-  end
+end
   
 function LookupSweetScentLevelPrice(level)
     if level == 1 then
@@ -284,13 +302,13 @@ function GenerateBee(setId)
     end
 end
 
-function CreateHatItem(Name, Id, Cash, isGold)
+function CreateHatItem(Name, Id, Rarity, Cash, isGold)
     local questItem = UIButton.new()
     questItem:AddToClassList("hat-item") -- Add a class to style the quest item.
 
     -- Create a label for the quest item's title and add it to the quest item.
     local _titleLabel = UILabel.new()
-    _titleLabel:AddToClassList("title")
+    _titleLabel:AddToClassList("hat-title")
     _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
     questItem:Add(_titleLabel)
 
@@ -307,14 +325,33 @@ function CreateHatItem(Name, Id, Cash, isGold)
         _priceContainer:Add(_icon)
     end
 
+    local _image = UIImage.new()
+    _image:AddToClassList("inventory__item__icon__image")
+    _image:AddToClassList("hat-image")
+    _image.image = Utils.HatImage[Name]
+    questItem:Add(_image)
+
+    local container = VisualElement.new()
+    container:AddToClassList("row-container")
+    
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
     _cashLabel:AddToClassList("title")
     _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
     _priceContainer:Add(_cashLabel)
-    questItem:Add(_priceContainer)
+    container:Add(_priceContainer)
 
-    
+    local _rarityContainer = UIButton.new()
+    _rarityContainer:AddToClassList(Rarity)
+
+    local _rarityLabel = UILabel.new()
+    _rarityLabel:AddToClassList("rarity-label")
+    _rarityLabel:SetPrelocalizedText(Rarity)
+    _rarityContainer:Add(_rarityLabel)
+    container:Add(_rarityContainer)
+
+    questItem:Add(container)
+
     -- Add the quest item to the UI.
     Orders_Root:Add(questItem)
 

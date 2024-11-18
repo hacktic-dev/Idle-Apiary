@@ -51,7 +51,7 @@
 }
 
 .portrait .hat-item{
-    height: 95px;
+    height: 130px;
     width: 48%;
 }
 
@@ -90,6 +90,22 @@
     font-size: 21.5px;
 }
 
+.hat-title {
+    margin: 0px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .hat-title {
+    font-size: 13.5px;
+}
+
+.landscape .hat-title {
+    font-size: 21.5px;
+}
+
 
 .description {
     margin-bottom: 12px;
@@ -104,6 +120,21 @@
 }
 
 .landscape .description {
+    font-size: 17px;
+}
+
+.rarity-label {
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .rarity-label {
+    font-size: 12px;
+}
+
+.landscape .rarity-label {
     font-size: 17px;
 }
 
@@ -321,4 +352,47 @@
 .time-to-reset
 {
 
+}
+
+.Legendary {
+  height: 25px;
+    flex-grow: 1;
+  padding: 4px;
+    border-radius: 5px;
+      background-color: rgba(191,167,34,.8);
+}
+
+.Rare {
+  height: 25px;
+    flex-grow: 1;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: rgba(82,27,160,.8);
+}
+
+.Uncommon {
+  height: 25px;
+    flex-grow: 1;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: rgba(35,49,160,.8);
+}
+
+.Common {
+  height: 25px;
+  flex-grow: 1;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: rgba(39,119,34,.8);
+}
+
+.row-container
+{
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.hat-image
+{
+  max-height: 69%;
 }

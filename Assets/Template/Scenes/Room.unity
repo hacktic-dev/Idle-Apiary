@@ -30780,6 +30780,15 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 6cf8ab86ac282c241b8bc53549ba3136, type: 3}
   - {fileID: 2800000, guid: a9a9760898345c244b0ca7881e311d31, type: 3}
   - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  m_hatTextures:
+  - {fileID: 2800000, guid: 38d85cd5377c8324dbe8fa82b29fcfe2, type: 3}
+  - {fileID: 2800000, guid: efb0bb6a6c236bc46a520ab6ef738231, type: 3}
+  - {fileID: 2800000, guid: 56ded2896511f814e8185722907f32f5, type: 3}
+  - {fileID: 2800000, guid: 56371960073b905449994dc6e35221c0, type: 3}
+  - {fileID: 2800000, guid: 3f174da576a86b847b38e67c14d738cb, type: 3}
+  - {fileID: 2800000, guid: da89db53c3cf33645a1002a46ff8e14b, type: 3}
+  - {fileID: 2800000, guid: 62a437b84d811264f87587d43cf5b129, type: 3}
+  - {fileID: 2800000, guid: a9a9760898345c244b0ca7881e311d31, type: 3}
   references:
     version: 2
     RefIds:
