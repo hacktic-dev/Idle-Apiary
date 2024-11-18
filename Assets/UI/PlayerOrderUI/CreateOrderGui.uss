@@ -15,8 +15,8 @@
 }
 
 .landscape .create-order-gui {
-    bottom: 22.5%;
-    height: 60%
+    bottom: 20.5%;
+    height: 63%
 }
 
 
@@ -33,13 +33,32 @@
 }
 
 .portrait .order-item{
-    height: 100px;
+    height: 150px;
 }
 
 .landscape .order-item{
-          height: 200px;
+          height: 220px;
 }
 
+.hat-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    background-color: rgba(0,0,0,.35);
+    border-radius: 10px;
+}
+
+.portrait .hat-item{
+    height: 95px;
+    width: 48%;
+}
+
+.landscape .hat-item{
+  height: 200px;
+  width: 32%;
+}
 
 .scroll-view__content-container
 {
@@ -284,4 +303,22 @@
   padding-left: 1px;
   padding-right: 2px;
   padding-top: 4px;
+}
+
+.high-margin
+{
+  padding-top: 30px;
+}
+
+.time-container{
+  position: absolute;
+  right: 3%;
+  top: 72px;
+  height: 30px;
+    border-radius: 5px;
+}
+
+.time-to-reset
+{
+
 }

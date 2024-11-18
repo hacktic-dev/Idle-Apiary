@@ -17,6 +17,10 @@ local _honeyTab : UIButton = nil
 local _cosmeticsTab : UIButton = nil
 --!Bind
 local upgrades : UILabel = nil
+--!Bind
+local timeToReset : UILabel = nil
+--!Bind
+local timeContainer : UIButton = nil
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -42,6 +46,10 @@ end, true, true, true)
 
 _honeyTab:RegisterPressCallback(function()
     local success = ButtonPressed("honey")
+    end, true, true, true)
+
+    _cosmeticsTab:RegisterPressCallback(function()
+    local success = ButtonPressed("cosmetics")
     end, true, true, true)
 
 function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
@@ -88,6 +96,47 @@ local function InitHoneyTab()
     CreateQuestItem("Purchase 3000 Honey", "honey_3", 500, true)
 end
 
+local function getSeed()
+    local now = os.time() -- Get the current time
+    local four_hours = 14400 -- 4 hours in seconds
+    return math.floor(now / four_hours) -- Determine the current 4-hour block
+end
+
+local function formatTime(seconds)
+    local hours = math.floor(seconds / 3600)
+    local minutes = math.floor((seconds % 3600) / 60)
+    local secs = seconds % 60
+    return string.format("%02d:%02d:%02d", hours, minutes, secs)
+end
+
+-- Function to calculate the time until the next seed change
+local function timeUntilNextSeed()
+    local now = os.time() -- Get the current time
+    local four_hours = 14400 -- 4 hours in seconds
+    local next_seed_time = (math.floor(now / four_hours) + 1) * four_hours
+
+    --TODO reset shop when timeout
+    if next_seed_time - now == 14400 and state == 3 then
+        InitCosmeticsTab()
+    end
+
+    return formatTime(next_seed_time - now) -- Time remaining until the next 4-hour block
+end
+
+
+function InitCosmeticsTab()
+    -- Seed the random number generator
+    print("Seed: " .. getSeed())
+    math.randomseed(getSeed())
+    Orders_Root:Clear()
+    CreateHatItem("test1", "test_1", 100, false)
+    CreateHatItem("test2", "test_2", 200, false)
+    CreateHatItem("test3", "test_3", 500, false)
+    CreateHatItem("test4", "test_4", 1000, false)
+    CreateHatItem("test5", "test_5", 100, true)
+    CreateHatItem("test6", "test_6", 200, true)
+end
+
 function ButtonPressed(btn: string)
     if btn == "upgrades" then
       if state == 0 then return end
@@ -97,6 +146,8 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
+      Orders_Root:RemoveFromClassList("high-margin")
+      timeContainer.visible = false
       InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
       --audioManager.PlaySound("paperSound1", 1)
       return true
@@ -108,6 +159,8 @@ function ButtonPressed(btn: string)
       _upgradesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
+      Orders_Root:RemoveFromClassList("high-margin")
+      timeContainer.visible = false
       InitBeesTab()
       --audioManager.PlaySound("paperSound1", 1)
       return true
@@ -119,6 +172,8 @@ function ButtonPressed(btn: string)
         _beesTab:AddToClassList("nav-button--deselected")
         _upgradesTab:AddToClassList("nav-button--deselected")
         _cosmeticsTab:AddToClassList("nav-button--deselected")
+        Orders_Root:RemoveFromClassList("high-margin")
+        timeContainer.visible = false
         InitHoneyTab()
     elseif btn == "cosmetics" then
     if state == 3 then return end
@@ -128,8 +183,10 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _upgradesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
-      --PopulateShop(Deals)
-      --audioManager.PlaySound("paperSound1", 1)
+      timeContainer.visible = true
+      Orders_Root:AddToClassList("high-margin")
+      timeToReset:SetPrelocalizedText("Time until shop resets: " .. timeUntilNextSeed())
+      InitCosmeticsTab()
       return true
     end
   end
@@ -227,6 +284,42 @@ function GenerateBee(setId)
     end
 end
 
+function CreateHatItem(Name, Id, Cash, isGold)
+    local questItem = UIButton.new()
+    questItem:AddToClassList("hat-item") -- Add a class to style the quest item.
+
+    -- Create a label for the quest item's title and add it to the quest item.
+    local _titleLabel = UILabel.new()
+    _titleLabel:AddToClassList("title")
+    _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
+    questItem:Add(_titleLabel)
+
+    local _priceContainer = VisualElement.new()
+    _priceContainer:AddToClassList("priceContainer")
+
+    if not isGold then
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_honey")
+        _priceContainer:Add(_icon)
+    else
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_gold")
+        _priceContainer:Add(_icon)
+    end
+
+    -- Create a label for the quest item's cash cost and add it to the quest item.
+    local _cashLabel = UILabel.new()
+    _cashLabel:AddToClassList("title")
+    _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
+    _priceContainer:Add(_cashLabel)
+    questItem:Add(_priceContainer)
+
+    
+    -- Add the quest item to the UI.
+    Orders_Root:Add(questItem)
+
+    return questItem
+end
 
 -- Creates a new quest item in the UI.
 function CreateQuestItem(Name, Id, Cash, isGold, description)
@@ -332,7 +425,9 @@ end
 
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
+    timeToReset:AddToClassList("time-to-reset")
     ButtonPressed("bees")
+    Timer.new(1, function() timeToReset:SetPrelocalizedText("Time until shop resets: " .. timeUntilNextSeed()) end, true)
     if Screen.width > Screen.height then
         upgrades:SetPrelocalizedText("Upgrades / Items")
     else
