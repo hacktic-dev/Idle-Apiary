@@ -316,6 +316,14 @@
   align-self: center;
 }
 
+.priceContainerHat
+{
+  margin-top: -3px;
+  margin-left: 3px;
+  flex-direction: row;
+  align-self: center;
+}
+
 .landscape .nav-text
 {
   font-size: 18px;
@@ -358,6 +366,8 @@
   height: 25px;
     flex-grow: 1;
   padding: 4px;
+      margin-left: 12px;
+    margin-right: 12px;
     border-radius: 5px;
       background-color: rgba(191,167,34,.8);
 }
@@ -365,6 +375,8 @@
 .Rare {
   height: 25px;
     flex-grow: 1;
+        margin-left: 12px;
+    margin-right: 12px;
     padding: 4px;
     border-radius: 5px;
     background-color: rgba(82,27,160,.8);
@@ -374,6 +386,8 @@
   height: 25px;
     flex-grow: 1;
     padding: 4px;
+        margin-left: 12px;
+    margin-right: 12px;
     border-radius: 5px;
     background-color: rgba(35,49,160,.8);
 }
@@ -382,9 +396,32 @@
   height: 25px;
   flex-grow: 1;
     padding: 4px;
+    margin-left: 12px;
+    margin-right: 12px;
     border-radius: 5px;
     background-color: rgba(39,119,34,.8);
 }
+
+.portrait .Common {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
+.portrait .Uncommon {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
+.portrait .Rare {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
+.portrait .Legendary {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
 
 .row-container
 {
@@ -392,7 +429,12 @@
   justify-content: space-around;
 }
 
-.hat-image
+.portrait .hat-image
 {
   max-height: 69%;
+}
+
+.landscape .hat-image
+{
+  max-height: 74%;
 }

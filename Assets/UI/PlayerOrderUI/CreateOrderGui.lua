@@ -313,7 +313,7 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
     questItem:Add(_titleLabel)
 
     local _priceContainer = VisualElement.new()
-    _priceContainer:AddToClassList("priceContainer")
+    _priceContainer:AddToClassList("priceContainerHat")
 
     if not isGold then
         local _icon = UIImage.new()
