@@ -6,11 +6,12 @@
 ]]
 
 --!SerializeField
-local BeeObtainCardObject : GameObject = nil
+local InfoCardObject : GameObject = nil
 
 local playerManager = require("PlayerManager")
 audioManager = require("AudioManager")
 local UIManager = require("UIManager")
+local Utils = require("Utils")
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -58,43 +59,49 @@ function ServerHandlePurchase(purchase, player: Player)
   -- The amount of tokens to give the player
   local tokensToGive = 0 -- Initialize the amount of tokens to give
 
-  print("Getting cash for player " .. player.name)
+  isHoney = false
 
-  local cash = playerManager.GetPlayerCash(player)
-
-  print("Player ".. player.name .. " has " .. cash .. " cash")
-
-  -- Assuming you have multiple products to purchase (e.g., "token_100", "token_500")
   if productId == "honey_1" then
     tokensToGive = 250
+    isHoney = true
   elseif productId == "honey_2" then
     tokensToGive = 1000
+    isHoney = true
   elseif productId == "honey_3" then
     tokensToGive = 3000
+    isHoney = true
   end
 
-  -- Add the tokens to the player's account (calling the IncrementTokens function)
-  IncrementTokens(player, tokensToGive)
+  if isHoney then
+    HandleHoneyPurchase(player, tokensToGive, purchase)
+  end
+end
 
-  Timer.new(0.3, function() 
-    if playerManager.GetPlayerCash(player) - 200 > cash then
-      Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
-        -- Check for any errors when acknowledging the purchase
-        if ackErr ~= PaymentsError.None then
-          print("Error acknowledging purchase: " .. ackErr)
-          purchaseFailedEvent:FireClient(player)
-          return
+function HandleHoneyPurchase(player, tokensToGive, purchase)
+  print("Getting cash for player " .. player.name)
+  local cash = playerManager.GetPlayerCash(player)
+  print("Player ".. player.name .. " has " .. cash .. " cash")
 
-        end
-        print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
-        purchaseSucceededEvent:FireClient(player, productId)
-      end)
-    else
-      print("Cash wasn't incremented, purchase failed")
-      Payments.AcknowledgePurchase(purchase, false)
+  if cash == -1 then
+    print("Something went wrong, players[player] was nil. Reiniting and trying again")
+    playerManager.TrackPlayers(player)
+    getStatsRequest:Fire(player)
+    Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end false)
+    return
+  end
+
+  Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+    -- Check for any errors when acknowledging the purchase
+    if ackErr ~= PaymentsError.None then
+      print("Error acknowledging purchase: " .. ackErr)
       purchaseFailedEvent:FireClient(player)
+      return
+
     end
-  end, false)
+    print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
+    IncrementTokens(player, tokensToGive)
+    purchaseSucceededEvent:FireClient(player, productId)
+  end)
 end
 
 -- Initialize the module
@@ -120,7 +127,7 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoney(id)
       hideUiEvent:Fire()
       audioManager.PlaySound("purchaseSound", 1)
     end)
@@ -131,7 +138,7 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoneyFailed()
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoneyFailed()
       hideUiEvent:Fire()
     end)
 

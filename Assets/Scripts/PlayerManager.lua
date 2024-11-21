@@ -1,7 +1,7 @@
 --!Type(Module) -- Module type declaration, typically used in specific game engines or frameworks.
 
 -- Create events for different types of requests, these will be used for communication between client and server.
-local getStatsRequest = Event.new("GetStatsRequest")
+getStatsRequest = Event.new("GetStatsRequest")
 local saveStatsRequest = Event.new("SaveStatsRequest")
 local incrementStatRequest = Event.new("IncrementStatRequest")
 local setBeeAdultRequest = Event.new("SetBeeAdultRequest")
@@ -289,7 +289,7 @@ function removeElement(tbl, element)
 end
 
 -- Function to track players joining and leaving the game
-local function TrackPlayers(game, characterCallback)
+function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game
     scene.PlayerJoined:Connect(function(scene, player)
         -- Initialize player's stats and store them in the players table
