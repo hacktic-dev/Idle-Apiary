@@ -225,6 +225,7 @@ playerManager.notifyBeePurchased:Connect((function(species)
 end))
 
 playerManager.notifyHatPurchased:Connect((function(hat)
+    audioManager.PlaySound("purchaseSound", 1)
     ToggleUI("BeeCard", true)
     ToggleUI("PlayerStats", false)
     ToggleUI("ShopUi", false)

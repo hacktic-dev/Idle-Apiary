@@ -40,15 +40,24 @@ HatImage = {
 
 local hatData = 
 {
-    {name = "Yellow Wooly Hat", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 2000, goldCost = 250},
-    {name = "Pink Cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 3000, goldCost = 400},
-    {name = "Yellow Bucket Hat", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2,isLimited = false, cost = 10000, goldCost = 500},
-    {name = "Traffic Cone", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 15000, goldCost = 750},
-    {name = "Christmas Elf Hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = true, cost = 20000, goldCost = 1500},
-    {name = "Pirate Hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 2500},
-    {name = "Pixel Sunglasses", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 3000},
-    {name = "Gold Crown", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 4000},
+    {name = "Yellow Wooly Hat", id = "yellow_wooly", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 2000, goldCost = 250},
+    {name = "Pink Cap", id = "pink_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 3000, goldCost = 400},
+    {name = "Yellow Bucket Hat", id = "yellow_bucket", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2,isLimited = false, cost = 10000, goldCost = 500},
+    {name = "Traffic Cone", id = "traffic_cone", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 15000, goldCost = 750},
+    {name = "Christmas Elf Hat", id = "christmas_elf", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = true, cost = 20000, goldCost = 1500},
+    {name = "Pirate Hat", id = "pirate_hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 2500},
+    {name = "Pixel Sunglasses", id = "pixel_sunglasses", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 3000},
+    {name = "Gold Crown", id = "gold_crown", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 4000},
 }
+
+function LookupHatName(id)
+    for _, hat in ipairs(hatData) do
+        if hat.id == id then
+            return hat.name
+        end
+    end
+    return nil -- Return nil if no matching id is found
+end
 
 -- Function to calculate total spawn factor
 local function GetTotalSelectionFactor(isGold)

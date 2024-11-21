@@ -11,6 +11,7 @@ local InfoCardObject : GameObject = nil
 local playerManager = require("PlayerManager")
 audioManager = require("AudioManager")
 local UIManager = require("UIManager")
+local Utils = require("Utils")
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -65,36 +66,49 @@ function ServerHandlePurchase(purchase, player: Player)
   print("Player ".. player.name .. " has " .. cash .. " cash")
 
   -- Assuming you have multiple products to purchase (e.g., "token_100", "token_500")
+
+  isHoney = false
+
   if productId == "honey_1" then
     tokensToGive = 250
+    isHoney = true
   elseif productId == "honey_2" then
     tokensToGive = 1000
+    isHoney = true
   elseif productId == "honey_3" then
     tokensToGive = 3000
+    isHoney = true
   end
 
-  -- Add the tokens to the player's account (calling the IncrementTokens function)
-  IncrementTokens(player, tokensToGive)
+  if isHoney then
+    HandleHoneyPurchase(cash, player, tokensToGive, purchase)
+  end
 
-  Timer.new(0.3, function() 
-    if playerManager.GetPlayerCash(player) - 200 > cash then
-      Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
-        -- Check for any errors when acknowledging the purchase
-        if ackErr ~= PaymentsError.None then
-          print("Error acknowledging purchase: " .. ackErr)
-          purchaseFailedEvent:FireClient(player)
-          return
+  -- Not honey, so it must be a hat. Add to inventory and commit
+  local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
+  Inventory.CommitTransaction(transaction)
+  playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
+end
 
-        end
-        print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
-        purchaseSucceededEvent:FireClient(player, productId)
-      end)
-    else
-      print("Cash wasn't incremented, purchase failed")
-      Payments.AcknowledgePurchase(purchase, false)
-      purchaseFailedEvent:FireClient(player)
-    end
-  end, false)
+function HandleHoneyPurchase(cash, player, tokensToGive, purchase)
+  if playerManager.GetPlayerCash(player) - 200 > cash then
+    Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+      -- Check for any errors when acknowledging the purchase
+      if ackErr ~= PaymentsError.None then
+        print("Error acknowledging purchase: " .. ackErr)
+        purchaseFailedEvent:FireClient(player)
+        return
+
+      end
+      print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
+      IncrementTokens(player, tokensToGive)
+      purchaseSucceededEvent:FireClient(player, productId)
+    end)
+  else
+    print("Cash wasn't incremented, purchase failed")
+    Payments.AcknowledgePurchase(purchase, false)
+    purchaseFailedEvent:FireClient(player)
+  end
 end
 
 -- Initialize the module

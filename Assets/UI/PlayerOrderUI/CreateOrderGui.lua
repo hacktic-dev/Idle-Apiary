@@ -138,7 +138,7 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(true)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.name, hat.rarity, hat.goldCost, true)
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true)
             i = i + 1
         end
     end
@@ -149,7 +149,7 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(false)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.name, hat.rarity, hat.cost, false)
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false)
             i = i + 1
         end
     end
@@ -363,8 +363,7 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
               
             playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
             playerManager.GiveHat(Id)
-            playerManager.notifyHatPurchased:Fire()
-            audioManager.PlaySound("purchaseSound", 1)
+            playerManager.notifyHatPurchased:Fire(Name)
         else
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
