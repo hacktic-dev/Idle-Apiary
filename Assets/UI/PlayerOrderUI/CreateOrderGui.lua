@@ -336,7 +336,7 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
     
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
-    _cashLabel:AddToClassList("title")
+    _cashLabel:AddToClassList("hat-price")
     _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
     _priceContainer:Add(_cashLabel)
     container:Add(_priceContainer)

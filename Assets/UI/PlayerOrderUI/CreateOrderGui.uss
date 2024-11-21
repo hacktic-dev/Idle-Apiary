@@ -15,8 +15,8 @@
 }
 
 .landscape .create-order-gui {
-    bottom: 20.5%;
-    height: 63%
+    bottom: 14%;
+    height: 80%
 }
 
 
@@ -37,7 +37,7 @@
 }
 
 .landscape .order-item{
-          height: 220px;
+          height: 45%;
 }
 
 .hat-item {
@@ -56,7 +56,7 @@
 }
 
 .landscape .hat-item{
-  height: 200px;
+  height: 45%;
   width: 32%;
 }
 
@@ -67,6 +67,7 @@
   justify-content: space-between;
   margin-left:2.5%;
   margin-right:2.5%;
+  height: 100%;
 }
 
 .button .button__content
@@ -88,6 +89,22 @@
 
 .landscape .title {
     font-size: 21.5px;
+}
+
+.hat-price{
+      margin: 5px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .hat-price {
+    font-size: 11.5px;
+}
+
+.landscape .hat-price {
+    font-size: 16.5px;
 }
 
 .hat-title {
@@ -135,7 +152,7 @@
 }
 
 .landscape .rarity-label {
-    font-size: 17px;
+    font-size: 14px;
 }
 
 
