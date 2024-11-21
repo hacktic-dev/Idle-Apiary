@@ -352,6 +352,26 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
 
     questItem:Add(container)
 
+    questItem:RegisterPressCallback(function()
+        -- Handle gold payments
+        if isGold then
+            purchaseHandler.PromptTokenPurchase(Id)
+            return
+        end
+
+        if playerManager.GetPlayerCash() >= Cash then
+              
+            playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
+            playerManager.GiveHat(Id)
+            playerManager.notifyHatPurchased:Fire()
+            audioManager.PlaySound("purchaseSound", 1)
+        else
+            UIManager.ToggleUI("PlaceStatus", true)
+            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
+            Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+        end
+    end)
+
     -- Add the quest item to the UI.
     Orders_Root:Add(questItem)
 

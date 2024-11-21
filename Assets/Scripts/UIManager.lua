@@ -224,6 +224,15 @@ playerManager.notifyBeePurchased:Connect((function(species)
     Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end, false)
 end))
 
+playerManager.notifyHatPurchased:Connect((function(hat)
+    ToggleUI("BeeCard", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("ShopUi", false)
+    InfoCardObject:GetComponent(InfoCard).ShowHat(hat)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end, false)
+end))
+
+
 function self:ClientAwake()
     Timer.new(.1, function() 
         OpenTutorial()

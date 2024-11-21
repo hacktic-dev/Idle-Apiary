@@ -29,17 +29,19 @@ local playerSeenBeeSpecies = {}
 
 local playerTimers = {}
 
-giveBeeRequest = Event.new("GiveBee")
-sellBeeRequest = Event.new("SellBee")
+giveBeeRequest = Event.new("GiveBeeRequest")
+sellBeeRequest = Event.new("SellBeeRequest")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
+notifyHatPurchased = Event.new("NotifyHatPurchased")
 beeCountUpdated = Event.new("BeeCountUpdated")
 playerEarnRateChanged = Event.new("PlayerEarnRateChanged")
 giveShearsRequest = Event.new("GiveShearsRequest")
+givePlayerHatRequest = Event.new("GivePlayerHatRequest")
 
 requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
 
-local restartTimerRequest = Event.new("RestartTimer")
+local restartTimerRequest = Event.new("RestartCashTimer")
 
 local MoneyTimer = nil
 
@@ -721,9 +723,18 @@ function self:ServerAwake()
             recieveSeenBees:FireClient(player, bees)
         end)
     end)
+
+    givePlayerHatRequest:Connect(function(player, Id)
+        local transaction = InventoryTransaction.new():GivePlayer(player, Id, 1)
+        Inventory.CommitTransaction(transaction)
+    end)
 end
 
 function GiveCash(player, amount)
     players[player].Cash.value += amount 
     SaveStats(player)
+end
+
+function GiveHat(Id)
+    givePlayerHatRequest:FireServer(Id)
 end

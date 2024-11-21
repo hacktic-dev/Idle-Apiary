@@ -33,6 +33,13 @@ function ShowRecieved(species)
     _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
 end
 
+function ShowHat(hat)
+    _beeLabel:SetPrelocalizedText("You purchased a " .. hat .. "!")
+    _rarity:SetPrelocalizedText("")
+    _honeyRateLabel:SetPrelocalizedText("")
+    _sellPriceLabel:SetPrelocalizedText("")
+end
+
 function ShowFlowerCut(name, effect)
     _beeLabel:SetPrelocalizedText("You picked a " .. name .. " flower!")
     _rarity:SetPrelocalizedText(effect)
