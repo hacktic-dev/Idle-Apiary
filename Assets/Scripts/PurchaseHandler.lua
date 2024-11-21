@@ -11,7 +11,6 @@ local InfoCardObject : GameObject = nil
 local playerManager = require("PlayerManager")
 audioManager = require("AudioManager")
 local UIManager = require("UIManager")
-local Utils = require("Utils")
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -91,7 +90,7 @@ function HandleHoneyPurchase(player, tokensToGive, purchase)
     print("Something went wrong, players[player] was nil. Reiniting and trying again")
     playerManager.TrackPlayers(player)
     getStatsRequest:Fire(player)
-    Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end false)
+    Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end, false)
     return
   end
 
