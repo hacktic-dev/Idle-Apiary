@@ -53,10 +53,16 @@ function ServerHandlePurchase(purchase, player: Player)
   -- Note: The product ID is a string even when it represents a number
   local productId = purchase.product_id -- The product ID that was purchased (e.g., "token")
 
+  print("Player " .. player.name .. " has made a purchase of ".. productId ..". Attempting...")
+
   -- The amount of tokens to give the player
   local tokensToGive = 0 -- Initialize the amount of tokens to give
 
+  print("Getting cash for player " .. player.name)
+
   local cash = playerManager.GetPlayerCash(player)
+
+  print("Player ".. player.name .. " has " .. cash .. " cash")
 
   -- Assuming you have multiple products to purchase (e.g., "token_100", "token_500")
   if productId == "honey_1" then
@@ -71,8 +77,6 @@ function ServerHandlePurchase(purchase, player: Player)
   IncrementTokens(player, tokensToGive)
 
   Timer.new(0.3, function() 
-    print(playerManager.GetPlayerCash(player) - 1000 .. " vs. " .. cash)
-
     if playerManager.GetPlayerCash(player) - 200 > cash then
       Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
         -- Check for any errors when acknowledging the purchase
@@ -82,10 +86,11 @@ function ServerHandlePurchase(purchase, player: Player)
           return
 
         end
+        print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
         purchaseSucceededEvent:FireClient(player, productId)
       end)
     else
-      print("no purchase")
+      print("Cash wasn't incremented, purchase failed")
       Payments.AcknowledgePurchase(purchase, false)
       purchaseFailedEvent:FireClient(player)
     end
@@ -98,6 +103,7 @@ function self:ServerAwake()
   Payments.PurchaseHandler = ServerHandlePurchase
 
   testServer:Connect(function(player, id)
+      print("Purchase request was initiated by " .. player.name)
     serverResponse:FireClient(player, id)
   end)
 end
@@ -109,7 +115,7 @@ function self:ClientAwake()
     end)
     
     purchaseSucceededEvent:Connect(function(id)
-      print("Purchase successful")
+      print("Purchase successful. Showing UI.")
       print(id)
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)

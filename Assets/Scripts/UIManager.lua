@@ -43,7 +43,7 @@ local uiMap = {
   function ActivateObject(object)
     if not object.activeSelf then
       object:SetActive(true)
-      print("UI activated")
+      --print("UI activated")
     end
   end
   
@@ -51,7 +51,7 @@ local uiMap = {
   function DeactivateObject(object)
     if object.activeSelf then
       object:SetActive(false)
-      print("UI deactivated")
+      --print("UI deactivated")
     end
   end
 
@@ -76,15 +76,15 @@ end
 function ToggleUI(ui: string, visible: boolean)
     local uiComponent = uiMap[ui]
     if not uiComponent then
-        print("[ToggleUI] UI component not found: " .. ui)
+        --print("[ToggleUI] UI component not found: " .. ui)
         return
     end
 
     if visible then
-       print("[ToggleUI] UI component activated " .. ui)
+       --print("[ToggleUI] UI component activated " .. ui)
        ActivateObject(uiComponent)
     else
-        print("[ToggleUI] UI component deactivated " .. ui)
+        --print("[ToggleUI] UI component deactivated " .. ui)
        DeactivateObject(uiComponent)
     end
 end
