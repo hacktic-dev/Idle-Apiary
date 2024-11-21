@@ -17,6 +17,8 @@ local playerStatGui = nil
 -- Table to keep track of players and their associated stats
 players = {}
 
+onlinePlayers = {} -- strictly online players only
+
 -- Table to hold players' bee storage in memory
 local playerBeeStorage = {}
 
@@ -267,6 +269,25 @@ local function UpdateStorage(player)
     --print(player.name .. " Stats Saved")
 end
 
+function tableContains(tbl, element)
+    for _, value in ipairs(tbl) do
+        if value == element then
+            return true
+        end
+    end
+    return false
+end
+
+function removeElement(tbl, element)
+    for i, value in ipairs(tbl) do
+        if value == element then
+            table.remove(tbl, i)
+            return true -- Successfully removed
+        end
+    end
+    return false -- Element not found
+end
+
 -- Function to track players joining and leaving the game
 local function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game
@@ -282,7 +303,7 @@ local function TrackPlayers(game, characterCallback)
         
         if client == nil then
             --RemoveAllPlayerItems(player)
-
+            table.insert(onlinePlayers, player)
             ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             playerTimers[player] = nil
@@ -313,9 +334,12 @@ local function TrackPlayers(game, characterCallback)
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             SaveProgress(player)
-
+            removeElement(onlinePlayers, player)
         end
-        players[player] = nil
+        Timer.new(20, function() 
+            if tableContains(onlinePlayers, player) == false then
+             players[player] = nil end end
+            , false)
     end)
 end
 
