@@ -330,14 +330,18 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
     local container = VisualElement.new()
     container:AddToClassList("row-container")
     
+    local _rarityLabel = UILabel.new()
+
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
     if Screen.width > Screen.height and Screen.height < 1000 then
         _cashLabel:AddToClassList("hat-price-small")
         _image:AddToClassList("hat-image-small")
+        _rarityLabel:AddToClassList("rarity-label-small")
     else
         _cashLabel:AddToClassList("hat-price")
         _image:AddToClassList("hat-image")
+        _rarityLabel:AddToClassList("rarity-label")
     end
 
     _image.image = Utils.HatImage[Name]
@@ -350,8 +354,6 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
     local _rarityContainer = UIButton.new()
     _rarityContainer:AddToClassList(Rarity)
 
-    local _rarityLabel = UILabel.new()
-    _rarityLabel:AddToClassList("rarity-label")
     _rarityLabel:SetPrelocalizedText(Rarity)
     _rarityContainer:Add(_rarityLabel)
     container:Add(_rarityContainer)
