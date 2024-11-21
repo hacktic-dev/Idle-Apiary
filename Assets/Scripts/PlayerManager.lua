@@ -310,12 +310,17 @@ local function TrackPlayers(game, characterCallback)
         if client == nil then
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
-            SaveBeeStorage(player)
-            UpdateStorage(player)
-            SaveSeenBeeSpecies(player)
+            SaveProgress(player)
+
         end
         players[player] = nil
     end)
+end
+
+function SaveProgress(player)
+    SaveBeeStorage(player)
+    UpdateStorage(player)
+    SaveSeenBeeSpecies(player)
 end
 
 -- Function to find the key with the maximum value in a table
@@ -574,6 +579,13 @@ function self:ServerAwake()
             recieveSeenBees:FireClient(player, bees)
         end)
     end)
+
+    Timer.new(30, function() 
+    for player, data in ipairs(players) do
+        SaveProgress(player)
+    end
+    --print("Saved!")
+    end, true)
 end
 
 function GiveCash(player, amount)

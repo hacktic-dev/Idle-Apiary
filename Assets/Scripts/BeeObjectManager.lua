@@ -62,9 +62,9 @@ function RemoveAllPlayerBees(player)
         -- Clear the bees from the server's data structure for this player
         playerBees[player] = nil
         
-        print("All bees removed for player: " .. player.name)
+        --print("All bees removed for player: " .. player.name)
     else
-        print("No bees to remove for player: " .. player.name)
+        print("Error: No bees to remove for player: " .. player.name)
     end
 end
 
@@ -81,13 +81,13 @@ function RemoveBee(player, beeId)
                 -- Remove the bee from the server's data structure for this player
                 table.remove(playerBees[player], index)
                 
-                print("Bee with ID " .. beeId .. " removed for player: " .. player.name)
+                --print("Bee with ID " .. beeId .. " removed for player: " .. player.name)
                 return
             end
         end
-        print("Bee with ID " .. beeId .. " not found for player: " .. player.name)
+        print("Error: Bee with ID " .. beeId .. " not found for player: " .. player.name)
     else
-        print("No bees to remove for player: " .. player.name)
+        print("Error: No bees to remove for player: " .. player.name)
     end
 end 
 
