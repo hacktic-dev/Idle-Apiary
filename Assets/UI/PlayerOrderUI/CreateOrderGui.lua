@@ -149,7 +149,7 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(false)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.name, hat.rarity, hat.goldCost, false)
+            CreateHatItem(hat.name, hat.name, hat.rarity, hat.cost, false)
             i = i + 1
         end
     end
