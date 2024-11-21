@@ -25,7 +25,7 @@ namespace Highrise.Lua.Generated
         private const string s_scriptGUID = "a805d6cd2ae6f374cac275790437d668";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public UnityEngine.GameObject m_BeeObtainCardObject = default;
+        [SerializeField] public UnityEngine.GameObject m_InfoCardObject = default;
         [SerializeField] public UnityEngine.GameObject m_statusObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
@@ -35,7 +35,7 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
-                CreateSerializedProperty(_script.GetPropertyAt(0), m_BeeObtainCardObject),
+                CreateSerializedProperty(_script.GetPropertyAt(0), m_InfoCardObject),
                 CreateSerializedProperty(_script.GetPropertyAt(1), m_statusObject),
             };
         }
