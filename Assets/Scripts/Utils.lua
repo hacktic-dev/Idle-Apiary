@@ -28,26 +28,26 @@ BeeImage = {
 }
 
 HatImage = {
-    ["Test 1"] = hatTextures[1],
-    ["Test 2"] = hatTextures[2],
-    ["Test 3"] = hatTextures[3],
-    ["Test 4"] = hatTextures[4],
-    ["Test 5"] = hatTextures[5],
-    ["Test 6"] = hatTextures[6],
-    ["Test 7"] = hatTextures[7],
-    ["Test 8"] = hatTextures[8],
+    ["Yellow Wooly Hat"] = hatTextures[1],
+    ["Pink Cap"] = hatTextures[2],
+    ["Yellow Bucket Hat"] = hatTextures[3],
+    ["Traffic Cone"] = hatTextures[4],
+    ["Christmas Elf Hat"] = hatTextures[5],
+    ["Pirate Hat"] = hatTextures[6],
+    ["Pixel Sunglasses"] = hatTextures[7],
+    ["Gold Crown"] = hatTextures[8],
 }
 
 local hatData = 
 {
-    {name = "Test 1", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 1000, goldCost = 100},
-    {name = "Test 2", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 2000, goldCost = 200},
-    {name = "Test 3", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1,isLimited = false, cost = 5000, goldCost = 500},
-    {name = "Test 4", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 8000, goldCost = 800},
-    {name = "Test 5", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 10000, goldCost = 1000},
-    {name = "Test 6", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 12000, goldCost = 1200},
-    {name = "Test 7", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 15000, goldCost = 1500},
-    {name = "Test 8", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 2000},
+    {name = "Yellow Wooly Hat", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 2000, goldCost = 250},
+    {name = "Pink Cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 3000, goldCost = 400},
+    {name = "Yellow Bucket Hat", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2,isLimited = false, cost = 10000, goldCost = 500},
+    {name = "Traffic Cone", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 15000, goldCost = 750},
+    {name = "Christmas Elf Hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = true, cost = 20000, goldCost = 1500},
+    {name = "Pirate Hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 2500},
+    {name = "Pixel Sunglasses", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 3000},
+    {name = "Gold Crown", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 4000},
 }
 
 -- Function to calculate total spawn factor
