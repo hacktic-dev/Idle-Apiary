@@ -6,7 +6,7 @@
 ]]
 
 --!SerializeField
-local BeeObtainCardObject : GameObject = nil
+local InfoCardObject : GameObject = nil
 
 local playerManager = require("PlayerManager")
 audioManager = require("AudioManager")
@@ -114,7 +114,7 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoney(id)
       hideUiEvent:Fire()
       audioManager.PlaySound("purchaseSound", 1)
     end)
@@ -125,7 +125,7 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      BeeObtainCardObject:GetComponent(BeeObtainCard).showPurchasedHoneyFailed()
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoneyFailed()
       hideUiEvent:Fire()
     end)
 

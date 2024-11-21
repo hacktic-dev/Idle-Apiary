@@ -18,9 +18,9 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/BeeObtainCard")]
+    [AddComponentMenu("Lua/InfoCard")]
     [LuaRegisterType(0x471a22897b04806c, typeof(LuaBehaviour))]
-    public class BeeObtainCard : LuaBehaviourThunk
+    public class InfoCard : LuaBehaviourThunk
     {
         private const string s_scriptGUID = "106c10ae9059f7b44877d5997e1b20d2";
         public override string ScriptGUID => s_scriptGUID;

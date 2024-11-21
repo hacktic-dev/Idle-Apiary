@@ -4,7 +4,7 @@
 --!SerializeField
 local BeeListObject : GameObject = nil
 --!SerializeField
-local BeeObtainCardObject : GameObject = nil
+local InfoCardObject : GameObject = nil
 --!SerializeField
 local PlaceApiaryObject : GameObject = nil
 --!SerializeField
@@ -28,7 +28,7 @@ local audioManager = require("AudioManager")
 
 local uiMap = {
     BeeList = BeeListObject,
-    BeeCard = BeeObtainCardObject,
+    BeeCard = InfoCardObject,
     PlaceButtons = PlaceApiaryObject,
     ShopUi = CreateOrderGuiObject,
     Beestiary = BeestiaryObject,
@@ -211,7 +211,7 @@ wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlaceButtons", false)
     ToggleUI("PlayerStats", false)
-    BeeObtainCardObject:GetComponent(BeeObtainCard).ShowCaughtWild(species)
+    InfoCardObject:GetComponent(InfoCard).ShowCaughtWild(species)
     audioManager.PlaySound("captureSound", 1)
     Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) end, false)
 end))
@@ -220,7 +220,7 @@ playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlayerStats", false)
     ToggleUI("ShopUi", false)
-    BeeObtainCardObject:GetComponent(BeeObtainCard).ShowRecieved(species)
+    InfoCardObject:GetComponent(InfoCard).ShowRecieved(species)
     Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end, false)
 end))
 

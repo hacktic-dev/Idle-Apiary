@@ -26,7 +26,7 @@ namespace Highrise.Lua.Generated
         public override string ScriptGUID => s_scriptGUID;
 
         [SerializeField] public UnityEngine.GameObject m_BeeListObject = default;
-        [SerializeField] public UnityEngine.GameObject m_BeeObtainCardObject = default;
+        [SerializeField] public UnityEngine.GameObject m_InfoCardObject = default;
         [SerializeField] public UnityEngine.GameObject m_PlaceApiaryObject = default;
         [SerializeField] public UnityEngine.GameObject m_CreateOrderGuiObject = default;
         [SerializeField] public UnityEngine.GameObject m_BeestiaryObject = default;
@@ -44,7 +44,7 @@ namespace Highrise.Lua.Generated
             return new SerializedPropertyValue[]
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), m_BeeListObject),
-                CreateSerializedProperty(_script.GetPropertyAt(1), m_BeeObtainCardObject),
+                CreateSerializedProperty(_script.GetPropertyAt(1), m_InfoCardObject),
                 CreateSerializedProperty(_script.GetPropertyAt(2), m_PlaceApiaryObject),
                 CreateSerializedProperty(_script.GetPropertyAt(3), m_CreateOrderGuiObject),
                 CreateSerializedProperty(_script.GetPropertyAt(4), m_BeestiaryObject),

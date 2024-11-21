@@ -10662,7 +10662,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_BeeListObject: {fileID: 1175730130}
-  m_BeeObtainCardObject: {fileID: 1281290780}
+  m_InfoCardObject: {fileID: 1281290780}
   m_PlaceApiaryObject: {fileID: 1857712168}
   m_CreateOrderGuiObject: {fileID: 1836377557}
   m_BeestiaryObject: {fileID: 1123674338}
@@ -14273,7 +14273,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
-  m_BeeObtainCardObject: {fileID: 1281290780}
+  m_InfoCardObject: {fileID: 1281290780}
   m_statusObject: {fileID: 2039243172}
   references:
     version: 2
@@ -35166,7 +35166,7 @@ GameObject:
   - component: {fileID: 1281290782}
   - component: {fileID: 1281290781}
   m_Layer: 0
-  m_Name: BeeObtainCard
+  m_Name: InfoCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
