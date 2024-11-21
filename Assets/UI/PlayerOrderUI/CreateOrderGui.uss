@@ -33,7 +33,7 @@
 }
 
 .portrait .order-item{
-    height: 150px;
+    height: 45%;
 }
 
 .landscape .order-item{
@@ -46,12 +46,14 @@
     align-items: center;
     margin-top: 1.5%;
     margin-bottom: 1.5%;
+    padding-left: 0px;
+    padding-right: 0px;
     background-color: rgba(0,0,0,.35);
     border-radius: 10px;
 }
 
 .portrait .hat-item{
-    height: 130px;
+    height: 43%;
     width: 48%;
 }
 
@@ -107,8 +109,18 @@
     font-size: 16.5px;
 }
 
+.hat-price-small
+{
+  font-size: 11px;
+      margin-left: 3px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
 .hat-title {
-    margin: 0px;
+    margin: 0px 5px;
     color: white;
     align-self: center;
     white-space: normal;
@@ -120,7 +132,8 @@
 }
 
 .landscape .hat-title {
-    font-size: 21.5px;
+  margin-top: 3px;
+    font-size: 20.5px;
 }
 
 
@@ -189,12 +202,13 @@
     padding: 5px 10px;
     color: white;
     font-size: 16px;
-    margin-top: 10px;
-    width: 200px;
+    margin-top: 8px;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
     align-self: center;
     position: relative;
+    height: 7%;
 }
 
 .shop__container {
@@ -444,14 +458,31 @@
 {
   flex-direction: row;
   justify-content: space-around;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .portrait .hat-image
 {
-  max-height: 69%;
+  height: 75%;
 }
 
 .landscape .hat-image
 {
-  max-height: 74%;
+  height: 200px;
+  padding-bottom: 5px;
+}
+
+.landscape .hat-image-small
+{
+  flex-grow: 0;
+  flex-shrink: 1;
+  height: 120px;
+  padding-bottom: 5px;
+}
+
+.hat-item .button__content
+{
+  height: 100%;
 }

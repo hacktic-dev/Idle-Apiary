@@ -22,16 +22,16 @@
     </hr:UIButton>
     <VisualElement class="sort-container">
       <hr:UIButton name="_alphabeticalSort" class="sort-item">
-        <hr:UILabel name= "_alphabeticalSortLabel" text="test"/>
+        <hr:UILabel name= "_alphabeticalSortLabel" text="test" class ="sortButton" />
       </hr:UIButton>
       <hr:UIButton name="_raritySort" class="sort-item">
-        <hr:UILabel name= "_raritySortLabel" text="test"/>
+        <hr:UILabel name= "_raritySortLabel" text="test" class ="sortButton"/>
       </hr:UIButton>
       <hr:UIButton name="_honeyRateSort" class="sort-item">
-        <hr:UILabel name= "_honeyRateSortLabel" text="test"/>
+        <hr:UILabel name= "_honeyRateSortLabel" text="test" class ="sortButton"/>
       </hr:UIButton>
       <hr:UIButton name="_sellPriceSort" class="sort-item">
-        <hr:UILabel name= "_sellPriceSortLabel" text="test"/>
+        <hr:UILabel name= "_sellPriceSortLabel" text="test" class ="sortButton"/>
       </hr:UIButton>
     </VisualElement>
   </hr:UILuaView>

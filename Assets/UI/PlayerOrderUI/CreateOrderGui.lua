@@ -326,17 +326,23 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
     end
 
     local _image = UIImage.new()
-    _image:AddToClassList("inventory__item__icon__image")
-    _image:AddToClassList("hat-image")
-    _image.image = Utils.HatImage[Name]
-    questItem:Add(_image)
 
     local container = VisualElement.new()
     container:AddToClassList("row-container")
     
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
-    _cashLabel:AddToClassList("hat-price")
+    if Screen.width > Screen.height and Screen.height < 1000 then
+        _cashLabel:AddToClassList("hat-price-small")
+        _image:AddToClassList("hat-image-small")
+    else
+        _cashLabel:AddToClassList("hat-price")
+        _image:AddToClassList("hat-image")
+    end
+
+    _image.image = Utils.HatImage[Name]
+    questItem:Add(_image)
+
     _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
     _priceContainer:Add(_cashLabel)
     container:Add(_priceContainer)
@@ -366,8 +372,8 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
             playerManager.notifyHatPurchased:Fire(Name)
         else
             UIManager.ToggleUI("PlaceStatus", true)
-            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
-            Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")
+            Timer.new(2, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
         end
     end)
 
