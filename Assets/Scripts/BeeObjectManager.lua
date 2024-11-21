@@ -64,7 +64,7 @@ function RemoveAllPlayerBees(player)
         
         --print("All bees removed for player: " .. player.name)
     else
-        print("Error: No bees to remove for player: " .. player.name)
+        --print("No bees to remove for player: " .. player.name)
     end
 end
 
@@ -87,7 +87,7 @@ function RemoveBee(player, beeId)
         end
         print("Error: Bee with ID " .. beeId .. " not found for player: " .. player.name)
     else
-        print("Error: No bees to remove for player: " .. player.name)
+        --print("No bees to remove for player: " .. player.name)
     end
 end 
 

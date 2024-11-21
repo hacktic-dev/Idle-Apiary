@@ -53,7 +53,7 @@ function ServerHandlePurchase(purchase, player: Player)
   -- Note: The product ID is a string even when it represents a number
   local productId = purchase.product_id -- The product ID that was purchased (e.g., "token")
 
-  print("Player " .. player.name .. "has made a purchase of ".. productId ..". Attempting...")
+  print("Player " .. player.name .. " has made a purchase of ".. productId ..". Attempting...")
 
   -- The amount of tokens to give the player
   local tokensToGive = 0 -- Initialize the amount of tokens to give

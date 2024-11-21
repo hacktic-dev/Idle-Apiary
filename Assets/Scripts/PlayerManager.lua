@@ -277,6 +277,8 @@ local function TrackPlayers(game, characterCallback)
             Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
         }
+
+        print("Player " .. player.name " was initialised")
         
         if client == nil then
             --RemoveAllPlayerItems(player)
@@ -354,6 +356,9 @@ function GetPlayerCash(player)
     if player == nil then
         return players[client.localPlayer].Cash.value
     else
+        if players[player] == nil then
+            return -1
+        end
         return players[player].Cash.value
     end
 end
