@@ -59,14 +59,6 @@ function ServerHandlePurchase(purchase, player: Player)
   -- The amount of tokens to give the player
   local tokensToGive = 0 -- Initialize the amount of tokens to give
 
-  print("Getting cash for player " .. player.name)
-
-  local cash = playerManager.GetPlayerCash(player)
-
-  print("Player ".. player.name .. " has " .. cash .. " cash")
-
-  -- Assuming you have multiple products to purchase (e.g., "token_100", "token_500")
-
   isHoney = false
 
   if productId == "honey_1" then
@@ -90,26 +82,31 @@ function ServerHandlePurchase(purchase, player: Player)
   playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
 end
 
-function HandleHoneyPurchase(cash, player, tokensToGive, purchase)
-  if playerManager.GetPlayerCash(player) - 200 > cash then
-    Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
-      -- Check for any errors when acknowledging the purchase
-      if ackErr ~= PaymentsError.None then
-        print("Error acknowledging purchase: " .. ackErr)
-        purchaseFailedEvent:FireClient(player)
-        return
+function HandleHoneyPurchase(player, tokensToGive, purchase)
+  print("Getting cash for player " .. player.name)
+  local cash = playerManager.GetPlayerCash(player)
+  print("Player ".. player.name .. " has " .. cash .. " cash")
 
-      end
-      print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
-      IncrementTokens(player, tokensToGive)
-      purchaseSucceededEvent:FireClient(player, productId)
-    end)
-  else
-    print("Cash wasn't incremented, purchase failed")
-    Payments.AcknowledgePurchase(purchase, false)
-    purchaseFailedEvent:FireClient(player)
+  if cash == -1 then
+    print("Something went wrong, players[player] was nil. Reiniting and trying again")
+    playerManager.TrackPlayers(player)
+    getStatsRequest:Fire(player)
+    Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end false)
+    return
   end
-end
+
+  Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+    -- Check for any errors when acknowledging the purchase
+    if ackErr ~= PaymentsError.None then
+      print("Error acknowledging purchase: " .. ackErr)
+      purchaseFailedEvent:FireClient(player)
+      return
+
+    end
+    print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
+    IncrementTokens(player, tokensToGive)
+    purchaseSucceededEvent:FireClient(player, productId)
+  end)
 
 -- Initialize the module
 function self:ServerAwake()

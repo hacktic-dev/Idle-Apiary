@@ -1,7 +1,7 @@
 --!Type(Module) -- Module type declaration, typically used in specific game engines or frameworks.
 
 -- Create events for different types of requests, these will be used for communication between client and server.
-local getStatsRequest = Event.new("GetStatsRequest")
+getStatsRequest = Event.new("GetStatsRequest")
 local saveStatsRequest = Event.new("SaveStatsRequest")
 local incrementStatRequest = Event.new("IncrementStatRequest")
 local setBeeAdultRequest = Event.new("SetBeeAdultRequest")
@@ -17,6 +17,8 @@ local playerStatGui = nil
 
 -- Table to keep track of players and their associated stats
 players = {}
+
+onlinePlayers = {} -- strictly online players only
 
 -- Table to hold players' bee storage in memory (server)
 local playerBeeStorage = {}
@@ -349,8 +351,27 @@ local function UpdateStorage(player, id)
     --print(player.name .. " Stats Saved")
 end
 
+function tableContains(tbl, element)
+    for _, value in ipairs(tbl) do
+        if value == element then
+            return true
+        end
+    end
+    return false
+end
+
+function removeElement(tbl, element)
+    for i, value in ipairs(tbl) do
+        if value == element then
+            table.remove(tbl, i)
+            return true -- Successfully removed
+        end
+    end
+    return false -- Element not found
+end
+
 -- Function to track players joining and leaving the game
-local function TrackPlayers(game, characterCallback)
+function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game
     scene.PlayerJoined:Connect(function(scene, player)
         -- Initialize player's stats and store them in the players table
@@ -364,11 +385,11 @@ local function TrackPlayers(game, characterCallback)
             HasShears = BoolValue.new("HasShears" .. tostring(player.id), false)
         }
 
-        print("Player " .. player.name " was initialised")
+        print("Player " .. player.name .. " was initialised")
         
         if client == nil then
             --RemoveAllPlayerItems(player)
-
+            table.insert(onlinePlayers, player)
             ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
@@ -406,9 +427,12 @@ local function TrackPlayers(game, characterCallback)
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             SaveProgress(player)
-
+            removeElement(onlinePlayers, player)
         end
-        players[player] = nil
+        Timer.new(20, function() 
+            if tableContains(onlinePlayers, player) == false then
+             players[player] = nil end end
+            , false)
     end)
 end
 

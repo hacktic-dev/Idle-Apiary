@@ -175,7 +175,6 @@ function SpawnApiary(player, location)
         else
             addNewApiaryRequest:FireAllClients(apiaryID, Vector3.new(location.x, location.y, location.z), false)
         end
-        print("Apiary placed for player: " .. player.name .. " at location: " .. tostring(location))
     end)
 end
 
