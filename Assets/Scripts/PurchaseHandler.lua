@@ -107,6 +107,7 @@ function HandleHoneyPurchase(player, tokensToGive, purchase)
     IncrementTokens(player, tokensToGive)
     purchaseSucceededEvent:FireClient(player, productId)
   end)
+end
 
 -- Initialize the module
 function self:ServerAwake()
@@ -151,6 +152,5 @@ function self:ClientAwake()
             UIManager.ToggleUI("ShopUi", true)
             UIManager.HideButtons()
             UIManager.ToggleUI("PlayerStats", true) end, false)
-end
-    )
+    end)
 end
