@@ -278,7 +278,7 @@ local function TrackPlayers(game, characterCallback)
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
         }
 
-        print("Player " .. player.name " was initialised")
+        print("Player " .. player.name .. " was initialised")
         
         if client == nil then
             --RemoveAllPlayerItems(player)
