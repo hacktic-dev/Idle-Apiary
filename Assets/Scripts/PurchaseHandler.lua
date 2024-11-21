@@ -11,6 +11,7 @@ local InfoCardObject : GameObject = nil
 local playerManager = require("PlayerManager")
 audioManager = require("AudioManager")
 local UIManager = require("UIManager")
+local Utils = require("Utils")
 
 --!SerializeField
 local statusObject : GameObject = nil
