@@ -106,6 +106,9 @@ function CreateBeeItem(bee)
     beeItem:Add(rateLabel)
     beeItem:Add(sellLabel)
 
+    local rowContainer = VisualElement.new()
+    rowContainer:AddToClassList("row-container")
+
     -- Only able to sell adults
     if bee.adult then
         -- Create a "Sell" button and add it to the bee item
@@ -119,7 +122,33 @@ function CreateBeeItem(bee)
             SellBee(bee.species, bee.beeId, bee.adult) -- Function to handle selling the bee
         end, true, true, true)
         sellButton:Add(sellNameLabel)
-        beeItem:Add(sellButton)
+        rowContainer:Add(sellButton)
+
+        if bee.hat == nil then
+            local addHatLabel = UILabel.new()
+            addHatLabel:AddToClassList("bee-name")
+            addHatLabel:SetPrelocalizedText("Add Hat")
+    
+            local addHatButton = UIButton.new()
+            addHatButton:AddToClassList("add-hat")
+            addHatButton:RegisterPressCallback(function()
+                 UIManager.OpenAddHatMenu()
+            end, true, true, true)
+            addHatButton:Add(addHatLabel)
+            rowContainer:Add(addHatButton)
+        else
+            local removeHatLabel = UILabel.new()
+            removeHatLabel:AddToClassList("bee-name")
+            removeHatLabel:SetPrelocalizedText("Remove Hat")
+    
+            local removeHatButton = UIButton.new()
+            removeHatButton:AddToClassList("remove-hat")
+            removeHatButton:RegisterPressCallback(function()
+                 
+            end, true, true, true)
+            removeHatButton:Add(removeHatLabel)
+            rowContainer:Add(removeHatButton)
+        end
     else
         -- Create a "Sell" button and add it to the bee item
         local sellNameLabel = UILabel.new()
@@ -129,8 +158,10 @@ function CreateBeeItem(bee)
         local sellButton = UIButton.new()
         sellButton:AddToClassList("sell-button-greyed")
         sellButton:Add(sellNameLabel)
-        beeItem:Add(sellButton)
+        rowContainer:Add(sellButton)
     end
+
+    beeItem:Add(rowContainer)
 
     -- Add the bee item to the BeeList_Root UI list
     BeeList_Root:Add(beeItem)

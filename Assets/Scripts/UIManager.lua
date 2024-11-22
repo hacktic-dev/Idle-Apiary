@@ -21,6 +21,8 @@ local StatsObject : GameObject = nil
 local StatusObject : GameObject = nil
 --!SerializeField
 local PlaceFlowerMenuObject : GameObject = nil
+--!SerializeField
+local AddHatMenuObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
@@ -36,7 +38,8 @@ local uiMap = {
     PlayerStats = StatsObject,
     PlaceStatus = StatusObject,
     ShearsTutorial = ShearsTutorialObject,
-    PlaceFlowerMenu = PlaceFlowerMenuObject
+    PlaceFlowerMenu = PlaceFlowerMenuObject,
+    AddHatMenu = AddHatMenuObject
 }
 
   -- Activate the object if it is not active
@@ -168,6 +171,7 @@ end
 
 function OpenTutorial()
     ToggleUI("PlaceFlowerMenu", false)
+    ToggleUI("AddHatMenu", false)
     ToggleUI("BeeList", false)
     ToggleUI("ShearsTutorial", false)
     ToggleUI("BeeCard", false)
@@ -203,6 +207,21 @@ end
 
 function ClosePlaceFlowerMenu()
     ToggleUI("PlaceFlowerMenu", false)
+    ToggleUI("PlayerStats", true)
+    ToggleUI("PlaceButtons", true)
+end
+
+
+function OpenAddHatMenu()
+    ToggleUI("AddHatMenu", true)
+    ToggleUI("BeeList", false)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("PlaceButtons", false)
+    AddHatMenuObject:GetComponent(AddHatUi).Init()
+end
+
+function CloseAddHatMenu()
+    ToggleUI("AddHatMenu", false)
     ToggleUI("PlayerStats", true)
     ToggleUI("PlaceButtons", true)
 end

@@ -87,7 +87,7 @@ local function InitBeesTab()
     Orders_Root:Clear()
     CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set")
     CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set")
-    CreateQuestItem("Purchase a Random Beet", "Gold", 1250, false, "Gold Set")
+    CreateQuestItem("Purchase a Random Bee", "Gold", 1250, false, "Gold Set")
 end
 
 local function InitHoneyTab()

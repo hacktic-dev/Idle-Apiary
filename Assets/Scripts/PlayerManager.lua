@@ -207,7 +207,8 @@ function AddBee(player, speciesName, isAdult, timeToGrowUp)
         beeId = GenerateUniqueID(),
         species = speciesName,
         adult = isAdult,
-        timeToGrowUp = timeToGrowUp
+        timeToGrowUp = timeToGrowUp,
+        hat = nil
     }
 
     -- Add the bee to the player's storage in memory

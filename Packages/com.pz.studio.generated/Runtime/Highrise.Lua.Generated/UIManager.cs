@@ -35,6 +35,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_StatsObject = default;
         [SerializeField] public UnityEngine.GameObject m_StatusObject = default;
         [SerializeField] public UnityEngine.GameObject m_PlaceFlowerMenuObject = default;
+        [SerializeField] public UnityEngine.GameObject m_AddHatMenuObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -53,6 +54,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(7), m_StatsObject),
                 CreateSerializedProperty(_script.GetPropertyAt(8), m_StatusObject),
                 CreateSerializedProperty(_script.GetPropertyAt(9), m_PlaceFlowerMenuObject),
+                CreateSerializedProperty(_script.GetPropertyAt(10), m_AddHatMenuObject),
             };
         }
     }
