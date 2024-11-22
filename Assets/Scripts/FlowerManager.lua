@@ -141,18 +141,23 @@ function self:ServerAwake()
     end)
 
     queryOwnedFlowers:Connect(function(player)
-        Inventory.GetPlayerItems(player, 4, "", function(items, newCursorId, errorCode)
-
+        Inventory.GetPlayerItems(player, 25, "", function(items, newCursorId, errorCode)
             if items == nil then
                 print(errorCode)
             end
 
-            if #items == 0 then 
+            flowersOwned = false
+
+            for index, item in items do
+                if item.id == "Red" or item.id == "Yellow" or item.id == "White" or item.id == "Purple" then
+                    recieveOwnedFlowers:FireClient(player, item.id, item.amount)
+                    flowersOwned = true
+                end
+            end
+
+            if flowersOwned == false then 
                 print("No owned flowers")
                 noFlowersOwned:FireClient(player)
-            end
-            for index, item in items do
-                recieveOwnedFlowers:FireClient(player, item.id, item.amount)
             end
         end)
     end)
