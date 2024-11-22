@@ -288,10 +288,35 @@ function removeElement(tbl, element)
     return false -- Element not found
 end
 
+function ReinitPlayer(player)
+    -- Initialize player's stats and store them in the players table
+    players[player] = {
+        player = player,
+        Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
+        Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
+    }
+
+    if client == nil then
+        print("Player " .. player.name .. " was initialised")
+        --RemoveAllPlayerItems(player)
+        table.insert(onlinePlayers, player)
+        ApiaryManager.SpawnAllApiariesForPlayer(player)
+        beeObjectManager.SpawnAllBeesForPlayer(player)
+        playerTimers[player] = nil
+
+        Storage.SetPlayerValue(player, player.name, player.name)
+    end
+end
+
 -- Function to track players joining and leaving the game
 function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game
     scene.PlayerJoined:Connect(function(scene, player)
+
+        if players[player] ~= nil then
+            return
+        end
+
         -- Initialize player's stats and store them in the players table
         players[player] = {
             player = player,
@@ -299,9 +324,8 @@ function TrackPlayers(game, characterCallback)
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
         }
 
-        print("Player " .. player.name .. " was initialised")
-        
         if client == nil then
+            print("Player " .. player.name .. " was initialised")
             --RemoveAllPlayerItems(player)
             table.insert(onlinePlayers, player)
             ApiaryManager.SpawnAllApiariesForPlayer(player)
@@ -478,6 +502,8 @@ function self:ServerAwake()
 
             InitializeBeeStorage(player)
             InitializeSeenBeeSpecies(player)
+
+            print("Stats filled out for player " .. player.name)
 
             --[[
             -- Uncomment the following lines to --print the player's stats to the console for debugging

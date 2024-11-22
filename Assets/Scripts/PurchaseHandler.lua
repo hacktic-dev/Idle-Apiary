@@ -83,8 +83,8 @@ function HandleHoneyPurchase(player, tokensToGive, purchase)
 
   if cash == -1 then
     print("Something went wrong, players[player] was nil. Reiniting and trying again")
-    playerManager.TrackPlayers(player)
-    getStatsRequest:Fire(player)
+    playerManager.ReinitPlayer(player)
+    playerManager.getStatsRequest:Fire(player)
     Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end, false)
     return
   end
@@ -97,8 +97,8 @@ function HandleHoneyPurchase(player, tokensToGive, purchase)
       return
 
     end
-    print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
     IncrementTokens(player, tokensToGive)
+    print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
     purchaseSucceededEvent:FireClient(player, productId)
   end)
 end
