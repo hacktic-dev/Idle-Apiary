@@ -73,7 +73,8 @@ function ServerHandlePurchase(purchase, player: Player)
   end
 
   if isHoney then
-    HandleHoneyPurchase(cash, player, tokensToGive, purchase)
+    HandleHoneyPurchase(player, tokensToGive, purchase, productId)
+    return
   end
 
   -- Not honey, so it must be a hat. Add to inventory and commit
@@ -82,7 +83,7 @@ function ServerHandlePurchase(purchase, player: Player)
   playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
 end
 
-function HandleHoneyPurchase(player, tokensToGive, purchase)
+function HandleHoneyPurchase(player, tokensToGive, purchase, productId)
   print("Getting cash for player " .. player.name)
   local cash = playerManager.GetPlayerCash(player)
   print("Player ".. player.name .. " has " .. cash .. " cash")
@@ -134,7 +135,6 @@ function self:ClientAwake()
       UIManager.ToggleUI("PlayerStats", false)
       InfoCardObject:GetComponent(InfoCard).showPurchasedHoney(id)
       hideUiEvent:Fire()
-      audioManager.PlaySound("purchaseSound", 1)
     end)
 
         
