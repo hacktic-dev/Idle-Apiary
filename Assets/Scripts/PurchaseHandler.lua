@@ -25,6 +25,8 @@ purchaseFailedEvent = Event.new("purchaseFailedEvent")
 
 responseTesting = false
 
+attempts = 0
+
 -- Function to Prompt the player to purchase a token (Client Side)
 function PromptTokenPurchase(id: string)
     testServer:FireServer(id)
@@ -58,6 +60,10 @@ function ServerHandlePurchase(purchase, player: Player)
   -- The amount of tokens to give the player
   local tokensToGive = 0 -- Initialize the amount of tokens to give
 
+  if attempts ~= 0 then
+    attempts = attempts + 1
+  end
+  
   isHoney = false
 
   if productId == "honey_1" then
@@ -85,19 +91,41 @@ function HandleHoneyPurchase(player, tokensToGive, purchase)
     print("Something went wrong, players[player] was nil. Reiniting and trying again")
     playerManager.ReinitPlayer(player)
     playerManager.getStatsRequest:Fire(player)
-    Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end, false)
-    return
+    if attempts < 4 then
+      Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end, false)
+      return
+    else
+      print("Ran out of attempts. Stopping...")
+      purchaseFailedEvent:FireClient(player)
+      attempts = 0
+      Payments.AcknowledgePurchase(purchase, false)
+      return
+    end
+  end
+
+  IncrementTokens(player, tokensToGive)
+
+  if playerManager.GetPlayerCash(player) - 200 <= cash then
+    print("Something went wrong, cash is only " .. playerManager.GetPlayerCash(player)  .. ". Trying again")
+    if attempts < 4 then
+      Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end, false)
+      return
+    else
+      print("Ran out of attempts. Stopping...")
+      purchaseFailedEvent:FireClient(player)
+      attempts = 0
+      Payments.AcknowledgePurchase(purchase, false)
+      return
+    end
   end
 
   Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
-    -- Check for any errors when acknowledging the purchase
+    attempts = 0
     if ackErr ~= PaymentsError.None then
       print("Error acknowledging purchase: " .. ackErr)
       purchaseFailedEvent:FireClient(player)
       return
-
     end
-    IncrementTokens(player, tokensToGive)
     print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
     purchaseSucceededEvent:FireClient(player, productId)
   end)
