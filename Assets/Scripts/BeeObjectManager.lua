@@ -235,7 +235,7 @@ function self:ServerAwake()
     requestApplyHat:Connect(function(player, hat, beeId)
          ApplyHatToBee(player, hat, beeId)
         playerManager.SetBeeHat(player, beeId, hat) 
-
+        playerManager.RecalculatePlayerEarnRate(player)
         if hat~= nil then
             local transaction = InventoryTransaction.new():TakePlayer(player, hat, 1)
             Inventory.CommitTransaction(transaction)

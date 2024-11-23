@@ -192,7 +192,7 @@ function LookupFlowerDescription(name)
     elseif name == "Purple" then
         return "Increase honey rate by 0.1% for each player in the room."
     elseif name == "Yellow" then
-        return "Increase honey rate by 0.1% for each bee wearing a hat."
+        return "Increase honey rate by 0.1% for each bee wearing a UNIQUE hat."
     elseif name == "White" then
         return "Increase honey rate by 0.1% for each bee of a UNIQUE species in your apiary.";
     end

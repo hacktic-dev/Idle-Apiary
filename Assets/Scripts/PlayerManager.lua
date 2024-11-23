@@ -279,6 +279,7 @@ function RecalculatePlayerEarnRate(player, isDc)
 
         uniqueBees = {}
         beeCounts = {}
+        uniqueHats = {}
 
         for i, bee in ipairs(bees) do
             -- --print("checking item " .. item.id)
@@ -289,6 +290,12 @@ function RecalculatePlayerEarnRate(player, isDc)
                 end
                 beeCounts[bee.species] = beeCounts[bee.species] + 1
                 rate = rate + wildBeeManager.getHoneyRate(bee.species)
+            end
+
+            if bee.hat ~= nil then
+                if not table.find(uniqueHats, bee.hat) then
+                    table.insert(uniqueHats, bee.hat)
+                end
             end
         end
 
@@ -324,8 +331,8 @@ function RecalculatePlayerEarnRate(player, isDc)
 
             redEffect = most * redCount * 0.001
 
-            yellowEffect = 0 -- Todo
-
+            yellowEffect = #uniqueHats * yellowCount * 0.001
+            
             purpleEffect = 0
 
             for key, value in pairs(players) do
