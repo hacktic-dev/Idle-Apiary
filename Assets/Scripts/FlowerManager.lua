@@ -7,7 +7,7 @@ local SpawnLocations : {GameObject} = nil
 local Flowers : {GameObject} = nil
 
 --!SerializeField
-local InfoCard : GameObject = nil
+local InfoCardObject : GameObject = nil
 
 --!SerializeField
 local flowerPlaceUi : GameObject = nil
@@ -104,8 +104,8 @@ function getFlower()
     UIManager.ToggleUI("BeeCard", true)
     UIManager.ToggleUI("PlaceButtons", false)
     UIManager.ToggleUI("PlayerStats", false)
-    InfoCard:GetComponent(InfoCard).ShowFlowerCut(id, desc)
-    Timer.new(5.75, function() 
+    InfoCardObject:GetComponent(InfoCard).ShowFlowerCut(id, desc)
+    Timer.new(4, function() 
         UIManager.ToggleUI("BeeCard", false)
         UIManager.ToggleUI("PlaceButtons", true)
         UIManager.ToggleUI("PlayerStats", true) end, false)

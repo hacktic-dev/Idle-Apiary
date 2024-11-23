@@ -27,7 +27,7 @@ namespace Highrise.Lua.Generated
 
         [SerializeField] public System.Collections.Generic.List<UnityEngine.GameObject> m_SpawnLocations = default;
         [SerializeField] public System.Collections.Generic.List<UnityEngine.GameObject> m_Flowers = default;
-        [SerializeField] public UnityEngine.GameObject m_InfoCard = default;
+        [SerializeField] public UnityEngine.GameObject m_InfoCardObject = default;
         [SerializeField] public UnityEngine.GameObject m_flowerPlaceUi = default;
         [SerializeField] public UnityEngine.GameObject m_statusObject = default;
 
@@ -40,7 +40,7 @@ namespace Highrise.Lua.Generated
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), m_SpawnLocations),
                 CreateSerializedProperty(_script.GetPropertyAt(1), m_Flowers),
-                CreateSerializedProperty(_script.GetPropertyAt(2), m_InfoCard),
+                CreateSerializedProperty(_script.GetPropertyAt(2), m_InfoCardObject),
                 CreateSerializedProperty(_script.GetPropertyAt(3), m_flowerPlaceUi),
                 CreateSerializedProperty(_script.GetPropertyAt(4), m_statusObject),
             };
