@@ -11,6 +11,8 @@ local closeLabel : UILabel = nil
 local UIManager = require("UIManager") 
 local hatsManager = require("HatsManager")
 local Utils = require("Utils")
+local beeObjectManager = require("BeeObjectManager")
+local audioManager = require("AudioManager")
 
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
@@ -43,7 +45,9 @@ function AddHatCard(id, amount)
     hatCard:Add(amountLabel)
 
     hatCard:RegisterPressCallback(function()
-        --TODO
+        beeObjectManager.requestApplyHat:FireServer(id, hatsManager.GetSelectedBee())
+        UIManager.CloseAddHatMenu()
+        audioManager.PlaySound("placeSound", 1)
     end, true, true, true)
 
     Hats_Root:Add(hatCard)

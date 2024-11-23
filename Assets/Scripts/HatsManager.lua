@@ -7,6 +7,16 @@ queryOwnedHats = Event.new("QueryOwnedHats")
 recieveOwnedHats = Event.new("RecieveOwnedHats")
 noHatsOwned = Event.new("NoHatsOwned")
 
+local selectedBeeId = nil
+
+function SetSelectedBee(id)
+    selectedBeeId = id
+end
+
+function GetSelectedBee()
+    return selectedBeeId
+end
+
 function self:ServerAwake()
     queryOwnedHats:Connect(function(player)
         Inventory.GetPlayerItems(player, 25, "", function(items, newCursorId, errorCode)

@@ -93,7 +93,7 @@ apiaryPlacementRequest:Connect(function(player, position)
 
        playerManager.GetBeeList(player, function(bees)
             for i, bee in ipairs(bees) do
-                beeObjectManager.SpawnBee(player, bee.species, position, bee.beeId, bee.adult, bee.timeToGrowUp, wildBeeManager.getGrowTime(bee.species))
+                beeObjectManager.SpawnBee(player, bee.species, position, bee.beeId, bee.adult, bee.timeToGrowUp, wildBeeManager.getGrowTime(bee.species), bee.hat)
              end
           end)
 

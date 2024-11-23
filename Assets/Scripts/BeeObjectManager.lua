@@ -47,6 +47,22 @@ local bees = {}
 updateBeePositionRequest = Event.new("UpdateBeePosition")
 addNewBeeRequest = Event.new("AddNewBee")
 removeBeeRequest = Event.new("RemoveBee")
+requestApplyHat = Event.new("RequestApplyHat")
+applyHatToBee = Event.new("ApplyHatToBee")
+
+function ApplyHatToBee(player, hatName, beeId)
+    if playerBees[player] then
+        for index, beeData in ipairs(playerBees[player]) do
+            if beeData.id == beeId then
+                -- Fire an event to all clients to remove this bee by its ID
+                applyHatToBee:FireAllClients(beeId, hatName)
+                return
+            end
+        end
+        print("Error: Tried to apply hat but bee with ID " .. beeId .. " not found for player: " .. player.name)
+    else
+    end
+end
 
 function RemoveAllPlayerBees(player)
     -- Check if the player has any bees stored
@@ -97,21 +113,21 @@ function SpawnAllBeesForPlayer(player)
     for owner, beeList in pairs(playerBees) do
         for _, beeData in ipairs(beeList) do
             -- Fire an event to the specific player to spawn each bee with its species, ID, and location
-            addNewBeeRequest:FireClient(player, beeData.species, beeData.id, beeData.location, true, 0, 0, owner)
+            addNewBeeRequest:FireClient(player, beeData.species, beeData.id, beeData.location, true, 0, 0, owner, beeData.hat)
         end
     end
 end
 
-function SpawnBee(player, species, location, beeID, isAdult, growTimeRemaining, totalGrowTime)
+function SpawnBee(player, species, location, beeID, isAdult, growTimeRemaining, totalGrowTime, hat)
     -- Add bee to player's list of bees on the server with full data (id, species, location)
     if not playerBees[player] then
         playerBees[player] = {}
     end
 
-    table.insert(playerBees[player], {id = beeID, species = species, location = Vector3.new(location.x, location.y, location.z)})
+    table.insert(playerBees[player], {id = beeID, species = species, location = Vector3.new(location.x, location.y, location.z), hat = hat})
 
     -- Fire the client event to spawn this bee for all clients
-    addNewBeeRequest:FireAllClients(species, beeID, Vector3.new(location.x, location.y, location.z), isAdult, growTimeRemaining, totalGrowTime, player)
+    addNewBeeRequest:FireAllClients(species, beeID, Vector3.new(location.x, location.y, location.z), isAdult, growTimeRemaining, totalGrowTime, player, hat)
 end
 
 -- Client side functionality
@@ -123,7 +139,7 @@ function self:ClientAwake()
         end
     end)
 
-    addNewBeeRequest:Connect(function(species, beeID, position, isAdult, growTimeRemaining, totalGrowTime, player)
+    addNewBeeRequest:Connect(function(species, beeID, position, isAdult, growTimeRemaining, totalGrowTime, player, hat)
         local Bee = nil
         if species == "Common Bee" then
             Bee = CommonBee
@@ -189,6 +205,10 @@ function self:ClientAwake()
             
             -- Initialize bee behavior by setting its spawn position
             newBee:GetComponent(BeeWandererScript).SetSpawnPosition(position)
+
+            if hat ~= nil then
+                newBee.transform:Find("Hats"):GetComponent(HatController).ApplyHat(hat)
+            end
         end
     end)
 
@@ -200,4 +220,25 @@ function self:ClientAwake()
             bees[beeID] = nil
         end
     end)
+
+    applyHatToBee:Connect(function(beeID, hatName)
+        if bees[beeID] then
+            print("Applying hat...")
+            bees[beeID].transform:Find("Hats"):GetComponent(HatController).ApplyHat(hatName)
+        else
+            print("Tried to apply hat but no bee with that ID")
+        end
+    end)
+end
+
+function self:ServerAwake()
+    requestApplyHat:Connect(function(player, hat, beeId)
+         ApplyHatToBee(player, hat, beeId)
+        playerManager.SetBeeHat(player, beeId, hat) 
+
+        if hat~= nil then
+            local transaction = InventoryTransaction.new():TakePlayer(player, hat, 1)
+            Inventory.CommitTransaction(transaction)
+        end
+        end)
 end

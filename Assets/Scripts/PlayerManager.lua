@@ -39,6 +39,7 @@ beeCountUpdated = Event.new("BeeCountUpdated")
 playerEarnRateChanged = Event.new("PlayerEarnRateChanged")
 giveShearsRequest = Event.new("GiveShearsRequest")
 givePlayerHatRequest = Event.new("GivePlayerHatRequest")
+requestRemoveBeeHat = Event.new("requestRemoveBeeHat")
 
 requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
@@ -59,6 +60,21 @@ updateBeeList = Event.new("UpdateBeeList")
 
 --!SerializeField
 local playerStatObject : GameObject = nil
+
+function SetBeeHat(player, beeId, hatId)
+    for _, bee in ipairs(playerBeeStorage[player]) do
+        if bee.beeId == beeId then
+
+            if hatId == nil then
+                local transaction = InventoryTransaction.new():GivePlayer(player, bee.hat, 1)
+                Inventory.CommitTransaction(transaction)
+            end
+
+            bee.hat = hatId
+            return
+        end
+    end
+end
 
 -- Function to initialize bee species list for a player by loading from storage
 local function InitializeSeenBeeSpecies(player, callback)
@@ -717,7 +733,7 @@ function self:ServerAwake()
         id = AddBee(player, name, isAdult, growTime)
     
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-            beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player), id, isAdult, growTime, wildBeeManager.getGrowTime(name))
+            beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player), id, isAdult, growTime, wildBeeManager.getGrowTime(name), nil)
         end
 
         RecalculatePlayerEarnRate(player)
@@ -789,6 +805,10 @@ function self:ServerAwake()
     givePlayerHatRequest:Connect(function(player, Id)
         local transaction = InventoryTransaction.new():GivePlayer(player, Id, 1)
         Inventory.CommitTransaction(transaction)
+    end)
+
+    requestRemoveBeeHat:Connect(function(player, beeId)
+        SetBeeHat(player, beeId, nil)
     end)
 
     Timer.new(10, function() 
