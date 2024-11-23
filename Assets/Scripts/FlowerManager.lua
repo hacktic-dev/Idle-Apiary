@@ -199,6 +199,7 @@ function LookupFlowerDescription(name)
 end
 
 function PlaceFlower(name, position) -- client
+    audioManager.PlaySound("placeSound", 1)
     requestPlaceFlower:FireServer(name , position)
 end
 
