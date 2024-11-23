@@ -225,18 +225,12 @@ local function spawnWildBee(player)
     -- todo - spawn first based on loc inside area, then check distance
 
     local spawnPosition
+    local playerPosition = player.character:GetComponent(Transform).position
 
     while(true) do
-
-        local playerPosition = player.character:GetComponent(Transform).position
-
-        -- Determine the random distance and direction
-        local randomDistance = MIN_SPAWN_DISTANCE + math.random() * (MAX_SPAWN_DISTANCE - MIN_SPAWN_DISTANCE)
-        local randomDirection = Vector3.new((math.random()-0.5)*2, 0, (math.random()-0.5)*2).normalized
-
-        spawnPosition = playerPosition + randomDirection * randomDistance
-
-        if spawnPosition.x < 125 and spawnPosition.x > -125 and spawnPosition.z < 125 and spawnPosition.z > -125 then break end
+        spawnPosition = Vector3.new(math.random(-115, 115) , 0, math.random(-115, 115))
+        distance = Vector3.Distance(playerPosition, spawnPosition)
+        if distance > MIN_SPAWN_DISTANCE and distance < MAX_SPAWN_DISTANCE then break end
     end
 
     -- Choose a bee species based on the calculated probabilities
