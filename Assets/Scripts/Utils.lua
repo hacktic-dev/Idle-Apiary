@@ -36,6 +36,14 @@ HatImage = {
     ["Pirate Hat"] = hatTextures[6],
     ["Pixel Sunglasses"] = hatTextures[7],
     ["Gold Crown"] = hatTextures[8],
+
+    ["Leather Cap"] = hatTextures[9],
+    ["Miner's Helmet"] = hatTextures[10],
+    ["Red Beret"] = hatTextures[11],
+    ["Sailor's Hat"] = hatTextures[12],
+    ["Santa Hat"] = hatTextures[13],
+    ["Top Hat"] = hatTextures[14],
+    ["Fisherman's Cap"] = hatTextures[15],
 }
 
 local hatData = 
@@ -48,6 +56,14 @@ local hatData =
     {name = "Pirate Hat", id = "pirate_hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 2500},
     {name = "Pixel Sunglasses", id = "pixel_sunglasses", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 3000},
     {name = "Gold Crown", id = "gold_crown", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 4000},
+
+    {name = "Leather Cap", id = "leather_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 3000, goldCost = 400},
+    {name = "Miner's Helmet", id = "miner_helmet", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8,isLimited = false, cost = 20000, goldCost = 1500},
+    {name = "Red Beret", id = "red_beret", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 1800},
+    {name = "Sailor's Hat", id = "sailor_hat", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = true, cost = 8000, goldCost = 750},
+    {name = "Santa Hat", id = "santa_hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 20000, goldCost = 15000},
+    {name = "Top Hat", id = "top_hat", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 3000},
+    {name = "Fisherman's Cap", id = "fishermans_cap", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 8000, goldCost = 750},
 }
 
 function LookupHatName(id)

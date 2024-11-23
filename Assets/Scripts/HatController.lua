@@ -14,6 +14,13 @@ HatList = {
     ["pirate_hat"] = Hats[6],
     ["pixel_sunglasses"] = Hats[7],
     ["gold_crown"] = Hats[8],
+    ["leather_cap"] = Hats[9],
+    ["miner_helmet"] = Hats[10],
+    ["red_beret"] = Hats[11],
+    ["sailor_hat"] = Hats[12],
+    ["santa_hat"] = Hats[13],
+    ["top_hat"] = Hats[14],
+    ["fishermans_cap"] = Hats[15],
 }
 
 function ApplyHat(hatId)
