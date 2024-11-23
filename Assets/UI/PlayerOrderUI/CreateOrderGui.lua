@@ -255,49 +255,52 @@ function LookupBeeCapacityUpgradePrice(capacity)
     end
 end
 
-function GenerateBee(setId)
-    local number = math.random(1, 20)
-    if setId == "Bronze" then
-        if number < 6 then
-            return "Common Bee"
-        elseif number < 11 then
-            return "Stone Bee"
-        elseif number < 16 then
-            return "Forest Bee"
-        elseif number < 18 then
-            return "Aquatic Bee"
-        elseif number < 20 then
-            return "Giant Bee"
-        else
-            return "Silver Bee"
-        end
-    elseif setId == "Silver" then
-        if number < 6 then
-            return "Muddy Bee"
-        elseif number < 11 then
-            return "Frigid Bee"
-        elseif number < 16 then
-            return "Steel Bee"
-        elseif number < 18 then
-            return "Magma Bee"
-        elseif number < 20 then
-            return "Ghostly Bee"
-        else
-            return "Iridescent Bee"
-        end
-    elseif setId == "Gold" then
-        if number < 6 then
-            return "Sandy Bee"
-        elseif number < 11 then
-            return "Autumnal Bee"
-        elseif number < 16 then
-            return "Petal Bee"
-        elseif number < 18 then
-            return "Galactic Bee"
-        elseif number < 20 then
-            return "Radiant Bee"
-        else
-            return "Rainbow Bee"
+  function GenerateBee(setId)
+    -- Define the chances for each bee in different sets
+    local chances = {
+        Bronze = {
+            {name = "Common Bee", chance = 20},  -- 5 * 5
+            {name = "Stone Bee", chance = 20},   -- 5 * 5
+            {name = "Forest Bee", chance = 20},  -- 5 * 5
+            {name = "Aquatic Bee", chance = 15}, -- 2 * 5
+            {name = "Giant Bee", chance = 15},   -- 2 * 5
+            {name = "Silver Bee", chance = 10}    -- 1 * 5
+        },
+        Silver = {
+            {name = "Muddy Bee", chance = 20},   -- 5 * 5
+            {name = "Frigid Bee", chance = 20},  -- 5 * 5
+            {name = "Steel Bee", chance = 20},   -- 5 * 5
+            {name = "Magma Bee", chance = 15},   -- 2 * 5
+            {name = "Ghostly Bee", chance = 15}, -- 2 * 5
+            {name = "Iridescent Bee", chance = 10} -- 1 * 5
+        },
+        Gold = {
+            {name = "Sandy Bee", chance = 20},   -- 5 * 5
+            {name = "Autumnal Bee", chance = 20},-- 5 * 5
+            {name = "Petal Bee", chance = 20},   -- 5 * 5
+            {name = "Galactic Bee", chance = 15},-- 2 * 5
+            {name = "Radiant Bee", chance = 15}, -- 2 * 5
+            {name = "Rainbow Bee", chance = 10}   -- 1 * 5
+        }
+    }
+
+    -- Get the bee set for the given setId
+    local beeSet = chances[setId]
+    if not beeSet then return nil end -- Return nil if the setId is invalid
+
+    -- Generate a random number and determine the bee
+    local totalChance = 0
+    for _, bee in ipairs(beeSet) do
+        totalChance = totalChance + bee.chance
+    end
+
+    local number = math.random(1, totalChance)
+    local currentChance = 0
+
+    for _, bee in ipairs(beeSet) do
+        currentChance = currentChance + bee.chance
+        if number <= currentChance then
+            return bee.name
         end
     end
 end
@@ -384,6 +387,7 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
 
     return questItem
 end
+
 
 -- Creates a new quest item in the UI.
 function CreateQuestItem(Name, Id, Cash, isGold, description)
