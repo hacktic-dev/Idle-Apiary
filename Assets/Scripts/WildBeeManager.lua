@@ -227,11 +227,9 @@ local function spawnWildBee(player)
     local spawnPosition
     local playerPosition = player.character:GetComponent(Transform).position
 
-    while(true) do
-        spawnPosition = Vector3.new(math.random(-115, 115) , 0, math.random(-115, 115))
-        distance = Vector3.Distance(playerPosition, spawnPosition)
-        if distance > MIN_SPAWN_DISTANCE and distance < MAX_SPAWN_DISTANCE then break end
-    end
+    spawnPosition = Vector3.new(math.random(-115, 115) , 0, math.random(-115, 115))
+    distance = Vector3.Distance(playerPosition, spawnPosition)
+    if distance < MIN_SPAWN_DISTANCE or distance > MAX_SPAWN_DISTANCE then return end
 
     -- Choose a bee species based on the calculated probabilities
     local selectedBeeSpecies = chooseBeeSpecies()
@@ -242,7 +240,7 @@ local function spawnWildBee(player)
     newBee:GetComponent(BeeWandererScript).SetSpawnPosition(spawnPosition)
     table.insert(wildBees, { bee = newBee, speciesName = selectedBeeSpecies.name, player = player })
 
-    print("Spawned wild bee (" .. selectedBeeSpecies.name .. ") at at a distance of " .. randomDistance .. " and a position: " .. tostring(spawnPosition))
+    print("Spawned wild bee (" .. selectedBeeSpecies.name .. ") at position: " .. tostring(spawnPosition))
 end
 
 -- Function to despawn a wild bee
