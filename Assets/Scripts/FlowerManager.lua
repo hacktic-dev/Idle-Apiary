@@ -23,7 +23,7 @@ local apiaryManager = require("ApiaryManager")
 giveFlower = Event.new("giveFlowerEvent")
 
 function self:ClientAwake()
-    Timer.new(12, function() TrySpawnFlower() end, true)
+    Timer.new(18, function() TrySpawnFlower() end, true)
 end
 
 local MIN_SPAWN_DISTANCE = 45 
@@ -66,7 +66,7 @@ function GetPlacedFlowers(player)
 end
 
 function TrySpawnFlower()
-    if math.random(0, 100) > 20 then
+    if math.random(0, 100) > 50 then
         return -- failed
     end
     
