@@ -170,6 +170,7 @@ local function SaveBeeStorage(player, id)
     if playerBeeStorage[player] ~= nil then
         -- Save the bee storage to persistent storage
         Storage.SetValue(id .. "/" ..  "BeeStorage", playerBeeStorage[player], function(errorCode)
+            print("saved bees for " .. player.name)
         end)
     end
 end
@@ -451,7 +452,8 @@ function TrackPlayers(game, characterCallback)
             print(player.name .. " with id " .. player.user.id .. " is leaving")
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
-            SaveProgress(player)
+            flowerManager.RemoveAllPlayerFlowers(player)
+            SaveProgress(player, true)
             removeElement(onlinePlayers, player)
         end
         Timer.new(20, function() 
@@ -461,14 +463,13 @@ function TrackPlayers(game, characterCallback)
     end)
 end
 
-function SaveProgress(player)
-    SaveBeeStorage(player)
-    UpdateStorage(player)
-    SaveSeenBeeSpecies(player)
-    flowerManager.SaveFlowerPositions(player, id)
-    flowerManager.RemoveAllPlayerFlowers(player)
+function SaveProgress(player, wasDc)
+    SaveBeeStorage(player, player.user.id)
+    UpdateStorage(player, player.user.id)
+    SaveSeenBeeSpecies(player, player.user.id)
+    flowerManager.SaveFlowerPositions(player, player.user.id)
     for player, playerData in pairs(players) do
-        RecalculatePlayerEarnRate(player, true)
+        RecalculatePlayerEarnRate(player, wasDc)
     end
 end
 
@@ -790,11 +791,12 @@ function self:ServerAwake()
         Inventory.CommitTransaction(transaction)
     end)
 
-    Timer.new(30, function() 
-    for player, data in ipairs(players) do
-        SaveProgress(player)
+    Timer.new(10, function() 
+    for player, data in pairs(players) do
+        print("saving for player " .. player.name)
+        SaveProgress(player, false)
     end
-    --print("Saved!")
+    print("Saved!")
     end, true)
 end
 
