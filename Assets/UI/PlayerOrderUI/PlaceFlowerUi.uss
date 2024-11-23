@@ -76,7 +76,7 @@
 
 .landscape .title {
     padding-top: 5%;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 
@@ -197,8 +197,8 @@
 
 .landscape .image
 {
-    height: 50%;
-    width:50%;
+    height: 100px;
+    width: 100px;
 }
 
 .Red-flower-image
