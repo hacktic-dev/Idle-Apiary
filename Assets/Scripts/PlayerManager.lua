@@ -745,6 +745,13 @@ function self:ServerAwake()
             -- Loop through the bee storage to find the bee to remove by beeId
             for index, bee in ipairs(storedBees) do
                 if bee.beeId == beeId then
+
+                    if bee.hat ~= nil then
+                        local transaction = InventoryTransaction.new():GivePlayer(player, bee.hat, 1)
+                        Inventory.CommitTransaction(transaction)
+                    end
+        
+
                     table.remove(storedBees, index)
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
