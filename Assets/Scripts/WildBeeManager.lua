@@ -44,28 +44,28 @@ local RainbowBeePrefab : GameObject = nil
 -- Bee spawning parameters
 local beeSpecies = {
     -- Bronze Set
-    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 175, spawnFactor_2 = 115 },
-    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 108   },
-    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 108   },
+    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 175, spawnFactor_2 = 100 },
+    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88   },
+    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88   },
     { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor_0 = 70, spawnFactor_1 = 60, spawnFactor_2 = 35   },
     { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30   },
     { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor_0 = 30, spawnFactor_1 = 30, spawnFactor_2 = 20   },
 
     -- Silver Set
-    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor_0 = 40, spawnFactor_1 = 55, spawnFactor_2 = 90   },
-    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 80   },
-    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 80   },
-    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor_0 = 15, spawnFactor_1 = 30, spawnFactor_2 = 60   },
+    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor_0 = 40, spawnFactor_1 = 55, spawnFactor_2 = 70   },
+    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65   },
+    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65   },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor_0 = 15, spawnFactor_1 = 30, spawnFactor_2 = 55   },
     { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor_0 = 13, spawnFactor_1 = 30, spawnFactor_2 = 40   },
-    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor_0 = 7, spawnFactor_1 = 15, spawnFactor_2 = 25   },
+    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor_0 = 7, spawnFactor_1 = 15, spawnFactor_2 = 30   },
 
     -- Gold Set
-    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor_0 = 12, spawnFactor_1 = 20, spawnFactor_2 = 35   },
-    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor_0 = 9, spawnFactor_1 = 18, spawnFactor_2 = 30   },
-    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor_0 = 9, spawnFactor_1 = 15, spawnFactor_2 = 28   },
-    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor_0 = 6, spawnFactor_1 = 12, spawnFactor_2 = 17   },
-    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 16   },
-    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 2, spawnFactor_1 = 4, spawnFactor_2 = 9   }
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor_0 = 12, spawnFactor_1 = 20, spawnFactor_2 = 38   },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor_0 = 9, spawnFactor_1 = 18, spawnFactor_2 = 38   },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor_0 = 9, spawnFactor_1 = 15, spawnFactor_2 = 33   },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor_0 = 6, spawnFactor_1 = 12, spawnFactor_2 = 22   },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 18   },
+    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 2, spawnFactor_1 = 4, spawnFactor_2 = 11   }
 }
 
 
@@ -97,11 +97,11 @@ beeData = {
 }
 
 
-local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
+local MIN_SPAWN_DISTANCE = 50 -- Minimum distance from player to spawn a bee
 local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee
-local MAX_SPAWN_DISTANCE = 125 -- Maximum distance from player to spawn a bee
-local DESPAWN_DISTANCE = 130 -- Distance beyond which the bee despawns
-local MAX_BEES = 20 -- Maximum number of bees allowed
+local MAX_SPAWN_DISTANCE = 115 -- Maximum distance from player to spawn a bee
+local DESPAWN_DISTANCE = 120 -- Distance beyond which the bee despawns
+local MAX_BEES = 23 -- Maximum number of bees allowed
 
 local beeSpawnInterval = 0.1 -- Time in seconds between bee spawn attempts
 
@@ -222,13 +222,22 @@ local function spawnWildBee(player)
         return
     end
 
-    local playerPosition = player.character:GetComponent(Transform).position
+    -- todo - spawn first based on loc inside area, then check distance
 
-    -- Determine the random distance and direction
-    local randomDistance = MIN_SPAWN_DISTANCE + math.random() * (MAX_SPAWN_DISTANCE - MIN_SPAWN_DISTANCE)
-    local randomDirection = Vector3.new((math.random()-0.5)*2, 0, (math.random()-0.5)*2).normalized
+    local spawnPosition
 
-    local spawnPosition = playerPosition + randomDirection * randomDistance
+    while(true) do
+
+        local playerPosition = player.character:GetComponent(Transform).position
+
+        -- Determine the random distance and direction
+        local randomDistance = MIN_SPAWN_DISTANCE + math.random() * (MAX_SPAWN_DISTANCE - MIN_SPAWN_DISTANCE)
+        local randomDirection = Vector3.new((math.random()-0.5)*2, 0, (math.random()-0.5)*2).normalized
+
+        spawnPosition = playerPosition + randomDirection * randomDistance
+
+        if spawnPosition.x < 125 and spawnPosition.x > -125 and spawnPosition.z < 125 and spawnPosition.z > -125 then break end
+    end
 
     -- Choose a bee species based on the calculated probabilities
     local selectedBeeSpecies = chooseBeeSpecies()
