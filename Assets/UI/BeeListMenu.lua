@@ -29,6 +29,18 @@ local _honeyRateSort : UIButton = nil
 local _sellPriceSortLabel : UILabel = nil
 --!Bind
 local _sellPriceSort : UIButton = nil
+--!Bind
+local _confirmSell : VisualElement = nil
+--!Bind
+local _confirmSellDescription : UIButton = nil
+--!Bind
+local _confirmSellButton : UIButton = nil
+--!Bind
+local _confirmSellLabel : UILabel= nil
+--!Bind
+local _declineSellButton : UIButton = nil
+--!Bind
+local _declineSellLabel : UILabel = nil
 
 
 local count = 0
@@ -42,6 +54,8 @@ local hatsManager = require("HatsManager")
 local beeObjectManager = require("BeeObjectManager")
 
 local sortMode = 1
+
+local selectedBee = nil
 
 -- Table to store each bee's UI element by beeId
 local beeItems = {}
@@ -121,7 +135,8 @@ function CreateBeeItem(bee)
         local sellButton = UIButton.new()
         sellButton:AddToClassList("sell-button")
         sellButton:RegisterPressCallback(function()
-            SellBee(bee.species, bee.beeId, bee.adult) -- Function to handle selling the bee
+            selectedBee = bee
+            _confirmSell.visible = true
         end, true, true, true)
         sellButton:Add(sellNameLabel)
         rowContainer:Add(sellButton)
@@ -251,6 +266,9 @@ function Init()
     _raritySortLabel:SetPrelocalizedText("Sort by Rarity")
     _honeyRateSortLabel:SetPrelocalizedText("Sort by Honey Rate")
     _sellPriceSortLabel:SetPrelocalizedText("Sort by Sell Price")
+    _confirmSellDescription:SetPrelocalizedText("Are you sure you want to sell this bee?")
+    _confirmSellLabel:SetPrelocalizedText("Sell")
+    _declineSellLabel:SetPrelocalizedText("Don't Sell")
     
     if Screen.height > Screen.width then
         _alphabeticalSort:AddToClassList("hidden")
@@ -259,12 +277,23 @@ function Init()
         _honeyRateSort:AddToClassList("hidden")
     end
 
+    _confirmSell.visible = false
+
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
 
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()
         UIManager.CloseBeeList()
     end, true, true, true)
+
+    _confirmSellButton:RegisterPressCallback(function()
+        SellBee(selectedBee.species, selectedBee.beeId, selectedBee.adult)
+        _confirmSell.visible = false end, true, true, true
+    )
+
+    _declineSellButton:RegisterPressCallback(function()
+        _confirmSell.visible = false end, true, true, true
+    )
 end
 
 function self:ClientAwake()

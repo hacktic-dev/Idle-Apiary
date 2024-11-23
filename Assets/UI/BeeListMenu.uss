@@ -59,7 +59,7 @@
 }
 
 .portrait .bee-name {
-    font-size: 13px;
+    font-size: 10.5px;
 }
 
 .bee-name {
@@ -117,6 +117,71 @@
     margin-top: 10px;
 }
 
+.portrait .sell-button
+{
+        height: 120%;
+        margin-top: 3px;
+        font-size: 13px;
+}
+
+
+.confirm-sell
+{
+  position: absolute;
+  align-items:center;
+  align-self:center;
+  top: 40%;
+  width: 50%;
+  height:13%;
+  background-color: rgba(0,0,0,.8);
+  border-radius: 10px;
+}
+
+.portrait .confirm-sell
+{
+      width: 80%;
+}
+
+.portrait .confirm-title
+{
+    margin-top: 20px;
+    font-size: 15px;
+    color: white;
+}
+
+.confirm-title
+{
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+}
+
+.confirm-sell-button {
+    background-color: rgba(0, 255, 0, 0.7); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    font-size: 14px;
+    height: 80%;
+    width: 45%;
+    margin-top: 10px;
+}
+
+.decline-sell-button {
+    background-color: rgba(255, 0, 0, 0.7); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    font-size: 14px;
+    height: 80%;
+    width: 45%;
+    margin-top: 10px;
+}
+
 .add-hat {
     background-color: rgba(0, 0, 255, 0.7); /* Red for visibility */
     border-radius: 5px;
@@ -140,6 +205,24 @@
     width: 48%;
     margin-top: 10px;
 }
+
+
+.portrait .add-hat
+{
+        height: 120%;
+        margin-top: 3px;
+        font-size: 13px;
+}
+
+
+
+.portrait .remove-hat
+{
+        height: 120%;
+        margin-top: 3px;
+        font-size: 13px;
+}
+
 
 .sell-button-greyed {
     background-color: rgba(0, 0, 0, 0.7); /* Red for visibility */
@@ -188,7 +271,7 @@
 }
 
 .close-button {
-    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    background-color: rgba(255, 0, 0, 0.8); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
@@ -244,4 +327,9 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
+}
+
+.inventory__item__icon__image
+{
+    max-height: 120px;
 }

@@ -34,5 +34,18 @@
         <hr:UILabel name= "_sellPriceSortLabel" text="test" class ="sortButton"/>
       </hr:UIButton>
     </VisualElement>
+
+    <VisualElement class="confirm-sell" name="_confirmSell">
+      <hr:UILabel name="_confirmSellDescription" class="confirm-title" />
+      <VisualElement class="row-container">
+        <hr:UIButton class = "confirm-sell-button" name = "_confirmSellButton">
+          <hr:UILabel name = "_confirmSellLabel" class = "title" />
+        </hr:UIButton>
+        <hr:UIButton class = "decline-sell-button" name = "_declineSellButton">
+          <hr:UILabel name = "_declineSellLabel" class = "title" />
+        </hr:UIButton>
+      </VisualElement>
+    </VisualElement>
+
   </hr:UILuaView>
 </UXML>
