@@ -5,11 +5,15 @@
     flex-direction: row;
     position: absolute;
     bottom: 112px;
-    height: 10%;
+    height: 12%;
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 10px;
 }
 
 /* Apiary UI Styles */
 .apiary-ui__status {
+        padding-top: 10px;
+            padding-bottom: 10px;
     position: absolute;
     align-self: center;
     font-size: 20px;

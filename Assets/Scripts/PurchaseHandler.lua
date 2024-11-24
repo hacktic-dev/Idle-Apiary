@@ -31,13 +31,13 @@ attempts = 0
 function PromptTokenPurchase(id: string)
     testServer:FireServer(id)
     responseTesting = true
+    allowed = true
     Timer.new(0.5, function() 
     if responseTesting then
         statusObject:GetComponent("PlaceApiaryStatus").SetStatus("This feature isn't available right now. Please try again later.")
         UIManager.ToggleUI("PlaceStatus", true)
         Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
     end
-    
     end, false)
 end
 
@@ -79,13 +79,26 @@ function self:ServerAwake()
 
   testServer:Connect(function(player, id)
       print("Purchase request was initiated by " .. player.name)
-    serverResponse:FireClient(player, id)
+
+      if playerManager.PlayerHasActiveHoneyDoubler(player) then
+        serverResponse:FireClient(player, id, false)
+        return
+      end
+
+    serverResponse:FireClient(player, id, true)
   end)
 end
 
 function self:ClientAwake()
-    serverResponse:Connect(function(id)
-        responseTesting = false
+    serverResponse:Connect(function(id, allowed)
+      responseTesting = false
+      
+        if allowed == false then
+          statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have an active honey doubler! Wait for it to run out before purchasing again.")
+          UIManager.ToggleUI("PlaceStatus", true)
+          Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+          return
+        end
         Payments:PromptPurchase(id, function(paid) end)
     end)
     

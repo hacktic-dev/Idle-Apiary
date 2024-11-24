@@ -246,6 +246,11 @@ function GetBeeList(player, callback)
 end
 
 function RecalculatePlayerEarnRate(player)
+
+    if ApiaryManager.GetPlayerApiaryLocation(player) == nil then
+        return
+    end
+
     GetBeeList(player, function(bees)
         local rate = 0
         for i, bee in ipairs(bees) do
@@ -571,10 +576,7 @@ function self:ServerAwake()
             beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player), id, isAdult, growTime, wildBeeManager.getGrowTime(name))
         end
 
-        -- Only have non zero rate if apiary is placed
-        if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-            RecalculatePlayerEarnRate(player)
-        end
+        RecalculatePlayerEarnRate(player)
     end)
 
     sellBeeRequest:Connect(function(player, beeId)
@@ -587,9 +589,7 @@ function self:ServerAwake()
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
                     beeCountUpdated:FireClient(player, #playerBeeStorage[player])
-                    if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-                        RecalculatePlayerEarnRate(player)
-                    end
+                    RecalculatePlayerEarnRate(player)
                     --print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
                     return
                 end
@@ -657,5 +657,11 @@ function SetHoneyDoublerForPlayer(player, time)
 end
 
 function PlayerHasActiveHoneyDoubler(player)
-    return playerHasHoneyDoubler[player] == true
+    print("checking if player has active doubler")
+    if playerHasHoneyDoubler[player] == true then
+        print("true!")
+        return true
+    end
+    print("false!")
+    return false
 end

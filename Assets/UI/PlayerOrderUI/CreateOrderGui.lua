@@ -183,19 +183,12 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
     questItem:RegisterPressCallback(function()
         -- Handle gold payments
         if isGold then
-
-            if playerManager.PlayerHasActiveHoneyDoubler(player) then
-                statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have an active honey doubler! Wait for it to run out before purchasing again.")
-                UIManager.ToggleUI("PlaceStatus", true)
-                Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
-            end
-
             purchaseHandler.PromptTokenPurchase(Id)
             return
         end
 
         -- Check bee capacity
-        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
+        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == 12) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)

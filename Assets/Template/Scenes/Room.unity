@@ -10455,9 +10455,9 @@ Transform:
   m_Children:
   - {fileID: 1281290782}
   - {fileID: 1175730132}
-  - {fileID: 2039243174}
   - {fileID: 1857712170}
   - {fileID: 1836377559}
+  - {fileID: 2039243174}
   - {fileID: 1123674340}
   - {fileID: 1551702684}
   - {fileID: 1795940970}
@@ -51894,7 +51894,7 @@ MonoBehaviour:
   _networkId: 0
   _script: {fileID: -974389366465450183, guid: b3d1c886ee49c354fb28cdb5798245e7, type: 3}
   _properties: []
-  _uiOutput: 3
+  _uiOutput: 2
   _uiOutputSettings:
     rid: -2
   references:
