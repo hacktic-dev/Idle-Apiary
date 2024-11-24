@@ -28,13 +28,13 @@ local purchaseHandler = require("PurchaseHandler")
 
 local state = 0 -- Which tab are we on?
 
-_upgradesTab:RegisterPressCallback(function()
-    local success = ButtonPressed("upgrades")
-  end, true, true, true)
+--_upgradesTab:RegisterPressCallback(function()
+--    local success = ButtonPressed("upgrades")
+--  end, true, true, true)
   
-_beesTab:RegisterPressCallback(function()
-local success = ButtonPressed("bees")
-end, true, true, true)
+--_beesTab:RegisterPressCallback(function()
+--local success = ButtonPressed("bees")
+--end, true, true, true)
 
 local function InitUpgradesTab()
     Orders_Root:Clear()
@@ -217,7 +217,7 @@ end
 -- Called when the UI object this script is attached to is initialized.
 function Init()
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
-    ButtonPressed("upgrades")
+    --ButtonPressed("upgrades")
     InitUpgradesTab()
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()

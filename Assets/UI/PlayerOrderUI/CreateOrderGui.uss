@@ -7,6 +7,8 @@
     width: 100%;
     max-width: 95%;
     align-self: center;
+    background-color: rgba(0,0,0,.35);
+    border-radius: 10px;
 }
 
 .portrait .create-order-gui {
@@ -80,6 +82,7 @@
     color: white;
     font-size: 16px;
     margin-top: 10px;
+    margin-bottom: 10px;
     width: 200px;
     margin-left: auto;
     margin-right: auto;
