@@ -303,6 +303,7 @@ removeFlowerRequest:Connect(function(id)
 
  notifyFlowerPlacementFailed:Connect(function()
     statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of flowers placed.")
+    audioManager.PlaySound("failSound", .75)
     UIManager.ToggleUI("PlaceStatus", true)
     Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
  end)

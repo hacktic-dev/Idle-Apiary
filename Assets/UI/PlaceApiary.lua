@@ -50,6 +50,7 @@ ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
         why = " You are too close to another players apiary."
     end
     statusObject:GetComponent("PlaceApiaryStatus").SetStatus("Apiary cannot not be placed here." .. why)
+    audioManager.PlaySound("failSound", .75)
     Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
 
@@ -68,6 +69,7 @@ wildBeeManager.notifyCaptureFailed:Connect(function(reason)
         why = "You already have the maximum number of bees."
     end
     statusObject:GetComponent("PlaceApiaryStatus").SetStatus(why)
+    audioManager.PlaySound("failSound", .75)
     UIManager.ToggleUI("PlaceStatus", true)
     Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)

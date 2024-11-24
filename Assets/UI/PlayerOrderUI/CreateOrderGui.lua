@@ -377,6 +377,7 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
         else
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")
+            audioManager.PlaySound("failSound", .75)
             Timer.new(2, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
         end
     end)
@@ -442,6 +443,7 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
         if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == 12) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
+            audioManager.PlaySound("failSound", .75)
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
             return
         end
@@ -479,6 +481,7 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
         else
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
+            audioManager.PlaySound("failSound", .75)
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
         end
     end, true, true, true)

@@ -36,6 +36,7 @@ function PromptTokenPurchase(id: string)
     Timer.new(0.5, function() 
     if responseTesting then
         statusObject:GetComponent("PlaceApiaryStatus").SetStatus("This feature isn't available right now. Please try again later.")
+        audioManager.PlaySound("failSound", .75)
         UIManager.ToggleUI("PlaceStatus", true)
         Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
     end
@@ -105,6 +106,7 @@ function self:ClientAwake()
       
         if allowed == false and (id == "doubler_1" or id == "doubler_2") then
           statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have an active honey doubler! Wait for it to run out before purchasing again.")
+          audioManager.PlaySound("failSound", .75)
           UIManager.ToggleUI("PlaceStatus", true)
           Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
           return

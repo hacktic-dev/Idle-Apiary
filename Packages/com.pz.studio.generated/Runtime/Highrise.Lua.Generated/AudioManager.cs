@@ -29,6 +29,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public Highrise.AudioShader m_CaptureSound = default;
         [SerializeField] public Highrise.AudioShader m_PlaceSound = default;
         [SerializeField] public Highrise.AudioShader m_CutSound = default;
+        [SerializeField] public Highrise.AudioShader m_FailSound = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -41,6 +42,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(1), m_CaptureSound),
                 CreateSerializedProperty(_script.GetPropertyAt(2), m_PlaceSound),
                 CreateSerializedProperty(_script.GetPropertyAt(3), m_CutSound),
+                CreateSerializedProperty(_script.GetPropertyAt(4), m_FailSound),
             };
         }
     }

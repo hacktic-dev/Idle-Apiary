@@ -8,12 +8,15 @@ local CaptureSound : AudioShader = nil
 local PlaceSound : AudioShader = nil
 --!SerializeField
 local CutSound : AudioShader = nil
+--!SerializeField
+local FailSound : AudioShader = nil
 
 audioMap = {
     purchaseSound = PurchaseSound,
     captureSound = CaptureSound,
     placeSound = PlaceSound,
-    cutSound = CutSound;
+    cutSound = CutSound,
+    failSound = FailSound;
 }
 
 function PlaySound(sound, pitch)
