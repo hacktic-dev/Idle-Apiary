@@ -31,7 +31,6 @@ attempts = 0
 function PromptTokenPurchase(id: string)
     testServer:FireServer(id)
     responseTesting = true
-    allowed = true
     Timer.new(0.5, function() 
     if responseTesting then
         statusObject:GetComponent("PlaceApiaryStatus").SetStatus("This feature isn't available right now. Please try again later.")
@@ -42,7 +41,7 @@ function PromptTokenPurchase(id: string)
 end
 
 -- Function to handle the purchase (Server Side)
-function ServerHandlePurchase(purchase, player : Player)
+function ServerHandlePurchase(purchase, player: Player)
   -- Note: The product ID is a string even when it represents a number
   local productId = purchase.product_id -- The product ID that was purchased (e.g., "token")
 
