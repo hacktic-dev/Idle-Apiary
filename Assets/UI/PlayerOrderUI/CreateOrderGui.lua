@@ -28,13 +28,13 @@ local purchaseHandler = require("PurchaseHandler")
 
 local state = 0 -- Which tab are we on?
 
---_upgradesTab:RegisterPressCallback(function()
---    local success = ButtonPressed("upgrades")
---  end, true, true, true)
+_upgradesTab:RegisterPressCallback(function()
+    local success = ButtonPressed("upgrades")
+  end, true, true, true)
   
---_beesTab:RegisterPressCallback(function()
---local success = ButtonPressed("bees")
---end, true, true, true)
+_beesTab:RegisterPressCallback(function()
+local success = ButtonPressed("bees")
+end, true, true, true)
 
 local function InitUpgradesTab()
     Orders_Root:Clear()
@@ -46,9 +46,8 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase 250 Honey", "honey_1", 100, true)
-    CreateQuestItem("Purchase 1000 Honey", "honey_2", 200, true)
-    CreateQuestItem("Purchase 3000 Honey", "honey_3", 500, true)
+    CreateQuestItem("Purchase Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.")
+    CreateQuestItem("Purchase Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes")
 end
 
 function ButtonPressed(btn: string)
@@ -138,7 +137,7 @@ end
 
 
 -- Creates a new quest item in the UI.
-function CreateQuestItem(Name, Id, Cash, isGold)
+function CreateQuestItem(Name, Id, Cash, isGold, description)
     -- Create a new button for the quest item.
     local questItem = UIButton.new()
     questItem:AddToClassList("order-item") -- Add a class to style the quest item.
@@ -146,41 +145,57 @@ function CreateQuestItem(Name, Id, Cash, isGold)
     -- Create a label for the quest item's title and add it to the quest item.
     local _titleLabel = UILabel.new()
     _titleLabel:AddToClassList("title")
-    _titleLabel:SetPrelocalizedText(Name.. " -") -- Set the text to display the quest item's name.
+    _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
     questItem:Add(_titleLabel)
+
+    if description~= nil then
+        local _descLabel = UILabel.new()
+        _descLabel:AddToClassList("description")
+        _descLabel:SetPrelocalizedText(description)
+        questItem:Add(_descLabel)
+    end
 
     -- Create a label for the quest item's XP reward and add it to the quest item.
     -- local _xpLabel = UILabel.new()
     -- _xpLabel:AddToClassList("title")
     -- _xpLabel:SetPrelocalizedText(tostring(XP).."xp") -- Set the text to display the XP reward.
    --  questItem:Add(_xpLabel)
+    local _priceContainer = VisualElement.new()
+    _priceContainer:AddToClassList("priceContainer")
 
     if not isGold then
         local _icon = UIImage.new()
         _icon:AddToClassList("icon_honey")
-        questItem:Add(_icon)
+        _priceContainer:Add(_icon)
     else
         local _icon = UIImage.new()
         _icon:AddToClassList("icon_gold")
-        questItem:Add(_icon)
+        _priceContainer:Add(_icon)
     end
 
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
     _cashLabel:AddToClassList("title")
     _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
-    questItem:Add(_cashLabel)
+    _priceContainer:Add(_cashLabel)
+    questItem:Add(_priceContainer)
 
-    -- Add a press callback to the quest item button.
     questItem:RegisterPressCallback(function()
-        -- Check if the player is a customer and has enough cash to buy the item.
-
+        -- Handle gold payments
         if isGold then
+
+            if playerManager.PlayerHasActiveHoneyDoubler(player) then
+                statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have an active honey doubler! Wait for it to run out before purchasing again.")
+                UIManager.ToggleUI("PlaceStatus", true)
+                Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+            end
+
             purchaseHandler.PromptTokenPurchase(Id)
             return
         end
 
-        if Id ~= "Net" and playerManager.clientBeeCount > 11 then
+        -- Check bee capacity
+        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
@@ -188,7 +203,7 @@ function CreateQuestItem(Name, Id, Cash, isGold)
         end
 
         if playerManager.GetPlayerCash() >= Cash then
-            
+              
             playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
             audioManager.PlaySound("purchaseSound", 1)
 
@@ -217,7 +232,7 @@ end
 -- Called when the UI object this script is attached to is initialized.
 function Init()
     closeLabel:SetPrelocalizedText("Close", true) -- Set the text of the close button.
-    --ButtonPressed("upgrades")
+    ButtonPressed("upgrades")
     InitUpgradesTab()
     -- Add a callback to the close button to hide the UI when pressed.
     closeButton:RegisterPressCallback(function()

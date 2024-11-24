@@ -13907,7 +13907,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
-  m_BeeObtainCardObject: {fileID: 1281290780}
+  m_InfoCardObject: {fileID: 1281290780}
   m_statusObject: {fileID: 2039243172}
   references:
     version: 2

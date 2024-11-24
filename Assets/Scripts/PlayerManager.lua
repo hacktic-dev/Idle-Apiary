@@ -28,6 +28,9 @@ local playerMoneyEarnRates = {}
 -- Table to hold players' bee species in memory
 local playerSeenBeeSpecies = {}
 
+-- Table for who has active honey doubler (server)
+local playerHasHoneyDoubler = {}
+
 local playerTimers = {}
 
 giveBeeRequest = Event.new("GiveBee")
@@ -250,6 +253,10 @@ function RecalculatePlayerEarnRate(player)
             if bee.adult then
                 rate = rate + wildBeeManager.getHoneyRate(bee.species)
             end
+        end
+
+        if playerHasHoneyDoubler[player] == true then
+            rate = rate * 2
         end
 
         playerMoneyEarnRates[player] = rate
@@ -643,7 +650,12 @@ function self:ServerAwake()
     end, true)
 end
 
-function GiveCash(player, amount)
-    players[player].Cash.value += amount 
-    SaveStats(player)
+function SetHoneyDoublerForPlayer(player, time)
+   playerHasHoneyDoubler[player] = true
+   Timer.new(time, function() playerHasHoneyDoubler[player] = nil RecalculatePlayerEarnRate(player) end, false)
+    RecalculatePlayerEarnRate(player)
+end
+
+function PlayerHasActiveHoneyDoubler(player)
+    return playerHasHoneyDoubler[player] == true
 end
