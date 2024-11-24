@@ -34,6 +34,9 @@ local playerHasHoneyDoubler = {}
 
 local playerTimers = {}
 
+-- Track how many times a player has joined (server)
+local playerJoins = {}
+
 giveBeeRequest = Event.new("GiveBeeRequest")
 sellBeeRequest = Event.new("SellBeeRequest")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
@@ -455,7 +458,21 @@ function TrackPlayers(game, characterCallback)
                 RecalculatePlayerEarnRate(player)
             end
 
-            Storage.SetPlayerValue(player, player.name, player.name)
+            Storage.GetPlayerValue(player, player.name, function(data, errorCode)
+                if data == nil or data == player.name then
+                    data = {name = player.name, version = 0, joins = 1} -- remember to increment version for each breaking change
+                else
+                    data.joins = data.joins + 1
+                end
+
+                print("player joins are " .. data.joins)
+
+                playerJoins[player] = IntValue.new("Joins" .. tostring(player.id), 0)
+                Timer.new(0.05, function() playerJoins[player].value = data.joins end, false)
+                Storage.SetPlayerValue(player, player.name, data)
+            end)
+        else
+            playerJoins[player] = IntValue.new("Joins" .. tostring(player.id), 0)
         end
 
         -- Connect to the event when the player's character changes (e.g., respawn)
@@ -483,10 +500,11 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             flowerManager.RemoveAllPlayerFlowers(player)
+            playerJoins[player] = nil
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
         end
-        Timer.new(20, function() 
+        Timer.new(5, function() 
             if tableContains(onlinePlayers, player) == false then
              players[player] = nil end end
             , false)
@@ -543,6 +561,11 @@ end
 
 function GetPlayerBeeCapacity()
     return players[client.localPlayer].BeeCapacity.value
+end
+
+function GetPlayerJoins()
+    print("getting player joins... " .. playerJoins[client.localPlayer].value)
+    return playerJoins[client.localPlayer].value
 end
 
 function GetPlayerSweetScentLevel()

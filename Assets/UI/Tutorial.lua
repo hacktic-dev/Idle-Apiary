@@ -17,16 +17,36 @@ local UIManager = require("UIManager")
 local playerManager = require("PlayerManager")
 
 function Init()
-    page = 0
-    closeLabel:SetPrelocalizedText("Next")
-    _tutorial1:SetPrelocalizedText("Welcome to Idle Apiary!\n\nTo get started, open the shop and buy your first bee from the bronze set, then find a good spot and place down your apiary to start generating honey.")
-    _tutorialImage:RemoveFromClassList("bee-image")
-    _tutorialImage:AddToClassList("shopkeeper-image")
+    if playerManager.GetPlayerJoins() == 1 then
+        page = 0
+        closeLabel:SetPrelocalizedText("Next")
+        _tutorial1:SetPrelocalizedText("Welcome to Idle Apiary!\n\nTo get started, open the shop and buy your first bee from the bronze set, then find a good spot and place down your apiary to start generating honey.")
+        _tutorialImage.visible = true
+        _tutorialImage:RemoveFromClassList("bee-image")
+        _tutorialImage:AddToClassList("shopkeeper-image")
+    elseif playerManager.GetPlayerJoins() == 2 then
+        page = 0
+        closeLabel:SetPrelocalizedText("Close")
+        _tutorial1:SetPrelocalizedText("Welcome back!\n\nPlace down your apiary again to continue where you left off.")
+        _tutorialImage.visible = false
+    else
+        UIManager.HideTutorial()
+        playerManager.IncrementStat("Cash", 0)
+        playerManager.IncrementStat("Nets", 0)
+    end
 end
 
 function self:ClientAwake()
 
     closeButton:RegisterPressCallback(function()
+
+        if playerManager.GetPlayerJoins() == 2 then
+            UIManager.HideTutorial()
+            playerManager.IncrementStat("Cash", 0)
+            playerManager.IncrementStat("Nets", 0)
+            return
+        end
+
         if page == 0 then
             _tutorial1:SetPrelocalizedText("When you purchase a bee, it will be a baybee. Baybees have to grow up into adult bees before they will start generating honey or can be sold.")
             closeLabel:SetPrelocalizedText("Next")

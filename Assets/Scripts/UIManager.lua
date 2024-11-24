@@ -254,7 +254,7 @@ end))
 
 
 function self:ClientAwake()
-    Timer.new(.1, function() 
+    Timer.new(0.5, function() 
         OpenTutorial()
     end, false)
 end
