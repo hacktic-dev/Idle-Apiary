@@ -10810,7 +10810,7 @@ MonoBehaviour:
   m_StatusObject: {fileID: 2039243172}
   m_PlaceFlowerMenuObject: {fileID: 1810974072}
   m_AddHatMenuObject: {fileID: 193848034}
-  m_CenterPlayerButtonObject: {fileID: 0}
+  m_CenterPlayerButtonObject: {fileID: 800445246}
   references:
     version: 2
     RefIds:

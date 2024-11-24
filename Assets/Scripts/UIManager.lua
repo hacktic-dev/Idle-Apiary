@@ -121,6 +121,7 @@ function OpenShop()
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", true)
     HideButtons()
+    ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceButtons", false)
     --ToggleUI("PlayerStats", false)
     CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
@@ -161,6 +162,7 @@ function CloseShop()
     ShowButtons()
     ShowMenu()
     ToggleUI("ShopUi", false)
+    ToggleUI("CenterPlayerButton", true)
     --ToggleUI("PlayerStats", true)
     ToggleUI("PlaceButtons", true)
 end
@@ -200,8 +202,7 @@ end
 
 function CloseShearsTutorial()
     ToggleUI("ShopUi", true)
-    ToggleUI("PlayerStats", true)
-    ToggleUI("CenterPlayerButton", true)
+    ShowMenu()
     ToggleUI("ShearsTutorial", false)
     CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
 end
@@ -216,8 +217,7 @@ end
 
 function ClosePlaceFlowerMenu()
     ToggleUI("PlaceFlowerMenu", false)
-    ToggleUI("PlayerStats", true)
-    ToggleUI("CenterPlayerButton", true)
+    ShowMenu()
     ToggleUI("PlaceButtons", true)
 end
 
@@ -233,8 +233,7 @@ end
 
 function CloseAddHatMenu()
     ToggleUI("AddHatMenu", false)
-    ToggleUI("PlayerStats", true)
-    ToggleUI("CenterPlayerButton", true)
+    ShowMenu()
     ToggleUI("PlaceButtons", true)
 end
 
@@ -245,7 +244,7 @@ wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("CenterPlayerButton", false)
     InfoCardObject:GetComponent(InfoCard).ShowCaughtWild(species)
     audioManager.PlaySound("captureSound", 1)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) ToggleUI("CenterPlayerButton", true) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) end, false)
 end))
 
 playerManager.notifyBeePurchased:Connect((function(species)
@@ -254,7 +253,7 @@ playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
     InfoCardObject:GetComponent(InfoCard).ShowRecieved(species)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) ToggleUI("CenterPlayerButton", true) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end, false)
 end))
 
 playerManager.notifyHatPurchased:Connect((function(hat)
@@ -264,7 +263,7 @@ playerManager.notifyHatPurchased:Connect((function(hat)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
     InfoCardObject:GetComponent(InfoCard).ShowHat(hat)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) ToggleUI("CenterPlayerButton", true) end, false)
+    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end, false)
 end))
 
 
