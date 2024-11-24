@@ -848,7 +848,13 @@ function SetHoneyDoublerForPlayer(player, time)
 end
 
 function PlayerHasActiveHoneyDoubler(player)
-    return playerHasHoneyDoubler[player] == true
+    print("checking if player has active doubler")
+    if playerHasHoneyDoubler[player] == true then
+        print("true!")
+        return true
+    end
+    print("false!")
+    return false
 end
 
 function GiveHat(Id)

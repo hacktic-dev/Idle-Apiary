@@ -6,13 +6,15 @@
     position: absolute;
     bottom: 112px;
     height: 15%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.8);
     border-radius: 10px;
     align-self: center;
 }
 
 /* Apiary UI Styles */
 .apiary-ui__status {
+        padding-top: 10px;
+            padding-bottom: 10px;
     position: absolute;
     align-self: center;
     font-size: 20px;
