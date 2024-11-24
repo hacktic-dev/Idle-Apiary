@@ -74,12 +74,12 @@ function ServerHandlePurchase(purchase, player : Player)
     end)
 
     return
+  else
+    -- Not honey, so it must be a hat. Add to inventory and commit
+    local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
+    Inventory.CommitTransaction(transaction)
+    playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
   end
-
-  -- Not honey, so it must be a hat. Add to inventory and commit
-  local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
-  Inventory.CommitTransaction(transaction)
-  playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
 end
 
 -- Initialize the module
