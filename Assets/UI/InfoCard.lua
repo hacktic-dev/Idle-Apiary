@@ -48,16 +48,14 @@ function ShowFlowerCut(name, effect)
 end
 
 function showPurchasedHoney(id)
-    if id == "honey_1" then
-        _beeLabel:SetPrelocalizedText("You purchased 250 honey!")
-    elseif id == "honey_2" then
-        _beeLabel:SetPrelocalizedText("You purchased 1000 honey!")
-    elseif id == "honey_3" then
-        _beeLabel:SetPrelocalizedText("You purchased 3000 honey!")
+    if id == "doubler_1" then
+        _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler!")
+    elseif id == "doubler_2" then
+        _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler Pro!")
     end
 
     _rarity:SetPrelocalizedText("Thank you for your purchase!")
-    _honeyRateLabel:SetPrelocalizedText("Please reach out to hacktic if there are any issues.")
+    _honeyRateLabel:SetPrelocalizedText("")
     _sellPriceLabel:SetPrelocalizedText("")
 end
 

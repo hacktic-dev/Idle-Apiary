@@ -92,9 +92,8 @@ end
 
 local function InitHoneyTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase 250 Honey", "honey_1", 100, true)
-    CreateQuestItem("Purchase 1000 Honey", "honey_2", 200, true)
-    CreateQuestItem("Purchase 3000 Honey", "honey_3", 500, true)
+    CreateQuestItem("Purchase Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.")
+    CreateQuestItem("Purchase Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes")
 end
 
 local function getSeed()
@@ -400,7 +399,6 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
     _titleLabel:AddToClassList("title")
     _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
     questItem:Add(_titleLabel)
-
     if description~= nil then
         local _descLabel = UILabel.new()
         _descLabel:AddToClassList("description")
@@ -436,6 +434,13 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
     questItem:RegisterPressCallback(function()
         -- Handle gold payments
         if isGold then
+
+            if playerManager.PlayerHasActiveHoneyDoubler(player) and (Id == "doubler_1" or Id == "doubler_2") then
+                statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have an active honey doubler! Wait for it to run out before purchasing again.")
+                UIManager.ToggleUI("PlaceStatus", true)
+                Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+            end
+
             purchaseHandler.PromptTokenPurchase(Id)
             return
         end

@@ -42,100 +42,42 @@ function PromptTokenPurchase(id: string)
     end, false)
 end
 
--- Function to increment the player's tokens (Server Side)
-function IncrementTokens(player: Player, amount: number)
-  -- Note: Remember to add your own logic if you are using Network values or Storage
-  -- In this case we are only storing the tokens locally (not recommended but for example purposes)
-  playerManager.GiveCash(player, amount)
-  -- Print the player's name, the amount of tokens they received, and their total tokens
-  print(player.name .. " received " .. amount .. " honey.")
-end
-
 -- Function to handle the purchase (Server Side)
-function ServerHandlePurchase(purchase, player: Player)
+function ServerHandlePurchase(purchase, player : Player)
   -- Note: The product ID is a string even when it represents a number
   local productId = purchase.product_id -- The product ID that was purchased (e.g., "token")
 
   print("Player " .. player.name .. " has made a purchase of ".. productId ..". Attempting...")
 
-  -- The amount of tokens to give the player
-  local tokensToGive = 0 -- Initialize the amount of tokens to give
-
-  if attempts ~= 0 then
-    attempts = attempts + 1
-  end
-  
+  local time = 0
   isHoney = false
 
-  if productId == "honey_1" then
-    tokensToGive = 250
+  if productId == "doubler_1" then
+    time = 300
     isHoney = true
-  elseif productId == "honey_2" then
-    tokensToGive = 1000
-    isHoney = true
-  elseif productId == "honey_3" then
-    tokensToGive = 3000
+  elseif product_id == "doubler_2" then
+    time = 900
     isHoney = true
   end
 
   if isHoney then
-    HandleHoneyPurchase(player, tokensToGive, purchase, productId)
-    return
+    playerManager.SetHoneyDoublerForPlayer(player, time)
+
+    Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+      if ackErr ~= PaymentsError.None then
+        print("Error acknowledging purchase: " .. ackErr)
+        purchaseFailedEvent:FireClient(player)
+        return
+      end
+      print("Player ".. player.name .." honey doubler is now active")
+      purchaseSucceededEvent:FireClient(player, productId)
+    end)
   end
 
   -- Not honey, so it must be a hat. Add to inventory and commit
   local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
   Inventory.CommitTransaction(transaction)
   playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
-end
-
-function HandleHoneyPurchase(player, tokensToGive, purchase, productId)
-  print("Getting cash for player " .. player.name)
-  local cash = playerManager.GetPlayerCash(player)
-  print("Player ".. player.name .. " has " .. cash .. " cash")
-
-  if cash == -1 then
-    print("Something went wrong, players[player] was nil. Reiniting and trying again")
-    playerManager.ReinitPlayer(player)
-    playerManager.getStatsRequest:Fire(player)
-    if attempts < 4 then
-      Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end, false)
-      return
-    else
-      print("Ran out of attempts. Stopping...")
-      purchaseFailedEvent:FireClient(player)
-      attempts = 0
-      Payments.AcknowledgePurchase(purchase, false)
-      return
-    end
-  end
-
-  IncrementTokens(player, tokensToGive)
-
-  if playerManager.GetPlayerCash(player) - 200 <= cash then
-    print("Something went wrong, cash is only " .. playerManager.GetPlayerCash(player)  .. ". Trying again")
-    if attempts < 4 then
-      Timer.new(0.5, function() HandleHoneyPurchase(player, tokensToGive, purchase) end, false)
-      return
-    else
-      print("Ran out of attempts. Stopping...")
-      purchaseFailedEvent:FireClient(player)
-      attempts = 0
-      Payments.AcknowledgePurchase(purchase, false)
-      return
-    end
-  end
-
-  Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
-    attempts = 0
-    if ackErr ~= PaymentsError.None then
-      print("Error acknowledging purchase: " .. ackErr)
-      purchaseFailedEvent:FireClient(player)
-      return
-    end
-    print("Player ".. player.name .." cash is now " ..  playerManager.GetPlayerCash(player) .. ", was incremented successfully. Now acknowledging purchase...")
-    purchaseSucceededEvent:FireClient(player, productId)
-  end)
 end
 
 -- Initialize the module
@@ -161,7 +103,7 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      InfoCardObject:GetComponent(InfoCard).showPurchasedHoney(id)
+      InfoCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
       hideUiEvent:Fire()
     end)
 
@@ -171,7 +113,7 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      InfoCardObject:GetComponent(InfoCard).showPurchasedHoneyFailed()
+      InfoCardObject:GetComponent(BeeObtainCard).showPurchasedHoneyFailed()
       hideUiEvent:Fire()
     end)
 
