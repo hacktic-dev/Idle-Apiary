@@ -16,8 +16,8 @@ local page = 0
 local UIManager = require("UIManager")
 local playerManager = require("PlayerManager")
 
-function Init()
-    if playerManager.GetPlayerJoins() == 1 then
+function Init(playerInited)
+    if playerManager.GetPlayerJoins() == 1 or playerInited then
         page = 0
         closeLabel:SetPrelocalizedText("Next")
         _tutorial1:SetPrelocalizedText("Welcome to Idle Apiary!\n\nTo get started, open the shop and buy your first bee from the bronze set, then find a good spot and place down your apiary to start generating honey.")

@@ -169,7 +169,7 @@ function HideTutorial()
     ToggleUI("PlaceButtons", true)
 end
 
-function OpenTutorial()
+function OpenTutorial(playerInited)
     ToggleUI("PlaceFlowerMenu", false)
     ToggleUI("AddHatMenu", false)
     ToggleUI("BeeList", false)
@@ -181,7 +181,7 @@ function OpenTutorial()
     ToggleUI("PlaceButtons", false)
     ToggleUI("PlayerStats", false)
     ToggleUI("PlaceStatus", false)
-    TutorialObject:GetComponent(Tutorial).Init()
+    TutorialObject:GetComponent(Tutorial).Init(playerInited)
 end
 
 function OpenShearsTutorial()
@@ -255,7 +255,7 @@ end))
 
 function self:ClientAwake()
     Timer.new(0.5, function() 
-        OpenTutorial()
+        OpenTutorial(false)
     end, false)
 end
 

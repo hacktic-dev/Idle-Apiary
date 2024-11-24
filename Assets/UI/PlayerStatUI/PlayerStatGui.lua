@@ -62,7 +62,7 @@ _openShopButton:RegisterPressCallback(function()
 end, true, true, true)
 
 _viewTutorialButton:RegisterPressCallback(function()
-    UIManager.OpenTutorial()
+    UIManager.OpenTutorial(true)
 end, true, true, true)
 
 _hamburgerButton:RegisterPressCallback(function()
