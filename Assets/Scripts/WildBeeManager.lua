@@ -72,28 +72,28 @@ local beeSpecies = {
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
 beeData = {
     -- Bronze Set - 50 Honey to Purchase
-    ["Common Bee"] = { honeyRate = 8, sellPrice = 50, growTime = 60, rarity = "Common", set = "Bronze Set" },
-    ["Stone Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
-    ["Forest Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
-    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 80, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
-    ["Giant Bee"] = { honeyRate = 16, sellPrice = 80, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
-    ["Silver Bee"] = { honeyRate = 20, sellPrice = 120, growTime = 300, rarity = "Rare", set = "Bronze Set" },
+    ["Common Bee"] = { honeyRate = 8, sellPrice = 50, growTime = 40, rarity = "Common", set = "Bronze Set" },
+    ["Stone Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 40, rarity = "Common", set = "Bronze Set" },
+    ["Forest Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 40, rarity = "Common", set = "Bronze Set" },
+    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 80, growTime = 80, rarity = "Uncommon", set = "Bronze Set" },
+    ["Giant Bee"] = { honeyRate = 16, sellPrice = 80, growTime = 80, rarity = "Uncommon", set = "Bronze Set" },
+    ["Silver Bee"] = { honeyRate = 20, sellPrice = 120, growTime = 200, rarity = "Rare", set = "Bronze Set" },
 
     -- Silver Set - 250 Honey to Purchase
-    ["Muddy Bee"] = { honeyRate = 14, sellPrice = 120, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Frigid Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Steel Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Magma Bee"] = { honeyRate = 24, sellPrice = 200, growTime = 120, rarity = "Rare", set = "Silver Set" },
-    ["Ghostly Bee"] = { honeyRate = 24, sellPrice = 220, growTime = 120, rarity = "Rare", set = "Silver Set" },
-    ["Iridescent Bee"] = { honeyRate = 30, sellPrice = 300, growTime = 300, rarity = "Epic", set = "Silver Set" },
+    ["Muddy Bee"] = { honeyRate = 14, sellPrice = 120, growTime = 40, rarity = "Uncommon", set = "Silver Set" },
+    ["Frigid Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 40, rarity = "Uncommon", set = "Silver Set" },
+    ["Steel Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 40, rarity = "Uncommon", set = "Silver Set" },
+    ["Magma Bee"] = { honeyRate = 24, sellPrice = 200, growTime = 80, rarity = "Rare", set = "Silver Set" },
+    ["Ghostly Bee"] = { honeyRate = 24, sellPrice = 220, growTime = 80, rarity = "Rare", set = "Silver Set" },
+    ["Iridescent Bee"] = { honeyRate = 30, sellPrice = 300, growTime = 200, rarity = "Epic", set = "Silver Set" },
 
     -- Gold Set - 1250 Honey to Purchase
-    ["Sandy Bee"] = { honeyRate = 26, sellPrice = 300, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Autumnal Bee"] = { honeyRate = 28, sellPrice = 400, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Petal Bee"] = { honeyRate = 28, sellPrice = 500, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Galactic Bee"] = { honeyRate = 34, sellPrice = 800, growTime = 120, rarity = "Epic", set = "Gold Set" },
-    ["Radiant Bee"] = { honeyRate = 38, sellPrice = 1000, growTime = 120, rarity = "Epic", set = "Gold Set" },
-    ["Rainbow Bee"] = { honeyRate = 50, sellPrice = 1500, growTime = 300, rarity = "Legendary", set = "Gold Set" }
+    ["Sandy Bee"] = { honeyRate = 26, sellPrice = 300, growTime = 40, rarity = "Rare", set = "Gold Set" },
+    ["Autumnal Bee"] = { honeyRate = 28, sellPrice = 400, growTime = 40, rarity = "Rare", set = "Gold Set" },
+    ["Petal Bee"] = { honeyRate = 28, sellPrice = 500, growTime = 40, rarity = "Rare", set = "Gold Set" },
+    ["Galactic Bee"] = { honeyRate = 34, sellPrice = 800, growTime = 80, rarity = "Epic", set = "Gold Set" },
+    ["Radiant Bee"] = { honeyRate = 38, sellPrice = 1000, growTime = 80, rarity = "Epic", set = "Gold Set" },
+    ["Rainbow Bee"] = { honeyRate = 50, sellPrice = 1500, growTime = 200, rarity = "Legendary", set = "Gold Set" }
 }
 
 

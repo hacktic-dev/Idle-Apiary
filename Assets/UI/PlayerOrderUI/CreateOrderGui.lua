@@ -258,28 +258,28 @@ end
     -- Define the chances for each bee in different sets
     local chances = {
         Bronze = {
-            {name = "Common Bee", chance = 20},  -- 5 * 5
-            {name = "Stone Bee", chance = 20},   -- 5 * 5
-            {name = "Forest Bee", chance = 20},  -- 5 * 5
+            {name = "Common Bee", chance = 19},  -- 5 * 5
+            {name = "Stone Bee", chance = 19},   -- 5 * 5
+            {name = "Forest Bee", chance = 19},  -- 5 * 5
             {name = "Aquatic Bee", chance = 15}, -- 2 * 5
             {name = "Giant Bee", chance = 15},   -- 2 * 5
-            {name = "Silver Bee", chance = 10}    -- 1 * 5
+            {name = "Silver Bee", chance = 13}    -- 1 * 5
         },
         Silver = {
-            {name = "Muddy Bee", chance = 20},   -- 5 * 5
-            {name = "Frigid Bee", chance = 20},  -- 5 * 5
-            {name = "Steel Bee", chance = 20},   -- 5 * 5
+            {name = "Muddy Bee", chance = 19},   -- 5 * 5
+            {name = "Frigid Bee", chance = 19},  -- 5 * 5
+            {name = "Steel Bee", chance = 19},   -- 5 * 5
             {name = "Magma Bee", chance = 15},   -- 2 * 5
             {name = "Ghostly Bee", chance = 15}, -- 2 * 5
-            {name = "Iridescent Bee", chance = 10} -- 1 * 5
+            {name = "Iridescent Bee", chance = 13} -- 1 * 5
         },
         Gold = {
-            {name = "Sandy Bee", chance = 20},   -- 5 * 5
-            {name = "Autumnal Bee", chance = 20},-- 5 * 5
-            {name = "Petal Bee", chance = 20},   -- 5 * 5
+            {name = "Sandy Bee", chance = 19},   -- 5 * 5
+            {name = "Autumnal Bee", chance = 19},-- 5 * 5
+            {name = "Petal Bee", chance = 19},   -- 5 * 5
             {name = "Galactic Bee", chance = 15},-- 2 * 5
             {name = "Radiant Bee", chance = 15}, -- 2 * 5
-            {name = "Rainbow Bee", chance = 10}   -- 1 * 5
+            {name = "Rainbow Bee", chance = 13}   -- 1 * 5
         }
     }
 
