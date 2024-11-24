@@ -72,6 +72,8 @@ function ServerHandlePurchase(purchase, player : Player)
       print("Player ".. player.name .." honey doubler is now active")
       purchaseSucceededEvent:FireClient(player, productId)
     end)
+
+    return
   end
 
   -- Not honey, so it must be a hat. Add to inventory and commit
@@ -113,10 +115,11 @@ function self:ClientAwake()
     purchaseSucceededEvent:Connect(function(id)
       print("Purchase successful. Showing UI.")
       print(id)
+      audioManager.PlaySound("purchaseSound", 1)
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      InfoCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoney(id)
       hideUiEvent:Fire()
     end)
 
@@ -126,7 +129,7 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      InfoCardObject:GetComponent(BeeObtainCard).showPurchasedHoneyFailed()
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoneyFailed()
       hideUiEvent:Fire()
     end)
 
