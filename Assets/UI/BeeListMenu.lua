@@ -170,6 +170,8 @@ function CreateBeeItem(bee)
             removeHatButton:Add(removeHatLabel)
             rowContainer:Add(removeHatButton)
         end
+
+        beeItem:Add(rowContainer)
     else
         -- Create a "Sell" button and add it to the bee item
         local sellNameLabel = UILabel.new()
@@ -180,9 +182,8 @@ function CreateBeeItem(bee)
         sellButton:AddToClassList("sell-button-greyed")
         sellButton:Add(sellNameLabel)
         rowContainer:Add(sellButton)
+        beeItem:Add(sellButton)
     end
-
-    beeItem:Add(rowContainer)
 
     -- Add the bee item to the BeeList_Root UI list
     BeeList_Root:Add(beeItem)
