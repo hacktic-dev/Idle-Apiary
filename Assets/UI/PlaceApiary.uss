@@ -17,9 +17,16 @@
 }
 
 /* Button Styles */
-.primary-button, .capture-button {
+.primary-button, .capture-button, .greyed-out-button {
     width: 200px; /* Uniform width for buttons */
     height: 50px; /* Uniform height for buttons */
+}
+
+.greyed-out-button{
+    background-color: #666666; /* Blue */
+    color: white;
+    border-radius: 10px;
+    padding: 12px;
 }
 
 .primary-button {

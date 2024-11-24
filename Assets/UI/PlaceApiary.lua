@@ -33,9 +33,9 @@ local nearBee = nil
 local function placeApiary()
     if not hasPlacedApiary then
         local player = client.localPlayer
-        position = Vector3.new(0,0,0)
+        position = player.character:GetComponent(Transform).position
         -- Call the PlaceApiary function from your ApiaryManager
-        ApiaryManager.apiaryPlacementRequest:FireServer(player, position)
+        ApiaryManager.apiaryPlacementRequest:FireServer(position)
     end
 end
 
@@ -140,6 +140,24 @@ end
 function self:ClientAwake()
     toggleUIElement(_PickFlowerButton, false)
     toggleUIElement(_PlaceFlowerButton, false)
+
+    Timer.new(0.5, function()
+        if _placeApiaryButton.visible == false then
+            return
+        end
+        position = client.localPlayer.character:GetComponent(Transform).position
+         ApiaryManager.requestIsValidLocation:FireServer(position)
+    end, true)
+
+    ApiaryManager.notifyIsValidLocation:Connect(function(isValid) 
+        if isValid then
+            _placeApiaryButton:AddToClassList("primary-button")
+            _placeApiaryButton:RemoveFromClassList("greyed-out-button")
+        else
+            _placeApiaryButton:RemoveFromClassList("primary-button")
+            _placeApiaryButton:AddToClassList("greyed-out-button")
+        end
+    end)
 
     flowerManager.flowerAreaEnteredEvent:Connect(function()
         toggleUIElement(_PickFlowerButton, true)

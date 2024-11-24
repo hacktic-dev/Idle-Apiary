@@ -25,12 +25,14 @@ local ApiaryPrefab : GameObject = nil
 -- Events from server to client to actually add/remove game objects
 local addNewApiaryRequest = Event.new("AddNewApiary")
 local removeApiaryRequest = Event.new("RemoveApiary")
+notifyIsValidLocation = Event.new("NotifyIsValidLocation")
 
 -- Events from client to server to request placement/removal of an apiary
 apiaryPlacementRequest = Event.new("ApiaryPlacementRequest")
 apiaryRemoveRequest = Event.new("ApiaryRemoveRequest")
 notifyApiaryPlacementFailed = Event.new("NotifyApiaryPlacementFailed")
 notifyApiaryPlacementSucceeded = Event.new("NotifyApiaryPlacementSucceeded")
+requestIsValidLocation = Event.new("RequestIsValidLocation")
 
 localApiaryPosition = nil --client value for local players apiary pos
 
@@ -68,6 +70,8 @@ function GetPlayerApiaryLocation(player)
     end
 end
 
+
+
 -- Client-side: Handles apiary placement and sends position to the server
 function RequestPlaceApiary(position)
     apiaryPlacementRequest:FireServer(position)
@@ -81,7 +85,6 @@ end
 
 -- Server-side: Connect the apiary placement request event
 apiaryPlacementRequest:Connect(function(player, position)
-    position = player.character:GetComponent(Transform).position
     -- Check if the position is valid
     local ok = isPositionValid(position)
     if ok == 0 then
@@ -218,4 +221,14 @@ function self:ClientAwake()
         end
     end)
 
+end
+
+function self:ServerAwake()
+    requestIsValidLocation:Connect(function(player, position)
+    if isPositionValid(position) == 0 then
+        notifyIsValidLocation:FireClient(player, true)
+    else
+        notifyIsValidLocation:FireClient(player, false)
+    end
+    end)
 end
