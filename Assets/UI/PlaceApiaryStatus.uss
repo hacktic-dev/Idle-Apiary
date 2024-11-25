@@ -19,6 +19,8 @@
     align-self: center;
     font-size: 20px;
     white-space: normal;
+    padding-left: 10px;
+    padding-right: 10px;
     width: 100%;
     flex-wrap: wrap;
     color: #fff;
