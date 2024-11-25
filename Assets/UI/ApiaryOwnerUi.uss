@@ -13,7 +13,7 @@
 .title {
   margin-top: 100%;
   color: #1aff6a;
-  font-size: 48px;
+  font-size: 32px;
   -unity-font-style: bold;
 
   -unity-text-outline-width: 2px;
