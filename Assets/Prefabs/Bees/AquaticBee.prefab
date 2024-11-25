@@ -228,6 +228,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2711836196418280312}
     m_Modifications:
+    - target: {fileID: 572561277462240001, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1164078165779964949, guid: 980f492354f06944e9a1a5596d3228fd,
         type: 3}
       propertyPath: m_IsActive
@@ -283,10 +288,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5509103935825772622, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892544194895957672, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942160617345910469, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7929773388530764387, guid: 980f492354f06944e9a1a5596d3228fd,
         type: 3}
       propertyPath: m_Name
       value: Hats
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104921749915013019, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
