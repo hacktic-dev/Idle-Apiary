@@ -15,6 +15,12 @@ local _beesTab : UIButton = nil
 local _honeyTab : UIButton = nil
 --!Bind
 local _cosmeticsTab : UIButton = nil
+--!Bind
+local upgrades : UILabel = nil
+--!Bind
+local timeToReset : UILabel = nil
+--!Bind
+local timeContainer : UIButton = nil
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -27,6 +33,7 @@ local playerManager = require("PlayerManager")
 local UIManager = require("UIManager") 
 local audioManager = require("AudioManager")
 local purchaseHandler = require("PurchaseHandler")
+local Utils = require("Utils")
 
 local state = 0 -- Which tab are we on?
 
@@ -42,20 +49,33 @@ _honeyTab:RegisterPressCallback(function()
     local success = ButtonPressed("honey")
     end, true, true, true)
 
+    _cosmeticsTab:RegisterPressCallback(function()
+    local success = ButtonPressed("cosmetics")
+    end, true, true, true)
+
 function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     Orders_Root:Clear()
-    CreateQuestItem("Purchase a Bee Net", "Net", 120, false)
+
+    if sweetScentLevel == 0 then
+        netPrice = 120
+    elseif sweetScentLevel == 1 then
+        netPrice = 300
+    elseif sweetScentLevel == 2 then
+        netPrice = 500
+    end
+
+    CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false)
 
     if beeCapacity < 20 then
-        CreateQuestItem("Upgrade Bee Capacity to\n" .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
+        CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
     end
 
     if sweetScentLevel < 2 then
-        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1 .. "\nRarer bees spawn more frequently", "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false)
+        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1, "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false, "Rarer bees spawn more frequently")
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
-        CreateQuestItem("Purchase Shears\nCan be used to pick Flowers", "Shears", 5000, false)
+        CreateQuestItem("Purchase Shears", "Shears", 5000, false, "Can be used to pick flowers")
     else
        if flowerCapacity < 10 then
         CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false)
@@ -65,16 +85,73 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purcahse a Random Bee\nfrom the Bronze Set", "Bronze", 50)
-    CreateQuestItem("Purchase a Random Bee\nfrom the Silver Set", "Silver", 250)
-    CreateQuestItem("Purchase a Random Bee\nfrom the Gold Set", "Gold", 1250)
+    CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set")
+    CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set")
+    CreateQuestItem("Purchase a Random Bee", "Gold", 1250, false, "Gold Set")
 end
 
 local function InitHoneyTab()
     Orders_Root:Clear()
-    CreateQuestItem("250 Honey", "honey_1", 100, true)
-    CreateQuestItem("1000 Honey", "honey_2", 200, true)
-    CreateQuestItem("3000 Honey", "honey_3", 500, true)
+    CreateQuestItem("Purchase Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.")
+    CreateQuestItem("Purchase Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes")
+end
+
+local function getSeed()
+    local now = os.time() -- Get the current time
+    local four_hours = 14400 -- 4 hours in seconds
+    return math.floor(now / four_hours) -- Determine the current 4-hour block
+end
+
+local function formatTime(seconds)
+    local hours = math.floor(seconds / 3600)
+    local minutes = math.floor((seconds % 3600) / 60)
+    local secs = seconds % 60
+    return string.format("%02d:%02d:%02d", hours, minutes, secs)
+end
+
+-- Function to calculate the time until the next seed change
+local function timeUntilNextSeed()
+    local now = os.time() -- Get the current time
+    local four_hours = 14400 -- 4 hours in seconds
+    local next_seed_time = (math.floor(now / four_hours) + 1) * four_hours
+
+    --TODO reset shop when timeout
+    if next_seed_time - now == 14400 and state == 3 then
+        InitCosmeticsTab()
+    end
+
+    return formatTime(next_seed_time - now) -- Time remaining until the next 4-hour block
+end
+
+function InitCosmeticsTab()
+    -- Seed the random number generator
+    print("Seed: " .. getSeed())
+    math.randomseed(getSeed())
+    Orders_Root:Clear()
+
+    local hats = {} 
+
+    local i = 0
+    -- First loop for premium hats
+    while i < 2 do
+        local hat = Utils.ChooseHat(true)
+        if hat and hats[hat.name] == nil then
+            hats[hat.name] = hat
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true)
+            i = i + 1
+        end
+    end
+
+    i = 0
+    -- Second loop for regular hats
+    while i < 4 do
+        local hat = Utils.ChooseHat(false)
+        if hat and hats[hat.name] == nil then
+            hats[hat.name] = hat
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false)
+            i = i + 1
+        end
+    end
 end
 
 function ButtonPressed(btn: string)
@@ -86,6 +163,8 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
+      Orders_Root:RemoveFromClassList("high-margin")
+      timeContainer.visible = false
       InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
       --audioManager.PlaySound("paperSound1", 1)
       return true
@@ -97,6 +176,8 @@ function ButtonPressed(btn: string)
       _upgradesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
+      Orders_Root:RemoveFromClassList("high-margin")
+      timeContainer.visible = false
       InitBeesTab()
       --audioManager.PlaySound("paperSound1", 1)
       return true
@@ -108,6 +189,8 @@ function ButtonPressed(btn: string)
         _beesTab:AddToClassList("nav-button--deselected")
         _upgradesTab:AddToClassList("nav-button--deselected")
         _cosmeticsTab:AddToClassList("nav-button--deselected")
+        Orders_Root:RemoveFromClassList("high-margin")
+        timeContainer.visible = false
         InitHoneyTab()
     elseif btn == "cosmetics" then
     if state == 3 then return end
@@ -117,17 +200,19 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _upgradesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
-      --PopulateShop(Deals)
-      --audioManager.PlaySound("paperSound1", 1)
+      timeContainer.visible = true
+      Orders_Root:AddToClassList("high-margin")
+      timeToReset:SetPrelocalizedText("Time until shop resets: " .. timeUntilNextSeed())
+      InitCosmeticsTab()
       return true
     end
-  end
+end
   
 function LookupSweetScentLevelPrice(level)
     if level == 1 then
-        return 1000
+        return 500
     elseif level == 2 then
-        return 5000
+        return 2000
     end
 end
 
@@ -169,56 +254,143 @@ function LookupBeeCapacityUpgradePrice(capacity)
     end
 end
 
-function GenerateBee(setId)
-    local number = math.random(1, 20)
-    if setId == "Bronze" then
-        if number < 6 then
-            return "Common Bee"
-        elseif number < 11 then
-            return "Stone Bee"
-        elseif number < 16 then
-            return "Forest Bee"
-        elseif number < 18 then
-            return "Aquatic Bee"
-        elseif number < 20 then
-            return "Giant Bee"
-        else
-            return "Silver Bee"
-        end
-    elseif setId == "Silver" then
-        if number < 6 then
-            return "Muddy Bee"
-        elseif number < 11 then
-            return "Frigid Bee"
-        elseif number < 16 then
-            return "Steel Bee"
-        elseif number < 18 then
-            return "Magma Bee"
-        elseif number < 20 then
-            return "Ghostly Bee"
-        else
-            return "Iridescent Bee"
-        end
-    elseif setId == "Gold" then
-        if number < 6 then
-            return "Sandy Bee"
-        elseif number < 11 then
-            return "Autumnal Bee"
-        elseif number < 16 then
-            return "Petal Bee"
-        elseif number < 18 then
-            return "Galactic Bee"
-        elseif number < 20 then
-            return "Radiant Bee"
-        else
-            return "Rainbow Bee"
+  function GenerateBee(setId)
+    -- Define the chances for each bee in different sets
+    local chances = {
+        Bronze = {
+            {name = "Common Bee", chance = 19},  -- 5 * 5
+            {name = "Stone Bee", chance = 19},   -- 5 * 5
+            {name = "Forest Bee", chance = 19},  -- 5 * 5
+            {name = "Aquatic Bee", chance = 15}, -- 2 * 5
+            {name = "Giant Bee", chance = 15},   -- 2 * 5
+            {name = "Silver Bee", chance = 13}    -- 1 * 5
+        },
+        Silver = {
+            {name = "Muddy Bee", chance = 19},   -- 5 * 5
+            {name = "Frigid Bee", chance = 19},  -- 5 * 5
+            {name = "Steel Bee", chance = 19},   -- 5 * 5
+            {name = "Magma Bee", chance = 15},   -- 2 * 5
+            {name = "Ghostly Bee", chance = 15}, -- 2 * 5
+            {name = "Iridescent Bee", chance = 13} -- 1 * 5
+        },
+        Gold = {
+            {name = "Sandy Bee", chance = 19},   -- 5 * 5
+            {name = "Autumnal Bee", chance = 19},-- 5 * 5
+            {name = "Petal Bee", chance = 19},   -- 5 * 5
+            {name = "Galactic Bee", chance = 15},-- 2 * 5
+            {name = "Radiant Bee", chance = 15}, -- 2 * 5
+            {name = "Rainbow Bee", chance = 13}   -- 1 * 5
+        }
+    }
+
+    -- Get the bee set for the given setId
+    local beeSet = chances[setId]
+    if not beeSet then return nil end -- Return nil if the setId is invalid
+
+    -- Generate a random number and determine the bee
+    local totalChance = 0
+    for _, bee in ipairs(beeSet) do
+        totalChance = totalChance + bee.chance
+    end
+
+    local number = math.random(1, totalChance)
+    local currentChance = 0
+
+    for _, bee in ipairs(beeSet) do
+        currentChance = currentChance + bee.chance
+        if number <= currentChance then
+            return bee.name
         end
     end
 end
 
+function CreateHatItem(Name, Id, Rarity, Cash, isGold)
+    local questItem = UIButton.new()
+    questItem:AddToClassList("hat-item") -- Add a class to style the quest item.
+
+    -- Create a label for the quest item's title and add it to the quest item.
+    local _titleLabel = UILabel.new()
+    _titleLabel:AddToClassList("hat-title")
+    _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
+    questItem:Add(_titleLabel)
+
+    local _priceContainer = VisualElement.new()
+    _priceContainer:AddToClassList("priceContainerHat")
+
+    if not isGold then
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_honey")
+        _priceContainer:Add(_icon)
+    else
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_gold")
+        _priceContainer:Add(_icon)
+    end
+
+    local _image = UIImage.new()
+
+    local container = VisualElement.new()
+    container:AddToClassList("row-container")
+    
+    local _rarityLabel = UILabel.new()
+
+    -- Create a label for the quest item's cash cost and add it to the quest item.
+    local _cashLabel = UILabel.new()
+    if Screen.width > Screen.height and Screen.height < 1000 then
+        _cashLabel:AddToClassList("hat-price-small")
+        _image:AddToClassList("hat-image-small")
+        _rarityLabel:AddToClassList("rarity-label-small")
+    else
+        _cashLabel:AddToClassList("hat-price")
+        _image:AddToClassList("hat-image")
+        _rarityLabel:AddToClassList("rarity-label")
+    end
+
+    _image.image = Utils.HatImage[Name]
+    questItem:Add(_image)
+
+    _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
+    _priceContainer:Add(_cashLabel)
+    container:Add(_priceContainer)
+
+    local _rarityContainer = UIButton.new()
+    _rarityContainer:AddToClassList(Rarity)
+
+    _rarityLabel:SetPrelocalizedText(Rarity)
+    _rarityContainer:Add(_rarityLabel)
+    container:Add(_rarityContainer)
+
+    questItem:Add(container)
+
+    questItem:RegisterPressCallback(function()
+        -- Handle gold payments
+        if isGold then
+            purchaseHandler.PromptTokenPurchase(Id)
+            return
+        end
+
+        if playerManager.GetPlayerCash() >= Cash then
+              
+            playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
+            playerManager.GiveHat(Id)
+            playerManager.notifyHatPurchased:Fire(Name)
+        else
+            UIManager.ToggleUI("PlaceStatus", true)
+            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")
+            audioManager.PlaySound("failSound", .75)
+            Timer.new(2, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+        end
+    end)
+
+    -- Add the quest item to the UI.
+    Orders_Root:Add(questItem)
+
+    return questItem
+end
+
 
 -- Creates a new quest item in the UI.
-function CreateQuestItem(Name, Id, Cash, isGold)
+function CreateQuestItem(Name, Id, Cash, isGold, description)
     -- Create a new button for the quest item.
     local questItem = UIButton.new()
     questItem:AddToClassList("order-item") -- Add a class to style the quest item.
@@ -228,6 +400,12 @@ function CreateQuestItem(Name, Id, Cash, isGold)
     _titleLabel:AddToClassList("title")
     _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
     questItem:Add(_titleLabel)
+    if description~= nil then
+        local _descLabel = UILabel.new()
+        _descLabel:AddToClassList("description")
+        _descLabel:SetPrelocalizedText(description)
+        questItem:Add(_descLabel)
+    end
 
     -- Create a label for the quest item's XP reward and add it to the quest item.
     -- local _xpLabel = UILabel.new()
@@ -262,9 +440,10 @@ function CreateQuestItem(Name, Id, Cash, isGold)
         end
 
         -- Check bee capacity
-        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
+        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == 12) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
+            audioManager.PlaySound("failSound", .75)
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
             return
         end
@@ -302,6 +481,7 @@ function CreateQuestItem(Name, Id, Cash, isGold)
         else
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
+            audioManager.PlaySound("failSound", .75)
             Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
         end
     end, true, true, true)
@@ -314,7 +494,14 @@ end
 
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
+    timeToReset:AddToClassList("time-to-reset")
     ButtonPressed("bees")
+    Timer.new(1, function() timeToReset:SetPrelocalizedText("Time until shop resets: " .. timeUntilNextSeed()) end, true)
+    if Screen.width > Screen.height then
+        upgrades:SetPrelocalizedText("Upgrades / Items")
+    else
+        upgrades:SetPrelocalizedText("Items")
+    end
     closeButton:RegisterPressCallback(function()
         UIManager.CloseShop()
     end, true, true, true)

@@ -5,18 +5,18 @@
     margin-top: auto;
     margin-bottom: auto;
     width: 100%;
-    max-width: 95%;
+    max-width: 100%;
     align-self: center;
 }
 
 .portrait .create-order-gui {
-    bottom: 27%;
-    height: 55%
+    bottom: 10%;
+    height: 75%
 }
 
 .landscape .create-order-gui {
-    bottom: 30%;
-    height: 50%
+    bottom: 14%;
+    height: 80%
 }
 
 
@@ -24,17 +24,52 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 2.5%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
     background-color: rgba(0,0,0,.35);
     border-radius: 10px;
     height: 100px;
-    width: 45%;
+    width: 48%;
+}
+
+.portrait .order-item{
+    height: 45%;
+}
+
+.landscape .order-item{
+          height: 45%;
+}
+
+.hat-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: rgba(0,0,0,.35);
+    border-radius: 10px;
+}
+
+.portrait .hat-item{
+    height: 43%;
+    width: 48%;
+}
+
+.landscape .hat-item{
+  height: 45%;
+  width: 32%;
 }
 
 .scroll-view__content-container
 {
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left:2.5%;
+  margin-right:2.5%;
+  height: 100%;
 }
 
 .button .button__content
@@ -46,17 +81,100 @@
     margin: 5px;
     color: white;
     align-self: center;
+    white-space: normal;
     -unity-text-align: middle-center;
 }
 
 .portrait .title {
-    font-size: 13px;
+    font-size: 11.5px;
 }
 
 .landscape .title {
-    font-size: 15px;
+    font-size: 21.5px;
 }
 
+.hat-price{
+      margin: 5px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .hat-price {
+    font-size: 11.5px;
+}
+
+.landscape .hat-price {
+    font-size: 16.5px;
+}
+
+.hat-price-small
+{
+  font-size: 11px;
+      margin-left: 3px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.hat-title {
+    margin: 0px 5px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .hat-title {
+    font-size: 13.5px;
+}
+
+.landscape .hat-title {
+  margin-top: 3px;
+    font-size: 20.5px;
+}
+
+
+.description {
+    margin-bottom: 12px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .description {
+    font-size: 9.5px;
+}
+
+.landscape .description {
+    font-size: 17px;
+}
+
+.rarity-label {
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .rarity-label {
+    font-size: 12px;
+}
+
+.landscape .rarity-label {
+    font-size: 14px;
+}
+
+.landscape .rarity-label-small {
+    font-size: 12px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
 
 #Orders_Root {
     margin-top: 10px;
@@ -91,15 +209,17 @@
     padding: 5px 10px;
     color: white;
     font-size: 16px;
-    margin-top: 10px;
-    width: 200px;
+    margin-top: 8px;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
     align-self: center;
     position: relative;
+    height: 7%;
 }
 
 .shop__container {
+  align-self: center;
   display: flex;
   overflow: hidden;
 
@@ -108,14 +228,24 @@
   min-width: 250px;
 
   max-height: 800px;
-  max-width: 600px;
+  max-width: 800px;
 
-  width: 100%;
+  width: 120%;
   height: 100%;
 
   border-width: 2px;
   border-radius: 8px;
-  background-color: rgba(0,0,0,.25);
+  background-color: rgba(0,0,0,.3);
+}
+
+.portrait .shop__container
+{
+  max-width: 95%;
+}
+
+.landscape .shop__container
+{
+    max-width: 800px;
 }
 
 .shop__header {
@@ -165,6 +295,7 @@
   margin-bottom: 0px;
 
   width: 100%;
+  height: 36px;
 
   color: #fff
   border-radius: 5px;
@@ -197,14 +328,23 @@
 }
 
 .icon_honey {
-  width: 20px;
-  height: 20px;
+  margin-top: -1px;
+  width: 30px;
+  height: 30px;
+  background-image: url("project://database/Assets/Icons/honey.png");
+}
+
+.portrait .icon_honey {
+  margin-top: -1px;
+  width: 25px;
+  height: 25px;
   background-image: url("project://database/Assets/Icons/honey.png");
 }
 
 .icon_gold {
-  width: 20px;
-  height: 20px;
+  margin-top: 2px;
+  width: 25px;
+  height: 25px;
   background-image: url("project://database/Assets/Icons/gold.png");
 }
 
@@ -212,4 +352,144 @@
 {
   flex-direction: row;
   align-self: center;
+}
+
+.priceContainerHat
+{
+  margin-top: -3px;
+  margin-left: 3px;
+  flex-direction: row;
+  align-self: center;
+}
+
+.landscape .nav-text
+{
+  font-size: 16.6px;
+  margin:0px;
+  padding-bottom: 4px;
+  padding-left: 1px;
+  padding-right: 2px;
+  padding-top: 4px;
+}
+
+.portrait .nav-text
+{
+  font-size: 14px;
+  margin:0px;
+  padding-bottom: 4px;
+  padding-left: 1px;
+  padding-right: 2px;
+  padding-top: 4px;
+}
+
+.high-margin
+{
+  padding-top: 30px;
+}
+
+.time-container{
+  position: absolute;
+  right: 3%;
+  top: 72px;
+  height: 30px;
+    border-radius: 5px;
+}
+
+.time-to-reset
+{
+
+}
+
+.Legendary {
+  height: 25px;
+    flex-grow: 1;
+  padding: 4px;
+      margin-left: 12px;
+    margin-right: 12px;
+    border-radius: 5px;
+      background-color: rgba(191,167,34,.8);
+}
+
+.Rare {
+  height: 25px;
+    flex-grow: 1;
+        margin-left: 12px;
+    margin-right: 12px;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: rgba(82,27,160,.8);
+}
+
+.Uncommon {
+  height: 25px;
+    flex-grow: 1;
+    padding: 4px;
+        margin-left: 12px;
+    margin-right: 12px;
+    border-radius: 5px;
+    background-color: rgba(35,49,160,.8);
+}
+
+.Common {
+  height: 25px;
+  flex-grow: 1;
+    padding: 4px;
+    margin-left: 12px;
+    margin-right: 12px;
+    border-radius: 5px;
+    background-color: rgba(39,119,34,.8);
+}
+
+.portrait .Common {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
+.portrait .Uncommon {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
+.portrait .Rare {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
+.portrait .Legendary {
+      margin-left: 0px;
+    margin-right: 0px;
+}
+
+
+.row-container
+{
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.portrait .hat-image
+{
+  height: 75%;
+}
+
+.landscape .hat-image
+{
+  height: 200px;
+  padding-bottom: 5px;
+}
+
+.landscape .hat-image-small
+{
+  flex-grow: 0;
+  flex-shrink: 1;
+  height: 120px;
+  padding-bottom: 5px;
+}
+
+.hat-item .button__content
+{
+  height: 100%;
 }

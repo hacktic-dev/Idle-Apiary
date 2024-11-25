@@ -1,0 +1,45 @@
+.bee-obtain-card
+{
+    margin : 10px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.bee-card__container {
+    display: flex;
+    flex-shrink: 1;
+    max-width: none;
+    width: 375px;
+    height: 250px;
+    background-color: rgba(0,0,0,.5);
+    border-radius: 10px;
+    overflow: scroll;
+    margin-right: auto;
+    color: #FFFFFF;
+    justify-content: center;
+}
+
+.bee-label
+{
+    align-self: center;
+    font-size: 16px;
+    white-space: normal;
+    margin-left: 10%;
+    margin-right: 10%;
+    -unity-text-align: middle-center;
+}
+
+.bee-main-label
+{
+    white-space: normal;
+    align-self: center;
+    font-size: 24px;
+    -unity-text-align: middle-center;
+}
+
+.bee-image
+{
+    background-image: url("project://database/Assets/Icons/honey.png");
+}

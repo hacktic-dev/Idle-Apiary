@@ -13,7 +13,7 @@
 
       <VisualElement class="navigation">
         <VisualElement class="nav-button--selected" name="_upgradesTab">
-          <Label class="nav-text" text="Upgrades / Items" />
+          <hr:UILabel name="upgrades" class="nav-text"/>
         </VisualElement>
         <VisualElement class="nav-button--deselected" name="_beesTab">
           <Label class="nav-text" text="Bees" />
@@ -29,6 +29,9 @@
 
     <hr:UIScrollView name="Orders_Root" mode="Vertical">
     </hr:UIScrollView>
+    <hr:UIButton class = "time-container" name = "timeContainer">
+      <hr:UILabel name = "timeToReset" class = "title" />
+    </hr:UIButton>
     <hr:UIButton name="closeButton" class="close-button">
       <hr:UILabel name="closeLabel" class="title" />
     </hr:UIButton>

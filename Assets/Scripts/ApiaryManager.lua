@@ -17,6 +17,7 @@ local apiaries = {}
 local playerManager = require("PlayerManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
+local flowerManager = require("FlowerManager")
 
 --!SerializeField
 local ApiaryPrefab : GameObject = nil
@@ -24,12 +25,16 @@ local ApiaryPrefab : GameObject = nil
 -- Events from server to client to actually add/remove game objects
 local addNewApiaryRequest = Event.new("AddNewApiary")
 local removeApiaryRequest = Event.new("RemoveApiary")
+notifyIsValidLocation = Event.new("NotifyIsValidLocation")
 
 -- Events from client to server to request placement/removal of an apiary
 apiaryPlacementRequest = Event.new("ApiaryPlacementRequest")
 apiaryRemoveRequest = Event.new("ApiaryRemoveRequest")
 notifyApiaryPlacementFailed = Event.new("NotifyApiaryPlacementFailed")
 notifyApiaryPlacementSucceeded = Event.new("NotifyApiaryPlacementSucceeded")
+requestIsValidLocation = Event.new("RequestIsValidLocation")
+
+localApiaryPosition = nil --client value for local players apiary pos
 
 -- Function to check if a position is valid (i.e., does not overlap with existing apiaries)
 local function isPositionValid(position)
@@ -51,6 +56,10 @@ local function isPositionValid(position)
     return 0
 end
 
+function GetLocalPlayerApiaryLocation()
+    return localApiaryPosition
+end
+
 function GetPlayerApiaryLocation(player)
     -- Check if the player has an apiary position recorded
     local position = apiaryPositions[player]
@@ -60,6 +69,8 @@ function GetPlayerApiaryLocation(player)
         return nil -- or return a default position, or handle it as needed
     end
 end
+
+
 
 -- Client-side: Handles apiary placement and sends position to the server
 function RequestPlaceApiary(position)
@@ -74,7 +85,6 @@ end
 
 -- Server-side: Connect the apiary placement request event
 apiaryPlacementRequest:Connect(function(player, position)
-    position = player.character:GetComponent(Transform).position
     -- Check if the position is valid
     local ok = isPositionValid(position)
     if ok == 0 then
@@ -86,12 +96,12 @@ apiaryPlacementRequest:Connect(function(player, position)
 
        playerManager.GetBeeList(player, function(bees)
             for i, bee in ipairs(bees) do
-                beeObjectManager.SpawnBee(player, bee.species, position, bee.beeId, bee.adult, bee.timeToGrowUp, wildBeeManager.getGrowTime(bee.species))
+                beeObjectManager.SpawnBee(player, bee.species, position, bee.beeId, bee.adult, bee.timeToGrowUp, wildBeeManager.getGrowTime(bee.species), bee.hat)
              end
           end)
 
-        playerManager.RecalculatePlayerEarnRate(player)
-        notifyApiaryPlacementSucceeded:FireClient(player)
+        flowerManager.SpawnPlayerFlowersOnAllClients(player, position)
+        notifyApiaryPlacementSucceeded:FireClient(player, position)
     else
         -- Notify the player that the placement was invalid
         print("Invalid apiary placement for " .. player.name .. " due to overlap.")
@@ -168,7 +178,6 @@ function SpawnApiary(player, location)
         else
             addNewApiaryRequest:FireAllClients(apiaryID, owner, Vector3.new(location.x, location.y, location.z), false)
         end
-        print("Apiary placed for player: " .. player.name .. " at location: " .. tostring(location))
     end)
 end
 
@@ -214,4 +223,14 @@ function self:ClientAwake()
         end
     end)
 
+end
+
+function self:ServerAwake()
+    requestIsValidLocation:Connect(function(player, position)
+    if isPositionValid(position) == 0 then
+        notifyIsValidLocation:FireClient(player, true)
+    else
+        notifyIsValidLocation:FireClient(player, false)
+    end
+    end)
 end

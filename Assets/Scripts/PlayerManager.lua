@@ -1,7 +1,7 @@
 --!Type(Module) -- Module type declaration, typically used in specific game engines or frameworks.
 
 -- Create events for different types of requests, these will be used for communication between client and server.
-local getStatsRequest = Event.new("GetStatsRequest")
+getStatsRequest = Event.new("GetStatsRequest")
 local saveStatsRequest = Event.new("SaveStatsRequest")
 local incrementStatRequest = Event.new("IncrementStatRequest")
 local setBeeAdultRequest = Event.new("SetBeeAdultRequest")
@@ -10,12 +10,15 @@ local updateBeeAgeRequest = Event.new("UpdateBeeAgeRequest")
 local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
+local flowerManager = require("FlowerManager")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
 
 -- Table to keep track of players and their associated stats
 players = {}
+
+onlinePlayers = {} -- strictly online players only
 
 -- Table to hold players' bee storage in memory (server)
 local playerBeeStorage = {}
@@ -26,19 +29,28 @@ local playerMoneyEarnRates = {}
 -- Table to hold players' bee species in memory (server)
 local playerSeenBeeSpecies = {}
 
+-- Table for who has active honey doubler (server)
+local playerHasHoneyDoubler = {}
+
 local playerTimers = {}
 
-giveBeeRequest = Event.new("GiveBee")
-sellBeeRequest = Event.new("SellBee")
+-- Track how many times a player has joined (server)
+local playerJoins = {}
+
+giveBeeRequest = Event.new("GiveBeeRequest")
+sellBeeRequest = Event.new("SellBeeRequest")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
+notifyHatPurchased = Event.new("NotifyHatPurchased")
 beeCountUpdated = Event.new("BeeCountUpdated")
 playerEarnRateChanged = Event.new("PlayerEarnRateChanged")
 giveShearsRequest = Event.new("GiveShearsRequest")
+givePlayerHatRequest = Event.new("GivePlayerHatRequest")
+requestRemoveBeeHat = Event.new("requestRemoveBeeHat")
 
 requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
 
-local restartTimerRequest = Event.new("RestartTimer")
+local restartTimerRequest = Event.new("RestartCashTimer")
 
 local MoneyTimer = nil
 
@@ -54,6 +66,21 @@ updateBeeList = Event.new("UpdateBeeList")
 
 --!SerializeField
 local playerStatObject : GameObject = nil
+
+function SetBeeHat(player, beeId, hatId)
+    for _, bee in ipairs(playerBeeStorage[player]) do
+        if bee.beeId == beeId then
+
+            if hatId == nil then
+                local transaction = InventoryTransaction.new():GivePlayer(player, bee.hat, 1)
+                Inventory.CommitTransaction(transaction)
+            end
+
+            bee.hat = hatId
+            return
+        end
+    end
+end
 
 -- Function to initialize bee species list for a player by loading from storage
 local function InitializeSeenBeeSpecies(player, callback)
@@ -83,12 +110,12 @@ local function InitializeSeenBeeSpecies(player, callback)
 end
 
 -- Function to save the player's bee species list back to persistent storage
-local function SaveSeenBeeSpecies(player)
+local function SaveSeenBeeSpecies(player, id)
     if playerSeenBeeSpecies[player] ~= nil then
+        print("saving bees for " .. player.name)
         -- Save the bee species list to persistent storage
-        Storage.SetPlayerValue(player, "SeenBeeSpecies", playerSeenBeeSpecies[player], function(errorCode)
+        Storage.SetValue(id .. "/" ..  "SeenBeeSpecies", playerSeenBeeSpecies[player], function(errorCode)
             if errorCode then
-                print("Error saving bee species for " .. player.name .. ": " .. tostring(errorCode))
             end
         end)
     end
@@ -119,7 +146,7 @@ requestBeeList:Connect(function(player)
 end)
 
 -- Function to generate a unique ID for each bee
-local function GenerateUniqueBeeId()
+function GenerateUniqueID()
     return tostring(os.time()) .. "-" .. tostring(math.random(1000, 9999))
 end
 
@@ -161,12 +188,12 @@ local function InitializeBeeStorage(player, callback)
 end
 
 -- Function to save the player's bee storage back to persistent storage
-local function SaveBeeStorage(player)
+local function SaveBeeStorage(player, id)
     if playerBeeStorage[player] ~= nil then
         -- Save the bee storage to persistent storage
-        Storage.SetPlayerValue(player, "BeeStorage", playerBeeStorage[player], function(errorCode)
+        Storage.SetValue(id .. "/" ..  "BeeStorage", playerBeeStorage[player], function(errorCode)
+            print("saved bees for " .. player.name)
         end)
-        beeCountUpdated:FireClient(player, #playerBeeStorage[player])
     end
 end
 
@@ -200,20 +227,20 @@ function AddBee(player, speciesName, isAdult, timeToGrowUp)
 
     -- Create a new bee structure with a unique ID
     local bee = {
-        beeId = GenerateUniqueBeeId(),
+        beeId = GenerateUniqueID(),
         species = speciesName,
         adult = isAdult,
-        timeToGrowUp = timeToGrowUp
+        timeToGrowUp = timeToGrowUp,
+        hat = nil
     }
 
     -- Add the bee to the player's storage in memory
     table.insert(playerBeeStorage[player], bee)
 
-    -- Save the updated bee storage back to persistent storage
-    SaveBeeStorage(player)
+    beeCountUpdated:FireClient(player, #playerBeeStorage[player])
 
-    -- Print the bee information (for debugging purposes)
-    print(player.name .. " received a new bee (ID: " .. bee.beeId .. ") of species: " .. speciesName)
+    -- --print the bee information (for debugging purposes)
+    --print(player.name .. " received a new bee (ID: " .. bee.beeId .. ") of species: " .. speciesName)
 
     -- Return the bee ID
     return bee.beeId
@@ -244,25 +271,108 @@ function GetBeeList(player, callback)
     end)
 end
 
-function RecalculatePlayerEarnRate(player)
+function RecalculatePlayerEarnRate(player, isDc)
+
+    if ApiaryManager.GetPlayerApiaryLocation(player) == nil then
+        playerEarnRateChanged:FireClient(player, 0)
+        restartTimerRequest:FireClient(player, 0)
+        playerMoneyEarnRates[player] = 0
+        return
+    end
+
     GetBeeList(player, function(bees)
         local rate = 0
+
+        uniqueBees = {}
+        beeCounts = {}
+        uniqueHats = {}
+
         for i, bee in ipairs(bees) do
-            -- print("checking item " .. item.id)
+            -- --print("checking item " .. item.id)
             if bee.adult then
+                if not table.find(uniqueBees, bee.species) then
+                    table.insert(uniqueBees, bee.species)
+                    beeCounts[bee.species] = 0
+                end
+                beeCounts[bee.species] = beeCounts[bee.species] + 1
                 rate = rate + wildBeeManager.getHoneyRate(bee.species)
+            end
+
+            if bee.hat ~= nil then
+                if not table.find(uniqueHats, bee.hat) then
+                    table.insert(uniqueHats, bee.hat)
+                end
             end
         end
 
+        totalEffect = 1
+        if flowerManager.GetPlacedFlowers(player) ~= nil then
+            redCount = 0
+            whiteCount = 0
+            yellowCount = 0
+            purpleCount = 0
+
+            -- Calculate flowers amount
+            for index , flower in ipairs(flowerManager.GetPlacedFlowers(player)) do
+                if flower.name == "Red" then
+                    redCount = redCount + 1
+                elseif flower.name == "White" then
+                    whiteCount = whiteCount + 1
+                elseif flower.name == "Yellow" then
+                    yellowCount = yellowCount + 1
+                elseif flower.name == "Purple" then
+                    purpleCount = purpleCount + 1
+                end
+            end
+            
+            most = 0
+            for bee, count in ipairs(beeCounts) do
+                if count > most then
+                    most = count
+                end
+            end
+
+            -- Calculate flower effects
+            whiteEffect = #uniqueBees * whiteCount * 0.001
+
+            redEffect = most * redCount * 0.001
+
+            yellowEffect = #uniqueHats * yellowCount * 0.001
+            
+            purpleEffect = 0
+
+            for key, value in pairs(players) do
+                purpleEffect = purpleEffect + 1
+            end
+
+            if isDc ~= nil then
+                print("was dc")
+                purpleEffect = purpleEffect - 1
+            end
+
+            purpleEffect = purpleEffect * purpleCount * 0.001
+            
+            print("player count: " .. purpleEffect)
+
+            totalEffect = 1 + whiteEffect + redEffect + yellowEffect + purpleEffect
+
+            print("Flower effect: " .. totalEffect)
+        end
+
+        rate = rate * totalEffect
+        if playerHasHoneyDoubler[player] == true then
+            rate = rate * 2
+        end
+
         playerMoneyEarnRates[player] = rate
-        print("New earn rate for " .. player.name .. " is " .. rate)
+        --print("New earn rate for " .. player.name .. " is " .. rate)
         
         playerEarnRateChanged:FireClient(player, rate)
         restartTimerRequest:FireClient(player, rate)
     end)
 end
 
-local function UpdateStorage(player)
+local function UpdateStorage(player, id)
     local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, FlowerCapacity = 0, SweetScentLevel = 0, HasShears = false}
     stats.Cash = players[player].Cash.value
     stats.Nets = players[player].Nets.value
@@ -272,14 +382,58 @@ local function UpdateStorage(player)
     stats.HasShears = players[player].HasShears.value
 
     -- Save the stats to storage and handle any errors
-    Storage.SetPlayerValue(player, "PlayerStats", stats, function(errorCode)    end)
-    print(player.name .. " Stats Saved")
+    Storage.SetValue(id .. "/" .. "PlayerStats", stats, function(errorCode)    end)
+    --print(player.name .. " Stats Saved")
+end
+
+function tableContains(tbl, element)
+    for _, value in ipairs(tbl) do
+        if value == element then
+            return true
+        end
+    end
+    return false
+end
+
+function removeElement(tbl, element)
+    for i, value in ipairs(tbl) do
+        if value == element then
+            table.remove(tbl, i)
+            return true -- Successfully removed
+        end
+    end
+    return false -- Element not found
+end
+
+function ReinitPlayer(player)
+    -- Initialize player's stats and store them in the players table
+    players[player] = {
+        player = player,
+        Cash = IntValue.new("Cash" .. tostring(player.id), 100), -- Initial cash value
+        Nets = IntValue.new("Nets" .. tostring(player.id), 0), -- Initial work experience
+    }
+
+    if client == nil then
+        print("Player " .. player.name .. " was initialised")
+        --RemoveAllPlayerItems(player)
+        table.insert(onlinePlayers, player)
+        ApiaryManager.SpawnAllApiariesForPlayer(player)
+        beeObjectManager.SpawnAllBeesForPlayer(player)
+        playerTimers[player] = nil
+
+        Storage.SetPlayerValue(player, player.name, player.name)
+    end
 end
 
 -- Function to track players joining and leaving the game
-local function TrackPlayers(game, characterCallback)
+function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game
     scene.PlayerJoined:Connect(function(scene, player)
+
+        if players[player] ~= nil then
+            return
+        end
+
         -- Initialize player's stats and store them in the players table
         players[player] = {
             player = player,
@@ -290,15 +444,35 @@ local function TrackPlayers(game, characterCallback)
             BeeCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 10),
             HasShears = BoolValue.new("HasShears" .. tostring(player.id), false)
         }
-        
-        if client == nil then
-            --RemoveAllPlayerItems(player)
 
+        if client == nil then
+            print("Player " .. player.name .. " was initialised")
+            --RemoveAllPlayerItems(player)
+            table.insert(onlinePlayers, player)
             ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
+            flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
 
-            Storage.SetPlayerValue(player, player.name, player.name)
+            for player, playerData in pairs(players) do
+                RecalculatePlayerEarnRate(player)
+            end
+
+            Storage.GetPlayerValue(player, player.name, function(data, errorCode)
+                if data == nil or data == player.name then
+                    data = {name = player.name, version = 0, joins = 1} -- remember to increment version for each breaking change
+                else
+                    data.joins = data.joins + 1
+                end
+
+                print("player joins are " .. data.joins)
+
+                playerJoins[player] = IntValue.new("Joins" .. tostring(player.id), 0)
+                Timer.new(0.05, function() playerJoins[player].value = data.joins end, false)
+                Storage.SetPlayerValue(player, player.name, data)
+            end)
+        else
+            playerJoins[player] = IntValue.new("Joins" .. tostring(player.id), 0)
         end
 
         -- Connect to the event when the player's character changes (e.g., respawn)
@@ -319,14 +493,32 @@ local function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player leaves the game
     game.PlayerDisconnected:Connect(function(player)
         -- Remove the player from the players table
-        print(player.name .. " with id " .. player.id .. " is leaving")
+        --print(player.name .. " with id " .. player.id .. " is leaving")
         if client == nil then
+            id = player.user.id
+            print(player.name .. " with id " .. player.user.id .. " is leaving")
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
-            UpdateStorage(player)
+            flowerManager.RemoveAllPlayerFlowers(player)
+            playerJoins[player] = nil
+            SaveProgress(player, true)
+            removeElement(onlinePlayers, player)
         end
-        players[player] = nil
+        Timer.new(5, function() 
+            if tableContains(onlinePlayers, player) == false then
+             players[player] = nil end end
+            , false)
     end)
+end
+
+function SaveProgress(player, wasDc)
+    SaveBeeStorage(player, player.user.id)
+    UpdateStorage(player, player.user.id)
+    SaveSeenBeeSpecies(player, player.user.id)
+    flowerManager.SaveFlowerPositions(player, player.user.id)
+    for player, playerData in pairs(players) do
+        RecalculatePlayerEarnRate(player, wasDc)
+    end
 end
 
 -- Function to find the key with the maximum value in a table
@@ -354,22 +546,42 @@ end
 
 --]]
 
--- Functions to get player stats --
+-- Function to get the local player's cash
+function GetPlayerCash(player)
 
-function GetPlayerCash()
-    return players[client.localPlayer].Cash.value
+    if player == nil then
+        return players[client.localPlayer].Cash.value
+    else
+        if players[player] == nil then
+            return -1
+        end
+        return players[player].Cash.value
+    end
 end
 
 function GetPlayerBeeCapacity()
     return players[client.localPlayer].BeeCapacity.value
 end
 
+function GetPlayerJoins()
+    print("getting player joins... " .. playerJoins[client.localPlayer].value)
+    return playerJoins[client.localPlayer].value
+end
+
 function GetPlayerSweetScentLevel()
     return players[client.localPlayer].SweetScentLevel.value
 end
 
-function GetPlayerFlowerCapacity()
-    return players[client.localPlayer].FlowerCapacity.value
+function GetPlayerFlowerCapacity(player)
+    if player == nil then
+        return players[client.localPlayer].FlowerCapacity.value
+    else
+        return players[player].FlowerCapacity.value
+    end
+end 
+
+function GetPlayerOwnsShears()
+    return players[client.localPlayer].HasShears.value
 end 
 
 -- Client-side logic
@@ -490,10 +702,12 @@ function self:ServerAwake()
             InitializeBeeStorage(player)
             InitializeSeenBeeSpecies(player)
 
+            print("Stats filled out for player " .. player.name)
+
             --[[
-            -- Uncomment the following lines to print the player's stats to the console for debugging
+            -- Uncomment the following lines to --print the player's stats to the console for debugging
             for stat, value in pairs(stats) do
-                print(player.name .. "'s " .. stat .. ": " .. tostring(value))
+                --print(player.name .. "'s " .. stat .. ": " .. tostring(value))
             end
             --]]
         end)
@@ -517,14 +731,14 @@ function self:ServerAwake()
          SaveStats(player)
 
          if(stat ~= "Cash") then
-            UpdateStorage(player)
+            UpdateStorage(player, player.user.id)
          end
     end)
 
     giveShearsRequest:Connect(function(player)
         players[player].HasShears.value = true
         SaveStats(player)
-        UpdateStorage(player)
+        UpdateStorage(player, player.user.id)
     end
     )
 
@@ -535,11 +749,11 @@ function self:ServerAwake()
         if isCapture then
             isAdult = true
             growTime = 0
-            print(player.name .. " captured a " .. name .. "!")
+            --print(player.name .. " captured a " .. name .. "!")
         else
             isAdult = false
             growTime =  wildBeeManager.getGrowTime(name)
-            print(player.name .. " recieved a " .. name .. "!")
+            --print(player.name .. " recieved a " .. name .. "!")
         end
         
         -- Ensure the bee species list is initialized for the player
@@ -550,20 +764,16 @@ function self:ServerAwake()
         -- Check if the species is already in the list; if not, add it
         if not table.find(playerSeenBeeSpecies[player], name) then
             table.insert(playerSeenBeeSpecies[player], name)
-            SaveSeenBeeSpecies(player) -- Save the updated species list
         end
 
 
         id = AddBee(player, name, isAdult, growTime)
     
         if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-            beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player), id, isAdult, growTime, wildBeeManager.getGrowTime(name))
+            beeObjectManager.SpawnBee(player, name, ApiaryManager.GetPlayerApiaryLocation(player), id, isAdult, growTime, wildBeeManager.getGrowTime(name), nil)
         end
 
-        -- Only have non zero rate if apiary is placed
-        if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-            RecalculatePlayerEarnRate(player)
-        end
+        RecalculatePlayerEarnRate(player)
     end)
 
     sellBeeRequest:Connect(function(player, beeId)
@@ -572,24 +782,29 @@ function self:ServerAwake()
             -- Loop through the bee storage to find the bee to remove by beeId
             for index, bee in ipairs(storedBees) do
                 if bee.beeId == beeId then
+
+                    if bee.hat ~= nil then
+                        local transaction = InventoryTransaction.new():GivePlayer(player, bee.hat, 1)
+                        Inventory.CommitTransaction(transaction)
+                    end
+        
+
                     table.remove(storedBees, index)
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
-                    SaveBeeStorage(player)
-                    if ApiaryManager.GetPlayerApiaryLocation(player) ~= nil then
-                        RecalculatePlayerEarnRate(player)
-                    end
-                    print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
+                    beeCountUpdated:FireClient(player, #playerBeeStorage[player])
+                    RecalculatePlayerEarnRate(player)
+                    --print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
                     return
                 end
             end
     
-            print("Bee with ID " .. beeId .. " not found in " .. player.name .. "'s storage.")
+            --print("Bee with ID " .. beeId .. " not found in " .. player.name .. "'s storage.")
         end)
     end)
 
     setBeeAdultRequest:Connect(function(player, id)
-        print("Bee with id " .. id .. " is growing up")
+        --print("Bee with id " .. id .. " is growing up")
         -- Ensure the bee storage is loaded for the player
         GetBeeList(player, function(storedBees)
             -- Loop through the player's bees to find the one with the matching ID
@@ -600,16 +815,15 @@ function self:ServerAwake()
                     bee.timeToGrowUp = 0
     
                     -- Save the updated bee storage back to persistent storage
-                    SaveBeeStorage(player)
                     RecalculatePlayerEarnRate(player)
                     updateBeeList:FireClient(player)
     
-                    print("Bee with ID " .. id .. " is now an adult with grow time set to 0.")
+                    --print("Bee with ID " .. id .. " is now an adult with grow time set to 0.")
                     return
                 end
             end
     
-            print("Bee with ID " .. id .. " not found in " .. player.name .. "'s storage.")
+            --print("Bee with ID " .. id .. " not found in " .. player.name .. "'s storage.")
         end)
     end)
 
@@ -619,7 +833,6 @@ function self:ServerAwake()
             for _, bee in ipairs(storedBees) do
                 if bee.beeId == id then
                     bee.timeToGrowUp = timeLeft
-                    SaveBeeStorage(player)
                     return
                 end
             end
@@ -632,9 +845,41 @@ function self:ServerAwake()
             recieveSeenBees:FireClient(player, bees)
         end)
     end)
+
+    givePlayerHatRequest:Connect(function(player, Id)
+        local transaction = InventoryTransaction.new():GivePlayer(player, Id, 1)
+        Inventory.CommitTransaction(transaction)
+    end)
+
+    requestRemoveBeeHat:Connect(function(player, beeId)
+        SetBeeHat(player, beeId, nil)
+    end)
+
+    Timer.new(10, function() 
+    for player, data in pairs(players) do
+        print("saving for player " .. player.name)
+        SaveProgress(player, false)
+    end
+    print("Saved!")
+    end, true)
 end
 
-function GiveCash(player, amount)
-    players[player].Cash.value += amount 
-    SaveStats(player)
+function SetHoneyDoublerForPlayer(player, time)
+   playerHasHoneyDoubler[player] = true
+   Timer.new(time, function() playerHasHoneyDoubler[player] = nil RecalculatePlayerEarnRate(player) end, false)
+    RecalculatePlayerEarnRate(player)
+end
+
+function PlayerHasActiveHoneyDoubler(player)
+    print("checking if player has active doubler")
+    if playerHasHoneyDoubler[player] == true then
+        print("true!")
+        return true
+    end
+    print("false!")
+    return false
+end
+
+function GiveHat(Id)
+    givePlayerHatRequest:FireServer(Id)
 end

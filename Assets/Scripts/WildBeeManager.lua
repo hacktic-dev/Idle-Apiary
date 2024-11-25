@@ -44,64 +44,64 @@ local RainbowBeePrefab : GameObject = nil
 -- Bee spawning parameters
 local beeSpecies = {
     -- Bronze Set
-    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor = 275 },
-    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor = 250 },
-    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor = 250 },
-    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor = 60 },
-    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor = 48 },
-    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor = 28 },
+    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 175, spawnFactor_2 = 100 },
+    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88   },
+    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88   },
+    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor_0 = 70, spawnFactor_1 = 60, spawnFactor_2 = 35   },
+    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30   },
+    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor_0 = 30, spawnFactor_1 = 30, spawnFactor_2 = 20   },
 
     -- Silver Set
-    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor = 40 },
-    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor = 38 },
-    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor = 38 },
-    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor = 15 },
-    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor = 13 },
-    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor = 7 },
+    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor_0 = 40, spawnFactor_1 = 55, spawnFactor_2 = 70   },
+    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65   },
+    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65   },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor_0 = 15, spawnFactor_1 = 30, spawnFactor_2 = 55   },
+    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor_0 = 13, spawnFactor_1 = 30, spawnFactor_2 = 40   },
+    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor_0 = 7, spawnFactor_1 = 15, spawnFactor_2 = 30   },
 
     -- Gold Set
-    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor = 12 },
-    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor = 9 },
-    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor = 9 },
-    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor = 6 },
-    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor = 4 },
-    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor = 2 }
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor_0 = 12, spawnFactor_1 = 20, spawnFactor_2 = 38   },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor_0 = 9, spawnFactor_1 = 18, spawnFactor_2 = 38   },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor_0 = 9, spawnFactor_1 = 15, spawnFactor_2 = 33   },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor_0 = 6, spawnFactor_1 = 12, spawnFactor_2 = 22   },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 18   },
+    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 2, spawnFactor_1 = 4, spawnFactor_2 = 11   }
 }
 
 
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
 beeData = {
     -- Bronze Set - 50 Honey to Purchase
-    ["Common Bee"] = { honeyRate = 8, sellPrice = 50, growTime = 60, rarity = "Common", set = "Bronze Set" },
-    ["Stone Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
-    ["Forest Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 60, rarity = "Common", set = "Bronze Set" },
-    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 80, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
-    ["Giant Bee"] = { honeyRate = 16, sellPrice = 80, growTime = 120, rarity = "Uncommon", set = "Bronze Set" },
-    ["Silver Bee"] = { honeyRate = 20, sellPrice = 120, growTime = 300, rarity = "Rare", set = "Bronze Set" },
+    ["Common Bee"] = { honeyRate = 8, sellPrice = 50, growTime = 40, rarity = "Common", set = "Bronze Set" },
+    ["Stone Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 40, rarity = "Common", set = "Bronze Set" },
+    ["Forest Bee"] = { honeyRate = 10, sellPrice = 60, growTime = 40, rarity = "Common", set = "Bronze Set" },
+    ["Aquatic Bee"] = { honeyRate = 14, sellPrice = 80, growTime = 80, rarity = "Uncommon", set = "Bronze Set" },
+    ["Giant Bee"] = { honeyRate = 16, sellPrice = 80, growTime = 80, rarity = "Uncommon", set = "Bronze Set" },
+    ["Silver Bee"] = { honeyRate = 20, sellPrice = 120, growTime = 200, rarity = "Rare", set = "Bronze Set" },
 
     -- Silver Set - 250 Honey to Purchase
-    ["Muddy Bee"] = { honeyRate = 14, sellPrice = 120, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Frigid Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Steel Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 60, rarity = "Uncommon", set = "Silver Set" },
-    ["Magma Bee"] = { honeyRate = 24, sellPrice = 200, growTime = 120, rarity = "Rare", set = "Silver Set" },
-    ["Ghostly Bee"] = { honeyRate = 24, sellPrice = 220, growTime = 120, rarity = "Rare", set = "Silver Set" },
-    ["Iridescent Bee"] = { honeyRate = 30, sellPrice = 300, growTime = 300, rarity = "Epic", set = "Silver Set" },
+    ["Muddy Bee"] = { honeyRate = 14, sellPrice = 120, growTime = 40, rarity = "Uncommon", set = "Silver Set" },
+    ["Frigid Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 40, rarity = "Uncommon", set = "Silver Set" },
+    ["Steel Bee"] = { honeyRate = 16, sellPrice = 130, growTime = 40, rarity = "Uncommon", set = "Silver Set" },
+    ["Magma Bee"] = { honeyRate = 24, sellPrice = 200, growTime = 80, rarity = "Rare", set = "Silver Set" },
+    ["Ghostly Bee"] = { honeyRate = 24, sellPrice = 220, growTime = 80, rarity = "Rare", set = "Silver Set" },
+    ["Iridescent Bee"] = { honeyRate = 30, sellPrice = 300, growTime = 200, rarity = "Epic", set = "Silver Set" },
 
     -- Gold Set - 1250 Honey to Purchase
-    ["Sandy Bee"] = { honeyRate = 26, sellPrice = 300, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Autumnal Bee"] = { honeyRate = 28, sellPrice = 400, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Petal Bee"] = { honeyRate = 28, sellPrice = 500, growTime = 60, rarity = "Rare", set = "Gold Set" },
-    ["Galactic Bee"] = { honeyRate = 34, sellPrice = 800, growTime = 120, rarity = "Epic", set = "Gold Set" },
-    ["Radiant Bee"] = { honeyRate = 38, sellPrice = 1000, growTime = 120, rarity = "Epic", set = "Gold Set" },
-    ["Rainbow Bee"] = { honeyRate = 50, sellPrice = 1500, growTime = 300, rarity = "Legendary", set = "Gold Set" }
+    ["Sandy Bee"] = { honeyRate = 26, sellPrice = 300, growTime = 40, rarity = "Rare", set = "Gold Set" },
+    ["Autumnal Bee"] = { honeyRate = 28, sellPrice = 400, growTime = 40, rarity = "Rare", set = "Gold Set" },
+    ["Petal Bee"] = { honeyRate = 28, sellPrice = 500, growTime = 40, rarity = "Rare", set = "Gold Set" },
+    ["Galactic Bee"] = { honeyRate = 34, sellPrice = 800, growTime = 80, rarity = "Epic", set = "Gold Set" },
+    ["Radiant Bee"] = { honeyRate = 38, sellPrice = 1000, growTime = 80, rarity = "Epic", set = "Gold Set" },
+    ["Rainbow Bee"] = { honeyRate = 50, sellPrice = 1500, growTime = 200, rarity = "Legendary", set = "Gold Set" }
 }
 
 
-local MIN_SPAWN_DISTANCE = 45 -- Minimum distance from player to spawn a bee
+local MIN_SPAWN_DISTANCE = 50 -- Minimum distance from player to spawn a bee
 local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee
-local MAX_SPAWN_DISTANCE = 125 -- Maximum distance from player to spawn a bee
-local DESPAWN_DISTANCE = 130 -- Distance beyond which the bee despawns
-local MAX_BEES = 20 -- Maximum number of bees allowed
+local MAX_SPAWN_DISTANCE = 115 -- Maximum distance from player to spawn a bee
+local DESPAWN_DISTANCE = 120 -- Distance beyond which the bee despawns
+local MAX_BEES = 23 -- Maximum number of bees allowed
 
 local beeSpawnInterval = 0.1 -- Time in seconds between bee spawn attempts
 
@@ -168,8 +168,20 @@ end
 -- Function to calculate total spawn factor
 local function getTotalSpawnFactor()
     local totalFactor = 0
+
+    local level = playerManager.GetPlayerSweetScentLevel()
+
     for _, species in ipairs(beeSpecies) do
-        totalFactor = totalFactor + species.spawnFactor
+
+        if level == 0 then
+            factor = species.spawnFactor_0
+        elseif level == 1 then
+            factor = species.spawnFactor_1
+        elseif level == 2 then
+            factor = species.spawnFactor_2
+        end
+
+        totalFactor = totalFactor + factor
     end
     return totalFactor
 end
@@ -180,8 +192,19 @@ local function chooseBeeSpecies()
     local rand = math.random() * totalSpawnFactor
     local cumulativeFactor = 0
 
+    local level = playerManager.GetPlayerSweetScentLevel()
+
     for _, species in ipairs(beeSpecies) do
-        cumulativeFactor = cumulativeFactor + species.spawnFactor
+
+        if level == 0 then
+            factor = species.spawnFactor_0
+        elseif level == 1 then
+            factor = species.spawnFactor_1
+        elseif level == 2 then
+            factor = species.spawnFactor_2
+        end
+
+        cumulativeFactor = cumulativeFactor + factor
         if rand <= cumulativeFactor then
             return species
         end
@@ -199,13 +222,14 @@ local function spawnWildBee(player)
         return
     end
 
+    -- todo - spawn first based on loc inside area, then check distance
+
+    local spawnPosition
     local playerPosition = player.character:GetComponent(Transform).position
 
-    -- Determine the random distance and direction
-    local randomDistance = MIN_SPAWN_DISTANCE + math.random() * (MAX_SPAWN_DISTANCE - MIN_SPAWN_DISTANCE)
-    local randomDirection = Vector3.new((math.random()-0.5)*2, 0, (math.random()-0.5)*2).normalized
-
-    local spawnPosition = playerPosition + randomDirection * randomDistance
+    spawnPosition = Vector3.new(math.random(-115, 115) , 0, math.random(-115, 115))
+    distance = Vector3.Distance(playerPosition, spawnPosition)
+    if distance < MIN_SPAWN_DISTANCE or distance > MAX_SPAWN_DISTANCE then return end
 
     -- Choose a bee species based on the calculated probabilities
     local selectedBeeSpecies = chooseBeeSpecies()
@@ -216,7 +240,7 @@ local function spawnWildBee(player)
     newBee:GetComponent(BeeWandererScript).SetSpawnPosition(spawnPosition)
     table.insert(wildBees, { bee = newBee, speciesName = selectedBeeSpecies.name, player = player })
 
-    print("Spawned wild bee (" .. selectedBeeSpecies.name .. ") at at a distance of " .. randomDistance .. " and a position: " .. tostring(spawnPosition))
+    print("Spawned wild bee (" .. selectedBeeSpecies.name .. ") at position: " .. tostring(spawnPosition))
 end
 
 -- Function to despawn a wild bee
