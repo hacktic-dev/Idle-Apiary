@@ -1,12 +1,16 @@
 --!Type(UI)
 
 --!Bind
-local label : UILabel = nil -- Reference to the button for closing the UI.
+-- Binding the UILabel for displaying the first title
+local titleLabel1 : UILabel = nil
 
-function GetLabel()
-    return label
+
+-- Function called when the script starts
+function self:Start()
+    --titleLabel1:SetPrelocalizedText("Hello")
 end
 
-function self:ClientAwake()
-    label:SetPrelocalizedText("test")
+function SetLabel(player)
+    print("owner is " .. player)
+    titleLabel1:SetPrelocalizedText(player)
 end

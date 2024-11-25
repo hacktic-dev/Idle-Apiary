@@ -92,10 +92,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6283765857721120860}
-  - component: {fileID: 8407418300021658551}
-  - component: {fileID: 5017529329600770718}
-  - component: {fileID: 4753181554644596626}
-  - component: {fileID: 3393564931186586056}
+  - component: {fileID: 9038482137161847075}
+  - component: {fileID: 2644899951937496697}
+  - component: {fileID: 8601902265630415010}
+  - component: {fileID: 2033712734840715795}
   m_Layer: 0
   m_Name: MeterUI
   m_TagString: Untagged
@@ -118,7 +118,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5839774273345856397}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8407418300021658551
+--- !u!33 &9038482137161847075
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636164116762368238}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5017529329600770718
+--- !u!23 &2644899951937496697
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,7 +168,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4753181554644596626
+--- !u!114 &8601902265630415010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,7 +192,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
---- !u!114 &3393564931186586056
+--- !u!114 &2033712734840715795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,14 +209,14 @@ MonoBehaviour:
   _properties: []
   _uiOutput: 1
   _uiOutputSettings:
-    rid: 4588175477867282551
+    rid: 4588175741702897668
   references:
     version: 2
     RefIds:
-    - rid: 4588175477867282551
+    - rid: 4588175741702897668
       type: {class: UIWorldOutputSettings, ns: Highrise.Client, asm: com.pz.highrise.game.client}
       data:
-        Renderer: {fileID: 5017529329600770718}
+        Renderer: {fileID: 2644899951937496697}
         Size: {x: 256, y: 256}
         ClearColor: 1
         ClearColorValue: {r: 1, g: 1, b: 1, a: 0}

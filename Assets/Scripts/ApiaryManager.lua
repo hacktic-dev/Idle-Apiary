@@ -149,10 +149,11 @@ function SpawnAllApiariesForPlayer(player)
     for owner, apiaryList in pairs(playerApiaries) do
         for _, apiaryData in ipairs(apiaryList) do
             playerManager.GetSeenBeeSpeciesList(owner, function(bees)
+
                 if #bees == 18 then
-                    addNewApiaryRequest:FireClient(player, owner, apiaryData.id, apiaryData.location, true)
+                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, true, "c")
                 else
-                    addNewApiaryRequest:FireClient(player, owner, apiaryData.id, apiaryData.location, false)
+                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, false, "d")
                 end
             end)
         end
@@ -171,12 +172,14 @@ function SpawnApiary(player, location)
 
     table.insert(playerApiaries[player], { id = apiaryID, location = Vector3.new(location.x, location.y, location.z) })
 
+    print("owner is " .. tostring(player.name)) 
+
     playerManager.GetSeenBeeSpeciesList(player, function(bees)
         -- Send the retrieved bee list back to the client
         if #bees == 18 then
-            addNewApiaryRequest:FireAllClients(apiaryID, owner, Vector3.new(location.x, location.y, location.z), true)
+            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), true, "a")
         else
-            addNewApiaryRequest:FireAllClients(apiaryID, owner, Vector3.new(location.x, location.y, location.z), false)
+            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), false, "b")
         end
     end)
 end
@@ -185,7 +188,7 @@ end
 
 function self:ClientAwake()
     -- Listen for new apiary spawning requests
-    addNewApiaryRequest:Connect(function(apiaryID, owner, position, isGold)
+    addNewApiaryRequest:Connect(function(apiaryID, owner, position, isGold, debug)
         if ApiaryPrefab then
             -- Instantiate the apiary prefab
             local newApiary = Object.Instantiate(ApiaryPrefab)
@@ -201,7 +204,9 @@ function self:ClientAwake()
                 newApiary:GetComponent(ApiaryPrefabOwner).GetGoldBox():SetActive(false)
             end
 
-            newApiary:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi):GetLabel():SetPrelocalizedText(owner)
+            print(owner)
+
+            newApiary:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi).SetLabel(owner)
 
             -- Set the position of the new apiary
             newApiary.transform.position = position

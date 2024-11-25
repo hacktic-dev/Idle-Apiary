@@ -19,7 +19,7 @@ using Highrise.Lua;
 namespace Highrise.Lua.Generated
 {
     [AddComponentMenu("Lua/InfoCard")]
-    [LuaRegisterType(0x471a22897b04806c, typeof(LuaBehaviour))]
+    [LuaRegisterType(0x864b60939a9270ff, typeof(LuaBehaviour))]
     public class InfoCard : LuaBehaviourThunk
     {
         private const string s_scriptGUID = "106c10ae9059f7b44877d5997e1b20d2";
