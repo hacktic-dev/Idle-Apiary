@@ -7,5 +7,5 @@ local Camera : GameObject = nil
 local button : UIButton = nil
 
 button:RegisterPressCallback(function()
-Camera:GetComponent(RTSCamera).FocusOnPlayer()
+Camera:GetComponent(CustomCamera).FocusOnPlayer()
 end, true, true, true)
