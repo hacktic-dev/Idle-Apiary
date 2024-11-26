@@ -442,7 +442,7 @@ function TrackPlayers(game, characterCallback)
             player = player,
             Cash = IntValue.new("Cash" .. tostring(player.id), 100),
             Nets = IntValue.new("Nets" .. tostring(player.id), 0), 
-            FlowerCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 5),
+            FlowerCapacity = IntValue.new("FlowerCapacity" .. tostring(player.id), 5),
             SweetScentLevel = IntValue.new("SweetScentLevel"..tostring(player.id), 0),
             BeeCapacity = IntValue.new("BeeCapacity" .. tostring(player.id), 10),
             HasShears = BoolValue.new("HasShears" .. tostring(player.id), false)
