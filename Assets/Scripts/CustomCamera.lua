@@ -141,6 +141,8 @@ Input.MouseWheel:Connect(function(evt)
         return
     end
 
+    isFocusing = false
+
     if evt.delta.y < 0.0 then
         ZoomIn()
         PostZoomMoveTowardsScreenPoint(evt.position)
@@ -516,7 +518,7 @@ function SmoothFocusInUpdate(smoothness)
     UpdatePosition()
 
     -- Check if the camera is centered and stop focusing if true
-    if distanceToPlayer < 0.1 then
+    if distanceToPlayer < 0.25 then
         isFocusing = false
     end
 end
