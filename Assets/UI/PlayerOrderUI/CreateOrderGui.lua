@@ -21,6 +21,19 @@ local upgrades : UILabel = nil
 local timeToReset : UILabel = nil
 --!Bind
 local timeContainer : UIButton = nil
+--!Bind
+local _confirmBuy : VisualElement = nil
+--!Bind
+local _confirmBuyDescription : UIButton = nil
+--!Bind
+local _confirmBuyButton : UIButton = nil
+--!Bind
+local _confirmBuyLabel : UILabel= nil
+--!Bind
+local _declineBuyButton : UIButton = nil
+--!Bind
+local _declineBuyLabel : UILabel = nil
+
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -36,6 +49,12 @@ local purchaseHandler = require("PurchaseHandler")
 local Utils = require("Utils")
 
 local state = 0 -- Which tab are we on?
+
+local selectedIsGold
+local selectedId
+local selectedCash
+local  selectedName
+local isHat = false
 
 _upgradesTab:RegisterPressCallback(function()
     local success = ButtonPressed("upgrades")
@@ -56,6 +75,8 @@ _honeyTab:RegisterPressCallback(function()
 function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     Orders_Root:Clear()
 
+    print("Initing upgrades with bee capacity " .. beeCapacity .. ", flower capacity " .. flowerCapacity .. ", and sweet scent level " .. sweetScentLevel)
+
     if sweetScentLevel == 0 then
         netPrice = 120
     elseif sweetScentLevel == 1 then
@@ -66,37 +87,37 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
         netPrice = 800
     end
 
-    CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false)
+    CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false, "", false)
 
     if beeCapacity < 20 then
-        CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
+        CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", true)
     end
 
     if sweetScentLevel < 3 then
-        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1, "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false, "Rarer bees spawn more frequently")
+        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1, "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false, "Rarer bees spawn more frequently", true)
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
-        CreateQuestItem("Purchase Shears", "Shears", 5000, false, "Can be used to pick flowers")
+        CreateQuestItem("Purchase Shears", "Shears", 5000, false, "Can be used to pick flowers", true)
     else
        if flowerCapacity < 10 then
-        CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false)
+        CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false, "", true)
        end
     end
 end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set")
-    CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set")
-    CreateQuestItem("Purchase a Random Bee", "Gold", 1250, false, "Gold Set")
-    CreateQuestItem("Purchase a Random Bee", "Platinum", 5000, false, "Platinum Set")
+    CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set", false)
+    CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set", false)
+    CreateQuestItem("Purchase a Random Bee", "Gold", 1250, false, "Gold Set", false)
+    CreateQuestItem("Purchase a Random Bee", "Platinum", 5000, false, "Platinum Set", false)
 end
 
 local function InitHoneyTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.")
-    CreateQuestItem("Purchase Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes")
+    CreateQuestItem("Purchase Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.", false)
+    CreateQuestItem("Purchase Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes", false)
 end
 
 local function getSeed()
@@ -140,7 +161,7 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(true)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true)
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true, false)
             i = i + 1
         end
     end
@@ -151,7 +172,7 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(false)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false)
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false, true)
             i = i + 1
         end
     end
@@ -317,7 +338,7 @@ end
     end
 end
 
-function CreateHatItem(Name, Id, Rarity, Cash, isGold)
+function CreateHatItem(Name, Id, Rarity, Cash, isGold, shouldConfirm)
     local questItem = UIButton.new()
     questItem:AddToClassList("hat-item") -- Add a class to style the quest item.
 
@@ -376,22 +397,15 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold)
     questItem:Add(container)
 
     questItem:RegisterPressCallback(function()
-        -- Handle gold payments
-        if isGold then
-            purchaseHandler.PromptTokenPurchase(Id)
-            return
-        end
-
-        if playerManager.GetPlayerCash() >= Cash then
-              
-            playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
-            playerManager.GiveHat(Id)
-            playerManager.notifyHatPurchased:Fire(Name)
+        if shouldConfirm then
+            selectedIsGold = isGold
+            selectedId = Id
+            selectedCash = Cash
+            selectedName = Name
+            isHat = true
+            _confirmBuy.visible = true
         else
-            UIManager.ToggleUI("PlaceStatus", true)
-            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")
-            audioManager.PlaySound("failSound", .75)
-            Timer.new(2, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+            BuyHat(isGold, Id, Name, Cash)
         end
     end)
 
@@ -403,7 +417,7 @@ end
 
 
 -- Creates a new quest item in the UI.
-function CreateQuestItem(Name, Id, Cash, isGold, description)
+function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm)
     -- Create a new button for the quest item.
     local questItem = UIButton.new()
     questItem:AddToClassList("order-item") -- Add a class to style the quest item.
@@ -446,57 +460,15 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
     questItem:Add(_priceContainer)
 
     questItem:RegisterPressCallback(function()
-        -- Handle gold payments
-        if isGold then
-            purchaseHandler.PromptTokenPurchase(Id)
-            return
-        end
-
-        -- Check bee capacity
-        if((Id == "Bronze" or Id == "Silver" or Id == "Gold" or Id == "Platinum") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
-            UIManager.ToggleUI("PlaceStatus", true)
-            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
-            audioManager.PlaySound("failSound", .75)
-            Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
-            return
-        end
-
-        if playerManager.GetPlayerCash() >= Cash then
-              
-            playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
-            audioManager.PlaySound("purchaseSound", 1)
-
-            -- Give player a net if that's what they bought
-            if Id == "Net" then
-                playerManager.IncrementStat("Nets", 1)
-                return
-            elseif Id == "BeeCapacity" then
-                InitUpgradesTab(playerManager.GetPlayerBeeCapacity() + 1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
-                playerManager.IncrementStat("BeeCapacity", 1)
-                return
-            elseif Id == "FlowerCapacity" then
-                InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity() + 1, playerManager.GetPlayerSweetScentLevel())
-                playerManager.IncrementStat("FlowerCapacity", 1)
-                return
-            elseif Id == "SweetScentLevel" then
-                InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel() + 1)
-                playerManager.IncrementStat("SweetScentLevel", 1)
-                return
-            elseif Id == "Shears" then
-                playerManager.GiveShears()
-                UIManager.OpenShearsTutorial()
-                return
-            end
-            
-            local bee = GenerateBee(Id)
-            playerManager.notifyBeePurchased:Fire(bee)
-            playerManager.GiveBee(bee, false)
-        else
-            UIManager.ToggleUI("PlaceStatus", true)
-            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
-            audioManager.PlaySound("failSound", .75)
-            Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
-        end
+       if shouldConfirm then
+            selectedIsGold = isGold
+            selectedId = Id
+            selectedCash = Cash
+            isHat = false
+            _confirmBuy.visible = true
+       else
+            Buy(isGold, Id, Cash)
+       end
     end, true, true, true)
 
     -- Add the quest item to the UI.
@@ -505,11 +477,30 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
     return questItem
 end
 
+_confirmBuyButton:RegisterPressCallback(function()
+    if isHat then
+        BuyHat(selectedIsGold, selectedId, selectedName, selectedCash)
+    else 
+        Buy(selectedIsGold, selectedId, selectedCash)
+    end
+    _confirmBuy.visible = false end, true, true, true
+)
+
+_declineBuyButton:RegisterPressCallback(function()
+    _confirmBuy.visible = false end, true, true, true
+)
+
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
     timeToReset:AddToClassList("time-to-reset")
     ButtonPressed("bees")
     Timer.new(1, function() timeToReset:SetPrelocalizedText("Time until shop resets: " .. timeUntilNextSeed()) end, true)
+    _confirmBuyDescription:SetPrelocalizedText("Are you sure you want to buy this?")
+    _confirmBuyLabel:SetPrelocalizedText("Buy")
+    _declineBuyLabel:SetPrelocalizedText("Don't Buy")
+
+    _confirmBuy.visible = false
+
     if Screen.width > Screen.height then
         upgrades:SetPrelocalizedText("Upgrades / Items")
     else
@@ -518,4 +509,80 @@ function Init()
     closeButton:RegisterPressCallback(function()
         UIManager.CloseShop()
     end, true, true, true)
+end
+
+function Buy(isGold, Id, Cash)
+     -- Handle gold payments
+     if isGold then
+        purchaseHandler.PromptTokenPurchase(Id)
+        return
+    end
+
+    -- Check bee capacity
+    if((Id == "Bronze" or Id == "Silver" or Id == "Gold" or Id == "Platinum") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
+        UIManager.ToggleUI("PlaceStatus", true)
+        statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
+        audioManager.PlaySound("failSound", .75)
+        Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+        return
+    end
+
+    if playerManager.GetPlayerCash() >= Cash then
+          
+        print("Purchased " .. Id)
+
+        playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
+        audioManager.PlaySound("purchaseSound", 1)
+
+        -- Give player a net if that's what they bought
+        if Id == "Net" then
+            playerManager.IncrementStat("Nets", 1)
+            return
+        elseif Id == "BeeCapacity" then
+            InitUpgradesTab(playerManager.GetPlayerBeeCapacity()+1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
+            playerManager.IncrementStat("BeeCapacity", 1)
+            return
+        elseif Id == "FlowerCapacity" then
+            InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity()+1, playerManager.GetPlayerSweetScentLevel())
+            playerManager.IncrementStat("FlowerCapacity", 1)
+            return
+        elseif Id == "SweetScentLevel" then
+            InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel()+1)
+            playerManager.IncrementStat("SweetScentLevel", 1)
+            return
+        elseif Id == "Shears" then
+            playerManager.GiveShears()
+            UIManager.OpenShearsTutorial()
+            return
+        end
+        
+        local bee = GenerateBee(Id)
+        playerManager.notifyBeePurchased:Fire(bee)
+        playerManager.GiveBee(bee, false)
+    else
+        UIManager.ToggleUI("PlaceStatus", true)
+        statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You don't have enough honey.")
+        audioManager.PlaySound("failSound", .75)
+        Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+    end
+end
+
+function  BuyHat(isGold, Id, Name, Cash)
+        -- Handle gold payments
+        if isGold then
+            purchaseHandler.PromptTokenPurchase(Id)
+            return
+        end
+
+        if playerManager.GetPlayerCash() >= Cash then
+              
+            playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
+            playerManager.GiveHat(Id)
+            playerManager.notifyHatPurchased:Fire(Name)
+        else
+            UIManager.ToggleUI("PlaceStatus", true)
+            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")
+            audioManager.PlaySound("failSound", .75)
+            Timer.new(2, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+        end
 end

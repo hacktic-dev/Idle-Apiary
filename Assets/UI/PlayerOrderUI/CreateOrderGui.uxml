@@ -37,6 +37,18 @@
     </hr:UIButton>
 
   </VisualElement>
+
+    <VisualElement class="confirm-buy" name="_confirmBuy">
+      <hr:UILabel name="_confirmBuyDescription" class="confirm-title" />
+      <VisualElement class="confirm-row-container">
+        <hr:UIButton class = "confirm-buy-button" name = "_confirmBuyButton">
+          <hr:UILabel name = "_confirmBuyLabel" class = "confirm-label" />
+        </hr:UIButton>
+        <hr:UIButton class = "decline-buy-button" name = "_declineBuyButton">
+          <hr:UILabel name = "_declineBuyLabel" class = "confirm-label" />
+        </hr:UIButton>
+      </VisualElement>
+    </VisualElement>
 </hr:UILuaView>
 
 </UXML>
