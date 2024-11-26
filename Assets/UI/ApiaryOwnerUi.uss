@@ -13,11 +13,36 @@
 .title {
   margin-top: 100%;
   color: #1aff6a;
-  font-size: 32px;
+  font-size: 22px;
   -unity-font-style: bold;
+  -unity-text-align: middle-center;
 
   -unity-text-outline-width: 2px;
   -unity-text-outline-color: #00a83a;
+}
+
+.novice
+{
+    color: #1aff6a;
+    -unity-text-outline-color: #00a83a;
+}
+
+.amateur
+{
+    color: #383EFF;
+    -unity-text-outline-color: #292D9B;
+}
+
+.professional
+{
+    color: #792EF2;
+    -unity-text-outline-color: #502099;
+}
+
+.legendary
+{
+    color: #EFEC3E;
+    -unity-text-outline-color: #878432;
 }
 
 .slider {

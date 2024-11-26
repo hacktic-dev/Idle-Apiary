@@ -769,6 +769,7 @@ function self:ServerAwake()
             table.insert(playerSeenBeeSpecies[player], name)
         end
 
+        ApiaryManager.UpdateLabelForApiary(player, #playerSeenBeeSpecies[player])
 
         id = AddBee(player, name, isAdult, growTime)
     

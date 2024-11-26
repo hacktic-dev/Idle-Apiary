@@ -25,6 +25,7 @@ local ApiaryPrefab : GameObject = nil
 -- Events from server to client to actually add/remove game objects
 local addNewApiaryRequest = Event.new("AddNewApiary")
 local removeApiaryRequest = Event.new("RemoveApiary")
+local updateLabelRequest = Event.new("UpdateLabelRequest")
 notifyIsValidLocation = Event.new("NotifyIsValidLocation")
 
 -- Events from client to server to request placement/removal of an apiary
@@ -143,6 +144,17 @@ function RemoveAllPlayerApiaries(player)
     end
 end
 
+function UpdateLabelForApiary(player, count)
+    if playerApiaries[player] then
+        for _, apiaryData in ipairs(playerApiaries[player]) do
+            local apiaryID = apiaryData.id
+
+            -- Fire an event to all clients to remove this apiary by its ID
+            updateLabelRequest:FireAllClients(apiaryID, player.name, count)
+        end
+    end
+end
+
 -- Function to spawn all existing apiaries for a specific player's client
 function SpawnAllApiariesForPlayer(player)
     -- Iterate through all apiaries in the playerApiaries table
@@ -151,9 +163,9 @@ function SpawnAllApiariesForPlayer(player)
             playerManager.GetSeenBeeSpeciesList(owner, function(bees)
 
                 if #bees == 24 then
-                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, true, "c")
+                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, true, #bees)
                 else
-                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, false, "d")
+                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, false, #bees)
                 end
             end)
         end
@@ -177,9 +189,9 @@ function SpawnApiary(player, location)
     playerManager.GetSeenBeeSpeciesList(player, function(bees)
         -- Send the retrieved bee list back to the client
         if #bees == 24 then
-            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), true, "a")
+            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), true, #bees)
         else
-            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), false, "b")
+            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), false, #bees)
         end
     end)
 end
@@ -188,7 +200,7 @@ end
 
 function self:ClientAwake()
     -- Listen for new apiary spawning requests
-    addNewApiaryRequest:Connect(function(apiaryID, owner, position, isGold, debug)
+    addNewApiaryRequest:Connect(function(apiaryID, owner, position, isGold, count)
         if ApiaryPrefab then
             -- Instantiate the apiary prefab
             local newApiary = Object.Instantiate(ApiaryPrefab)
@@ -204,9 +216,7 @@ function self:ClientAwake()
                 newApiary:GetComponent(ApiaryPrefabOwner).GetGoldBox():SetActive(false)
             end
 
-            print(owner)
-
-            newApiary:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi).SetLabel(owner)
+            newApiary:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi).SetLabel(owner, count)
 
             -- Set the position of the new apiary
             newApiary.transform.position = position
@@ -226,6 +236,10 @@ function self:ClientAwake()
 
             print("Apiary with ID " .. apiaryID .. " removed from client.")
         end
+    end)
+
+    updateLabelRequest:Connect(function(apiaryID, playerName, count)
+        apiaries[apiaryID]:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi).SetLabel(playerName, count)
     end)
 
 end
