@@ -105,10 +105,10 @@ function getFlower()
     UIManager.ToggleUI("PlaceButtons", false)
     UIManager.ToggleUI("PlayerStats", false)
     InfoCardObject:GetComponent(InfoCard).ShowFlowerCut(id, desc)
-    Timer.new(4, function() 
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() 
         UIManager.ToggleUI("BeeCard", false)
         UIManager.ToggleUI("PlaceButtons", true)
-        UIManager.ToggleUI("PlayerStats", true) end, false)
+        UIManager.ToggleUI("PlayerStats", true) end)
 
     giveFlower:FireServer(id, nearOwner, nearPlacedId)
 

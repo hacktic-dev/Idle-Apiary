@@ -15,6 +15,10 @@
        <hr:UILabel name="_honeyRateLabel" class="bee-label" text="Honey rate:" />
        <hr:UILabel name="_sellPriceLabel" class="bee-label" text="Sell price:" />
    </VisualElement>
+
+   <hr:UIButton name="close" class="close-button">
+    <Label text = "X"/>
+   </hr:UIButton>
 </hr:UILuaView>
   
 

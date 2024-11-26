@@ -440,7 +440,7 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
         end
 
         -- Check bee capacity
-        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == 12) then
+        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
             audioManager.PlaySound("failSound", .75)
