@@ -47,6 +47,9 @@ giveShearsRequest = Event.new("GiveShearsRequest")
 givePlayerHatRequest = Event.new("GivePlayerHatRequest")
 requestRemoveBeeHat = Event.new("requestRemoveBeeHat")
 
+requestApiaryLocation = Event.new("requestApiaryLocation")
+notifyApiaryLocation = Event.new("notifyApiaryLocation")
+
 requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
 
@@ -854,6 +857,11 @@ function self:ServerAwake()
     requestRemoveBeeHat:Connect(function(player, beeId)
         SetBeeHat(player, beeId, nil)
     end)
+
+    requestApiaryLocation:Connect(function(player)
+        notifyApiaryLocation:FireClient(player, ApiaryManager.GetPlayerApiaryLocation(player))
+    end
+    )
 
     Timer.new(10, function() 
     for player, data in pairs(players) do

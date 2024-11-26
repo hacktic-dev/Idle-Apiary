@@ -76,6 +76,10 @@ local target = Vector3.zero                      -- the point the camera is look
 
 local localCharacterInstantiatedEvent = nil
 
+local isFocusing = false -- Flag to enable or disable focusing in Update
+local focusTarget = ""
+local apiaryPosition = nil
+
 function self:Start()
     if centerOnCharacterWhenSpawned and client.localPlayer then
         localCharacterInstantiatedEvent = client.localPlayer.CharacterChanged:Connect(function(player, character)
@@ -155,6 +159,8 @@ Input.PinchOrDragBegan:Connect(function(evt)
         return
     end
 
+    isFocusing = false
+     
     cameraMoveState = CameraMoveStateEnum.ManualControl
 
     ResetPinchDrag()
@@ -166,6 +172,8 @@ Input.PinchOrDragChanged:Connect(function(evt)
     if not self:IsActive() then
         return
     end
+
+    isFocusing = false
 
     cameraMoveState = CameraMoveStateEnum.ManualControl
 
@@ -436,15 +444,13 @@ function CenterOnCharacterWithSpringiness(character, speed)
     CenterOn(updatedTarget)
 end
 
-local isFocusing = false -- Flag to enable or disable focusing in Update
-
 function self:Update()
     if not self:IsActive() then
         return
     end
 
     if isFocusing then
-        SmoothFocusOnPlayerInUpdate(0.1)
+        SmoothFocusInUpdate(0.1)
         return
     end
 
@@ -477,7 +483,7 @@ function self:Update()
     UpdatePosition()
 end
 
-function SmoothFocusOnPlayerInUpdate(smoothness)
+function SmoothFocusInUpdate(smoothness)
     if not client.localPlayer or not client.localPlayer.character then
         return
     end
@@ -485,13 +491,23 @@ function SmoothFocusOnPlayerInUpdate(smoothness)
     -- Ensure smoothness is within a valid range
     smoothness = Mathf.Clamp(smoothness or 0.1, 0.01, 1.0)
 
-    local playerPosition = client.localPlayer.character.gameObject.transform.position
+    local targetPosition
+    
+    if focusTarget == "Player" then
+        targetPosition = client.localPlayer.character.gameObject.transform.position
+    elseif focusTarget == "Apiary" then
+        targetPosition = apiaryPosition
+    else
+        print("No target!")
+        isFocusing = false
+        return
+    end
 
     -- Calculate the distance to determine when to stop focusing
-    local distanceToPlayer = Vector3.Distance(target, playerPosition)
+    local distanceToPlayer = Vector3.Distance(target, targetPosition)
 
     -- Interpolate the target position for smooth focusing
-    local newTarget = Vector3.Lerp(target, playerPosition, smoothness)
+    local newTarget = Vector3.Lerp(target, targetPosition, smoothness)
 
     -- Update the target and zoom appropriately
     CenterOn(newTarget, zoom)
@@ -500,11 +516,20 @@ function SmoothFocusOnPlayerInUpdate(smoothness)
     UpdatePosition()
 
     -- Check if the camera is centered and stop focusing if true
-    if distanceToPlayer < 0.25 then
+    if distanceToPlayer < 0.1 then
         isFocusing = false
     end
 end
 
 function FocusOnPlayer()
     isFocusing = true
+    focusTarget = "Player"
+end
+
+function FocusOnApiary(position)
+    isFocusing = true
+    focusTarget = "Apiary"
+    
+    apiaryPosition = position
+    print("position: " .. tostring(apiaryPosition))
 end
