@@ -23,7 +23,7 @@ local apiaryManager = require("ApiaryManager")
 giveFlower = Event.new("giveFlowerEvent")
 
 function self:ClientAwake()
-    Timer.new(18, function() TrySpawnFlower() end, true)
+    Timer.new(28, function() TrySpawnFlower() end, true)
 end
 
 local MIN_SPAWN_DISTANCE = 45 
