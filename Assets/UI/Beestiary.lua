@@ -31,8 +31,8 @@ local playerManager = require("PlayerManager")
 beeNames = {
     "Common Bee", "Stone Bee", "Forest Bee", "Aquatic Bee", "Giant Bee", "Silver Bee",
     "Muddy Bee", "Frigid Bee", "Steel Bee", "Magma Bee", "Ghostly Bee", "Iridescent Bee",
-    "Sandy Bee", "Autumnal Bee", "Petal Bee", "Galactic Bee", "Industrial Bee", "Radiant Bee",
-    "Pearlescent Bee", "Hypnotic Bee", "Radiant Bee", "Shadow Bee", "Prismatic Bee", "Astral Bee", "Rainbow Bee"
+    "Sandy Bee", "Autumnal Bee", "Petal Bee", "Galactic Bee", "Industrial Bee", "Pearlescent Bee",
+    "Hypnotic Bee", "Radiant Bee", "Shadow Bee", "Prismatic Bee", "Astral Bee", "Rainbow Bee"
 }
 
 function Populate(seenBees)
