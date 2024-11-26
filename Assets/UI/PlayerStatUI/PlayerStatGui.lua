@@ -21,7 +21,13 @@ local _openShopButton : UIButton = nil
 local _viewTutorialButton : UIButton = nil
 
 --!Bind
+local _toggleBadgesButton : UIButton = nil
+
+--!Bind
 local _hamburgerButton : UIButton = nil
+
+--!Bind
+local _settingsButton : UIButton = nil
 
 --!SerializeField
 local BeeListObject : GameObject = nil
@@ -35,6 +41,8 @@ local playerManager = require("PlayerManager")
 local UIManager = require("UIManager")
 
 local useHamburger = false
+
+showBadges = true
 
 -- Function to set the cash count on the UI
 function SetCashUI(cash)
@@ -69,6 +77,14 @@ _hamburgerButton:RegisterPressCallback(function()
     OpenMenu()
 end, true, true, true)
 
+_settingsButton:RegisterPressCallback(function()
+    OpenSettings()
+end, true, true, true)
+
+_toggleBadgesButton:RegisterPressCallback(function()
+    playerManager.ToggleShowBadges()
+end, true, true, true)
+
 
 -- Initialize the UI with default values for role, cash, and XP
 SetCashUI(100)
@@ -87,6 +103,7 @@ function self:ClientAwake()
     end
 
     ShowMenu()
+    CloseSettings()
 
  playerManager.receiveBeeList:Connect(function(bees)
     BeeListObject:GetComponent(BeeListMenu).PopulateBeeList(bees)
@@ -104,8 +121,20 @@ function self:ClientAwake()
     end)
 end
 
-function OpenMenu()
+function OpenSettings()
     _viewTutorialButton:EnableInClassList("hide", false)
+    _toggleBadgesButton:EnableInClassList("hide", false)
+    _settingsButton:EnableInClassList("hide", true)
+end
+
+function CloseSettings()
+    _viewTutorialButton:EnableInClassList("hide", true)
+    _toggleBadgesButton:EnableInClassList("hide", true)
+    _settingsButton:EnableInClassList("hide", false)
+end
+
+
+function OpenMenu()
     _openShopButton:EnableInClassList("hide", false)
     _beestiaryButton:EnableInClassList("hide", false)
     _viewBeesButton:EnableInClassList("hide", false)
@@ -113,7 +142,6 @@ function OpenMenu()
 end
 
 function ShowMenu()
-    _viewTutorialButton:EnableInClassList("hide", useHamburger)
     _openShopButton:EnableInClassList("hide", useHamburger)
     _beestiaryButton:EnableInClassList("hide", useHamburger)
     _viewBeesButton:EnableInClassList("hide", useHamburger)
@@ -126,6 +154,8 @@ function ShowButtons()
     _beestiaryButton.visible = true
     _viewBeesButton.visible = true
     _hamburgerButton.visible = true
+    _settingsButton.visible = true
+    _toggleBadgesButton.visible = true
 end
 
 function HideButtons(boolean : isVisible)
@@ -134,4 +164,6 @@ function HideButtons(boolean : isVisible)
     _beestiaryButton.visible = false
     _viewBeesButton.visible = false
     _hamburgerButton.visible = false
+    _settingsButton.visible = false
+    _toggleBadgesButton.visible = false
 end

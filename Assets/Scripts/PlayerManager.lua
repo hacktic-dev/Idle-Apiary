@@ -892,3 +892,21 @@ end
 function GiveHat(Id)
     givePlayerHatRequest:FireServer(Id)
 end
+
+showBadges = true
+
+function ShouldShowBadges()
+    return showBadges
+end
+
+showBadgesChanged = Event.new("showBadgesChanged")
+
+function ToggleShowBadges()
+    if showBadges then
+        showBadges = false
+    else
+        showBadges = true
+    end
+
+    showBadgesChanged:Fire(showBadges)
+end

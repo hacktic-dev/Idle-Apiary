@@ -3,10 +3,9 @@
   top: 0;
   left: 0;
   flex-direction: column;
-  width: 165px;
+  width: 100%;
   height: 12%;
   min-height: 50px;
-  max-width: 26%;
 }
 
 .container {
@@ -21,7 +20,7 @@
   max-height: 20%;
   min-width: 120px;
   max-width: 300px;
-  width: 20%;
+  width: 8%;
   height: 8%;
   min-height: 40px;
 }
@@ -73,31 +72,46 @@
 }
 
 .regularButton {
+  padding: 0px;
+  padding-left: 14px;
   max-height: 20%;
   min-width: 120px;
   max-width: 300px;
-  width: 20%;
+  width: 8%;
   height: 8%;
   min-height: 40px;
+    margin-right: 10px;
   margin-left: 10px;
-  margin-right: -10px;
   margin-bottom: 10px;
   background-color: rgba(0,0,0,.5);
   -unity-text-align: middle-center;
 }
 
-.hamburgerButton {
-  width: 64px;
-  height: 64px;
+.hamburgerButton, .settingsButton {
+  width: 55px;
+  height: 55px;
   margin-left: 10px;
   margin-bottom: 10px;
   background-color: rgba(0,0,0,.5);
   -unity-text-align: middle-center;
+}
+
+.settingsButton
+{
+  margin-right: 10px;
+}
+
+.left-container
+{
+  position: absolute;
+  right: 0px;
+  top: 2%;
+  flex-direction: column;
 }
 
 .hamburger {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 }
 
 
@@ -111,6 +125,10 @@
 
 .player #hamburgerIcon{
    background-image: url("project://database/Assets/Icons/burger-bar.png");
+}
+
+.player #settingsIcon{
+   background-image: url("project://database/Assets/Icons/settings.png");
 }
 
 .player-stat-gui #cashCount{

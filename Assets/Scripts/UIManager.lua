@@ -277,4 +277,5 @@ function ShowMenu()
     ToggleUI("PlayerStats", true)
     ToggleUI("CenterPlayerButton", true)
     StatsObject:GetComponent("PlayerStatGui").ShowMenu()
+    StatsObject:GetComponent("PlayerStatGui").CloseSettings()
 end

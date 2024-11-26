@@ -4,10 +4,22 @@
 -- Binding the UILabel for displaying the first title
 local titleLabel1 : UILabel = nil
 
+local labelText
+
+local playerManager = require("PlayerManager")
 
 -- Function called when the script starts
 function self:Start()
     --titleLabel1:SetPrelocalizedText("Hello")
+
+    playerManager.showBadgesChanged:Connect(function(show)
+        
+        if show then
+            titleLabel1:SetPrelocalizedText(labelText)
+        else
+            titleLabel1:SetPrelocalizedText("")
+        end
+    end)
 end
 
 function SetLabel(player, count)
@@ -37,5 +49,11 @@ function SetLabel(player, count)
         titleLabel1:AddToClassList("legendary")
     end
 
-    titleLabel1:SetPrelocalizedText(player .. "\n" .. badge)
+    labelText = player .. "\n" .. badge
+
+    if playerManager.ShouldShowBadges() then
+        titleLabel1:SetPrelocalizedText(labelText)
+    else
+        titleLabel1:SetPrelocalizedText("")
+    end
 end
