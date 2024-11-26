@@ -105,7 +105,7 @@
 {
   position: absolute;
   right: 0px;
-  top: 2%;
+  top: 12%;
   flex-direction: column;
 }
 
