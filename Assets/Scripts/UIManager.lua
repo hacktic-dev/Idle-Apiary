@@ -244,7 +244,7 @@ wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("CenterPlayerButton", false)
     InfoCardObject:GetComponent(InfoCard).ShowCaughtWild(species)
     audioManager.PlaySound("captureSound", 1)
-    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) end)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) ToggleUI("CenterPlayerButton", true) end)
 end))
 
 playerManager.notifyBeePurchased:Connect((function(species)
