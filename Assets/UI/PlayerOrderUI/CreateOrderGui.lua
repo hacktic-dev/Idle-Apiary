@@ -519,7 +519,7 @@ function Buy(isGold, Id, Cash)
     end
 
     -- Check bee capacity
-    if((Id == "Bronze" or Id == "Silver" or Id == "Gold" or Id == "Platinum") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
+    if((Id == "Bronze" or Id == "Silver" or Id == "Gold" or Id == "Platinum") and playerManager.clientBeeCount >= playerManager.GetPlayerBeeCapacity()) then
         UIManager.ToggleUI("PlaceStatus", true)
         statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
         audioManager.PlaySound("failSound", .75)
