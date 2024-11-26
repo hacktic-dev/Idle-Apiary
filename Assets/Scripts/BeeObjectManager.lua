@@ -39,6 +39,20 @@ local RadiantBee : GameObject = nil
 --!SerializeField
 local RainbowBee : GameObject = nil
 
+-- new
+--!SerializeField
+local IndustrialBee : GameObject = nil
+--!SerializeField
+local HypnoticBee : GameObject = nil
+--!SerializeField
+local PearlescentBee : GameObject = nil
+--!SerializeField
+local AstralBee : GameObject = nil
+--!SerializeField
+local PrismaticBee : GameObject = nil
+--!SerializeField
+local ShadowBee : GameObject = nil
+
 -- Server-side table to track which bees belong to which player
 local playerBees = {}
 
@@ -177,6 +191,18 @@ function self:ClientAwake()
             Bee = RadiantBee
         elseif species == "Rainbow Bee" then
             Bee = RainbowBee
+        elseif species == "Astral Bee" then
+            Bee = AstralBee
+        elseif species == "Industrial Bee" then
+            Bee = IndustrialBee
+        elseif species == "Pearlescent Bee" then
+            Bee = PearlescentBee
+        elseif species == "Prismatic Bee" then
+            Bee = PrismaticBee
+        elseif species == "Shadow Bee" then
+            Bee = ShadowBee
+        elseif species == "Hypnotic Bee" then
+            Bee = HypnoticBee
         end
         
 

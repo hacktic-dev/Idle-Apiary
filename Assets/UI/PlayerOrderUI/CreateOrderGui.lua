@@ -62,6 +62,8 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
         netPrice = 300
     elseif sweetScentLevel == 2 then
         netPrice = 500
+    elseif sweetScentLevel == 3 then
+        netPrice = 800
     end
 
     CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false)
@@ -70,7 +72,7 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
         CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false)
     end
 
-    if sweetScentLevel < 2 then
+    if sweetScentLevel < 3 then
         CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1, "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false, "Rarer bees spawn more frequently")
     end
 
@@ -88,6 +90,7 @@ local function InitBeesTab()
     CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set")
     CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set")
     CreateQuestItem("Purchase a Random Bee", "Gold", 1250, false, "Gold Set")
+    CreateQuestItem("Purchase a Random Bee", "Platinum", 5000, false, "Platinum Set")
 end
 
 local function InitHoneyTab()
@@ -213,6 +216,8 @@ function LookupSweetScentLevelPrice(level)
         return 500
     elseif level == 2 then
         return 2000
+    elseif level == 3 then
+        return 8000
     end
 end
 
@@ -278,7 +283,15 @@ end
             {name = "Autumnal Bee", chance = 19},-- 5 * 5
             {name = "Petal Bee", chance = 19},   -- 5 * 5
             {name = "Galactic Bee", chance = 15},-- 2 * 5
-            {name = "Radiant Bee", chance = 15}, -- 2 * 5
+            {name = "Industrial Bee", chance = 15}, -- 2 * 5
+            {name = "Pearlescent Bee", chance = 13}   -- 1 * 5
+        },
+        Platinum = {
+            {name = "Hypnotic Bee", chance = 19},   -- 5 * 5
+            {name = "Radiant Bee", chance = 19},-- 5 * 5
+            {name = "Shadow Bee", chance = 19},   -- 5 * 5
+            {name = "Prismatic Bee", chance = 15},-- 2 * 5
+            {name = "Astral Bee", chance = 15}, -- 2 * 5
             {name = "Rainbow Bee", chance = 13}   -- 1 * 5
         }
     }
@@ -440,7 +453,7 @@ function CreateQuestItem(Name, Id, Cash, isGold, description)
         end
 
         -- Check bee capacity
-        if((Id == "Bronze" or Id == "Silver" or Id == "Gold") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
+        if((Id == "Bronze" or Id == "Silver" or Id == "Gold" or Id == "Platinum") and playerManager.clientBeeCount == playerManager.GetPlayerBeeCapacity()) then
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have the maximum number of bees.")
             audioManager.PlaySound("failSound", .75)

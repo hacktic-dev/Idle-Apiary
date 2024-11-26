@@ -24,7 +24,13 @@ BeeImage = {
     ["Galactic Bee"] = beeTextures[16],
     ["Radiant Bee"] = beeTextures[17],
     ["Rainbow Bee"] = beeTextures[18],
-    ["Locked"] = beeTextures[19]
+    ["Astral Bee"] = beeTextures[19],
+    ["Industrial Bee"] = beeTextures[20],
+    ["Pearlescent Bee"] = beeTextures[21],
+    ["Prismatic Bee"] = beeTextures[22],
+    ["Shadow Bee"] = beeTextures[23],
+    ["Hypnotic Bee"] = beeTextures[24],
+    ["Locked"] = beeTextures[25]
 }
 
 HatImage = {

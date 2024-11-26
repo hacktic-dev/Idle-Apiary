@@ -15486,7 +15486,7 @@ MonoBehaviour:
     type: 3}
   m_SandyBee: {fileID: 5446098579520547776, guid: 7a15360968f96444e98776e16cf0bacd,
     type: 3}
-  m_AutumnalBee: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
+  m_AutumnalBee: {fileID: 65323149645078221, guid: 78cb5a4945d0e2d4696f43804f7d4dc6,
     type: 3}
   m_PetalBee: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
     type: 3}
@@ -15495,6 +15495,18 @@ MonoBehaviour:
   m_RadiantBee: {fileID: 5446098579520547776, guid: 6488bbea9a747954c8f8213d0d5ac0df,
     type: 3}
   m_RainbowBee: {fileID: 5446098579520547776, guid: b5baf652b528cd34ab3197a2c93ec489,
+    type: 3}
+  m_IndustrialBee: {fileID: 8578807772942244946, guid: 43a77a0b577011844ab4fb490d067fe1,
+    type: 3}
+  m_HypnoticBee: {fileID: 6467988378495938013, guid: 1942ee3c61a332847bc54eb2376a25c1,
+    type: 3}
+  m_PearlescentBee: {fileID: 5638062921684722017, guid: ee42a358aea07ec40b937b9c60db6e12,
+    type: 3}
+  m_AstralBee: {fileID: 4864691403604932850, guid: 6f0911f9f6a335444990f768cedf324e,
+    type: 3}
+  m_PrismaticBee: {fileID: 5638062921684722017, guid: 62ab88a9fb247dd42844a6aaf5c7ddf2,
+    type: 3}
+  m_ShadowBee: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
     type: 3}
   references:
     version: 2
@@ -15570,13 +15582,25 @@ MonoBehaviour:
     type: 3}
   m_SandyBeePrefab: {fileID: 5446098579520547776, guid: 7a15360968f96444e98776e16cf0bacd,
     type: 3}
-  m_AutumnalBeePrefab: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
+  m_AutumnalBeePrefab: {fileID: 65323149645078221, guid: 78cb5a4945d0e2d4696f43804f7d4dc6,
     type: 3}
   m_PetalBeePrefab: {fileID: 5446098579520547776, guid: 1fb67326bc78aac418a38bb9fcce5b2e,
     type: 3}
   m_GalacticBeePrefab: {fileID: 5446098579520547776, guid: a50dce02d250c03418f4b1c8ebb62bb9,
     type: 3}
+  m_IndustrialBeePrefab: {fileID: 8578807772942244946, guid: 43a77a0b577011844ab4fb490d067fe1,
+    type: 3}
+  m_PearlescentBeePrefab: {fileID: 5638062921684722017, guid: ee42a358aea07ec40b937b9c60db6e12,
+    type: 3}
+  m_HypnoticBeePrefab: {fileID: 6467988378495938013, guid: 1942ee3c61a332847bc54eb2376a25c1,
+    type: 3}
   m_RadiantBeePrefab: {fileID: 5446098579520547776, guid: 6488bbea9a747954c8f8213d0d5ac0df,
+    type: 3}
+  m_ShadowBeePrefab: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
+    type: 3}
+  m_PrismaticBeePrefab: {fileID: 5638062921684722017, guid: 62ab88a9fb247dd42844a6aaf5c7ddf2,
+    type: 3}
+  m_AstralBeePrefab: {fileID: 4864691403604932850, guid: 6f0911f9f6a335444990f768cedf324e,
     type: 3}
   m_RainbowBeePrefab: {fileID: 5446098579520547776, guid: b5baf652b528cd34ab3197a2c93ec489,
     type: 3}
@@ -34036,6 +34060,12 @@ MonoBehaviour:
   - {fileID: 2800000, guid: d2134c6f9ff59e0438fd157ebe58dc81, type: 3}
   - {fileID: 2800000, guid: 6cf8ab86ac282c241b8bc53549ba3136, type: 3}
   - {fileID: 2800000, guid: a9a9760898345c244b0ca7881e311d31, type: 3}
+  - {fileID: 2800000, guid: 5a4ae182ad6c1a5499876317b6f131bc, type: 3}
+  - {fileID: 2800000, guid: 7b56b93e89bd32749bc320093444ca89, type: 3}
+  - {fileID: 2800000, guid: 93546aff9971eb043bed0def81363d09, type: 3}
+  - {fileID: 2800000, guid: 619d34a0fa0554648a7f04e980cf6310, type: 3}
+  - {fileID: 2800000, guid: f583453fb762e6e48a41eaebbe7023df, type: 3}
+  - {fileID: 2800000, guid: f88a414772a0c2546a6123d15f8d0a1f, type: 3}
   - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
   m_hatTextures:
   - {fileID: 2800000, guid: 2834b47a57a739d4baeb32f22d4c766f, type: 3}

@@ -37,36 +37,56 @@ local PetalBeePrefab : GameObject = nil
 --!SerializeField
 local GalacticBeePrefab : GameObject = nil
 --!SerializeField
+local IndustrialBeePrefab : GameObject = nil
+--!SerializeField
+local PearlescentBeePrefab : GameObject = nil
+--!SerializeField
+local HypnoticBeePrefab : GameObject = nil
+--!SerializeField
 local RadiantBeePrefab : GameObject = nil
+--!SerializeField
+local ShadowBeePrefab : GameObject = nil
+--!SerializeField
+local PrismaticBeePrefab : GameObject = nil
+--!SerializeField
+local AstralBeePrefab : GameObject = nil
 --!SerializeField
 local RainbowBeePrefab : GameObject = nil
 
--- Bee spawning parameters
 local beeSpecies = {
     -- Bronze Set
-    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 175, spawnFactor_2 = 100 },
-    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88   },
-    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88   },
-    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor_0 = 70, spawnFactor_1 = 60, spawnFactor_2 = 35   },
-    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30   },
-    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor_0 = 30, spawnFactor_1 = 30, spawnFactor_2 = 20   },
+    { prefab = CommonBeePrefab, name = "Common Bee", spawnFactor_0 = 300, spawnFactor_1 = 175, spawnFactor_2 = 100, spawnFactor_3 = 60 },
+    { prefab = StoneBeePrefab, name = "Stone Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88, spawnFactor_3 = 55 },
+    { prefab = ForestBeePrefab, name = "Forest Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88, spawnFactor_3 = 55 },
+    { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor_0 = 70, spawnFactor_1 = 60, spawnFactor_2 = 35, spawnFactor_3 = 25 },
+    { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30, spawnFactor_3 = 20 },
+    { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor_0 = 30, spawnFactor_1 = 30, spawnFactor_2 = 20, spawnFactor_3 = 15 },
 
     -- Silver Set
-    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor_0 = 40, spawnFactor_1 = 55, spawnFactor_2 = 70   },
-    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65   },
-    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65   },
-    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor_0 = 15, spawnFactor_1 = 30, spawnFactor_2 = 55   },
-    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor_0 = 13, spawnFactor_1 = 30, spawnFactor_2 = 40   },
-    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor_0 = 7, spawnFactor_1 = 15, spawnFactor_2 = 30   },
+    { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor_0 = 40, spawnFactor_1 = 55, spawnFactor_2 = 70, spawnFactor_3 = 90 },
+    { prefab = FrigidBeePrefab, name = "Frigid Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65, spawnFactor_3 = 85 },
+    { prefab = SteelBeePrefab, name = "Steel Bee", spawnFactor_0 = 38, spawnFactor_1 = 50, spawnFactor_2 = 65, spawnFactor_3 = 85 },
+    { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor_0 = 15, spawnFactor_1 = 30, spawnFactor_2 = 55, spawnFactor_3 = 70 },
+    { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor_0 = 13, spawnFactor_1 = 30, spawnFactor_2 = 40, spawnFactor_3 = 60 },
+    { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor_0 = 7, spawnFactor_1 = 15, spawnFactor_2 = 30, spawnFactor_3 = 45 },
 
     -- Gold Set
-    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor_0 = 12, spawnFactor_1 = 20, spawnFactor_2 = 38   },
-    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor_0 = 9, spawnFactor_1 = 18, spawnFactor_2 = 38   },
-    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor_0 = 9, spawnFactor_1 = 15, spawnFactor_2 = 33   },
-    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor_0 = 6, spawnFactor_1 = 12, spawnFactor_2 = 22   },
-    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 18   },
-    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 2, spawnFactor_1 = 4, spawnFactor_2 = 11   }
+    { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor_0 = 12, spawnFactor_1 = 20, spawnFactor_2 = 38, spawnFactor_3 = 55 },
+    { prefab = AutumnalBeePrefab, name = "Autumnal Bee", spawnFactor_0 = 9, spawnFactor_1 = 18, spawnFactor_2 = 38, spawnFactor_3 = 50 },
+    { prefab = PetalBeePrefab, name = "Petal Bee", spawnFactor_0 = 9, spawnFactor_1 = 15, spawnFactor_2 = 33, spawnFactor_3 = 45 },
+    { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor_0 = 6, spawnFactor_1 = 12, spawnFactor_2 = 22, spawnFactor_3 = 33 },
+    { prefab = IndustrialBeePrefab, name = "Industrial Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 18, spawnFactor_3 = 30 },
+    { prefab = PearlescentBeePrefab, name = "Pearlescent Bee", spawnFactor_0 = 2, spawnFactor_1 = 4, spawnFactor_2 = 11, spawnFactor_3 = 20 },
+
+    -- Platinum Set
+    { prefab = HypnoticBeePrefab, name = "Hypnotic Bee", spawnFactor_0 = 0, spawnFactor_1 = 6, spawnFactor_2 = 18, spawnFactor_3 = 30 },
+    { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor_0 = 0, spawnFactor_1 = 6, spawnFactor_2 = 16, spawnFactor_3 = 30 },
+    { prefab = ShadowBeePrefab, name = "Shadow Bee", spawnFactor_0 = 0, spawnFactor_1 = 6, spawnFactor_2 = 16, spawnFactor_3 = 28 },
+    { prefab = PrismaticBeePrefab, name = "Prismatic Bee", spawnFactor_0 = 0, spawnFactor_1 = 4, spawnFactor_2 = 10, spawnFactor_3 = 20 },
+    { prefab = AstralBeePrefab, name = "Astral Bee", spawnFactor_0 = 0, spawnFactor_1 = 4, spawnFactor_2 = 8, spawnFactor_3 = 18 },
+    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 0, spawnFactor_1 = 2, spawnFactor_2 = 5, spawnFactor_3 = 11 }
 }
+
 
 
 -- Define bee species data with additional properties: honey generation rate, sell price, and time to grow up
@@ -92,8 +112,16 @@ beeData = {
     ["Autumnal Bee"] = { honeyRate = 28, sellPrice = 400, growTime = 40, rarity = "Rare", set = "Gold Set" },
     ["Petal Bee"] = { honeyRate = 28, sellPrice = 500, growTime = 40, rarity = "Rare", set = "Gold Set" },
     ["Galactic Bee"] = { honeyRate = 34, sellPrice = 800, growTime = 80, rarity = "Epic", set = "Gold Set" },
-    ["Radiant Bee"] = { honeyRate = 38, sellPrice = 1000, growTime = 80, rarity = "Epic", set = "Gold Set" },
-    ["Rainbow Bee"] = { honeyRate = 50, sellPrice = 1500, growTime = 200, rarity = "Legendary", set = "Gold Set" }
+    ["Industrial Bee"] = { honeyRate = 38, sellPrice = 1000, growTime = 80, rarity = "Epic", set = "Gold Set" },
+    ["Pearlescent Bee"] = { honeyRate = 50, sellPrice = 1500, growTime = 200, rarity = "Legendary", set = "Gold Set" },
+
+    -- Platinum Set - 5000 Honey to Purchase
+    ["Hypnotic Bee"] = { honeyRate = 44, sellPrice = 2500, growTime = 40, rarity = "Epic", set = "Platinum Set" },
+    ["Radiant Bee"] = { honeyRate = 46, sellPrice = 2800, growTime = 40, rarity = "Epic", set = "Platinum Set" },
+    ["Shadow Bee"] = { honeyRate = 48, sellPrice = 3200, growTime = 40, rarity = "Epic", set = "Platinum Set" },
+    ["Prismatic Bee"] = { honeyRate = 56, sellPrice = 4000, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
+    ["Astral Bee"] = { honeyRate = 60, sellPrice = 4500, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
+    ["Rainbow Bee"] = { honeyRate = 80, sellPrice = 6000, growTime = 200, rarity = "Mythical", set = "Platinum Set" }
 }
 
 
@@ -179,6 +207,8 @@ local function getTotalSpawnFactor()
             factor = species.spawnFactor_1
         elseif level == 2 then
             factor = species.spawnFactor_2
+        elseif level == 3 then
+            factor = species.spawnFactor_3
         end
 
         totalFactor = totalFactor + factor
@@ -202,6 +232,8 @@ local function chooseBeeSpecies()
             factor = species.spawnFactor_1
         elseif level == 2 then
             factor = species.spawnFactor_2
+        elseif level == 3 then
+            factor = species.spawnFactor_3
         end
 
         cumulativeFactor = cumulativeFactor + factor

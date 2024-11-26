@@ -43,6 +43,12 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_GalacticBee = default;
         [SerializeField] public UnityEngine.GameObject m_RadiantBee = default;
         [SerializeField] public UnityEngine.GameObject m_RainbowBee = default;
+        [SerializeField] public UnityEngine.GameObject m_IndustrialBee = default;
+        [SerializeField] public UnityEngine.GameObject m_HypnoticBee = default;
+        [SerializeField] public UnityEngine.GameObject m_PearlescentBee = default;
+        [SerializeField] public UnityEngine.GameObject m_AstralBee = default;
+        [SerializeField] public UnityEngine.GameObject m_PrismaticBee = default;
+        [SerializeField] public UnityEngine.GameObject m_ShadowBee = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -69,6 +75,12 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(15), m_GalacticBee),
                 CreateSerializedProperty(_script.GetPropertyAt(16), m_RadiantBee),
                 CreateSerializedProperty(_script.GetPropertyAt(17), m_RainbowBee),
+                CreateSerializedProperty(_script.GetPropertyAt(18), m_IndustrialBee),
+                CreateSerializedProperty(_script.GetPropertyAt(19), m_HypnoticBee),
+                CreateSerializedProperty(_script.GetPropertyAt(20), m_PearlescentBee),
+                CreateSerializedProperty(_script.GetPropertyAt(21), m_AstralBee),
+                CreateSerializedProperty(_script.GetPropertyAt(22), m_PrismaticBee),
+                CreateSerializedProperty(_script.GetPropertyAt(23), m_ShadowBee),
             };
         }
     }

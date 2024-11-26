@@ -150,7 +150,7 @@ function SpawnAllApiariesForPlayer(player)
         for _, apiaryData in ipairs(apiaryList) do
             playerManager.GetSeenBeeSpeciesList(owner, function(bees)
 
-                if #bees == 18 then
+                if #bees == 24 then
                     addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, true, "c")
                 else
                     addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, false, "d")
@@ -176,7 +176,7 @@ function SpawnApiary(player, location)
 
     playerManager.GetSeenBeeSpeciesList(player, function(bees)
         -- Send the retrieved bee list back to the client
-        if #bees == 18 then
+        if #bees == 24 then
             addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), true, "a")
         else
             addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), false, "b")

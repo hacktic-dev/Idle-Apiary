@@ -71,6 +71,8 @@ function MapRarity(rarity)
         return 3
     elseif rarity == "Legendary" then
         return 4
+    elseif rarity == "Mythical" then
+        return 5
     end
 end
     
