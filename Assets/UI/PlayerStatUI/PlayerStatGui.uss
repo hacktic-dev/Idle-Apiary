@@ -17,19 +17,21 @@
   margin-left: 10px;
   background-color: rgba(0,0,0,.5);
   border-radius: 10px;
-  max-height: 20%;
-  min-width: 120px;
-  max-width: 300px;
-  width: 8%;
-  height: 8%;
-  min-height: 40px;
+  width: 120px;
+  height: 40px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.portrait .container{
+  width: 120px;
+  height: 40px;
 }
 
 .icon {
   width: 32px;
   height: 32px;
   margin-right: 10px;
-  margin-top: 10px;
 }
 
 .landscape .number {
@@ -58,8 +60,8 @@
 
 .buttonLabel {
   -unity-text-align: middle-center;
+  width: 100%;
   white-space: normal;
-  padding-top: 10px;
   color: #fff
 }
 
@@ -73,18 +75,18 @@
 
 .regularButton {
   padding: 0px;
-  padding-left: 14px;
-  max-height: 20%;
-  min-width: 120px;
-  max-width: 300px;
-  width: 8%;
-  height: 8%;
-  min-height: 40px;
-    margin-right: 10px;
+  width: 120px;
+  height: 40px;
+  margin-right: 10px;
   margin-left: 10px;
   margin-bottom: 10px;
   background-color: rgba(0,0,0,.5);
   -unity-text-align: middle-center;
+}
+
+.portrait .regularButton{
+  width: 120px;
+  height: 40px;
 }
 
 .hamburgerButton, .settingsButton {
@@ -98,7 +100,7 @@
 
 .settingsButton
 {
-  margin-right: 10px;
+  margin-right: 17px;
 }
 
 .left-container
