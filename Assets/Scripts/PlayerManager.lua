@@ -462,7 +462,7 @@ function TrackPlayers(game, characterCallback)
             end
 
             Storage.GetPlayerValue(player, player.name, function(data, errorCode)
-                if data == nil or data == player.name then
+                if data == nil or data.joins == nil then
                     data = {name = player.name, version = 0, joins = 1} -- remember to increment version for each breaking change
                 else
                     data.joins = data.joins + 1
