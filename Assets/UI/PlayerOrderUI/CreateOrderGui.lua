@@ -83,7 +83,7 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
         netPrice = 300
     elseif sweetScentLevel == 2 then
         netPrice = 500
-    elseif sweetScentLevel == 3 then
+    elseif sweetScentLevel >= 3 then
         netPrice = 800
     end
 
@@ -539,6 +539,11 @@ function Buy(isGold, Id, Cash)
             playerManager.IncrementStat("Nets", 1)
             return
         elseif Id == "BeeCapacity" then
+            
+            if playerManager.GetPlayerBeeCapacity() == 20 then
+                return
+            end
+
             InitUpgradesTab(playerManager.GetPlayerBeeCapacity()+1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
             playerManager.IncrementStat("BeeCapacity", 1)
             return
@@ -547,6 +552,11 @@ function Buy(isGold, Id, Cash)
             playerManager.IncrementStat("FlowerCapacity", 1)
             return
         elseif Id == "SweetScentLevel" then
+
+             if playerManager.GetPlayerSweetScentLevel() == 3 then
+                return
+            end
+
             InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel()+1)
             playerManager.IncrementStat("SweetScentLevel", 1)
             return

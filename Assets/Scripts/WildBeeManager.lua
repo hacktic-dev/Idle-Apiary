@@ -207,7 +207,7 @@ local function getTotalSpawnFactor()
             factor = species.spawnFactor_1
         elseif level == 2 then
             factor = species.spawnFactor_2
-        elseif level == 3 then
+        elseif level >= 3 then
             factor = species.spawnFactor_3
         end
 
