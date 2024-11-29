@@ -125,11 +125,11 @@
     background-image: url("project://database/Assets/Icons/honey.png");
 }
 
-.player #hamburgerIcon{
+.player-stat-gui #hamburgerIcon{
    background-image: url("project://database/Assets/Icons/burger-bar.png");
 }
 
-.player #settingsIcon{
+.player-stat-gui #settingsIcon{
    background-image: url("project://database/Assets/Icons/settings.png");
 }
 

@@ -7,7 +7,9 @@
 
 .portrait .center-player
 {
-    bottom: -.7%;
+    width:10%;
+    flex-direction: column;
+    bottom: 50px;
     justify-content: space-between;
 }
 
@@ -46,6 +48,7 @@
 
 .portrait .button
 {
+    margin-bottom: 6px;
     margin-left: 8px;
 }
 
