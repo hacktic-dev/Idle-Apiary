@@ -56,7 +56,7 @@ function ServerHandlePurchase(purchase, player : Player)
   if productId == "doubler_1" then
     time = 300
     isHoney = true
-  elseif product_id == "doubler_2" then
+  elseif productId == "doubler_2" then
     time = 900
     isHoney = true
   end
