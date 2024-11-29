@@ -3,6 +3,10 @@
 -- Store the initial spawn location
 spawnPosition = nil
 
+--!SerializeField
+local mainCam : GameObject = nil
+
+
 -- Define parameters for wandering behavior
 moveSpeed = 2.0       -- Movement speed of the object
 rotateSpeed = 5.0     -- Rotation speed of the object
@@ -83,7 +87,14 @@ function HasReachedTarget()
 end
 
 -- Function to handle wandering behavior inside Update
-function self:Update()
+function self:Update()       
+    if mainCam == nil then mainCam = GameObject.FindGameObjectWithTag("MainCamera") end
+
+    if Vector3.Distance(self:GetComponent(Transform).position, mainCam:GetComponent(Transform).position) > 125 then
+        return
+    end
+
+
     -- Update the bobbing behavior independently of movement
     UpdateBobbing()
 
