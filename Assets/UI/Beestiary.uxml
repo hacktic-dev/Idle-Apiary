@@ -8,6 +8,9 @@
 >
 
   <hr:UILuaView class="beestiary">
+    <hr:UIButton name="background" class="background">
+      <hr:UILabel name="_rankLabel" class="title" />
+    </hr:UIButton>
     <hr:UIScrollView name="_InventoryContent" class="inventory__content">
       <!-- Inventory Content -->
     </hr:UIScrollView>

@@ -21,6 +21,8 @@ local _sellPriceLabel : UILabel = nil
 local _beeImage : UIImage = nil
 --!Bind
 local _rarity : UILabel = nil
+--!Bind
+local _rankLabel : UILabel = nil
 
 local UIManager = require("UIManager") 
 local Utils = require("Utils")
@@ -98,5 +100,13 @@ function Init()
 
     playerManager.recieveSeenBees:Connect(function(seenBees)
         Populate(seenBees)
+        howManyToNextRank = 8 - (#seenBees % 9)
+        if #seenBees == 24 then
+            _rankLabel:SetPrelocalizedText("You have discovered every bee!")
+        elseif howManyToNextRank == 1 then
+            _rankLabel:SetPrelocalizedText("Discover 1 more bee to reach the next rank!")
+        else
+            _rankLabel:SetPrelocalizedText("Discover " .. howManyToNextRank .. " more bees to reach the next rank!")
+        end
     end)
 end
