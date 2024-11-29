@@ -864,7 +864,7 @@ function self:ServerAwake()
     end
     )
 
-    Timer.new(10, function() 
+    Timer.new(30, function() 
     for player, data in pairs(players) do
         print("saving for player " .. player.name)
         SaveProgress(player, false)
