@@ -344,22 +344,19 @@ function RecalculatePlayerEarnRate(player, isDc)
             
             purpleEffect = 0
 
-            for key, value in pairs(players) do
-                purpleEffect = purpleEffect + 1
+            for player, value in pairs(players) do
+                if player ~= nil then
+                    purpleEffect = purpleEffect + 1
+                end
             end
 
             if isDc ~= nil then
-                print("was dc")
                 purpleEffect = purpleEffect - 1
             end
 
             purpleEffect = purpleEffect * purpleCount * 0.001
-            
-            print("player count: " .. purpleEffect)
 
             totalEffect = 1 + whiteEffect + redEffect + yellowEffect + purpleEffect
-
-            print("Flower effect: " .. totalEffect)
         end
 
         rate = rate * totalEffect
@@ -866,8 +863,10 @@ function self:ServerAwake()
 
     Timer.new(30, function() 
     for player, data in pairs(players) do
-        print("saving for player " .. player.name)
-        SaveProgress(player, false)
+        if player ~= nil then
+            print("saving for player " .. player.name .. ".")
+            SaveProgress(player, false)
+        end
     end
     print("Saved!")
     end, true)

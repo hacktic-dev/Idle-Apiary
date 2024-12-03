@@ -218,7 +218,8 @@ end
 
 function SaveFlowerPositions(player, id) -- server
     if placedFlowers[player] ~= nil then
-        Storage.SetValue(id .. "/" .. "PlacedFlowers", placedFlowers[player], function(errorCode) end)
+        print("Saving flower positions for " .. player.name)
+        Storage.SetValue(id .. "/" .. "PlacedFlowers", placedFlowers[player], function(errorCode) if not errorCode == 0 then print("Flower storage failed!") end end)
     end
 end
 
@@ -230,6 +231,11 @@ function SpawnPlayerFlowersOnAllClients(player, _apiaryPosition)
             placedFlowers[player] = {}
             playerManager.RecalculatePlayerEarnRate(player)
             return
+        end
+
+        -- Remove illegal flowers
+        for i = 11, #placedFlowers do
+            placedFlowers[i] = nil
         end
         
         placedFlowers[player] = storedFlowers
@@ -260,7 +266,12 @@ recieveOwnedFlowers:Connect(function(name, amount)
 
 requestPlaceFlower:Connect(function(player, name, position)
 
-    if#placedFlowers[player] == playerManager.GetPlayerFlowerCapacity(player) then
+    if#placedFlowers[player] >= playerManager.GetPlayerFlowerCapacity(player) then
+        notifyFlowerPlacementFailed:FireClient(player)
+        return
+    end
+
+    if #placedFlowers[player] >= 10 then
         notifyFlowerPlacementFailed:FireClient(player)
         return
     end
