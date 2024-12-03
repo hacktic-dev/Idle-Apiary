@@ -12,10 +12,15 @@ local statusObject : GameObject = nil
 
 --!Bind
 local _CaptureButton : UIButton = nil
+--!Bind
+local _PickFlowerButton : UIButton = nil
+--!Bind
+local _PlaceFlowerButton : UIButton = nil
 
 local wildBeeManager = require("WildBeeManager")
 local audioManager = require("AudioManager")
 local UIManager = require("UIManager")
+local flowerManager = require("FlowerManager")
 
 -- Table to store the current UI state (whether the button is visible)
 local captureUIVisible = true
@@ -28,9 +33,9 @@ local nearBee = nil
 local function placeApiary()
     if not hasPlacedApiary then
         local player = client.localPlayer
-        position = Vector3.new(0,0,0)
+        position = player.character:GetComponent(Transform).position
         -- Call the PlaceApiary function from your ApiaryManager
-        ApiaryManager.apiaryPlacementRequest:FireServer(player, position)
+        ApiaryManager.apiaryPlacementRequest:FireServer(position)
     end
 end
 
@@ -45,11 +50,13 @@ ApiaryManager.notifyApiaryPlacementFailed:Connect(function(reason)
         why = " You are too close to another players apiary."
     end
     statusObject:GetComponent("PlaceApiaryStatus").SetStatus("Apiary cannot not be placed here." .. why)
+    audioManager.PlaySound("failSound", .75)
     Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
 
-ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function()
+ApiaryManager.notifyApiaryPlacementSucceeded:Connect(function(position)
     UIManager.ToggleUI("PlaceStatus", false)
+    ApiaryManager.localApiaryPosition = position 
     _placeApiaryButton.visible = false
     audioManager.PlaySound("placeSound", 1)
 end)
@@ -62,6 +69,7 @@ wildBeeManager.notifyCaptureFailed:Connect(function(reason)
         why = "You already have the maximum number of bees."
     end
     statusObject:GetComponent("PlaceApiaryStatus").SetStatus(why)
+    audioManager.PlaySound("failSound", .75)
     UIManager.ToggleUI("PlaceStatus", true)
     Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
 end)
@@ -71,19 +79,13 @@ _placeApiaryButton:RegisterPressCallback(function()
     placeApiary() -- Call the function to place an apiary
 end, true, true, true)
 
--- Function to show the Capture Button
-local function showCaptureButton()
-    if not captureUIVisible then
-        _CaptureButton.visible = true
-        captureUIVisible = true
-    end
-end
-
--- Function to hide the Capture Button
-local function hideCaptureButton()
-    if captureUIVisible then
-        _CaptureButton.visible = false
-        captureUIVisible = false
+local function toggleUIElement(element, shouldShow)
+    if shouldShow then
+        element:AddToClassList("shown")
+        element:RemoveFromClassList("hidden")
+    else
+        element:AddToClassList("hidden")
+        element:RemoveFromClassList("shown")
     end
 end
 
@@ -99,6 +101,16 @@ _CaptureButton:RegisterPressCallback(function()
     onCaptureButtonPressed(nearBee, species)
 end, true, true, true)
 
+_PickFlowerButton:RegisterPressCallback(function()
+    flowerManager.getFlower()
+end, true, true, true
+)
+
+_PlaceFlowerButton:RegisterPressCallback(function()
+    UIManager.OpenPlaceFlowerMenu()
+end, true, true, true
+)
+
 -- Function to check player's proximity to bees and show the UI accordingly
 local function updateCaptureUI(player)
     local isNearBee = false
@@ -109,7 +121,7 @@ local function updateCaptureUI(player)
             --print(player.name .. " is close to a " .. data.speciesName .. " at position " .. tostring(bee.transform.position))
             nearBee = data.bee
             species = data.speciesName
-            showCaptureButton() -- Show the button if the player is near a bee
+            toggleUIElement(_CaptureButton, true) -- Show the button if the player is near a bee
             isNearBee = true
             break
         end
@@ -117,12 +129,51 @@ local function updateCaptureUI(player)
 
     -- If the player is not near any bees, hide the capture button
     if not isNearBee then
-        hideCaptureButton()
+        toggleUIElement(_CaptureButton, false)
     end
 end
 
 -- Periodically update the Capture UI
 function self:Update()
-    hideCaptureButton()
+    toggleUIElement(_CaptureButton, false)
     updateCaptureUI(client.localPlayer)
+end
+
+function self:ClientAwake()
+    toggleUIElement(_PickFlowerButton, false)
+    toggleUIElement(_PlaceFlowerButton, false)
+
+    Timer.new(0.5, function()
+        if _placeApiaryButton.visible == false then
+            return
+        end
+        position = client.localPlayer.character:GetComponent(Transform).position
+         ApiaryManager.requestIsValidLocation:FireServer(position)
+    end, true)
+
+    ApiaryManager.notifyIsValidLocation:Connect(function(isValid) 
+        if isValid then
+            _placeApiaryButton:AddToClassList("primary-button")
+            _placeApiaryButton:RemoveFromClassList("greyed-out-button")
+        else
+            _placeApiaryButton:RemoveFromClassList("primary-button")
+            _placeApiaryButton:AddToClassList("greyed-out-button")
+        end
+    end)
+
+    flowerManager.flowerAreaEnteredEvent:Connect(function()
+        toggleUIElement(_PickFlowerButton, true)
+    end)
+
+    flowerManager.flowerAreaExitedEvent:Connect(function()
+        toggleUIElement(_PickFlowerButton, false)
+    end)
+
+    flowerManager.apiaryCanPlaceFlower:Connect(function()
+        toggleUIElement(_PlaceFlowerButton, true)
+    end)
+
+    flowerManager.apiaryCannotPlaceFlower:Connect(function()
+        toggleUIElement(_PlaceFlowerButton, false)
+    end)
 end

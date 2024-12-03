@@ -1,0 +1,80 @@
+.tutorial {
+        margin-top: auto;
+    margin-bottom: auto;
+    height: 100%;
+}
+
+.bee-card__container {
+    display: flex;
+
+    min-height: 350px; /* Minimum height */
+    min-width: 350px; /* Minimum width */
+
+    width: 35%;
+
+    max-height: 660px; /* Maximum height */
+    max-width: 1000px; /* Maximum width */
+
+    background-color: rgba(0,0,0,.45);
+    border-radius: 10px;
+    overflow: wrap;
+    color: #FFFFFF;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    justify-content: center;
+}
+
+.label
+{
+    margin: 20px;
+    align-self: center;
+    font-size: 24px
+    color: white;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.image
+{
+    width: 300px;
+    height: 200px;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.image-1
+{
+    background-image: url("project://database/Assets/Textures/shears_tut_1.png");
+}
+
+.image-2
+{
+    background-image: url("project://database/Assets/Textures/shears_tut_2.png");
+}
+
+.image-3
+{
+    background-image: url("project://database/Assets/Textures/shears_tut_3.png");
+}
+
+.title {
+    font-size: 20px;
+    margin: 5px;
+    color: white;
+    align-self: center;
+    justify-content: center;
+}
+
+.close-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    min-width: 150px;
+    width: 20%;
+    align-self: center;
+    margin-bottom: auto;
+}

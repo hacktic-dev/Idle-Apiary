@@ -26,13 +26,17 @@ namespace Highrise.Lua.Generated
         public override string ScriptGUID => s_scriptGUID;
 
         [SerializeField] public UnityEngine.GameObject m_BeeListObject = default;
-        [SerializeField] public UnityEngine.GameObject m_BeeObtainCardObject = default;
+        [SerializeField] public UnityEngine.GameObject m_InfoCardObject = default;
         [SerializeField] public UnityEngine.GameObject m_PlaceApiaryObject = default;
         [SerializeField] public UnityEngine.GameObject m_CreateOrderGuiObject = default;
         [SerializeField] public UnityEngine.GameObject m_BeestiaryObject = default;
         [SerializeField] public UnityEngine.GameObject m_TutorialObject = default;
+        [SerializeField] public UnityEngine.GameObject m_ShearsTutorialObject = default;
         [SerializeField] public UnityEngine.GameObject m_StatsObject = default;
         [SerializeField] public UnityEngine.GameObject m_StatusObject = default;
+        [SerializeField] public UnityEngine.GameObject m_PlaceFlowerMenuObject = default;
+        [SerializeField] public UnityEngine.GameObject m_AddHatMenuObject = default;
+        [SerializeField] public UnityEngine.GameObject m_CenterPlayerButtonObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -42,13 +46,17 @@ namespace Highrise.Lua.Generated
             return new SerializedPropertyValue[]
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), m_BeeListObject),
-                CreateSerializedProperty(_script.GetPropertyAt(1), m_BeeObtainCardObject),
+                CreateSerializedProperty(_script.GetPropertyAt(1), m_InfoCardObject),
                 CreateSerializedProperty(_script.GetPropertyAt(2), m_PlaceApiaryObject),
                 CreateSerializedProperty(_script.GetPropertyAt(3), m_CreateOrderGuiObject),
                 CreateSerializedProperty(_script.GetPropertyAt(4), m_BeestiaryObject),
                 CreateSerializedProperty(_script.GetPropertyAt(5), m_TutorialObject),
-                CreateSerializedProperty(_script.GetPropertyAt(6), m_StatsObject),
-                CreateSerializedProperty(_script.GetPropertyAt(7), m_StatusObject),
+                CreateSerializedProperty(_script.GetPropertyAt(6), m_ShearsTutorialObject),
+                CreateSerializedProperty(_script.GetPropertyAt(7), m_StatsObject),
+                CreateSerializedProperty(_script.GetPropertyAt(8), m_StatusObject),
+                CreateSerializedProperty(_script.GetPropertyAt(9), m_PlaceFlowerMenuObject),
+                CreateSerializedProperty(_script.GetPropertyAt(10), m_AddHatMenuObject),
+                CreateSerializedProperty(_script.GetPropertyAt(11), m_CenterPlayerButtonObject),
             };
         }
     }

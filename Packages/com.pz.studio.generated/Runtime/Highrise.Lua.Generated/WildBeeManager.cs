@@ -41,7 +41,13 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_AutumnalBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_PetalBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_GalacticBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_IndustrialBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_PearlescentBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_HypnoticBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_RadiantBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_ShadowBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_PrismaticBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_AstralBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_RainbowBeePrefab = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
@@ -67,8 +73,14 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(13), m_AutumnalBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(14), m_PetalBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(15), m_GalacticBeePrefab),
-                CreateSerializedProperty(_script.GetPropertyAt(16), m_RadiantBeePrefab),
-                CreateSerializedProperty(_script.GetPropertyAt(17), m_RainbowBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(16), m_IndustrialBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(17), m_PearlescentBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(18), m_HypnoticBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(19), m_RadiantBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(20), m_ShadowBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(21), m_PrismaticBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(22), m_AstralBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(23), m_RainbowBeePrefab),
             };
         }
     }

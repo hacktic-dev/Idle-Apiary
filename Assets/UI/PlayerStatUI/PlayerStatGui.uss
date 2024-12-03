@@ -3,10 +3,9 @@
   top: 0;
   left: 0;
   flex-direction: column;
-  width: 165px;
-  height: 30%;
-  min-height: 300px;
-  max-width: 26%;
+  width: 100%;
+  height: 12%;
+  min-height: 50px;
 }
 
 .container {
@@ -18,12 +17,15 @@
   margin-left: 10px;
   background-color: rgba(0,0,0,.5);
   border-radius: 10px;
-  max-height: 20%;
-  min-width: 120px;
-  max-width: 300px;
-  width: 20%;
-  height: 8%;
-  min-height: 40px;
+  width: 120px;
+  height: 40px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.portrait .container{
+  width: 120px;
+  height: 40px;
 }
 
 .icon {
@@ -42,6 +44,11 @@
     margin-top: 4px;
 }
 
+.hide 
+{
+    display: none;
+}
+
 .number {
   color: #fff;
   -unity-font-style: bold;
@@ -53,6 +60,7 @@
 
 .buttonLabel {
   -unity-text-align: middle-center;
+  width: 100%;
   white-space: normal;
   color: #fff
 }
@@ -65,19 +73,49 @@
     font-size: 14px;
 }
 
-.button {
-  max-height: 20%;
-  min-width: 120px;
-  max-width: 300px;
-  width: 20%;
-  height: 8%;
-  min-height: 40px;
+.regularButton {
+  padding: 0px;
+  width: 120px;
+  height: 40px;
+  margin-right: 10px;
   margin-left: 10px;
-  margin-right: -10px;
   margin-bottom: 10px;
   background-color: rgba(0,0,0,.5);
   -unity-text-align: middle-center;
 }
+
+.portrait .regularButton{
+  width: 120px;
+  height: 40px;
+}
+
+.hamburgerButton, .settingsButton {
+  width: 55px;
+  height: 55px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background-color: rgba(0,0,0,.5);
+  -unity-text-align: middle-center;
+}
+
+.settingsButton
+{
+  margin-right: 17px;
+}
+
+.left-container
+{
+  position: absolute;
+  right: 0px;
+  top: 12%;
+  flex-direction: column;
+}
+
+.hamburger {
+  width: 40px;
+  height: 40px;
+}
+
 
 .button:hover {
     background-color: rgba(0,0,0,.4); /* Slightly transparent on hover */
@@ -85,6 +123,14 @@
 
 .player-stat-gui #cashIcon{
     background-image: url("project://database/Assets/Icons/honey.png");
+}
+
+.player-stat-gui #hamburgerIcon{
+   background-image: url("project://database/Assets/Icons/burger-bar.png");
+}
+
+.player-stat-gui #settingsIcon{
+   background-image: url("project://database/Assets/Icons/settings.png");
 }
 
 .player-stat-gui #cashCount{

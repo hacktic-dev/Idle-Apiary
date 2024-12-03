@@ -4,7 +4,7 @@
 --!SerializeField
 local BeeListObject : GameObject = nil
 --!SerializeField
-local BeeObtainCardObject : GameObject = nil
+local InfoCardObject : GameObject = nil
 --!SerializeField
 local PlaceApiaryObject : GameObject = nil
 --!SerializeField
@@ -14,9 +14,17 @@ local BeestiaryObject : GameObject = nil
 --!SerializeField
 local TutorialObject : GameObject = nil
 --!SerializeField
+local ShearsTutorialObject : GameObject = nil
+--!SerializeField
 local StatsObject : GameObject = nil
 --!SerializeField
 local StatusObject : GameObject = nil
+--!SerializeField
+local PlaceFlowerMenuObject : GameObject = nil
+--!SerializeField
+local AddHatMenuObject : GameObject = nil
+--!SerializeField
+local CenterPlayerButtonObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
@@ -24,13 +32,17 @@ local audioManager = require("AudioManager")
 
 local uiMap = {
     BeeList = BeeListObject,
-    BeeCard = BeeObtainCardObject,
+    BeeCard = InfoCardObject,
     PlaceButtons = PlaceApiaryObject,
     ShopUi = CreateOrderGuiObject,
     Beestiary = BeestiaryObject,
     Tutorial = TutorialObject,
     PlayerStats = StatsObject,
-    PlaceStatus = StatusObject;
+    PlaceStatus = StatusObject,
+    ShearsTutorial = ShearsTutorialObject,
+    PlaceFlowerMenu = PlaceFlowerMenuObject,
+    AddHatMenu = AddHatMenuObject,
+    CenterPlayerButton = CenterPlayerButtonObject
 }
 
   -- Activate the object if it is not active
@@ -90,6 +102,7 @@ function OpenBeeList()
     ToggleUI("ShopUi", false)
     ToggleUI("PlaceButtons", false)
     ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
     BeeListObject:GetComponent(BeeListMenu).Init()
 end
 
@@ -99,7 +112,7 @@ function CloseBeeList()
     end
     ToggleUI("BeeList", false)
     ToggleUI("PlaceButtons", true)
-    ToggleUI("PlayerStats", true)
+    ShowMenu()
 end
 
 function OpenShop()
@@ -108,6 +121,7 @@ function OpenShop()
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", true)
     HideButtons()
+    ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceButtons", false)
     --ToggleUI("PlayerStats", false)
     CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
@@ -120,6 +134,7 @@ function OpenBeestiary()
     ToggleUI("ShopUi", false)
     ToggleUI("PlaceButtons", false)
     ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
     BeestiaryObject:GetComponent(Beestiary).Init()
 end
 
@@ -136,7 +151,7 @@ function CloseBeestiary()
         return
     end
     ToggleUI("Beestiary", false)
-    ToggleUI("PlayerStats", true)
+    ShowMenu()
     ToggleUI("PlaceButtons", true)
 end
 
@@ -145,7 +160,9 @@ function CloseShop()
         return
     end
     ShowButtons()
+    ShowMenu()
     ToggleUI("ShopUi", false)
+    ToggleUI("CenterPlayerButton", true)
     --ToggleUI("PlayerStats", true)
     ToggleUI("PlaceButtons", true)
 end
@@ -154,42 +171,111 @@ function HideTutorial()
     if not IsActive("Tutorial") then
         return
     end
-    ToggleUI("PlayerStats", true)
+    ShowMenu()
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceButtons", true)
 end
 
-function OpenTutorial()
+function OpenTutorial(playerInited)
+    ToggleUI("PlaceFlowerMenu", false)
+    ToggleUI("AddHatMenu", false)
     ToggleUI("BeeList", false)
+    ToggleUI("ShearsTutorial", false)
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", false)
     ToggleUI("Beestiary", false)
     ToggleUI("Tutorial", true)
     ToggleUI("PlaceButtons", false)
     ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceStatus", false)
-    TutorialObject:GetComponent(Tutorial).Init()
+    TutorialObject:GetComponent(Tutorial).Init(playerInited)
+end
+
+function OpenShearsTutorial()
+    ToggleUI("ShopUi", false)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("ShearsTutorial", true)
+    ShearsTutorialObject:GetComponent(ShearsTutorial).Init()
+end
+
+function CloseShearsTutorial()
+    ToggleUI("ShopUi", true)
+    ShowMenu()
+    ToggleUI("ShearsTutorial", false)
+    CreateOrderGuiObject:GetComponent(CreateOrderGui).Init()
+end
+
+function OpenPlaceFlowerMenu()
+    ToggleUI("PlaceFlowerMenu", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+    PlaceFlowerMenuObject:GetComponent(PlaceFlowerUi).Init()
+end
+
+function ClosePlaceFlowerMenu()
+    ToggleUI("PlaceFlowerMenu", false)
+    ShowMenu()
+    ToggleUI("PlaceButtons", true)
+end
+
+
+function OpenAddHatMenu()
+    ToggleUI("AddHatMenu", true)
+    ToggleUI("BeeList", false)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+    AddHatMenuObject:GetComponent(AddHatUi).Init()
+end
+
+function CloseAddHatMenu()
+    ToggleUI("AddHatMenu", false)
+    ShowMenu()
+    ToggleUI("PlaceButtons", true)
 end
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlaceButtons", false)
     ToggleUI("PlayerStats", false)
-    BeeObtainCardObject:GetComponent(BeeObtainCard).ShowCaughtWild(species)
+    ToggleUI("CenterPlayerButton", false)
+    InfoCardObject:GetComponent(InfoCard).ShowCaughtWild(species)
     audioManager.PlaySound("captureSound", 1)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) end, false)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) ToggleUI("CenterPlayerButton", true) end)
 end))
 
 playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
-    BeeObtainCardObject:GetComponent(BeeObtainCard).ShowRecieved(species)
-    Timer.new(3.5, function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end, false)
+    InfoCardObject:GetComponent(InfoCard).ShowRecieved(species)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
 end))
 
+playerManager.notifyHatPurchased:Connect((function(hat)
+    audioManager.PlaySound("purchaseSound", 1)
+    ToggleUI("BeeCard", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("ShopUi", false)
+    InfoCardObject:GetComponent(InfoCard).ShowHat(hat)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback( function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
+end))
+
+
 function self:ClientAwake()
-    Timer.new(.1, function() 
-        OpenTutorial()
+    Timer.new(0.5, function() 
+        OpenTutorial(false)
     end, false)
+end
+
+function ShowMenu()
+    ToggleUI("PlayerStats", true)
+    ToggleUI("CenterPlayerButton", true)
+    StatsObject:GetComponent("PlayerStatGui").ShowMenu()
+    StatsObject:GetComponent("PlayerStatGui").CloseSettings()
 end

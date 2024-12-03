@@ -13,21 +13,42 @@
 
       <VisualElement class="navigation">
         <VisualElement class="nav-button--selected" name="_upgradesTab">
-          <Label class="nav-text" text="Bees / Items" />
+          <hr:UILabel name="upgrades" class="nav-text"/>
         </VisualElement>
         <VisualElement class="nav-button--deselected" name="_beesTab">
+          <Label class="nav-text" text="Bees" />
+        </VisualElement>
+        <VisualElement class="nav-button--deselected" name="_honeyTab">
           <Label class="nav-text" text="Honey" />
+        </VisualElement>
+        <VisualElement class="nav-button--deselected" name="_cosmeticsTab">
+          <Label class="nav-text" text="Hats" />
         </VisualElement>
       </VisualElement>
     </VisualElement>
 
     <hr:UIScrollView name="Orders_Root" mode="Vertical">
     </hr:UIScrollView>
-
+    <hr:UIButton class = "time-container" name = "timeContainer">
+      <hr:UILabel name = "timeToReset" class = "title" />
+    </hr:UIButton>
     <hr:UIButton name="closeButton" class="close-button">
       <hr:UILabel name="closeLabel" class="title" />
     </hr:UIButton>
 
   </VisualElement>
+
+    <VisualElement class="confirm-buy" name="_confirmBuy">
+      <hr:UILabel name="_confirmBuyDescription" class="confirm-title" />
+      <VisualElement class="confirm-row-container">
+        <hr:UIButton class = "confirm-buy-button" name = "_confirmBuyButton">
+          <hr:UILabel name = "_confirmBuyLabel" class = "confirm-label" />
+        </hr:UIButton>
+        <hr:UIButton class = "decline-buy-button" name = "_declineBuyButton">
+          <hr:UILabel name = "_declineBuyLabel" class = "confirm-label" />
+        </hr:UIButton>
+      </VisualElement>
+    </VisualElement>
 </hr:UILuaView>
+
 </UXML>

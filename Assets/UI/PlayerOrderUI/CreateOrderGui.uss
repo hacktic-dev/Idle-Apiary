@@ -93,6 +93,22 @@
     font-size: 21.5px;
 }
 
+.confirm-label {
+    margin: 5px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.portrait .confirm-label {
+    font-size: 11.5px;
+}
+
+.landscape .confirm-label {
+    font-size: 16.5px;
+}
+
 .hat-price{
       margin: 5px;
     color: white;
@@ -106,7 +122,7 @@
 }
 
 .landscape .hat-price {
-    font-size: 16.5px;
+    font-size: 13.5px;
 }
 
 .hat-price-small
@@ -492,4 +508,71 @@
 .hat-item .button__content
 {
   height: 100%;
+}
+
+.confirm-buy
+{
+  position: absolute;
+  align-items:center;
+  align-self:center;
+  top: 40%;
+  width: 60%;
+  height:18%;
+  background-color: rgba(0,0,0,.8);
+  border-radius: 10px;
+}
+
+.portrait .confirm-buy
+{
+      width: 80%;
+}
+
+.portrait .confirm-title
+{
+    margin-top: 20px;
+    font-size: 15px;
+    color: white;
+}
+
+.confirm-title
+{
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+}
+
+.confirm-buy-button {
+    background-color: rgba(0, 255, 0, 0.7); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    font-size: 14px;
+    height: 60%;
+    width: 40%;
+    margin-top: 10px;
+}
+
+.decline-buy-button {
+    background-color: rgba(255, 0, 0, 0.7); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    font-size: 14px;
+    height: 60%;
+    width: 40%;
+    margin-top: 10px;
+}
+
+.confirm-row-container
+{
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 100%;
 }

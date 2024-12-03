@@ -27,6 +27,7 @@ namespace Highrise.Lua.Generated
 
         [SerializeField] public UnityEngine.GameObject m_RegularBox = default;
         [SerializeField] public UnityEngine.GameObject m_GoldBox = default;
+        [SerializeField] public UnityEngine.GameObject m_OwnerUI = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -37,6 +38,7 @@ namespace Highrise.Lua.Generated
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), m_RegularBox),
                 CreateSerializedProperty(_script.GetPropertyAt(1), m_GoldBox),
+                CreateSerializedProperty(_script.GetPropertyAt(2), m_OwnerUI),
             };
         }
     }

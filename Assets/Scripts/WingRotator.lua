@@ -7,6 +7,9 @@ rotateFrequency = 20.0 -- How fast the rotation oscillates (1.0 = one cycle per 
 --!SerializeField
 local direction : number = 1
 
+--!SerializeField
+local mainCam : GameObject = nil
+
 -- Time variable for controlling the sine wave rotation
 rotationTime = 0
 
@@ -26,7 +29,18 @@ end
 
 -- Function to handle the update cycle
 function self:Update()
+    
+    if mainCam == nil then mainCam = GameObject.FindGameObjectWithTag("MainCamera") end
+
+    if Vector3.Distance(self:GetComponent(Transform).position, mainCam:GetComponent(Transform).position) > 100 then
+        return
+    end
+
     -- Update the sinusoidal rotation independently
+    if self:GetComponent(Renderer).isVisible == false then
+        return
+
+    end
     UpdateRotation()
 end
 

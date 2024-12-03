@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="UnityEngine.UIElements"
+    xmlns:hr="Highrise.UI"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+>
+
+  
+<hr:UILuaView class="tutorial">
+   <VisualElement name="_card" class="bee-card__container">
+       <hr:UILabel name="_tutorial1" class="label" text="You caught a bee" />
+       <hr:UIImage name="_tutorialImage" class="image"/>
+   </VisualElement>
+       <hr:UIButton name="closeButton" class="close-button">
+      <hr:UILabel name="closeLabel" class="title" />
+    </hr:UIButton>
+</hr:UILuaView>
+  
+
+
+</UXML>

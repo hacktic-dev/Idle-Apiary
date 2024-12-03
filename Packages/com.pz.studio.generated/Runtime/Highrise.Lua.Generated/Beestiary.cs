@@ -25,7 +25,6 @@ namespace Highrise.Lua.Generated
         private const string s_scriptGUID = "8296f495b681c6d4eb0a1ee7479d2048";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public System.Collections.Generic.List<UnityEngine.Texture> m_beeTextures = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -44,7 +43,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(7), null),
                 CreateSerializedProperty(_script.GetPropertyAt(8), null),
                 CreateSerializedProperty(_script.GetPropertyAt(9), null),
-                CreateSerializedProperty(_script.GetPropertyAt(10), m_beeTextures),
+                CreateSerializedProperty(_script.GetPropertyAt(10), null),
             };
         }
     }

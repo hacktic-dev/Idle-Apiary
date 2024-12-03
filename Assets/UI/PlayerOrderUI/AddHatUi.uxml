@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="UnityEngine.UIElements"
+    xmlns:hr="Highrise.UI"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+>
+
+<hr:UILuaView class="place-hat-ui">
+  <VisualElement class="hat_container" name="_HatContainer">
+    <hr:UIScrollView name="Hats_Root" mode="Vertical">
+    </hr:UIScrollView>
+    <hr:UIButton name="closeButton" class="close-button">
+      <hr:UILabel name="closeLabel" class="close" />
+    </hr:UIButton>
+
+  </VisualElement>
+</hr:UILuaView>
+
+</UXML>

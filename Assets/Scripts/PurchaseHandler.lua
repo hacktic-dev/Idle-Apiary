@@ -11,6 +11,7 @@ local InfoCardObject : GameObject = nil
 local playerManager = require("PlayerManager")
 audioManager = require("AudioManager")
 local UIManager = require("UIManager")
+local Utils = require("Utils")
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -34,6 +35,7 @@ function PromptTokenPurchase(id: string)
     Timer.new(0.5, function() 
     if responseTesting then
         statusObject:GetComponent("PlaceApiaryStatus").SetStatus("This feature isn't available right now. Please try again later.")
+        audioManager.PlaySound("failSound", .75)
         UIManager.ToggleUI("PlaceStatus", true)
         Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
     end
@@ -48,27 +50,36 @@ function ServerHandlePurchase(purchase, player: Player)
   print("Player " .. player.name .. " has made a purchase of ".. productId ..". Attempting...")
 
   local time = 0
+  isHoney = false
 
   if productId == "doubler_1" then
     time = 300
-  elseif product_id == "doubler_2" then
+    isHoney = true
+  elseif productId == "doubler_2" then
     time = 900
-  else
-    Payments.AcknowledgePurchase(purchase, false)
-    purchaseFailedEvent:FireClient(player)
+    isHoney = true
   end
 
-  playerManager.SetHoneyDoublerForPlayer(player, time)
+  if isHoney then
+    playerManager.SetHoneyDoublerForPlayer(player, time)
 
-  Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
-    if ackErr ~= PaymentsError.None then
-      print("Error acknowledging purchase: " .. ackErr)
-      purchaseFailedEvent:FireClient(player)
-      return
-    end
-    print("Player ".. player.name .." honey doubler is now active")
-    purchaseSucceededEvent:FireClient(player, productId)
-  end)
+    Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+      if ackErr ~= PaymentsError.None then
+        print("Error acknowledging purchase: " .. ackErr)
+        purchaseFailedEvent:FireClient(player)
+        return
+      end
+      print("Player ".. player.name .." honey doubler is now active")
+      purchaseSucceededEvent:FireClient(player, productId)
+    end)
+
+    return
+  else
+    -- Not honey, so it must be a hat. Add to inventory and commit
+    local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
+    Inventory.CommitTransaction(transaction)
+    playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
+  end
 end
 
 -- Initialize the module
@@ -92,8 +103,9 @@ function self:ClientAwake()
     serverResponse:Connect(function(id, allowed)
       responseTesting = false
       
-        if allowed == false then
+        if allowed == false and (id == "doubler_1" or id == "doubler_2") then
           statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You already have an active honey doubler! Wait for it to run out before purchasing again.")
+          audioManager.PlaySound("failSound", .75)
           UIManager.ToggleUI("PlaceStatus", true)
           Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
           return
@@ -104,12 +116,16 @@ function self:ClientAwake()
     purchaseSucceededEvent:Connect(function(id)
       print("Purchase successful. Showing UI.")
       print(id)
+      audioManager.PlaySound("purchaseSound", 1)
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      InfoCardObject:GetComponent(BeeObtainCard).showPurchasedHoney(id)
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoney(id)
+      InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() UIManager.ToggleUI("BeeCard", false)
+        UIManager.ToggleUI("ShopUi", true)
+        UIManager.HideButtons()
+        UIManager.ToggleUI("PlayerStats", true) end)
       hideUiEvent:Fire()
-      audioManager.PlaySound("purchaseSound", 1)
     end)
 
         
@@ -118,14 +134,11 @@ function self:ClientAwake()
       UIManager.ToggleUI("BeeCard", true)
       UIManager.ToggleUI("ShopUi", false)
       UIManager.ToggleUI("PlayerStats", false)
-      InfoCardObject:GetComponent(BeeObtainCard).showPurchasedHoneyFailed()
-      hideUiEvent:Fire()
+      InfoCardObject:GetComponent(InfoCard).showPurchasedHoneyFailed()
+      InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() UIManager.ToggleUI("BeeCard", false)
+        UIManager.ToggleUI("ShopUi", true)
+        UIManager.HideButtons()
+        UIManager.ToggleUI("PlayerStats", true) end)
     end)
 
-    hideUiEvent:Connect(function()
-        Timer.new(5, function() UIManager.ToggleUI("BeeCard", false)
-            UIManager.ToggleUI("ShopUi", true)
-            UIManager.HideButtons()
-            UIManager.ToggleUI("PlayerStats", true) end, false)
-          end)
 end

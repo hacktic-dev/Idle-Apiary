@@ -21,11 +21,11 @@ local _sellPriceLabel : UILabel = nil
 local _beeImage : UIImage = nil
 --!Bind
 local _rarity : UILabel = nil
-
---!SerializeField
-local beeTextures : {Texture} = nil
+--!Bind
+local _rankLabel : UILabel = nil
 
 local UIManager = require("UIManager") 
+local Utils = require("Utils")
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
 
@@ -33,30 +33,9 @@ local playerManager = require("PlayerManager")
 beeNames = {
     "Common Bee", "Stone Bee", "Forest Bee", "Aquatic Bee", "Giant Bee", "Silver Bee",
     "Muddy Bee", "Frigid Bee", "Steel Bee", "Magma Bee", "Ghostly Bee", "Iridescent Bee",
-    "Sandy Bee", "Autumnal Bee", "Petal Bee", "Galactic Bee", "Radiant Bee", "Rainbow Bee"
+    "Sandy Bee", "Autumnal Bee", "Petal Bee", "Galactic Bee", "Industrial Bee", "Pearlescent Bee",
+    "Hypnotic Bee", "Radiant Bee", "Shadow Bee", "Prismatic Bee", "Astral Bee", "Rainbow Bee"
 }
-
-local BeeImage = {
-    ["Common Bee"] = beeTextures[1],
-    ["Stone Bee"] = beeTextures[2],
-    ["Forest Bee"] = beeTextures[3],
-    ["Aquatic Bee"] = beeTextures[4],
-    ["Giant Bee"] = beeTextures[5],
-    ["Silver Bee"] = beeTextures[6],
-    ["Muddy Bee"] = beeTextures[7],
-    ["Frigid Bee"] = beeTextures[8],
-    ["Steel Bee"] = beeTextures[9],
-    ["Magma Bee"] = beeTextures[10],
-    ["Ghostly Bee"] = beeTextures[11],
-    ["Iridescent Bee"] = beeTextures[12],
-    ["Sandy Bee"] = beeTextures[13],
-    ["Autumnal Bee"] = beeTextures[14],
-    ["Petal Bee"] = beeTextures[15],
-    ["Galactic Bee"] = beeTextures[16],
-    ["Radiant Bee"] = beeTextures[17],
-    ["Rainbow Bee"] = beeTextures[18]
-}
-
 
 function Populate(seenBees)
     _InventoryContent:Clear()
@@ -78,13 +57,13 @@ function Populate(seenBees)
         local _image = UIImage.new()
         _image:AddToClassList("inventory__item__icon__image")
         if beeSeen then
-            _image.image = BeeImage[beeName]
+            _image.image = Utils.BeeImage[beeName]
             questItem:RegisterPressCallback(function()
                 ShowCard(beeName, true)
             end
             )
         else
-            _image.image = beeTextures[19]
+            _image.image = Utils.BeeImage["Locked"]
             questItem:RegisterPressCallback(function()
                 ShowCard(beeName, false)
             end
@@ -121,5 +100,13 @@ function Init()
 
     playerManager.recieveSeenBees:Connect(function(seenBees)
         Populate(seenBees)
+        howManyToNextRank = 8 - (#seenBees % 9)
+        if #seenBees == 24 then
+            _rankLabel:SetPrelocalizedText("You have discovered every bee!")
+        elseif howManyToNextRank == 1 then
+            _rankLabel:SetPrelocalizedText("Discover 1 more bee to reach the next rank!")
+        else
+            _rankLabel:SetPrelocalizedText("Discover " .. howManyToNextRank .. " more bees to reach the next rank!")
+        end
     end)
 end

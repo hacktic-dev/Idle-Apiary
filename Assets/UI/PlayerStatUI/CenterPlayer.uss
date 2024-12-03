@@ -1,0 +1,69 @@
+.center-player {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+}
+
+.portrait .center-player
+{
+    width:10%;
+    flex-direction: column;
+    bottom: 50px;
+    justify-content: space-between;
+}
+
+.landscape .center-player
+{
+    bottom: -57px;
+    justify-content: flex-end;
+}
+
+.button__content
+{
+    width: 75%;
+    height: 75%;
+}
+
+.image
+{
+    background-image: url("project://database/Assets/icons/center.png");
+    width: 100%;
+    height: 100%;
+}
+
+.image_home
+{
+    background-image: url("project://database/Assets/icons/home.png");
+    width: 100%;
+    height: 100%;
+}
+
+.button, .button_home{
+    width: 48px;
+    height: 48px;
+    border-radius: 9px;
+    background-color: rgba(0,0,0,.4);
+}
+
+.portrait .button
+{
+    margin-bottom: 6px;
+    margin-left: 8px;
+}
+
+.portrait .button_home
+{
+    margin-right: 8px;
+}
+
+.landscape .button
+{
+    margin-left: 50px;
+    right: -103px;
+}
+
+.landscape .button_home
+{
+    margin-left: 8px;
+}
