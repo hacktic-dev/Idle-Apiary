@@ -121,7 +121,9 @@ beeData = {
     ["Shadow Bee"] = { honeyRate = 48, sellPrice = 3200, growTime = 40, rarity = "Epic", set = "Platinum Set" },
     ["Prismatic Bee"] = { honeyRate = 56, sellPrice = 4000, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
     ["Astral Bee"] = { honeyRate = 60, sellPrice = 4500, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
-    ["Rainbow Bee"] = { honeyRate = 80, sellPrice = 6000, growTime = 200, rarity = "Mythical", set = "Platinum Set" }
+    ["Rainbow Bee"] = { honeyRate = 80, sellPrice = 6000, growTime = 200, rarity = "Mythical", set = "Platinum Set" },
+
+    ["Festive Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee" }
 }
 
 
@@ -344,7 +346,8 @@ function self:Update()
     for _, data in ipairs(wildBees) do
         local bee = data.bee
 
-        if((bee.transform.position - client.localPlayer.character:GetComponent(Transform).position).magnitude > DESPAWN_DISTANCE) then
+        
+        if( bee ~= nil and (bee.transform.position - client.localPlayer.character:GetComponent(Transform).position).magnitude > DESPAWN_DISTANCE) then
             despawnWildBee(bee)
         end
     end

@@ -191,6 +191,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -401,7 +402,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b5abffbb82253384faefa51e84ad2434, type: 2}
+      objectReference: {fileID: 2100000, guid: e078e8b267f6c7a4c974236e0241eb06, type: 2}
     - target: {fileID: 919132149155446097, guid: baa48385b4809ed4ca0535ef5da1b44a,
         type: 3}
       propertyPath: m_Name
@@ -445,6 +446,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: 1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -475,6 +477,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: -1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:

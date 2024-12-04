@@ -21,6 +21,7 @@ local wildBeeManager = require("WildBeeManager")
 local audioManager = require("AudioManager")
 local UIManager = require("UIManager")
 local flowerManager = require("FlowerManager")
+local festiveBeeManager = require("FestiveBeeManager")
 
 -- Table to store the current UI state (whether the button is visible)
 local captureUIVisible = true
@@ -92,6 +93,11 @@ end
 -- Function to handle the button press (captures the bee)
 local function onCaptureButtonPressed(bee, speciesName)
     -- Send a signal to the capture script when the button is pressed
+    if speciesName == "Festive Bee" then
+        festiveBeeManager.captureBee(bee)
+        return
+    end
+
     wildBeeManager.captureBee(bee, species)
 end
 
