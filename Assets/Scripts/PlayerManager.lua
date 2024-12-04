@@ -613,9 +613,11 @@ function self:ClientAwake()
             if MoneyTimer ~= nil then
                 MoneyTimer:Stop()
             end
-            MoneyTimer = Timer.new(60/rate, function() IncrementStat("Cash", 1) end, true)
+            MoneyTimer = Timer.new(60/rate, function() IncrementCashLocal() end, true)
         end)
     end
+
+    Timer.new(1, function() SendCashBatch() end, true)
 
     -- Function to increment a specific stat by a given value
     function IncrementStat(stat, value)
@@ -633,6 +635,16 @@ function self:ClientAwake()
     TrackPlayers(client, OnCharacterInstantiate)
 
     updateBeeList:Connect(function() RequestBeeList() end)
+end
+
+function SendCashBatch()
+    IncrementStat("Cash", localCash)
+    localCash = 0
+end
+
+function IncrementCashLocal()
+    localCash = localCash + 1
+    playerStatGui.SetCashUI(players[client.localPlayer].Cash.value + localCash)
 end
 
 function GiveBee(name, isCapture)
