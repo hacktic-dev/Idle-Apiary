@@ -253,7 +253,9 @@ end
 function SellBee(beeSpecies, beeId, isAdult)
     sellBeeRequest:FireServer(beeId)
     local sellPrice = wildBeeManager.getSellPrice(beeSpecies)
-    IncrementStat("Cash", sellPrice)
+    if beeSpecies ~= "Fesitve Bee" then
+        IncrementStat("Cash", sellPrice)
+    end
 end
 
 function SetBeeAdult(id)
@@ -794,6 +796,18 @@ function self:ServerAwake()
                     beeObjectManager.RemoveBee(player, beeId)
                     -- Save the updated bee storage back to persistent storage
                     beeCountUpdated:FireClient(player, #playerBeeStorage[player])
+
+                    if bee.species == "Festive Bee" then
+                      Wallet.TransferGoldToPlayer(player, 1, function(response, err)
+                        if err ~= WalletError.None then
+			                    error("Something went wrong while transferring gold: " .. WalletError[err])
+			                    return
+		                    end
+
+                        print("Sent 1 Gold, Gold remaining: : ", response.gold)
+                      end)
+                    end
+
                     RecalculatePlayerEarnRate(player)
                     --print("Bee with ID " .. beeId .. " removed from " .. player.name .. "'s storage.")
                     return
