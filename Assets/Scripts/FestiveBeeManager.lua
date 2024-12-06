@@ -95,7 +95,7 @@ function UpdateFestiveLeaderboard()
         end
 
         if beeCountCaughtPerPlayer ~= nil then
-            for player, count in ipairs(beeCountCaughtPerPlayer) do
+            for player, count in pairs(beeCountCaughtPerPlayer) do
                 if leaderboard[player] == nil then
                     leaderboard[player] = count
                 else
@@ -128,9 +128,6 @@ end
 
 -- Client
 function TrySpawnFestiveBee()
-
-    print(poolSize.value)
-
     if math.random() > spawnRate.value then
         return
     end
