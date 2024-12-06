@@ -11,6 +11,7 @@ local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
+local festiveBeeManager = require("FestiveBeeManager")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
@@ -435,6 +436,8 @@ function TrackPlayers(game, characterCallback)
         if players[player] ~= nil then
             return
         end
+
+        festiveBeeManager.OnPlayerJoined(player)
 
         -- Initialize player's stats and store them in the players table
         players[player] = {

@@ -7,7 +7,6 @@ isBeeSpawned = false -- client
 spawnedBee = nil -- client
 
 beeCountToRemoveFromPool = 0 -- server
-beeCountCaughtPerPlayer = nil -- server
 festiveLeaderboard = nil -- server
 
 notifyFestiveBeeCaught = Event.new("NotifyFestiveBeeCaught")
@@ -24,6 +23,24 @@ local MAX_BEES = 21 -- Maximum number of bees allowed
 wildBeeManager = require("WildBeeManager")
 playerManager = require("PlayerManager")
 
+local playerScores = {} -- Memory structure to store player-specific scores
+
+-- Periodic saving interval in seconds
+local SAVE_INTERVAL = 30
+
+-- Function to save a player's score to storage
+local function SavePlayerScore(player)
+    if playerScores[player] then
+        Storage.SetPlayerValue(player, "FestiveBeeScore", playerScores[player], function(errorCode)
+            if errorCode ~= 0 then
+                print("Error saving player score for " .. player.name)
+            else
+                print("Saved score for " .. player.name .. ": " .. playerScores[player])
+            end
+        end)
+    end
+end
+
 function self:ServerAwake()
     spawnRate = NumberValue.new("FestiveBeeSpawnRate", 0)
     poolSize = IntValue.new("FestiveBeePool", 0)
@@ -35,20 +52,35 @@ function self:ServerAwake()
 
     Timer.new(30, function() UpdateFestiveLeaderboard() end, true)
 
+    Timer.new(SAVE_INTERVAL, function()
+        for player, _ in pairs(playerScores) do
+            SavePlayerScore(player)
+        end
+    end, true)
+
     notifyFestiveBeeCaught:Connect(function(player)
         beeCountToRemoveFromPool = beeCountToRemoveFromPool + 1
         poolSize.value = poolSize.value - 1
 
-        if beeCountCaughtPerPlayer == nil then
-            beeCountCaughtPerPlayer = {}
-        end
-
-        if beeCountCaughtPerPlayer[player.name] == nil then
-            beeCountCaughtPerPlayer[player.name] = 1
-        else
-            beeCountCaughtPerPlayer[player.name] = beeCountCaughtPerPlayer[player.name] + 1
-        end
+        playerScores[player] = playerScores[player] + 1
     end)
+
+    server.PlayerDisconnected:Connect(function(player)
+        -- Save player data to storage on disconnect
+        --SavePlayerScore(player)
+        --playerScores[player] = nil -- Remove from memory
+    end)
+end
+
+function OnPlayerJoined(player)
+        Storage.GetPlayerValue(player, "FestiveBeeScore", function(score, errorCode)
+            if errorCode ~= 0 then
+                print("Error loading player score for " .. player.name)
+                score = 0 -- Default score
+            end
+            playerScores[player] = score or 0
+            print("Loaded score for " .. player.name .. ": " .. playerScores[player])
+        end)
 end
 
 function self:ClientAwake()
@@ -84,46 +116,50 @@ function RetrieveFestiveBeePool()
 end
 
 function UpdateFestiveLeaderboard()
+    -- Get the central leaderboard from storage
     Storage.GetValue("FestiveLeaderboard", function(leaderboard, errorCode)
         if errorCode ~= 0 then
             print("Error: couldn't get festive leaderboard")
             return
         end
 
-        if leaderboard == nil then
-            leaderboard = {}
-        end
+        leaderboard = leaderboard or {}
 
-        if beeCountCaughtPerPlayer ~= nil then
-            for player, count in pairs(beeCountCaughtPerPlayer) do
-                if leaderboard[player] == nil then
-                    leaderboard[player] = count
-                else
-                    leaderboard[player] = leaderboard[player] + count
+        -- Update leaderboard based on players' in-memory scores
+        for player, score in pairs(playerScores) do
+            local isInTopTen = false
+
+            -- Check if player is already in leaderboard
+            for i, entry in ipairs(leaderboard) do
+                if entry.key == player.name then
+                    isInTopTen = true
+                    -- Update player's score if it's higher
+                    if score > entry.value then
+                        leaderboard[i].value = score
+                    end
+                    break
                 end
+            end
+
+            -- Add new player if not in leaderboard and has a high enough score
+            if not isInTopTen then
+                table.insert(leaderboard, {key = player.name, value = score})
             end
         end
 
-        beeCountCaughtPerPlayer = {}
-
-        Storage.SetValue("FestiveLeaderboard", leaderboard, function(errorCode) if not errorCode == 0 then print("Error: Festive leaderboard update failed!") end end)
-
-        local sortableArray = {}
-        for key, value in pairs(leaderboard) do
-            table.insert(sortableArray, {key = key, value = value})
+        -- Sort leaderboard by score in descending order and trim to top 10
+        table.sort(leaderboard, function(a, b) return a.value > b.value end)
+        while #leaderboard > 10 do
+            table.remove(leaderboard)
         end
 
-        -- Step 2: Sort the array by the value field
-        table.sort(sortableArray, function(a, b)
-            return a.value < b.value -- Sort in ascending order
+        -- Save updated leaderboard back to storage
+        Storage.SetValue("FestiveLeaderboard", leaderboard, function(errorCode)
+            if errorCode ~= 0 then
+                print("Error saving leaderboard")
+            end
         end)
-
-        festiveLeaderboard = {}
-        for _, pair in ipairs(sortableArray) do
-            festiveLeaderboard[pair.key] = pair.value
-        end
-
-    end)  
+    end)
 end
 
 -- Client
