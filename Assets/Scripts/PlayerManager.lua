@@ -437,8 +437,6 @@ function TrackPlayers(game, characterCallback)
             return
         end
 
-        festiveBeeManager.OnPlayerJoined(player)
-
         -- Initialize player's stats and store them in the players table
         players[player] = {
             player = player,
@@ -458,6 +456,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
+            festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
                 RecalculatePlayerEarnRate(player)
