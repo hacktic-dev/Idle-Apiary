@@ -25,6 +25,8 @@ local PlaceFlowerMenuObject : GameObject = nil
 local AddHatMenuObject : GameObject = nil
 --!SerializeField
 local CenterPlayerButtonObject : GameObject = nil
+--!SerializeField
+local LeaderboardObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
@@ -42,7 +44,8 @@ local uiMap = {
     ShearsTutorial = ShearsTutorialObject,
     PlaceFlowerMenu = PlaceFlowerMenuObject,
     AddHatMenu = AddHatMenuObject,
-    CenterPlayerButton = CenterPlayerButtonObject
+    CenterPlayerButton = CenterPlayerButtonObject,
+    Leaderboard = LeaderboardObject
 }
 
   -- Activate the object if it is not active
@@ -235,6 +238,20 @@ function CloseAddHatMenu()
     ToggleUI("AddHatMenu", false)
     ShowMenu()
     ToggleUI("PlaceButtons", true)
+end
+
+function OpenLeaderboard()
+    ToggleUI("Leaderboard", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+end
+
+function CloseLeaderboard()
+    ToggleUI("Leaderboard", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
 end
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
