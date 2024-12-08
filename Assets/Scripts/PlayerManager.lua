@@ -910,8 +910,6 @@ function self:ServerAwake()
     print("Saved!")
     end, true)
 
-    festiveBeeManager.Init()
-    
     print("hello")
 
     requestEarnRates:Connect(function(player)

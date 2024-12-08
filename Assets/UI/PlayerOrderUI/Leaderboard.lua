@@ -54,7 +54,7 @@ end
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
 
-    InitFestiveTab()
+    ButtonPressed("festive")
 
     closeButton:RegisterPressCallback(function()
         UIManager.CloseLeaderboard()
@@ -77,6 +77,12 @@ end
 
 function InitRoomTab()
     Orders_Root:Clear()
+
+    title = UILabel.new()
+    title:AddToClassList("title-small")
+    title:AddToClassList("right-align-title")
+    title:SetPrelocalizedText("Honey rate:")
+    Orders_Root:Add(title)
 
     playerManager.RequestEarnRates()
 end
@@ -135,7 +141,7 @@ function self:ClientAwake()
     playerManager.recieveEarnRates:Connect(function(rates)
 
         print("Earn rates recieved")
-        table.sort(rates)
+        table.sort(rates, function(a, b) return a < b end)
 
         i = 1
         for player, rate in pairs(rates) do
