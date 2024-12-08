@@ -105,7 +105,6 @@ function self:ClientAwake()
     Timer.new(1, function() TrySpawnFestiveBee() end, true)
     spawnRate = NumberValue.new("FestiveBeeSpawnRate", 0)
     poolSize = IntValue.new("FestiveBeePool", 0)
-    print("spawn rate: " .. spawnRate.value)
 end
 
 -- Server
@@ -128,8 +127,6 @@ function RetrieveFestiveBeePool()
 
     poolSize.value = pool.size
     spawnRate.value = pool.rate
-
-    print("Spawn rate: " .. spawnRate.value)
 
     Storage.SetValue("FestiveBeePool", pool, function(errorCode) if not errorCode == 0 then print("Error: Festive bee pool update failed!") end end)
     end)
@@ -188,20 +185,15 @@ end
 
 -- Client
 function TrySpawnFestiveBee()
-    value = math.random()
     if math.random() > spawnRate.value then
-        print("Spawn rate is " .. spawnRate.value .. " but value is " .. value)
-
         return
     end
 
     if poolSize.value <= 0 then
-        print("b")
         return
     end
 
     if isBeeSpawned then
-        print("c")
         return
     end
 
