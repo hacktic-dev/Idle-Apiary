@@ -14,6 +14,16 @@ local _roomTab : UIButton = nil
 
 festiveBeeManager = require("FestiveBeeManager")
 UIManager = require("UIManager")
+playerManager = require("PlayerManager")
+
+_festiveTab:RegisterPressCallback(function()
+    local success = ButtonPressed("festive")
+  end, true, true, true)
+
+  _roomTab:RegisterPressCallback(function()
+    local success = ButtonPressed("room")
+  end, true, true, true)
+  
 
 function AddItem(username, count, index)
     card = VisualElement.new()
@@ -43,7 +53,15 @@ end
 
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
-    
+
+    InitFestiveTab()
+
+    closeButton:RegisterPressCallback(function()
+        UIManager.CloseLeaderboard()
+    end, true, true, true)
+end
+
+function InitFestiveTab()
     Orders_Root:Clear()
 
     print("Initing")
@@ -55,11 +73,34 @@ function Init()
     Orders_Root:Add(title)
 
     festiveBeeManager.RequestFestiveLeaderboard()
-
-    closeButton:RegisterPressCallback(function()
-        UIManager.CloseLeaderboard()
-    end, true, true, true)
 end
+
+function InitRoomTab()
+    Orders_Root:Clear()
+
+    playerManager.RequestEarnRates()
+end
+
+function ButtonPressed(btn: string)
+    if btn == "festive" then
+      if state == 0 then return end
+      state = 0
+      _festiveTab:AddToClassList("nav-button--selected")
+      _festiveTab:RemoveFromClassList("nav-button--deselected")
+      _roomTab:AddToClassList("nav-button--deselected")
+      InitFestiveTab()
+      return true
+    elseif btn == "room" then
+      if state == 1 then return end
+      state = 1
+      _roomTab:AddToClassList("nav-button--selected")
+      _roomTab:RemoveFromClassList("nav-button--deselected")
+      _festiveTab:AddToClassList("nav-button--deselected")
+      InitRoomTab()
+      return true
+    end
+end
+  
 
 function self:ClientAwake()
 
@@ -89,5 +130,19 @@ function self:ClientAwake()
 
     festiveBeeManager.recievePlayerScore:Connect(function(score)
         AddItem(client.localPlayer.name, score, "")
+    end)
+
+    playerManager.recieveEarnRates:Connect(function(rates)
+
+        print("Earn rates recieved")
+        table.sort(rates)
+
+        i = 1
+        for player, rate in pairs(rates) do
+            if player ~= nil then
+                AddItem(player.name, rate, i)
+                i = i + 1
+            end
+        end
     end)
 end

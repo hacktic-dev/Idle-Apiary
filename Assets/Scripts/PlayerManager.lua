@@ -53,6 +53,8 @@ notifyApiaryLocation = Event.new("notifyApiaryLocation")
 
 requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
+requestEarnRates = Event.new("RequestEarnRates")
+recieveEarnRates = Event.new("RecieveEarnRates")
 
 local restartTimerRequest = Event.new("RestartCashTimer")
 
@@ -525,6 +527,11 @@ function SaveProgress(player, wasDc)
     end
 end
 
+function RequestEarnRates()
+    print("requesting")
+    requestEarnRates:FireServer()
+end
+
 -- Function to find the key with the maximum value in a table
 local function findMaxKey(tbl)
     local maxKey = nil
@@ -678,6 +685,8 @@ end
 function self:ServerAwake()
     -- Track players joining and leaving the game
     TrackPlayers(server) 
+
+    print("hello")
 
     -- Fetch a player's stats from storage when they join
     getStatsRequest:Connect(function(player)
@@ -902,6 +911,13 @@ function self:ServerAwake()
     end, true)
 
     festiveBeeManager.Init()
+    
+    print("hello")
+
+    requestEarnRates:Connect(function(player)
+        print("Earn rates requested")
+        recieveEarnRates:FireClient(player, playerMoneyEarnRates)
+    end)
 end
 
 function SetHoneyDoublerForPlayer(player, time)
