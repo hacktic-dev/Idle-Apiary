@@ -53,6 +53,10 @@ local PrismaticBee : GameObject = nil
 --!SerializeField
 local ShadowBee : GameObject = nil
 
+-- Event bees
+--!SerializeField
+local FestiveBee : GameObject = nil
+
 -- Server-side table to track which bees belong to which player
 local playerBees = {}
 
@@ -203,6 +207,8 @@ function self:ClientAwake()
             Bee = ShadowBee
         elseif species == "Hypnotic Bee" then
             Bee = HypnoticBee
+        elseif species == "Festive Bee" then
+            Bee = FestiveBee
         end
         
 

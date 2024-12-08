@@ -15534,6 +15534,8 @@ MonoBehaviour:
     type: 3}
   m_ShadowBee: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
     type: 3}
+  m_FestiveBee: {fileID: 7146890897877862297, guid: 584d6814e5bb26147b5304cd92454ca8,
+    type: 3}
   references:
     version: 2
     RefIds:
