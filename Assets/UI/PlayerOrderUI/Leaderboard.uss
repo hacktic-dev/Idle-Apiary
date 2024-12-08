@@ -24,20 +24,20 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 1.5%;
-    margin-bottom: 1.5%;
+    margin-top: 3px;
+    margin-bottom: 3px;
     background-color: rgba(0,0,0,.35);
     border-radius: 10px;
     height: 100px;
-    width: 48%;
+    width: 100%;
 }
 
 .portrait .order-item{
-    height: 45%;
+        height: 30px;
 }
 
 .landscape .order-item{
-          height: 45%;
+    height: 30px;
 }
 
 .hat-item {
@@ -77,6 +77,10 @@
   flex-direction: column;
 }
 
+.spacer{
+  margin-top: 45px;
+}
+
 .title {
     margin: 5px;
     color: white;
@@ -85,12 +89,27 @@
     -unity-text-align: middle-center;
 }
 
+
+.title-small {
+    margin: 5px;
+    color: white;
+    align-self: center;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    font-size: 16px;
+}
+
 .portrait .title {
     font-size: 11.5px;
 }
 
 .landscape .title {
     font-size: 21.5px;
+}
+
+.right-align-title {
+    flex-grow: 1;
+    -unity-text-align: middle-right;
 }
 
 .confirm-label {
@@ -244,9 +263,8 @@
   min-width: 250px;
 
   max-height: 800px;
-  max-width: 800px;
 
-  width: 120%;
+  width: 100%;
   height: 100%;
 
   border-width: 2px;
@@ -261,7 +279,7 @@
 
 .landscape .shop__container
 {
-    max-width: 800px;
+    max-width: 400px;
 }
 
 .shop__header {

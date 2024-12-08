@@ -192,6 +192,7 @@ function OpenTutorial(playerInited)
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceStatus", false)
+    ToggleUI("Leaderboard", false)
     TutorialObject:GetComponent(Tutorial).Init(playerInited)
 end
 
@@ -245,13 +246,14 @@ function OpenLeaderboard()
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceButtons", false)
+    LeaderboardObject:GetComponent(Leaderboard).Init()
 end
 
 function CloseLeaderboard()
-    ToggleUI("Leaderboard", true)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
+    ToggleUI("Leaderboard", false)
+    ToggleUI("PlayerStats", true)
+    ToggleUI("CenterPlayerButton", true)
+    ToggleUI("PlaceButtons", true)
 end
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)

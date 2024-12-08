@@ -10,6 +10,10 @@ beeCountToRemoveFromPool = 0 -- server
 festiveLeaderboard = nil -- server
 
 notifyFestiveBeeCaught = Event.new("NotifyFestiveBeeCaught")
+requestFestiveLeaderboard = Event.new("RequestFestiveLeaderboard")
+recieveFestiveLeaderboard = Event.new("RecieveFestiveLeaderboard")
+requestPlayerScore = Event.new("RequestPlayerScore")
+recievePlayerScore = Event.new("RecievePlayerScore")
 
 --!SerializeField
 local FestiveBee : GameObject = nil
@@ -41,7 +45,21 @@ local function SavePlayerScore(player)
     end
 end
 
+function RequestFestiveLeaderboard()
+    requestFestiveLeaderboard:FireServer()
+end
+
 function self:ServerAwake()
+    requestFestiveLeaderboard:Connect(function(player)
+        recieveFestiveLeaderboard:FireClient(player, festiveLeaderboard)
+    end
+    )
+
+    requestPlayerScore:Connect(function(player)
+        recievePlayerScore:FireClient(player, playerScores[player])
+    end
+    )
+
     spawnRate = NumberValue.new("FestiveBeeSpawnRate", 0)
     poolSize = IntValue.new("FestiveBeePool", 0)
 
@@ -87,6 +105,7 @@ function self:ClientAwake()
     Timer.new(1, function() TrySpawnFestiveBee() end, true)
     spawnRate = NumberValue.new("FestiveBeeSpawnRate", 0)
     poolSize = IntValue.new("FestiveBeePool", 0)
+    print("spawn rate: " .. spawnRate.value)
 end
 
 -- Server
@@ -109,6 +128,8 @@ function RetrieveFestiveBeePool()
 
     poolSize.value = pool.size
     spawnRate.value = pool.rate
+
+    print("Spawn rate: " .. spawnRate.value)
 
     Storage.SetValue("FestiveBeePool", pool, function(errorCode) if not errorCode == 0 then print("Error: Festive bee pool update failed!") end end)
     end)
@@ -153,6 +174,8 @@ function UpdateFestiveLeaderboard()
             table.remove(leaderboard)
         end
 
+        festiveLeaderboard = leaderboard
+
         -- Save updated leaderboard back to storage
         Storage.SetValue("FestiveLeaderboard", leaderboard, function(errorCode)
             if errorCode ~= 0 then
@@ -162,17 +185,23 @@ function UpdateFestiveLeaderboard()
     end)
 end
 
+
 -- Client
 function TrySpawnFestiveBee()
+    value = math.random()
     if math.random() > spawnRate.value then
+        print("Spawn rate is " .. spawnRate.value .. " but value is " .. value)
+
         return
     end
 
     if poolSize.value <= 0 then
+        print("b")
         return
     end
 
     if isBeeSpawned then
+        print("c")
         return
     end
 

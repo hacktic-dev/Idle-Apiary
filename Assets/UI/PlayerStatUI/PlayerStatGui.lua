@@ -18,6 +18,9 @@ local _beestiaryButton : UIButton = nil
 local _openShopButton : UIButton = nil
 
 --!Bind
+local _leaderboardButton : UIButton = nil
+
+--!Bind
 local _viewTutorialButton : UIButton = nil
 
 --!Bind
@@ -39,6 +42,7 @@ local ShopObject : GameObject = nil
 -- Importing the PlayerManager module to handle player-related functionalities
 local playerManager = require("PlayerManager")
 local UIManager = require("UIManager")
+local festiveBeeManager = require("FestiveBeeManager")
 
 local useHamburger = false
 
@@ -83,6 +87,10 @@ end, true, true, true)
 
 _toggleBadgesButton:RegisterPressCallback(function()
     playerManager.ToggleShowBadges()
+end, true, true, true)
+
+_leaderboardButton:RegisterPressCallback(function()
+    UIManager.OpenLeaderboard()
 end, true, true, true)
 
 

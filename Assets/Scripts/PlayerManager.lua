@@ -642,7 +642,9 @@ function self:ClientAwake()
 end
 
 function SendCashBatch()
-    IncrementStat("Cash", localCash)
+    if localCash ~= nil then
+        IncrementStat("Cash", localCash)
+    end
     localCash = 0
 end
 
@@ -898,6 +900,8 @@ function self:ServerAwake()
     end
     print("Saved!")
     end, true)
+
+    festiveBeeManager.Init()
 end
 
 function SetHoneyDoublerForPlayer(player, time)
