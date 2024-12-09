@@ -15462,6 +15462,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
+  m_CreateOrderObject: {fileID: 1836377557}
   m_playerStatObject: {fileID: 1795940969}
   references:
     version: 2
@@ -34199,6 +34200,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 619d34a0fa0554648a7f04e980cf6310, type: 3}
   - {fileID: 2800000, guid: f583453fb762e6e48a41eaebbe7023df, type: 3}
   - {fileID: 2800000, guid: f88a414772a0c2546a6123d15f8d0a1f, type: 3}
+  - {fileID: 2800000, guid: 54ddaced57378164da402de3b10a8111, type: 3}
   - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
   m_hatTextures:
   - {fileID: 2800000, guid: 2834b47a57a739d4baeb32f22d4c766f, type: 3}

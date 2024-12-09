@@ -30,7 +30,8 @@ BeeImage = {
     ["Prismatic Bee"] = beeTextures[22],
     ["Shadow Bee"] = beeTextures[23],
     ["Hypnotic Bee"] = beeTextures[24],
-    ["Locked"] = beeTextures[25]
+    ["Festive Bee"] = beeTextures[25],
+    ["Locked"] = beeTextures[26]
 }
 
 HatImage = {
