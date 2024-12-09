@@ -55,12 +55,18 @@ requestSeenBees = Event.new("RequestSeenBees")
 recieveSeenBees = Event.new("RecieveSeenBees")
 requestEarnRates = Event.new("RequestEarnRates")
 recieveEarnRates = Event.new("RecieveEarnRates")
+requestHatStatus = Event.new("RequestHatStatus")
+recieveHatStatus = Event.new("RecieveHatStatus")
+setHatStatus = Event.new("SetHatStatus")
 
 local restartTimerRequest = Event.new("RestartCashTimer")
 
 local MoneyTimer = nil
 
 clientBeeCount = 0
+
+--!SerializeField
+local CreateOrderObject : GameObject = nil
 
 -- Event to request bee data from the server
 local requestBeeList = Event.new("RequestBeeList")
@@ -125,6 +131,10 @@ local function SaveSeenBeeSpecies(player, id)
             end
         end)
     end
+end
+
+function SaveHatStatus(player, id)
+    requestHatStatus:FireClient(player)
 end
 
 -- Function to get the list of all bee species a player has obtained
@@ -477,6 +487,10 @@ function TrackPlayers(game, characterCallback)
                 Timer.new(0.05, function() playerJoins[player].value = data.joins end, false)
                 Storage.SetPlayerValue(player, player.name, data)
             end)
+
+            Storage.GetPlayerValue(player, "HatStatus", function(soldOutHats)
+                setHatStatus:FireClient(player, soldOutHats)
+            end)
         else
             playerJoins[player] = IntValue.new("Joins" .. tostring(player.id), 0)
         end
@@ -521,6 +535,7 @@ function SaveProgress(player, wasDc)
     SaveBeeStorage(player, player.user.id)
     UpdateStorage(player, player.user.id)
     SaveSeenBeeSpecies(player, player.user.id)
+    SaveHatStatus(player, player.user.id)
     flowerManager.SaveFlowerPositions(player, player.user.id)
     for player, playerData in pairs(players) do
         RecalculatePlayerEarnRate(player, wasDc)
@@ -646,6 +661,10 @@ function self:ClientAwake()
     TrackPlayers(client, OnCharacterInstantiate)
 
     updateBeeList:Connect(function() RequestBeeList() end)
+
+    requestHatStatus:Connect(function() recieveHatStatus:FireServer(CreateOrderObject:GetComponent(CreateOrderGui).GetSoldOutHats()) end)
+
+    setHatStatus:Connect(function(_soldOutHats) soldOutHats = _soldOutHats end)
 end
 
 function SendCashBatch()
@@ -900,10 +919,11 @@ function self:ServerAwake()
     end
     )
 
-    Timer.new(30, function() 
+    Timer.new(45, function() 
     for player, data in pairs(players) do
         if player ~= nil then
             print("saving for player " .. player.name .. ".")
+            print("test")
             SaveProgress(player, false)
         end
     end
@@ -915,6 +935,10 @@ function self:ServerAwake()
     requestEarnRates:Connect(function(player)
         print("Earn rates requested")
         recieveEarnRates:FireClient(player, playerMoneyEarnRates)
+    end)
+
+    recieveHatStatus:Connect(function(player, soldOutHats)
+        Storage.SetPlayerValue(player, "HatStatus", soldOutHats)
     end)
 end
 

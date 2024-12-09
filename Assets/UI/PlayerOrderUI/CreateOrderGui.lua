@@ -56,6 +56,9 @@ local selectedCash
 local  selectedName
 local isHat = false
 
+-- client
+local soldOutHats = {}
+
 _upgradesTab:RegisterPressCallback(function()
     local success = ButtonPressed("upgrades")
   end, true, true, true)
@@ -71,6 +74,10 @@ _honeyTab:RegisterPressCallback(function()
     _cosmeticsTab:RegisterPressCallback(function()
     local success = ButtonPressed("cosmetics")
     end, true, true, true)
+
+function GetSoldOutHats()
+    return soldOutHats
+end
 
 function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     Orders_Root:Clear()
@@ -161,7 +168,7 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(true)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true, false)
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true, false, false)
             i = i + 1
         end
     end
@@ -172,7 +179,8 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(false)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false, true)
+            local isSoldOut = soldOutHats[hat.id] and os.time() < soldOutHats[hat.id]
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false, true, isSoldOut)
             i = i + 1
         end
     end
@@ -338,9 +346,27 @@ end
     end
 end
 
-function CreateHatItem(Name, Id, Rarity, Cash, isGold, shouldConfirm)
+function CreateHatItem(Name, Id, Rarity, Cash, isGold, shouldConfirm, isSoldOut)
     local questItem = UIButton.new()
     questItem:AddToClassList("hat-item") -- Add a class to style the quest item.
+
+    if isSoldOut then
+        local soldOutLabel = UILabel.new()
+        soldOutLabel:AddToClassList("hat-title")
+        soldOutLabel:AddToClassList("text-center")
+        soldOutLabel:SetPrelocalizedText("Sold Out")
+        questItem:Add(soldOutLabel)
+
+        local soldOutLabelDescription = UILabel.new()
+        soldOutLabelDescription:AddToClassList("description")
+        soldOutLabelDescription:AddToClassList("text-center")
+        soldOutLabelDescription:SetPrelocalizedText("Check back again later")
+        questItem:Add(soldOutLabelDescription)
+
+        Orders_Root:Add(questItem)
+
+        return questItem
+    end
 
     -- Create a label for the quest item's title and add it to the quest item.
     local _titleLabel = UILabel.new()
@@ -589,6 +615,13 @@ function  BuyHat(isGold, Id, Name, Cash)
             playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
             playerManager.GiveHat(Id)
             playerManager.notifyHatPurchased:Fire(Name)
+
+            if math.random() <= 0.5 then
+                local expirationTime = os.time() + 30*60
+                soldOutHats[Id] = expirationTime
+                InitCosmeticsTab()
+            end
+
         else
             UIManager.ToggleUI("PlaceStatus", true)
             statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")

@@ -164,6 +164,7 @@ function ShowButtons()
     _hamburgerButton.visible = true
     _settingsButton.visible = true
     _toggleBadgesButton.visible = true
+    _leaderboardButton.visible = true
 end
 
 function HideButtons(boolean : isVisible)
@@ -174,4 +175,5 @@ function HideButtons(boolean : isVisible)
     _hamburgerButton.visible = false
     _settingsButton.visible = false
     _toggleBadgesButton.visible = false
+    _leaderboardButton.visible = false
 end

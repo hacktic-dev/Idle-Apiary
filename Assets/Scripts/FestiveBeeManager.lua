@@ -68,7 +68,7 @@ function self:ServerAwake()
 
     Timer.new(30, function() RetrieveFestiveBeePool() end, true)
 
-    Timer.new(30, function() UpdateFestiveLeaderboard() end, true)
+    Timer.new(15, function() UpdateFestiveLeaderboard() end, true)
 
     Timer.new(SAVE_INTERVAL, function()
         for player, _ in pairs(playerScores) do

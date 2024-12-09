@@ -25,6 +25,7 @@ namespace Highrise.Lua.Generated
         private const string s_scriptGUID = "b93c2cc49bf171445a7b2dc17cc4ef4b";
         public override string ScriptGUID => s_scriptGUID;
 
+        [SerializeField] public UnityEngine.GameObject m_CreateOrderObject = default;
         [SerializeField] public UnityEngine.GameObject m_playerStatObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
@@ -34,7 +35,8 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
-                CreateSerializedProperty(_script.GetPropertyAt(0), m_playerStatObject),
+                CreateSerializedProperty(_script.GetPropertyAt(0), m_CreateOrderObject),
+                CreateSerializedProperty(_script.GetPropertyAt(1), m_playerStatObject),
             };
         }
     }

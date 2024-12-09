@@ -576,3 +576,8 @@
   margin-right: 5px;
   width: 100%;
 }
+
+.text-center
+{
+  height: 69%;
+}
