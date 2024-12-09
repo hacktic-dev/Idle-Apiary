@@ -85,13 +85,13 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     print("Initing upgrades with bee capacity " .. beeCapacity .. ", flower capacity " .. flowerCapacity .. ", and sweet scent level " .. sweetScentLevel)
 
     if sweetScentLevel == 0 then
-        netPrice = 120
+        netPrice = 50
     elseif sweetScentLevel == 1 then
-        netPrice = 300
+        netPrice = 200
     elseif sweetScentLevel == 2 then
-        netPrice = 500
+        netPrice = 600
     elseif sweetScentLevel >= 3 then
-        netPrice = 800
+        netPrice = 1000
     end
 
     CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false, "", false)
