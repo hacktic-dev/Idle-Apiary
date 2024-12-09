@@ -21,6 +21,9 @@ HatList = {
     ["santa_hat"] = Hats[13],
     ["top_hat"] = Hats[14],
     ["fishermans_cap"] = Hats[15],
+    ["cat_ears"] = Hats[16],
+    ["sleeping_cap"] = Hats[17],
+    ["mustache"] = Hats[18],
 }
 
 function ApplyHat(hatId)
