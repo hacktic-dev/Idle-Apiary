@@ -54,7 +54,7 @@ HatImage = {
 
     ["Cat Ears"] = hatTextures[16],
     ["Sleeping Cap"] = hatTextures[17],
-    ["Mustach200e"] = hatTextures[18],
+    ["Mustache"] = hatTextures[18],
 }
 
 local hatData = 
