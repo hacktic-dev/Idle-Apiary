@@ -234,8 +234,8 @@ function SpawnPlayerFlowersOnAllClients(player, _apiaryPosition)
         end
 
         -- Remove illegal flowers
-        for i = 11, #placedFlowers do
-            placedFlowers[i] = nil
+        for i = 11, #storedFlowers do
+            storedFlowers[i] = nil
         end
         
         placedFlowers[player] = storedFlowers
