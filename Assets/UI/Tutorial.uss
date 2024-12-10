@@ -65,6 +65,16 @@
     background-image: url("project://database/Assets/Textures/tutorial2.png");
 }
 
+.festive-image
+{
+    background-image: url("project://database/Assets/Textures/festivebee.png");
+}
+
+.leaderboard-image
+{
+    background-image: url("project://database/Assets/Textures/leaderboard.png");
+}
+
 .title {
     font-size: 20px;
     margin: 5px;
@@ -83,4 +93,9 @@
     width: 20%;
     align-self: center;
     margin-bottom: auto;
+}
+
+.hidden
+{
+    display: none;
 }

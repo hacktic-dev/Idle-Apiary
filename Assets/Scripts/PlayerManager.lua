@@ -63,6 +63,8 @@ local restartTimerRequest = Event.new("RestartCashTimer")
 
 local MoneyTimer = nil
 
+lastJoinedVersion = -1
+
 clientBeeCount = 0
 
 --!SerializeField
@@ -440,6 +442,10 @@ function ReinitPlayer(player)
     end
 end
 
+function GetLastJoinedVersion()
+    return lastJoinedVersion.value
+end
+
 -- Function to track players joining and leaving the game
 function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game
@@ -460,6 +466,10 @@ function TrackPlayers(game, characterCallback)
             HasShears = BoolValue.new("HasShears" .. tostring(player.id), false)
         }
 
+        if client ~= nil then
+           lastJoinedVersion = IntValue.new("LastJoinedVersion" .. tostring(player.id), 0)
+        end
+
         if client == nil then
             print("Player " .. player.name .. " was initialised")
             --RemoveAllPlayerItems(player)
@@ -476,10 +486,15 @@ function TrackPlayers(game, characterCallback)
 
             Storage.GetPlayerValue(player, player.name, function(data, errorCode)
                 if data == nil or data.joins == nil then
-                    data = {name = player.name, version = 0, joins = 1} -- remember to increment version for each breaking change
+                    data = {name = player.name, version = 1, joins = 1} -- remember to increment version for each breaking change
                 else
                     data.joins = data.joins + 1
                 end
+
+                version = IntValue.new("LastJoinedVersion" .. tostring(player.id), 0)
+                version.value = data.version
+
+                data.version = 1
 
                 print("player joins are " .. data.joins)
 

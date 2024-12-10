@@ -11,6 +11,10 @@ local closeLabel : UILabel = nil
 local _festiveTab : UIButton = nil
 --!Bind
 local _roomTab : UIButton = nil
+--!Bind
+local _ShopContainer : VisualElement = nil
+
+buttonState = 0
 
 festiveBeeManager = require("FestiveBeeManager")
 UIManager = require("UIManager")
@@ -29,6 +33,11 @@ function AddItem(username, count, index)
     card = VisualElement.new()
     card:AddToClassList("order-item")
     
+    if buttonState == 0 then
+        card:AddToClassList("red")
+    else
+        card:AddToClassList("black")
+    end
 
     if index ~= "" then
         indexLabel = UILabel.new()
@@ -91,6 +100,15 @@ function ButtonPressed(btn: string)
     if btn == "festive" then
       if state == 0 then return end
       state = 0
+      buttonState = 0
+      _ShopContainer:AddToClassList("green")
+      _festiveTab:AddToClassList("red")
+      _roomTab:AddToClassList("red")
+
+      _ShopContainer:RemoveFromClassList("black")
+      _festiveTab:RemoveFromClassList("black")
+      _roomTab:RemoveFromClassList("black")
+
       _festiveTab:AddToClassList("nav-button--selected")
       _festiveTab:RemoveFromClassList("nav-button--deselected")
       _roomTab:AddToClassList("nav-button--deselected")
@@ -99,6 +117,15 @@ function ButtonPressed(btn: string)
     elseif btn == "room" then
       if state == 1 then return end
       state = 1
+      buttonState = 1
+      _ShopContainer:RemoveFromClassList("green")
+      _festiveTab:RemoveFromClassList("red")
+      _roomTab:RemoveFromClassList("red")
+
+      _ShopContainer:AddToClassList("black")
+      _festiveTab:AddToClassList("black")
+      _roomTab:AddToClassList("black")
+
       _roomTab:AddToClassList("nav-button--selected")
       _roomTab:RemoveFromClassList("nav-button--deselected")
       _festiveTab:AddToClassList("nav-button--deselected")
