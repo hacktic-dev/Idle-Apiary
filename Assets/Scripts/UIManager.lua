@@ -271,7 +271,7 @@ playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
-    InfoCardObject:GetComponent(InfoCard).ShowRecieved(species)
+    InfoCardObject:GetComponent(InfoCard).ShowReceived(species)
     InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
 end))
 

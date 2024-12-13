@@ -38,8 +38,8 @@ function ShowCaughtWild(species)
     SetTimer()
 end
 
-function ShowRecieved(species)
-    _beeLabel:SetPrelocalizedText("You recieved a " .. species .. "!")
+function ShowReceived(species)
+    _beeLabel:SetPrelocalizedText("You received a " .. species .. "!")
     _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
     _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
     _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))

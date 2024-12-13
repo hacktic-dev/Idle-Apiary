@@ -33,7 +33,7 @@ flowerAreaExitedEvent = Event.new("FlowerAreaExitedEvent")
 apiaryCanPlaceFlower = Event.new("ApiaryCanPlaceFlowerEvent")
 apiaryCannotPlaceFlower = Event.new("ApiaryCannotPlaceFlowerEvent")
 queryOwnedFlowers = Event.new("queryOwnedFlowers")
-recieveOwnedFlowers = Event.new("recieveOwnedFlowers")
+receiveOwnedFlowers = Event.new("receiveOwnedFlowers")
 noFlowersOwned = Event.new("noFlowersOwned")
 requestPlaceFlower = Event.new("requestPlaceFlower") -- client to server
 removeFlowerRequest = Event.new("removeFlowerRequest") -- server to client
@@ -150,7 +150,7 @@ function self:ServerAwake()
 
             for index, item in items do
                 if item.id == "Red" or item.id == "Yellow" or item.id == "White" or item.id == "Purple" then
-                    recieveOwnedFlowers:FireClient(player, item.id, item.amount)
+                    receiveOwnedFlowers:FireClient(player, item.id, item.amount)
                     flowersOwned = true
                 end
             end
@@ -259,8 +259,8 @@ noFlowersOwned:Connect(function()
     flowerPlaceUi:GetComponent(PlaceFlowerUi).NoFlowers()
 end)
 
-recieveOwnedFlowers:Connect(function(name, amount)
-    print("recieved!")
+receiveOwnedFlowers:Connect(function(name, amount)
+    print("received!")
     flowerPlaceUi:GetComponent(PlaceFlowerUi).AddFlowerCard(name, amount)  
     end)
 

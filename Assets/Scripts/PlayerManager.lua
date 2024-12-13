@@ -52,11 +52,11 @@ requestApiaryLocation = Event.new("requestApiaryLocation")
 notifyApiaryLocation = Event.new("notifyApiaryLocation")
 
 requestSeenBees = Event.new("RequestSeenBees")
-recieveSeenBees = Event.new("RecieveSeenBees")
+receiveSeenBees = Event.new("ReceiveSeenBees")
 requestEarnRates = Event.new("RequestEarnRates")
-recieveEarnRates = Event.new("RecieveEarnRates")
+receiveEarnRates = Event.new("ReceiveEarnRates")
 requestHatStatus = Event.new("RequestHatStatus")
-recieveHatStatus = Event.new("RecieveHatStatus")
+receiveHatStatus = Event.new("ReceiveHatStatus")
 setHatStatus = Event.new("SetHatStatus")
 
 local restartTimerRequest = Event.new("RestartCashTimer")
@@ -677,7 +677,7 @@ function self:ClientAwake()
 
     updateBeeList:Connect(function() RequestBeeList() end)
 
-    requestHatStatus:Connect(function() recieveHatStatus:FireServer(CreateOrderObject:GetComponent(CreateOrderGui).GetSoldOutHats()) end)
+    requestHatStatus:Connect(function() receiveHatStatus:FireServer(CreateOrderObject:GetComponent(CreateOrderGui).GetSoldOutHats()) end)
 
     setHatStatus:Connect(function(_soldOutHats) soldOutHats = _soldOutHats end)
 end
@@ -814,7 +814,7 @@ function self:ServerAwake()
         else
             isAdult = false
             growTime =  wildBeeManager.getGrowTime(name)
-            --print(player.name .. " recieved a " .. name .. "!")
+            --print(player.name .. " received a " .. name .. "!")
         end
         
         -- Ensure the bee species list is initialized for the player
@@ -916,7 +916,7 @@ function self:ServerAwake()
     requestSeenBees:Connect(function(player)
         GetSeenBeeSpeciesList(player, function(bees)
             -- Send the retrieved bee list back to the client
-            recieveSeenBees:FireClient(player, bees)
+            receiveSeenBees:FireClient(player, bees)
         end)
     end)
 
@@ -949,10 +949,10 @@ function self:ServerAwake()
 
     requestEarnRates:Connect(function(player)
         print("Earn rates requested")
-        recieveEarnRates:FireClient(player, playerMoneyEarnRates)
+        receiveEarnRates:FireClient(player, playerMoneyEarnRates)
     end)
 
-    recieveHatStatus:Connect(function(player, soldOutHats)
+    receiveHatStatus:Connect(function(player, soldOutHats)
         Storage.SetPlayerValue(player, "HatStatus", soldOutHats)
     end)
 end

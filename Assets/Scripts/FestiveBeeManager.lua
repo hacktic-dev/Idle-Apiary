@@ -11,9 +11,9 @@ festiveLeaderboard = nil -- server
 
 notifyFestiveBeeCaught = Event.new("NotifyFestiveBeeCaught")
 requestFestiveLeaderboard = Event.new("RequestFestiveLeaderboard")
-recieveFestiveLeaderboard = Event.new("RecieveFestiveLeaderboard")
+receiveFestiveLeaderboard = Event.new("ReceiveFestiveLeaderboard")
 requestPlayerScore = Event.new("RequestPlayerScore")
-recievePlayerScore = Event.new("RecievePlayerScore")
+receivePlayerScore = Event.new("ReceivePlayerScore")
 
 --!SerializeField
 local FestiveBee : GameObject = nil
@@ -51,12 +51,12 @@ end
 
 function self:ServerAwake()
     requestFestiveLeaderboard:Connect(function(player)
-        recieveFestiveLeaderboard:FireClient(player, festiveLeaderboard)
+        receiveFestiveLeaderboard:FireClient(player, festiveLeaderboard)
     end
     )
 
     requestPlayerScore:Connect(function(player)
-        recievePlayerScore:FireClient(player, playerScores[player])
+        receivePlayerScore:FireClient(player, playerScores[player])
     end
     )
 

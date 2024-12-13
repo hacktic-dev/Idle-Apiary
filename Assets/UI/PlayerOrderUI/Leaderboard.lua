@@ -139,7 +139,7 @@ function self:ClientAwake()
 
     users = {}
 
-    festiveBeeManager.recieveFestiveLeaderboard:Connect(function(festiveLeaderboard)
+    festiveBeeManager.receiveFestiveLeaderboard:Connect(function(festiveLeaderboard)
         for i, data in pairs(festiveLeaderboard) do
             AddItem(data.key, data.value, i)
             table.insert(users, data.key)
@@ -161,13 +161,13 @@ function self:ClientAwake()
         end
     end)
 
-    festiveBeeManager.recievePlayerScore:Connect(function(score)
+    festiveBeeManager.receivePlayerScore:Connect(function(score)
         AddItem(client.localPlayer.name, score, "")
     end)
 
-    playerManager.recieveEarnRates:Connect(function(rates)
+    playerManager.receiveEarnRates:Connect(function(rates)
 
-        print("Earn rates recieved")
+        print("Earn rates received")
         table.sort(rates, function(a, b) return a < b end)
 
         i = 1

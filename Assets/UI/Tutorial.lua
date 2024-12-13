@@ -34,7 +34,7 @@ function Init(playerInited)
     elseif playerManager.GetLastJoinedVersion() == 0 then
         showingEventTutorial = true
         closeLabel:SetPrelocalizedText("Next")
-        _tutorial1:SetPrelocalizedText("Welcome to the Festive Event!\n\nKeep an eye out for festive bees that rarely appear in the world. These bees can be sold to recieve HR gold!")
+        _tutorial1:SetPrelocalizedText("Welcome to the Festive Event!\n\nKeep an eye out for festive bees that rarely appear in the world. These bees can be sold to receive HR gold!")
         _tutorialImage.visible = true
         _tutorialImage:AddToClassList("festive-image")
         _tutorialImage:RemoveFromClassList("hidden")
@@ -82,7 +82,7 @@ function self:ClientAwake()
             _tutorialImage:AddToClassList("baybee-image")
             page = 1
         elseif page == 1 then
-            _tutorial1:SetPrelocalizedText("Each bee set contains 6 bees of varying rarities, and you'll recieve a random bee from the set. You can also capture bees out in the wild, so purchase some Bee Nets from the 'Items' tab, and keep an eye out for rare bees.\n\nTry to collect them all!")
+            _tutorial1:SetPrelocalizedText("Each bee set contains 6 bees of varying rarities, and you'll receive a random bee from the set. You can also capture bees out in the wild, so purchase some Bee Nets from the 'Items' tab, and keep an eye out for rare bees.\n\nTry to collect them all!")
             closeLabel:SetPrelocalizedText("Close")
             _tutorialImage:RemoveFromClassList("baybee-image")
             _tutorialImage:AddToClassList("bee-image")

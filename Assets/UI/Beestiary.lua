@@ -98,7 +98,7 @@ function Init()
         UIManager.CloseBeestiary()
     end, true, true, true)
 
-    playerManager.recieveSeenBees:Connect(function(seenBees)
+    playerManager.receiveSeenBees:Connect(function(seenBees)
         Populate(seenBees)
         howManyToNextRank = 8 - (#seenBees % 9)
         if #seenBees == 24 then
