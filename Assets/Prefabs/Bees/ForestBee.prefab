@@ -54,6 +54,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -278,6 +279,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5493407937633730181, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7929773388530764387, guid: 980f492354f06944e9a1a5596d3228fd,
         type: 3}
       propertyPath: m_Name
@@ -415,6 +421,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: 1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -445,6 +452,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: -1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
