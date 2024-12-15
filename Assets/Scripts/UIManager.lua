@@ -179,7 +179,7 @@ function HideTutorial()
     ToggleUI("PlaceButtons", true)
 end
 
-function OpenTutorial(playerInited)
+function HideAll()
     ToggleUI("PlaceFlowerMenu", false)
     ToggleUI("AddHatMenu", false)
     ToggleUI("BeeList", false)
@@ -187,13 +187,12 @@ function OpenTutorial(playerInited)
     ToggleUI("BeeCard", false)
     ToggleUI("ShopUi", false)
     ToggleUI("Beestiary", false)
-    ToggleUI("Tutorial", true)
     ToggleUI("PlaceButtons", false)
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceStatus", false)
     ToggleUI("Leaderboard", false)
-    TutorialObject:GetComponent(Tutorial).Init(playerInited)
+    ToggleUI("Tutorial", false)
 end
 
 function OpenShearsTutorial()
@@ -256,6 +255,10 @@ function CloseLeaderboard()
     ToggleUI("PlaceButtons", true)
 end
 
+function OpenTutorialByPlayer()
+    TutorialObject:GetComponent(Tutorial).Init(true, false)
+end
+
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlaceButtons", false)
@@ -287,8 +290,21 @@ end))
 
 
 function self:ClientAwake()
-    Timer.new(0.5, function() 
-        OpenTutorial(false)
+    Timer.new(0.2, function() 
+        HideAll()
+    end, false)
+
+    Timer.new(.5, function() 
+        ToggleUI("Tutorial", true)
+        TutorialObject:GetComponent(Tutorial).Init(false, false)
+    end, false)
+
+    Timer.new(1.7, function() 
+        if playerManager.GetPlayerJoins() == 3 or playerManager.GetLastJoinedVersion() == 0 then
+            HideAll()
+            ToggleUI("Tutorial", true)
+            TutorialObject:GetComponent(Tutorial).Init(false, true)
+        end
     end, false)
 end
 

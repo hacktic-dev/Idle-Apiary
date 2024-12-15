@@ -77,7 +77,8 @@ _openShopButton:RegisterPressCallback(function()
 end, true, true, true)
 
 _viewTutorialButton:RegisterPressCallback(function()
-    UIManager.OpenTutorial(true)
+    UIManager.HideAll()
+    UIManager.OpenTutorialByPlayer()
 end, true, true, true)
 
 _hamburgerButton:RegisterPressCallback(function()
@@ -154,6 +155,7 @@ function OpenMenu()
     _openShopButton:EnableInClassList("hide", false)
     _beestiaryButton:EnableInClassList("hide", false)
     _viewBeesButton:EnableInClassList("hide", false)
+    _leaderboardButton:EnableInClassList("hide", false)
     _hamburgerButton:EnableInClassList("hide", true)
 end
 
@@ -161,6 +163,7 @@ function ShowMenu()
     _openShopButton:EnableInClassList("hide", useHamburger)
     _beestiaryButton:EnableInClassList("hide", useHamburger)
     _viewBeesButton:EnableInClassList("hide", useHamburger)
+    _leaderboardButton:EnableInClassList("hide", useHamburger)
     _hamburgerButton:EnableInClassList("hide", not useHamburger)
 end
 

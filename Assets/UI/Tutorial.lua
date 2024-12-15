@@ -18,7 +18,7 @@ local showingEventTutorial = false
 local UIManager = require("UIManager")
 local playerManager = require("PlayerManager")
 
-function Init(playerInited)
+function Init(playerInited, tryShowEventTutorial)
     if playerManager.GetPlayerJoins() == 1 or playerInited then
         page = 0
         closeLabel:SetPrelocalizedText("Next")
@@ -31,7 +31,7 @@ function Init(playerInited)
         closeLabel:SetPrelocalizedText("Close")
         _tutorial1:SetPrelocalizedText("Welcome back!\n\nPlace down your apiary again to continue where you left off.")
         _tutorialImage.visible = false
-    elseif playerManager.GetLastJoinedVersion() == 0 then
+    elseif playerManager.GetPlayerJoins() == 3 or (playerManager.GetLastJoinedVersion() == 0 and tryShowEventTutorial) then
         showingEventTutorial = true
         closeLabel:SetPrelocalizedText("Next")
         _tutorial1:SetPrelocalizedText("Welcome to the Festive Event!\n\nKeep an eye out for festive bees that rarely appear in the world. These bees can be sold to receive HR gold!")
