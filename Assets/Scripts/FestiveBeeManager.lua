@@ -34,7 +34,7 @@ local SAVE_INTERVAL = 30
 
 -- Function to save a player's score to storage
 local function SavePlayerScore(player)
-    if playerScores[player] then
+    if player ~= nil and playerScores[player] ~= nil then
         Storage.SetPlayerValue(player, "FestiveBeeScore", playerScores[player], function(errorCode)
             if errorCode ~= 0 then
                 print("Error saving player score for " .. player.name)
@@ -101,6 +101,10 @@ function OnPlayerJoined(player)
         end)
 end
 
+function OnPlayerLeft(player)
+    playerScores[player] = nil
+end
+
 function self:ClientAwake()
     Timer.new(1, function() TrySpawnFestiveBee() end, true)
     spawnRate = NumberValue.new("FestiveBeeSpawnRate", 0)
@@ -145,23 +149,26 @@ function UpdateFestiveLeaderboard()
 
         -- Update leaderboard based on players' in-memory scores
         for player, score in pairs(playerScores) do
-            local isInTopTen = false
 
-            -- Check if player is already in leaderboard
-            for i, entry in ipairs(leaderboard) do
-                if entry.key == player.name then
-                    isInTopTen = true
-                    -- Update player's score if it's higher
-                    if score > entry.value then
-                        leaderboard[i].value = score
+            if player ~= nil then
+                local isInTopTen = false
+
+                -- Check if player is already in leaderboard
+                for i, entry in ipairs(leaderboard) do
+                    if player and entry.key == player.name then
+                        isInTopTen = true
+                        -- Update player's score if it's higher
+                        if score > entry.value then
+                            leaderboard[i].value = score
+                        end
+                        break
                     end
-                    break
                 end
-            end
 
-            -- Add new player if not in leaderboard and has a high enough score
-            if not isInTopTen then
-                table.insert(leaderboard, {key = player.name, value = score})
+                -- Add new player if not in leaderboard and has a high enough score
+                if not isInTopTen then
+                    table.insert(leaderboard, {key = player.name, value = score})
+                end
             end
         end
 

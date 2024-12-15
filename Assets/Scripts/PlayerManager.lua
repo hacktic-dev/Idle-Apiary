@@ -207,7 +207,7 @@ end
 
 -- Function to save the player's bee storage back to persistent storage
 local function SaveBeeStorage(player, id)
-    if playerBeeStorage[player] ~= nil then
+    if player ~= nil and playerBeeStorage[player] ~= nil then
         -- Save the bee storage to persistent storage
         Storage.SetValue(id .. "/" ..  "BeeStorage", playerBeeStorage[player], function(errorCode)
             print("saved bees for " .. player.name)
@@ -536,6 +536,7 @@ function TrackPlayers(game, characterCallback)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             flowerManager.RemoveAllPlayerFlowers(player)
             playerJoins[player] = nil
+            festiveBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
         end
