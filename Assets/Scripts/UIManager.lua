@@ -256,6 +256,7 @@ function CloseLeaderboard()
 end
 
 function OpenTutorialByPlayer()
+    ToggleUI("Tutorial", true)
     TutorialObject:GetComponent(Tutorial).Init(true, false)
 end
 
