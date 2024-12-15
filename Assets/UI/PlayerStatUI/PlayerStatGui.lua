@@ -32,6 +32,9 @@ local _hamburgerButton : UIButton = nil
 --!Bind
 local _settingsButton : UIButton = nil
 
+--!Bind
+local versionText : UILabel = nil
+
 --!SerializeField
 local BeeListObject : GameObject = nil
 
@@ -105,6 +108,11 @@ function self:ClientAwake()
     _viewTutorialButton:AddToClassList("hide")
     _viewTutorialButton:AddToClassList("hide")
     _hamburgerButton:AddToClassList("hide")
+    versionText:SetPrelocalizedText("")
+
+    playerManager.setPlayerVersionString:Connect(function(string)
+        versionText:SetPrelocalizedText(string)
+    end)
 
     if Screen.height > Screen.width then
         useHamburger = true

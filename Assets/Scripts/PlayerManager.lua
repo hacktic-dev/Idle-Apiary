@@ -47,6 +47,7 @@ playerEarnRateChanged = Event.new("PlayerEarnRateChanged")
 giveShearsRequest = Event.new("GiveShearsRequest")
 givePlayerHatRequest = Event.new("GivePlayerHatRequest")
 requestRemoveBeeHat = Event.new("requestRemoveBeeHat")
+setPlayerVersionString = Event.new("setPlayerVersionString")
 
 requestApiaryLocation = Event.new("requestApiaryLocation")
 notifyApiaryLocation = Event.new("notifyApiaryLocation")
@@ -478,6 +479,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
+            setPlayerVersionString:FireClient(player, "1.2.3")
             festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do

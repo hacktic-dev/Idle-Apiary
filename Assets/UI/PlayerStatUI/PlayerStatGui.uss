@@ -144,3 +144,10 @@
 .player-stat-gui #xpCount{
     color: white;
 }
+
+.version{
+  position: absolute;
+  color: #fff;
+  top: -40%;
+  left: 1%;
+}

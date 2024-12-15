@@ -51,6 +51,7 @@
        <Label class="buttonLabel" text="Toggle Badges" />
       </hr:UIButton>
       </VisualElement>
+      <hr:UILabel class="version" name="versionText" />
   </hr:UILuaView>
 
 </UXML>
