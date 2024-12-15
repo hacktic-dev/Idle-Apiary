@@ -10,7 +10,7 @@ local closeLabel : UILabel = nil
 --!Bind
 local _festiveTab : UIButton = nil
 --!Bind
-local _roomTab : UIButton = nil
+--local _roomTab : UIButton = nil
 --!Bind
 local _ShopContainer : VisualElement = nil
 
@@ -24,9 +24,9 @@ _festiveTab:RegisterPressCallback(function()
     local success = ButtonPressed("festive")
   end, true, true, true)
 
-  _roomTab:RegisterPressCallback(function()
-    local success = ButtonPressed("room")
-  end, true, true, true)
+  --_roomTab:RegisterPressCallback(function()
+ --   local success = ButtonPressed("room")
+  --end, true, true, true)
   
 
 function AddItem(username, count, index)
@@ -103,15 +103,15 @@ function ButtonPressed(btn: string)
       buttonState = 0
       _ShopContainer:AddToClassList("green")
       _festiveTab:AddToClassList("red")
-      _roomTab:AddToClassList("red")
+     -- _roomTab:AddToClassList("red")
 
       _ShopContainer:RemoveFromClassList("black")
       _festiveTab:RemoveFromClassList("black")
-      _roomTab:RemoveFromClassList("black")
+      --_roomTab:RemoveFromClassList("black")
 
       _festiveTab:AddToClassList("nav-button--selected")
       _festiveTab:RemoveFromClassList("nav-button--deselected")
-      _roomTab:AddToClassList("nav-button--deselected")
+      --_roomTab:AddToClassList("nav-button--deselected")
       InitFestiveTab()
       return true
     elseif btn == "room" then
@@ -120,14 +120,14 @@ function ButtonPressed(btn: string)
       buttonState = 1
       _ShopContainer:RemoveFromClassList("green")
       _festiveTab:RemoveFromClassList("red")
-      _roomTab:RemoveFromClassList("red")
+     -- _roomTab:RemoveFromClassList("red")
 
       _ShopContainer:AddToClassList("black")
       _festiveTab:AddToClassList("black")
-      _roomTab:AddToClassList("black")
+      --_roomTab:AddToClassList("black")
 
-      _roomTab:AddToClassList("nav-button--selected")
-      _roomTab:RemoveFromClassList("nav-button--deselected")
+     -- _roomTab:AddToClassList("nav-button--selected")
+     -- _roomTab:RemoveFromClassList("nav-button--deselected")
       _festiveTab:AddToClassList("nav-button--deselected")
       InitRoomTab()
       return true

@@ -15,9 +15,7 @@
         <VisualElement class="nav-button--selected" name="_festiveTab">
           <Label class="nav-text" text="Festive Event" />
         </VisualElement>
-        <VisualElement class="nav-button--deselected" name="_roomTab">
-          <Label class="nav-text" text="Room" />
-        </VisualElement>
+
       </VisualElement>
     </VisualElement>
 
