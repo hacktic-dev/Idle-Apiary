@@ -479,7 +479,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.2.3")
+            setPlayerVersionString:FireClient(player, "1.2.10")
             festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
@@ -488,7 +488,7 @@ function TrackPlayers(game, characterCallback)
 
             Storage.GetPlayerValue(player, player.name, function(data, errorCode)
                 if data == nil or data.joins == nil then
-                    data = {name = player.name, version = 1, joins = 1} -- remember to increment version for each breaking change
+                    data = {name = player.name, version = 1, joins = 1, festiveGoldGiven = true} -- remember to increment version for each breaking change
                 else
                     data.joins = data.joins + 1
                 end
@@ -496,7 +496,19 @@ function TrackPlayers(game, characterCallback)
                 version = IntValue.new("LastJoinedVersion" .. tostring(player.id), 0)
                 version.value = data.version
 
-                data.version = 1
+                if data.version < 1 then
+                    data.version = 1
+                end
+
+                data.festiveGoldGiven2 = nil
+                data.festiveGoldGiven3 = nil
+
+                -- give missing gold
+                if data.festiveGoldGiven == nil or data.festiveGoldGiven == false then
+                    data.festiveGoldGiven = true
+                    print("Gold is missing for player " .. player.name .. ". Initiating transfer.")
+                    GivePlayerMissingGold(player)
+                end
 
                 print("player joins are " .. data.joins)
 
@@ -541,12 +553,39 @@ function TrackPlayers(game, characterCallback)
             festiveBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
+            players[player] = nil
         end
-        Timer.new(5, function() 
-            if tableContains(onlinePlayers, player) == false then
-             players[player] = nil end end
-            , false)
     end)
+end
+
+function GivePlayerMissingGold(player)
+    Timer.new(3, function()
+        InitializeBeeStorage(player, function(storedBees)
+            score = festiveBeeManager.GetPlayerScore(player)
+
+            for index, bee in ipairs(storedBees) do
+                if bee.species == "Festive Bee" then
+                    score = score - 1
+                end
+            end
+
+            print("Attempted to transfer ".. score .. " missing gold to player " .. player.name .. ".")
+            Wallet.TransferGoldToPlayer(player, score, function(response, err)
+                if err ~= WalletError.None then
+                        print("Something went wrong while transferring gold: " .. WalletError[err])
+
+                        Storage.GetPlayerValue(player, player.name, function(data, errorCode)
+                            data.festiveGoldGiven = false
+                            Storage.SetPlayerValue(player, player.name, data)
+                        end)
+                        
+                        return
+                    end
+
+                print("Sent missing gold, Gold remaining: " .. response.gold)
+            end)
+        end)
+    end, false)
 end
 
 function SaveProgress(player, wasDc)
@@ -861,12 +900,13 @@ function self:ServerAwake()
 
                     if bee.species == "Festive Bee" then
                       Wallet.TransferGoldToPlayer(player, 1, function(response, err)
+
                         if err ~= WalletError.None then
 			                    error("Something went wrong while transferring gold: " .. WalletError[err])
 			                    return
 		                    end
 
-                        print("Sent 1 Gold, Gold remaining: : ", response.gold)
+                            print("Transferred 1 gold to player " .. player.name .. " successfully!")
                       end)
                     end
 
