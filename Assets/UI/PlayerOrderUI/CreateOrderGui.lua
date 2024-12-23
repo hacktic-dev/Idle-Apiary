@@ -94,7 +94,7 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
         netPrice = 1000
     end
 
-    CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false, "", false)
+    CreateQuestItem("Bee Net", "Net", netPrice, false, "", false)
 
     if beeCapacity < 20 then
         CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", true)
@@ -105,7 +105,7 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
-        CreateQuestItem("Purchase Shears", "Shears", 5000, false, "Can be used to pick flowers", true)
+        CreateQuestItem("Shears", "Shears", 5000, false, "Can be used to pick flowers", true)
     else
        if flowerCapacity < 10 then
         CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false, "", true)
@@ -115,16 +115,16 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set", false)
-    CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set", false)
-    CreateQuestItem("Purchase a Random Bee", "Gold", 1250, false, "Gold Set", false)
-    CreateQuestItem("Purchase a Random Bee", "Platinum", 5000, false, "Platinum Set", false)
+    CreateQuestItem("Random Bee", "Bronze", 50, false, "Bronze Set", false)
+    CreateQuestItem("Random Bee", "Silver", 250, false, "Silver Set", false)
+    CreateQuestItem("Random Bee", "Gold", 1250, false, "Gold Set", false)
+    CreateQuestItem("Random Bee", "Platinum", 5000, false, "Platinum Set", false)
 end
 
 local function InitHoneyTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.", false)
-    CreateQuestItem("Purchase Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes", false)
+    CreateQuestItem("Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.", false)
+    CreateQuestItem("Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes", false)
 end
 
 local function getSeed()

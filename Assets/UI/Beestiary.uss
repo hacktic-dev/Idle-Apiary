@@ -19,6 +19,27 @@
     align-self: center;
 }
 
+.image-background-top
+{			background-image: url("project://database/Assets/Textures/background_blur_beestiary_top.png");
+		 -unity-background-scale-mode: scale-and-crop;
+}
+
+.image-background-main
+{			background-image: url("project://database/Assets/Textures/background_blur_beestiary_main.png");
+		 -unity-background-scale-mode: scale-and-crop;
+}
+
+.image-background-card
+{			background-image: url("project://database/Assets/Textures/background_blur_beestiary_card.png");
+		 -unity-background-scale-mode: scale-and-crop;
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
 .order-item {
 
     margin: 0px;
@@ -49,7 +70,7 @@
 }
 
 .close-button {
-    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    background-color: rgba(180, 0, 0, 0.8); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;

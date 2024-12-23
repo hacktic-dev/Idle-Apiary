@@ -11,16 +11,16 @@
     <hr:UILabel class="bee-ui_status" name="statusLabel" picking-mode="Ignore" text="" />
 
     <!-- Scrollable container for bee items -->
-    <VisualElement class = "labelsContainer">
+    <VisualElement class = "labelsContainer image-background-top">
     <hr:UILabel name="beeCountLabel" class="beeCount" text="0/12"/>
     <hr:UILabel name="totalHoneyRateLabel" class="honeyRate" text="Total honey rate: x"/>
     </VisualElement>
-    <hr:UIScrollView name="BeeList_Root" mode="Vertical">
+    <hr:UIScrollView name="BeeList_Root" mode="Vertical" class = "image-background-main">
     </hr:UIScrollView>
     <hr:UIButton name="closeButton" class="close-button">
       <hr:UILabel name="closeLabel" class="title" />
     </hr:UIButton>
-    <VisualElement class="sort-container">
+    <VisualElement class="sort-container image-background-top">
       <hr:UIButton name="_alphabeticalSort" class="sort-item">
         <hr:UILabel name= "_alphabeticalSortLabel" text="test" class ="sortButton" />
       </hr:UIButton>

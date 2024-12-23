@@ -90,7 +90,7 @@
 }
 
 .landscape .title {
-    font-size: 21.5px;
+    font-size: 20px;
 }
 
 .confirm-label {
@@ -166,7 +166,7 @@
 }
 
 .landscape .description {
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .rarity-label {
@@ -185,7 +185,7 @@
 }
 
 .landscape .rarity-label-small {
-    font-size: 12px;
+    font-size: 11px;
     color: white;
     align-self: center;
     white-space: normal;
@@ -251,7 +251,14 @@
 
   border-width: 2px;
   border-radius: 8px;
-  background-color: rgba(0,0,0,.3);
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
 }
 
 .portrait .shop__container
@@ -380,7 +387,7 @@
 
 .landscape .nav-text
 {
-  font-size: 16.6px;
+  font-size: 14.5px;
   margin:0px;
   padding-bottom: 4px;
   padding-left: 1px;
@@ -417,7 +424,7 @@
 }
 
 .Legendary {
-  height: 25px;
+  height: 20px;
     flex-grow: 1;
   padding: 4px;
       margin-left: 12px;
@@ -427,7 +434,7 @@
 }
 
 .Rare {
-  height: 25px;
+  height: 20px;
     flex-grow: 1;
         margin-left: 12px;
     margin-right: 12px;
@@ -437,7 +444,7 @@
 }
 
 .Uncommon {
-  height: 25px;
+  height: 20px;
     flex-grow: 1;
     padding: 4px;
         margin-left: 12px;
@@ -447,7 +454,7 @@
 }
 
 .Common {
-  height: 25px;
+  height: 20px;
   flex-grow: 1;
     padding: 4px;
     margin-left: 12px;

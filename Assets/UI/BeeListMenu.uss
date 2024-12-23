@@ -5,6 +5,22 @@
     width: 670px;
 }
 
+.image-background-top
+{		background-image: url("project://database/Assets/Textures/background_blur_beestiary_top.png");
+		 -unity-background-scale-mode: scale-and-crop;
+}
+
+.image-background-main
+{			background-image: url("project://database/Assets/Textures/background_blur.png");
+		 -unity-background-scale-mode: scale-and-crop;
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
 .portrait .create-bee-gui{
     max-width: 95%
 }
@@ -103,6 +119,7 @@
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     margin-bottom: 10px;
+    padding-top: 3px;
 }
 
 
@@ -280,12 +297,14 @@
 }
 
 .close-button {
-    background-color: rgba(255, 0, 0, 0.8); /* Red for visibility */
+    background-color: rgba(180, 0, 0, .8); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
     font-size: 16px;
     margin-top: 10px;
+    width: 40%;
+    align-self: center;
 }
 
 .empty-button 
@@ -301,7 +320,7 @@
 .sort-container
 {
     position: absolute;
-    left: -25%;
+    left: -28%;
     top: 35px;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
