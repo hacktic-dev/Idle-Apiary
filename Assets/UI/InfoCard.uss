@@ -1,3 +1,10 @@
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
 .bee-obtain-card
 {
     margin : 10px;
@@ -13,7 +20,8 @@
     max-width: none;
     width: 375px;
     height: 250px;
-    background-color: rgba(0,0,0,.5);
+    background-image: url("project://database/Assets/Textures/background_blur_dark.png");
+	  -unity-background-scale-mode: scale-and-crop;
     border-radius: 10px;
     overflow: scroll;
     margin-right: auto;
