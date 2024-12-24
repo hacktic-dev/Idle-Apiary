@@ -735,7 +735,7 @@ function self:ServerAwake()
 
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 100, Nets = 1, BeeCapacity = 10, FlowerCapacity = 5, SweetScentLevel = 0, HasShears = false}
+                stats = {Cash = 100, Nets = 1, BeeCapacity = 8, FlowerCapacity = 5, SweetScentLevel = 0, HasShears = false}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
