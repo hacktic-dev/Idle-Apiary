@@ -479,7 +479,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.2.3")
+            setPlayerVersionString:FireClient(player, "1.2.11")
             festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
@@ -730,7 +730,8 @@ function self:ServerAwake()
         Storage.GetPlayerValue(player, "PlayerStats", function(stats, errorCode)
 
             if not errorCode == 0 then
-                return
+                getStatsRequest:Fire(player)
+								return
             end
 
             -- If no existing stats are found, create default stats
@@ -937,7 +938,7 @@ function self:ServerAwake()
     end
     )
 
-    Timer.new(45, function() 
+    Timer.new(60, function() 
     for player, data in pairs(players) do
         if player ~= nil then
             print("saving for player " .. player.name .. ".")
