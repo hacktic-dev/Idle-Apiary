@@ -100,8 +100,17 @@ function Init()
 
     playerManager.receiveSeenBees:Connect(function(seenBees)
         Populate(seenBees)
-        howManyToNextRank = 8 - (#seenBees % 9)
-        if #seenBees == 24 then
+
+				count = #seenBees
+
+				for index, value in ipairs(seenBees) do
+					if value == "Festive Bee" then
+						count = count - 1
+					end
+				end
+
+        howManyToNextRank = 8 - (count % 8)
+        if count == 24 then
             _rankLabel:SetPrelocalizedText("You have discovered every bee!")
         elseif howManyToNextRank == 1 then
             _rankLabel:SetPrelocalizedText("Discover 1 more bee to reach the next rank!")
