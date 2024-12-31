@@ -4,6 +4,12 @@
 local beeTextures : {Texture} = nil
 --!SerializeField
 local hatTextures : {Texture} = nil
+--!SerializeField
+local placementObjects : {GameObject} = nil
+
+PlacementObject = {
+	["Test"] = placementObjects[1]
+}
 
 BeeImage = {
     ["Common Bee"] = beeTextures[1],
@@ -80,6 +86,10 @@ local hatData =
     {name = "Sleeping Cap", id = "sleeping_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 4000, goldCost = 200},
     {name = "Mustache", id = "mustache", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 600},
 }
+
+function GetPlacementObject(name)
+	return PlacementObject[name]
+end
 
 function LookupHatName(id)
     for _, hat in ipairs(hatData) do

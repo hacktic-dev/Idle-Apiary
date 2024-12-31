@@ -27,6 +27,7 @@ namespace Highrise.Lua.Generated
 
         [SerializeField] public System.Collections.Generic.List<UnityEngine.Texture> m_beeTextures = default;
         [SerializeField] public System.Collections.Generic.List<UnityEngine.Texture> m_hatTextures = default;
+        [SerializeField] public System.Collections.Generic.List<UnityEngine.GameObject> m_placementObjects = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -37,6 +38,7 @@ namespace Highrise.Lua.Generated
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), m_beeTextures),
                 CreateSerializedProperty(_script.GetPropertyAt(1), m_hatTextures),
+                CreateSerializedProperty(_script.GetPropertyAt(2), m_placementObjects),
             };
         }
     }
