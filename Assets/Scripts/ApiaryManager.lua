@@ -15,6 +15,7 @@ local MIN_DISTANCE = 23
 local apiaries = {}
 
 local playerManager = require("PlayerManager")
+local placedObjectsManager = require("PlacedObjectsManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
@@ -103,6 +104,8 @@ apiaryPlacementRequest:Connect(function(player, position)
           end)
 
         flowerManager.SpawnPlayerFlowersOnAllClients(player, position)
+				placedObjectsManager.SpawnPlayerPlacedObjectsOnAllClients(player, position)
+
         notifyApiaryPlacementSucceeded:FireClient(player, position)
     else
         -- Notify the player that the placement was invalid
