@@ -46,29 +46,7 @@ function GetOwnerUi()
 end
 
 function ShowPlacementLocations()
-	for i = -apiarySize, apiarySize do
-		for j = -apiarySize, apiarySize do
-			newObject = Object.Instantiate(locationObject)
-			newObject.transform.parent = self.transform
-			newObject.transform.localPosition = Vector3.new(i*2, 0, j*2)
-
-			table.insert(placementLocations, newObject)
-
-			newObject.gameObject:GetComponent(TapHandler).Tapped:Connect(function()
-			if spawnedObject ~= nil then
-				Object.Destroy(spawnedObject)
-				spawnedObject = nil
-			end
-
-			placedObjectsManager.SetProspectiveObject(objectName, i, j)
-
-			spawnedObject = Object.Instantiate(objectToSpawn)
-			spawnedObject.transform.parent = self.transform
-			spawnedObject.transform.localPosition = Vector3.new(i*2, 0, j*2)
-			print("Position " .. i .. ", " .. j .. " tapped.")
-			end)
-		end
-	end
+	placedObjectsManager.requestFreeSpaces:FireServer(apiarySize)
 end
 
 function self:ClientAwake()
@@ -83,5 +61,32 @@ function self:ClientAwake()
 			Object.Destroy(spawnedObject)
 			spawnedObject = nil
 		end
+	end)
+
+	placedObjectsManager.receiveFreeSpaces:Connect(function(freeSpaces)
+	
+		for _, space in ipairs(freeSpaces) do
+
+			newObject = Object.Instantiate(locationObject)
+			newObject.transform.parent = self.transform
+			newObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
+
+			table.insert(placementLocations, newObject)
+
+			newObject.gameObject:GetComponent(TapHandler).Tapped:Connect(function()
+			if spawnedObject ~= nil then
+				Object.Destroy(spawnedObject)
+				spawnedObject = nil
+			end
+
+			placedObjectsManager.SetProspectiveObject(objectName, space.x, space.y)
+
+			spawnedObject = Object.Instantiate(objectToSpawn)
+			spawnedObject.transform.parent = self.transform
+			spawnedObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
+			print("Position " .. space.x .. ", " .. space.y .. " tapped.")
+			end)
+		end
+
 	end)
 end

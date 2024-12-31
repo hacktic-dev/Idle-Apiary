@@ -5,6 +5,9 @@ closePlacementMenu = Event.new("closePlacementMenu")
 local clientSpawnPlacedObject = Event.new("clientSpawnPlacedObject")
 local removeObjectRequest = Event.new("removeObjectRequest")
 
+requestFreeSpaces = Event.new("requestFreeSpaces")
+receiveFreeSpaces = Event.new("receiveFreeSpaces")
+
 prospectiveObject = nil
 
 apiaryManager = require("ApiaryManager")
@@ -48,6 +51,31 @@ function InitServer()
 			-- TODO: take object from inventory
 
 	end)
+
+	requestFreeSpaces:Connect(function(player, size)
+
+		freeSpaces = {}
+
+		for i = -size, size do
+			for j = -size, size do
+				if CheckIfSpaceFree(player, i, j) then
+					table.insert(freeSpaces, {x = i, y = j})
+				end
+			end
+		end
+
+		receiveFreeSpaces:FireClient(player, freeSpaces)
+		end)
+end
+
+function CheckIfSpaceFree(player, i, j)
+	for _ , object in ipairs(placedObjects[player]) do
+		if object.x == i and object.y == j then
+			return false
+		end
+	end
+
+	return true
 end
 
 function InitClient()
