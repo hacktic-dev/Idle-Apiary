@@ -34334,6 +34334,10 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 4929341b93db1324c96a01cfbb76fe8c, type: 3}
   m_placementObjects:
   - {fileID: 6150770344185259146, guid: 6421159d9fbcd0a4c94e0e6089e2a687, type: 3}
+  - {fileID: 6150770344185259146, guid: 9681ed390627bb24a973eadda3605985, type: 3}
+  - {fileID: 2471304016359239742, guid: 0c57a6352ab91554dbdc3e24a831254b, type: 3}
+  - {fileID: 8340235487621428255, guid: 5a5602a83558deb4e9c87d05a1a13022, type: 3}
+  - {fileID: 8340235487621428255, guid: 44ed67ce1e9145640b969d321ec9db93, type: 3}
   references:
     version: 2
     RefIds:

@@ -8,7 +8,11 @@ local hatTextures : {Texture} = nil
 local placementObjects : {GameObject} = nil
 
 PlacementObject = {
-	["Test"] = placementObjects[1]
+	["Test"] = placementObjects[1],
+	["Chair"] = placementObjects[2],
+	["Table"] = placementObjects[3],
+	["Chess Table"] = placementObjects[4],
+	["Book Table"] = placementObjects[5],
 }
 
 BeeImage = {
