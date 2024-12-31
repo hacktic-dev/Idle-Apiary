@@ -69,6 +69,11 @@ function InitServer()
 end
 
 function CheckIfSpaceFree(player, i, j)
+	
+	if placedObjects[player] == nil then
+		return true
+	end
+
 	for _ , object in ipairs(placedObjects[player]) do
 		if object.x == i and object.y == j then
 			return false
@@ -123,7 +128,7 @@ function SpawnPlayerPlacedObjectsOnAllClients(player, _apiaryPosition)
     Storage.GetPlayerValue(player, "PlacedObjects", function(storedObjects, errorCode)
 
         if storedObjects == nil then
-            storedObjects[player] = {}
+            storedObjects = {}
             return
         end
         
