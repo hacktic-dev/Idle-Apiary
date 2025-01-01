@@ -222,8 +222,8 @@ function self:ClientAwake()
 
 						if owner == client.localPlayer.name then
 							newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(4)
-							objectToSpawn = utils.GetPlacementObject("Book Table")
-							newApiary:GetComponent(ApiaryPrefabOwner).SetObjectToSpawn(objectToSpawn, "Book Table")
+							objectToSpawn = utils.GetPlacementObject("Chair")
+							newApiary:GetComponent(ApiaryPrefabOwner).SetObjectToSpawn(objectToSpawn, "Chair")
 							newApiary:GetComponent(ApiaryPrefabOwner).ShowPlacementLocations()
 						end
 
