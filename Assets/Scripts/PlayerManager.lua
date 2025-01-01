@@ -11,7 +11,6 @@ local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
-local festiveBeeManager = require("FestiveBeeManager")
 local placedObjectsManager = require("PlacedObjectsManager")
 
 -- Variable to hold the player's statistics GUI component
@@ -480,8 +479,8 @@ function TrackPlayers(game, characterCallback)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
 						placedObjectsManager.SpawnAllObjectsForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.2.3")
-            festiveBeeManager.OnPlayerJoined(player)
+            setPlayerVersionString:FireClient(player, "1.2.12")
+            --festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
                 RecalculatePlayerEarnRate(player)
@@ -498,6 +497,22 @@ function TrackPlayers(game, characterCallback)
                 version.value = data.version
 
                 data.version = 1
+
+								if data.owed ~= nil then
+									if data.owed > 0 then
+									  print("Awarding winner " .. player.name .. data.owed .. " gold.")
+								    Wallet.TransferGoldToPlayer(player, data.owed, function(response, err)
+                        if err ~= WalletError.None then
+			                    error("Something went wrong while transferring gold: " .. WalletError[err])
+			                    return
+		                    end
+
+												data.owed = 0
+												Storage.SetPlayerValue(player, player.name, data)
+                        print("Sent gold to " .. player.name .. " successfully.")
+                      end)
+										end
+								end
 
                 print("player joins are " .. data.joins)
 
@@ -540,7 +555,7 @@ function TrackPlayers(game, characterCallback)
             flowerManager.RemoveAllPlayerFlowers(player)
 						placedObjectsManager.RemoveAllPlayerPlacedObjects(player)
             playerJoins[player] = nil
-            festiveBeeManager.OnPlayerLeft(player)
+            --festiveBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
         end
@@ -735,7 +750,8 @@ function self:ServerAwake()
         Storage.GetPlayerValue(player, "PlayerStats", function(stats, errorCode)
 
             if not errorCode == 0 then
-                return
+                getStatsRequest:Fire(player)
+								return
             end
 
             -- If no existing stats are found, create default stats
@@ -941,7 +957,7 @@ function self:ServerAwake()
     end
     )
 
-    Timer.new(45, function() 
+    Timer.new(60, function() 
     for player, data in pairs(players) do
         if player ~= nil then
             print("saving for player " .. player.name .. ".")
