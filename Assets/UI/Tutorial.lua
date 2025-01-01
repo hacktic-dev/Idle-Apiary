@@ -13,12 +13,10 @@ local closeLabel : UILabel = nil
 
 local page = 0
 
-local showingEventTutorial = false
-
 local UIManager = require("UIManager")
 local playerManager = require("PlayerManager")
 
-function Init(playerInited, tryShowEventTutorial)
+function Init(playerInited)
     if playerManager.GetPlayerJoins() == 1 or playerInited then
         page = 0
         closeLabel:SetPrelocalizedText("Next")
@@ -31,13 +29,6 @@ function Init(playerInited, tryShowEventTutorial)
         closeLabel:SetPrelocalizedText("Close")
         _tutorial1:SetPrelocalizedText("Welcome back!\n\nPlace down your apiary again to continue where you left off.")
         _tutorialImage.visible = false
-    elseif playerManager.GetPlayerJoins() == 3 or (playerManager.GetLastJoinedVersion() == 0 and tryShowEventTutorial) then
-        showingEventTutorial = true
-        closeLabel:SetPrelocalizedText("Next")
-        _tutorial1:SetPrelocalizedText("Welcome to the Festive Event!\n\nKeep an eye out for festive bees that rarely appear in the world. These bees can be sold to receive HR gold!")
-        _tutorialImage.visible = true
-        _tutorialImage:AddToClassList("festive-image")
-        _tutorialImage:RemoveFromClassList("hidden")
     else
         UIManager.HideTutorial()
         playerManager.IncrementStat("Cash", 0)
@@ -48,25 +39,6 @@ end
 function self:ClientAwake()
 
     closeButton:RegisterPressCallback(function()
-
-        if showingEventTutorial then
-            if page == 0 then
-                _tutorial1:SetPrelocalizedText("Check the leaderboard to see who has caught the most festive bees.\n\nGold prizes will be given out for the top 10 players at the end of the event.")
-                closeLabel:SetPrelocalizedText("Next")
-                _tutorialImage:RemoveFromClassList("festive-image")
-                _tutorialImage:AddToClassList("leaderboard-image")
-                page = 1
-            elseif page == 1 then
-                _tutorial1:SetPrelocalizedText("The event ends at midnight CET, 31st December.\n\n1st Place : 10,000 Gold\n2nd Place : 5,000 Gold\n3rd Place : 2,000 Gold\n4th Place : 1,000 Gold\n5th Place : 500 Gold\n6th-10th Place : 100 Gold")
-                closeLabel:SetPrelocalizedText("Close")
-                _tutorialImage:RemoveFromClassList("leaderboard-image")
-                _tutorialImage:AddToClassList("hidden")
-                page = 2
-            elseif page == 2 then
-                UIManager.HideTutorial()
-            end
-            return
-        end
 
         if playerManager.GetPlayerJoins() == 2 then
             UIManager.HideTutorial()

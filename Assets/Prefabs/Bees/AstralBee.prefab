@@ -194,6 +194,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AstralBee
       objectReference: {fileID: 0}
+    - target: {fileID: 8467541033814421717, guid: c70814ff6dac44048b04a2c459e0026f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 756491993440901875, guid: c70814ff6dac44048b04a2c459e0026f, type: 3}
@@ -580,6 +585,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: -1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -610,6 +616,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: 1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:

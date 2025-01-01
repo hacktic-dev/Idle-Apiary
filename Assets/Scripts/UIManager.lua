@@ -296,15 +296,7 @@ function self:ClientAwake()
 
     Timer.new(.5, function() 
         ToggleUI("Tutorial", true)
-        TutorialObject:GetComponent(Tutorial).Init(false, false)
-    end, false)
-
-    Timer.new(1.7, function() 
-        if playerManager.GetPlayerJoins() == 3 or playerManager.GetLastJoinedVersion() == 0 then
-            HideAll()
-            ToggleUI("Tutorial", true)
-            TutorialObject:GetComponent(Tutorial).Init(false, true)
-        end
+        TutorialObject:GetComponent(Tutorial).Init(false)
     end, false)
 end
 

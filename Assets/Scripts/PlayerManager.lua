@@ -11,7 +11,7 @@ local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
-local festiveBeeManager = require("FestiveBeeManager")
+--local festiveBeeManager = require("FestiveBeeManager")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
@@ -479,8 +479,8 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.2.11")
-            festiveBeeManager.OnPlayerJoined(player)
+            setPlayerVersionString:FireClient(player, "1.2.12")
+            --festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
                 RecalculatePlayerEarnRate(player)
@@ -497,6 +497,22 @@ function TrackPlayers(game, characterCallback)
                 version.value = data.version
 
                 data.version = 1
+
+								if data.owed ~= nil then
+									if data.owed > 0 then
+									  print("Awarding winner " .. player.name .. data.owed .. " gold.")
+								    Wallet.TransferGoldToPlayer(player, data.owed, function(response, err)
+                        if err ~= WalletError.None then
+			                    error("Something went wrong while transferring gold: " .. WalletError[err])
+			                    return
+		                    end
+
+												data.owed = 0
+												Storage.SetPlayerValue(player, player.name, data)
+                        print("Sent gold to " .. player.name .. " successfully.")
+                      end)
+										end
+								end
 
                 print("player joins are " .. data.joins)
 
@@ -538,7 +554,7 @@ function TrackPlayers(game, characterCallback)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             flowerManager.RemoveAllPlayerFlowers(player)
             playerJoins[player] = nil
-            festiveBeeManager.OnPlayerLeft(player)
+            --festiveBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
         end

@@ -191,6 +191,7 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -336,6 +337,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: 1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -372,6 +374,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_direction: -1
+  m_mainCam: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -391,6 +394,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1164078165779964949, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2757821372553426105, guid: 980f492354f06944e9a1a5596d3228fd,
         type: 3}
       propertyPath: m_IsActive
       value: 0
