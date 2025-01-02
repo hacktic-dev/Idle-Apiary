@@ -4,7 +4,7 @@ ownerId = nil
 
 local placedId = nil
 
-placedObjectsManager = require("PlacedObjectsManager")
+placedObjectsManager = require("PlacedObjectsController")
 
 function SetOwner(id)
 	ownerId = id

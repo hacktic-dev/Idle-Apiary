@@ -20,7 +20,7 @@ local objectName = nil
 
 local spawnedObject = nil
 
-placedObjectsManager = require("PlacedObjectsManager")
+placedObjectsManager = require("PlacedObjectsController")
 
 placementLocations = {}
 

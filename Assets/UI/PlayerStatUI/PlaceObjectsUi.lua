@@ -6,7 +6,7 @@ local button : UIButton = nil
 --!Bind
 local cycleButton : UIButton = nil
 
-placedObjectsManager = require("PlacedObjectsManager")
+placedObjectsManager = require("PlacedObjectsController")
 
 button:RegisterPressCallback(function()
  placedObjectsManager.Confirm()
