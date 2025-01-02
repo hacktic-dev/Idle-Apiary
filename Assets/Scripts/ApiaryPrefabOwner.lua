@@ -63,6 +63,10 @@ function self:ClientAwake()
 		end
 	end)
 
+	placedObjectsManager.selectItem:Connect(function(object, name)
+	 SetObjectToSpawn(object, name)
+	end)
+
 	placedObjectsManager.receiveFreeSpaces:Connect(function(freeSpaces)
 	
 		for _, space in ipairs(freeSpaces) do

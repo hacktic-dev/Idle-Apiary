@@ -34332,7 +34332,9 @@ MonoBehaviour:
   - {fileID: 6150770344185259146, guid: ad91c3320bb8e47428624d92c9345121, type: 3}
   - {fileID: 6150770344185259146, guid: a22dc070512131245a8c184779112156, type: 3}
   - {fileID: 2471304016359239742, guid: 0bf07a1ea623ba24ba58e71577297495, type: 3}
+  - {fileID: 2471304016359239742, guid: 786473a16b8d675468822206c7fefbf4, type: 3}
   - {fileID: 2471304016359239742, guid: a1f0faec550ec6a469bc39ba3caec5cb, type: 3}
+  - {fileID: 2471304016359239742, guid: 4aa0167d8652123449b9aede6af0da0f, type: 3}
   references:
     version: 2
     RefIds:

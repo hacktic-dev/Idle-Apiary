@@ -19,6 +19,8 @@ PlacementObject = {
 	["Brown Mushroom"] = placementObjects[9],
 	["Teddy Bear"] = placementObjects[10],
 	["Toy Goose"] = placementObjects[11],
+	["Pillow"] = placementObjects[12],
+	["Fountain"] = placementObjects[13],
 }
 
 BeeImage = {
@@ -97,9 +99,32 @@ local hatData =
     {name = "Mustache", id = "mustache", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 600},
 }
 
-function GetPlacementObject(name)
+function GetPlacementObjectByName(name)
 	return PlacementObject[name]
 end
+
+function GetPlacementObjectByIndex(index)
+  i = 1
+	for name, object in pairs(PlacementObject) do
+		if i == index then
+			return object
+		end
+
+		i = i + 1
+	end
+end
+
+function GetPlacementObjectNameByIndex(index)
+  i = 1
+	for name, object in pairs(PlacementObject) do
+		if i == index then
+			return name
+		end
+
+		i = i + 1
+	end
+end
+
 
 function LookupHatName(id)
     for _, hat in ipairs(hatData) do

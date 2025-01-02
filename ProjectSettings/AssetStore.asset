@@ -3044,3 +3044,16 @@ MonoBehaviour:
     - 309ab289578eeef4287eda4f1c7482db
     - 1f38ce5ab175dd14f81719c800658ccb
     IsBundle: 1
+  - Guid: d5100e84ff54eba45840f4f98804752f
+    StoreId: 6658c10f6e9f2ad62c40e779
+    Name: Kawaii Fountain
+    ThumbnailUrl: https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/6658c10f6e9f2ad62c40e779/18fcab268e8_0.jpg
+    AdditionalImageUrls:
+    - https://d4v5j9dz6t9fz.cloudfront.net/web_uploads/world_builder_assets/647622d2106a74bac609d8ea/6658c10f6e9f2ad62c40e779/18fcab249a8_0.jpg
+    AdditionalAssetGUIDs:
+    - c76027249b7236f4488720b042b352d7
+    - e92f5909515f83741815dbaeaabc2ef2
+    - 7cad33aafac861c45ac43bd7b6274dd4
+    - 5f34ab98f76b64b46a21be8918d4691c
+    - 7341b18ed2c9f314ba037daa9a9c6f58
+    IsBundle: 0

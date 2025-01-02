@@ -11,6 +11,8 @@ clientSitPlayerOnSeat = Event.new("clientSitPlayerOnSeat")
 requestFreeSpaces = Event.new("requestFreeSpaces")
 receiveFreeSpaces = Event.new("receiveFreeSpaces")
 
+selectItem = Event.new("selectItem")
+
 prospectiveObject = nil
 
 apiaryManager = require("ApiaryManager")
@@ -21,6 +23,8 @@ local placedObjects = {} -- Placed objects across all players (server)
 
 local spawnedObjects = {} -- Spawned objects on client
 
+index = 1
+
 function SetProspectiveObject(_name, _x, _y)
 	prospectiveObject = {name = _name, x = _x, y = _y}
 end
@@ -28,8 +32,17 @@ end
 function Confirm()
 	print("confirm hit")
 	requestObjectPlacement:FireServer(prospectiveObject.name, prospectiveObject.x, prospectiveObject.y)
-	closePlacementMenu:Fire()
+	--closePlacementMenu:Fire()
 end	
+
+function Cycle()
+	index = index + 1
+	if index > 13 then
+		index = 1
+	end
+
+	selectItem:Fire(utils.GetPlacementObjectByIndex(index), utils.GetPlacementObjectNameByIndex(index))
+end
 
 function InitServer()	
   print("Initing server")
@@ -94,7 +107,7 @@ function InitClient()
   print("Initing client")
 	clientSpawnPlacedObject:Connect(function(placedObject, userId, apiaryPosition)
 		print("Spawning object")
-		local spawnedObject = Object.Instantiate(utils.GetPlacementObject(placedObject.name))
+		local spawnedObject = Object.Instantiate(utils.GetPlacementObjectByName(placedObject.name))
 		spawnedObject:GetComponent(Transform).position = apiaryPosition + Vector3.new(placedObject.x*2, 0, placedObject.y*2)
 		spawnedObject:GetComponent(Furniture).SetOwner(userId)
 		spawnedObject:GetComponent(Furniture).SetPlacedId(placedObject.id)
