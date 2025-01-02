@@ -5,6 +5,9 @@ closePlacementMenu = Event.new("closePlacementMenu")
 local clientSpawnPlacedObject = Event.new("clientSpawnPlacedObject")
 local removeObjectRequest = Event.new("removeObjectRequest")
 
+requestSitPlayerOnSeat = Event.new("requestSitPlayerOnSeat")
+clientSitPlayerOnSeat = Event.new("clientSitPlayerOnSeat")
+
 requestFreeSpaces = Event.new("requestFreeSpaces")
 receiveFreeSpaces = Event.new("receiveFreeSpaces")
 
@@ -65,7 +68,11 @@ function InitServer()
 		end
 
 		receiveFreeSpaces:FireClient(player, freeSpaces)
-		end)
+	end)
+
+	requestSitPlayerOnSeat:Connect(function(player, placedId)
+		clientSitPlayerOnSeat:FireAllClients(player, placedId)
+	end)
 end
 
 function CheckIfSpaceFree(player, i, j)
@@ -90,6 +97,7 @@ function InitClient()
 		local spawnedObject = Object.Instantiate(utils.GetPlacementObject(placedObject.name))
 		spawnedObject:GetComponent(Transform).position = apiaryPosition + Vector3.new(placedObject.x*2, 0, placedObject.y*2)
 		spawnedObject:GetComponent(Furniture).SetOwner(userId)
+		spawnedObject:GetComponent(Furniture).SetPlacedId(placedObject.id)
 		spawnedObjects[placedObject.id] = spawnedObject
 	end)
 
@@ -98,6 +106,10 @@ function InitClient()
         Object.Destroy(spawnedObjects[id])
         spawnedObjects[id] = nil
     end
+	end)
+
+	clientSitPlayerOnSeat:Connect(function(player, placedId)
+		spawnedObjects[placedId]:GetComponent(Furniture).ClientSitPlayerOnSeat(player)
 	end)
 end
 
