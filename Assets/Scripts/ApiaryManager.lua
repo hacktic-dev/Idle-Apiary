@@ -15,7 +15,7 @@ local MIN_DISTANCE = 23
 local apiaries = {}
 
 local playerManager = require("PlayerManager")
-local placedObjectsManager = require("PlacedObjectsManager")
+local placedObjectsManager = require("PlacedObjectsController")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")

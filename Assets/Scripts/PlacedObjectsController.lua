@@ -32,7 +32,7 @@ end
 function Confirm()
 	print("confirm hit")
 	requestObjectPlacement:FireServer(prospectiveObject.name, prospectiveObject.x, prospectiveObject.y)
-	--closePlacementMenu:Fire()
+	closePlacementMenu:Fire()
 end	
 
 function Cycle()

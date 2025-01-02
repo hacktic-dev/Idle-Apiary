@@ -11,7 +11,7 @@ local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
-local placedObjectsManager = require("PlacedObjectsManager")
+local placedObjectsManager = require("PlacedObjectsController")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil

@@ -18,9 +18,9 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/PlacedObjectsManager")]
+    [AddComponentMenu("Lua/PlacedObjectsController")]
     [LuaRegisterType(0xd486526e137c9e3b, typeof(LuaBehaviour))]
-    public class PlacedObjectsManager : LuaBehaviourThunk
+    public class PlacedObjectsController : LuaBehaviourThunk
     {
         private const string s_scriptGUID = "55af39c63b5211e4bb753ffaff48bbfb";
         public override string ScriptGUID => s_scriptGUID;

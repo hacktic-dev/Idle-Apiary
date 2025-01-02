@@ -10067,7 +10067,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 360320263}
-  - component: {fileID: 360320262}
   m_Layer: 0
   m_Name: PlacedObjectsManager
   m_TagString: Untagged
@@ -10075,29 +10074,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &360320262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360320261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef703913818d113101aa3f2f4597bb2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkId: 0
-  _script: {fileID: -974389366465450183, guid: 55af39c63b5211e4bb753ffaff48bbfb, type: 3}
-  _properties: []
-  _uiOutput: 0
-  _uiOutputSettings:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!4 &360320263
 Transform:
   m_ObjectHideFlags: 0
