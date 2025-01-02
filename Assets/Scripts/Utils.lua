@@ -13,6 +13,12 @@ PlacementObject = {
 	["Table"] = placementObjects[3],
 	["Chess Table"] = placementObjects[4],
 	["Book Table"] = placementObjects[5],
+	["White Flower Planter"] = placementObjects[6],
+	["Apple Box"] = placementObjects[7],
+	["Red Mushroom"] = placementObjects[8],
+	["Brown Mushroom"] = placementObjects[9],
+	["Teddy Bear"] = placementObjects[10],
+	["Toy Goose"] = placementObjects[11],
 }
 
 BeeImage = {

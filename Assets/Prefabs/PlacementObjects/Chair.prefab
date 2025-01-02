@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3724658470452321069}
   - component: {fileID: 8320209800627894971}
   - component: {fileID: 5007882316684840036}
-  - component: {fileID: 2075595886406016073}
+  - component: {fileID: 3783551036918551559}
   m_Layer: 0
   m_Name: Anchor
   m_TagString: Untagged
@@ -106,7 +106,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.18, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &2075595886406016073
+--- !u!114 &3783551036918551559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
