@@ -184,6 +184,15 @@ function LookupHatName(id)
     return nil -- Return nil if no matching id is found
 end
 
+function LookupFurnitureName(id)
+    for _, furniture in ipairs(furnitureData) do
+        if furniture.id == id then
+            return furniture.name
+        end
+    end
+    return nil -- Return nil if no matching id is found
+end
+
 -- Function to calculate total spawn factor
 local function GetTotalSelectionFactor(isGold)
     local totalFactor = 0

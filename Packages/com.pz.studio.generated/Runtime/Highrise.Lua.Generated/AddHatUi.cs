@@ -22,7 +22,7 @@ namespace Highrise.Lua.Generated
     [LuaRegisterType(0xb750754d9352028f, typeof(LuaBehaviour))]
     public class AddHatUi : LuaBehaviourThunk
     {
-        private const string s_scriptGUID = "0f79ffe66cddc3a4ba6c5c6ff339edff";
+        private const string s_scriptGUID = "8e035026166a12a4c8cc2497cafe2ed7";
         public override string ScriptGUID => s_scriptGUID;
 
 

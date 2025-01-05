@@ -18,11 +18,11 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/PlacedObjectsController")]
-    [LuaRegisterType(0xf870f96338e2704, typeof(LuaBehaviour))]
-    public class PlacedObjectsController : LuaBehaviourThunk
+    [AddComponentMenu("Lua/PlaceFurnitureUi")]
+    [LuaRegisterType(0xb750754d9352028f, typeof(LuaBehaviour))]
+    public class PlaceFurnitureUi : LuaBehaviourThunk
     {
-        private const string s_scriptGUID = "55af39c63b5211e4bb753ffaff48bbfb";
+        private const string s_scriptGUID = "0f79ffe66cddc3a4ba6c5c6ff339edff";
         public override string ScriptGUID => s_scriptGUID;
 
 
@@ -33,6 +33,9 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
+                CreateSerializedProperty(_script.GetPropertyAt(0), null),
+                CreateSerializedProperty(_script.GetPropertyAt(1), null),
+                CreateSerializedProperty(_script.GetPropertyAt(2), null),
             };
         }
     }

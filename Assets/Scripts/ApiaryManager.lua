@@ -14,6 +14,9 @@ local MIN_DISTANCE = 23
 -- Table to store active apiary GameObjects on the client side
 local apiaries = {}
 
+-- Reference to the local player's apiary GameObject
+local clientApiary = nil
+
 local playerManager = require("PlayerManager")
 local placedObjectsManager = require("PlacedObjectsController")
 local beeObjectManager = require("BeeObjectManager")
@@ -220,12 +223,9 @@ function self:ClientAwake()
                 newApiary:GetComponent(ApiaryPrefabOwner).GetGoldBox():SetActive(false)
             end
 
-						if owner == client.localPlayer.name then
-							newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(4)
-							objectToSpawn = utils.GetPlacementObjectByName("Toy Goose")
-							newApiary:GetComponent(ApiaryPrefabOwner).SetObjectToSpawn(objectToSpawn, "Toy Goose")
-							newApiary:GetComponent(ApiaryPrefabOwner).ShowPlacementLocations()
-						end
+            if owner == client.localPlayer.name then
+                clientApiary = newApiary
+            end
 
             newApiary:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi).SetLabel(owner, count)
 
@@ -253,6 +253,13 @@ function self:ClientAwake()
         apiaries[apiaryID]:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi).SetLabel(playerName, count)
     end)
 
+end
+
+function SetPlacementMode(furnitureName)
+    clientApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(4)
+    objectToSpawn = utils.GetPlacementObjectByName(furnitureName)
+    clientApiary:GetComponent(ApiaryPrefabOwner).SetObjectToSpawn(objectToSpawn, furnitureName)
+    clientApiary:GetComponent(ApiaryPrefabOwner).ShowPlacementLocations()
 end
 
 function self:ServerAwake()

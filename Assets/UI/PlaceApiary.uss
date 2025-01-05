@@ -59,6 +59,14 @@
     margin-top: 10px;
 }
 
+.furniture-button {
+    background-color:rgb(234, 218, 34);
+    font-size: 18px;
+    color: #000000
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+}
 
 .capture-button:hover {
     background-color: #ffaa00;
