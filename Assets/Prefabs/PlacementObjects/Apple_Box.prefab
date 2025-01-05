@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7180153080554826374}
   - component: {fileID: 1356245300082484780}
+  - component: {fileID: 1381355074001952854}
   m_Layer: 0
   m_Name: Apple_Box
   m_TagString: Untagged
@@ -56,6 +57,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &1381355074001952854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6150770344185259146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 869450252, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
 --- !u!1001 &5096687022697643936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,7 +148,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_of_apples
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2085174660294750744, guid: 00a73613944ea4122977a36fd6de52dc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

@@ -49,6 +49,14 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_AstralBee = default;
         [SerializeField] public UnityEngine.GameObject m_PrismaticBee = default;
         [SerializeField] public UnityEngine.GameObject m_ShadowBee = default;
+        [SerializeField] public UnityEngine.GameObject m_MeadowBee = default;
+        [SerializeField] public UnityEngine.GameObject m_BronzeBee = default;
+        [SerializeField] public UnityEngine.GameObject m_OceanicBee = default;
+        [SerializeField] public UnityEngine.GameObject m_RubyBee = default;
+        [SerializeField] public UnityEngine.GameObject m_CamoBee = default;
+        [SerializeField] public UnityEngine.GameObject m_CrystalBee = default;
+        [SerializeField] public UnityEngine.GameObject m_TechnoBee = default;
+        [SerializeField] public UnityEngine.GameObject m_PsychedelicBee = default;
         [SerializeField] public UnityEngine.GameObject m_FestiveBee = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
@@ -82,7 +90,15 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(21), m_AstralBee),
                 CreateSerializedProperty(_script.GetPropertyAt(22), m_PrismaticBee),
                 CreateSerializedProperty(_script.GetPropertyAt(23), m_ShadowBee),
-                CreateSerializedProperty(_script.GetPropertyAt(24), m_FestiveBee),
+                CreateSerializedProperty(_script.GetPropertyAt(24), m_MeadowBee),
+                CreateSerializedProperty(_script.GetPropertyAt(25), m_BronzeBee),
+                CreateSerializedProperty(_script.GetPropertyAt(26), m_OceanicBee),
+                CreateSerializedProperty(_script.GetPropertyAt(27), m_RubyBee),
+                CreateSerializedProperty(_script.GetPropertyAt(28), m_CamoBee),
+                CreateSerializedProperty(_script.GetPropertyAt(29), m_CrystalBee),
+                CreateSerializedProperty(_script.GetPropertyAt(30), m_TechnoBee),
+                CreateSerializedProperty(_script.GetPropertyAt(31), m_PsychedelicBee),
+                CreateSerializedProperty(_script.GetPropertyAt(32), m_FestiveBee),
             };
         }
     }

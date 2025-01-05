@@ -50,7 +50,15 @@ BeeImage = {
     ["Shadow Bee"] = beeTextures[23],
     ["Hypnotic Bee"] = beeTextures[24],
     ["Festive Bee"] = beeTextures[25],
-    ["Locked"] = beeTextures[26]
+    ["Meadow Bee"] = beeTextures[26],
+    ["Bronze Bee"] = beeTextures[27],
+    ["Oceanic Bee"] = beeTextures[28],
+    ["Ruby Bee"] = beeTextures[29],
+    ["Camo Bee"] = beeTextures[30],
+    ["Crystal Bee"] = beeTextures[31],
+    ["Techno Bee"] = beeTextures[32],
+    ["Psychedelic Bee"] = beeTextures[33],
+    ["Locked"] = beeTextures[34]
 }
 
 HatImage = {
@@ -93,11 +101,11 @@ FurnitureImage = {
 
 local hatData = 
 {
-    {name = "Yellow Wooly Hat", id = "yellow_wooly", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 3000, goldCost = 100},
-    {name = "Pink Cap", id = "pink_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 4000, goldCost = 250},
-    {name = "Yellow Bucket Hat", id = "yellow_bucket", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2,isLimited = false, cost = 12500, goldCost = 400},
+    {name = "Yellow Wooly Hat", id = "yellow_wooly", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 0, isLimited = false, cost = 3000, goldCost = 100},
+    {name = "Pink Cap", id = "pink_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 0, isLimited = false, cost = 4000, goldCost = 250},
+    {name = "Yellow Bucket Hat", id = "yellow_bucket", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 0,isLimited = false, cost = 12500, goldCost = 400},
     {name = "Traffic Cone", id = "traffic_cone", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 20000, goldCost = 450},
-    {name = "Christmas Elf Hat", id = "christmas_elf", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = true, cost = 25000, goldCost = 600},
+    {name = "Christmas Elf Hat", id = "christmas_elf", rarity = "Rare", selectFactorRegular = 0, selectFactorGold = 0, isLimited = true, cost = 25000, goldCost = 600},
     {name = "Pirate Hat", id = "pirate_hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 35000, goldCost = 750},
     {name = "Pixel Sunglasses", id = "pixel_sunglasses", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 850},
     {name = "Gold Crown", id = "gold_crown", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 1000},
@@ -106,9 +114,9 @@ local hatData =
     {name = "Miner's Helmet", id = "miner_helmet", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8,isLimited = false, cost = 25000, goldCost = 500},
     {name = "Red Beret", id = "red_beret", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 650},
     {name = "Sailor's Hat", id = "sailor_hat", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = true, cost = 10000, goldCost = 350},
-    {name = "Santa Hat", id = "santa_hat", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 700},
+    {name = "Santa Hat", id = "santa_hat", rarity = "Rare", selectFactorRegular = 0, selectFactorGold = 0, isLimited = false, cost = 25000, goldCost = 700},
     {name = "Top Hat", id = "top_hat", rarity = "Legendary", selectFactorRegular = 0, selectFactorGold = 10, isLimited = false, cost = -1, goldCost = 950},
-    {name = "Fisherman's Cap", id = "fishermans_cap", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 2, isLimited = false, cost = 10000, goldCost = 300},
+    {name = "Fisherman's Cap", id = "fishermans_cap", rarity = "Uncommon", selectFactorRegular = 5, selectFactorGold = 0, isLimited = false, cost = 10000, goldCost = 300},
 
     {name = "Cat Ears", id = "cat_ears", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 700},
     {name = "Sleeping Cap", id = "sleeping_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 4000, goldCost = 200},

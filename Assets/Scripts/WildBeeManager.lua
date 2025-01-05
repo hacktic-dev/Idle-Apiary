@@ -52,6 +52,23 @@ local PrismaticBeePrefab : GameObject = nil
 local AstralBeePrefab : GameObject = nil
 --!SerializeField
 local RainbowBeePrefab : GameObject = nil
+--!SerializeField
+local MeadowBeePrefab : GameObject = nil
+--!SerializeField
+local BronzeBeePrefab : GameObject = nil
+--!SerializeField
+local OceanicBeePrefab : GameObject = nil
+--!SerializeField
+local RubyBeePrefab : GameObject = nil
+--!SerializeField
+local CamoBeePrefab : GameObject = nil
+--!SerializeField
+local CrystalBeePrefab : GameObject = nil
+--!SerializeField
+local TechnoBeePrefab : GameObject = nil
+--!SerializeField
+local PsychedelicBeePrefab : GameObject = nil
+
 
 local beeSpecies = {
     -- Bronze Set
@@ -61,6 +78,8 @@ local beeSpecies = {
     { prefab = AquaticBeePrefab, name = "Aquatic Bee", spawnFactor_0 = 70, spawnFactor_1 = 60, spawnFactor_2 = 35, spawnFactor_3 = 25 },
     { prefab = GiantBeePrefab, name = "Giant Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30, spawnFactor_3 = 20 },
     { prefab = SilverBeePrefab, name = "Silver Bee", spawnFactor_0 = 30, spawnFactor_1 = 30, spawnFactor_2 = 20, spawnFactor_3 = 15 },
+    { prefab = MeadowBeePrefab, name = "Meadow Bee", spawnFactor_0 = 275, spawnFactor_1 = 160, spawnFactor_2 = 88, spawnFactor_3 = 55 },
+    { prefab = BronzeBeePrefab, name = "Bronze Bee", spawnFactor_0 = 60, spawnFactor_1 = 55, spawnFactor_2 = 30, spawnFactor_3 = 20 },
 
     -- Silver Set
     { prefab = MuddyBeePrefab, name = "Muddy Bee", spawnFactor_0 = 40, spawnFactor_1 = 55, spawnFactor_2 = 70, spawnFactor_3 = 90 },
@@ -69,6 +88,8 @@ local beeSpecies = {
     { prefab = MagmaBeePrefab, name = "Magma Bee", spawnFactor_0 = 15, spawnFactor_1 = 30, spawnFactor_2 = 55, spawnFactor_3 = 70 },
     { prefab = GhostlyBeePrefab, name = "Ghostly Bee", spawnFactor_0 = 13, spawnFactor_1 = 30, spawnFactor_2 = 40, spawnFactor_3 = 60 },
     { prefab = IridescentBeePrefab, name = "Iridescent Bee", spawnFactor_0 = 7, spawnFactor_1 = 15, spawnFactor_2 = 30, spawnFactor_3 = 45 },
+    { prefab = OceanicBeePrefab, name = "Oceanic Bee", spawnFactor_0 = 38, spawnFactor_1 =50, spawnFactor_2 = 65, spawnFactor_3 = 85 },
+    { prefab = RubyBeePrefab, name = "Ruby Bee", spawnFactor_0 = 13, spawnFactor_1 = 30, spawnFactor_2 = 40, spawnFactor_3 = 60 },
 
     -- Gold Set
     { prefab = SandyBeePrefab, name = "Sandy Bee", spawnFactor_0 = 12, spawnFactor_1 = 20, spawnFactor_2 = 38, spawnFactor_3 = 55 },
@@ -77,14 +98,17 @@ local beeSpecies = {
     { prefab = GalacticBeePrefab, name = "Galactic Bee", spawnFactor_0 = 6, spawnFactor_1 = 12, spawnFactor_2 = 22, spawnFactor_3 = 33 },
     { prefab = IndustrialBeePrefab, name = "Industrial Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 18, spawnFactor_3 = 30 },
     { prefab = PearlescentBeePrefab, name = "Pearlescent Bee", spawnFactor_0 = 2, spawnFactor_1 = 4, spawnFactor_2 = 11, spawnFactor_3 = 20 },
-
+    { prefab = CamoBeePrefab, name = "Camo Bee", spawnFactor_0 = 9, spawnFactor_1 = 18, spawnFactor_2 = 38, spawnFactor_3 = 50 },
+    { prefab = CrystalBeePrefab, name = "Crystal Bee", spawnFactor_0 = 4, spawnFactor_1 = 8, spawnFactor_2 = 18, spawnFactor_3 = 30 },
     -- Platinum Set
     { prefab = HypnoticBeePrefab, name = "Hypnotic Bee", spawnFactor_0 = 0, spawnFactor_1 = 6, spawnFactor_2 = 18, spawnFactor_3 = 30 },
     { prefab = RadiantBeePrefab, name = "Radiant Bee", spawnFactor_0 = 0, spawnFactor_1 = 6, spawnFactor_2 = 16, spawnFactor_3 = 30 },
     { prefab = ShadowBeePrefab, name = "Shadow Bee", spawnFactor_0 = 0, spawnFactor_1 = 6, spawnFactor_2 = 16, spawnFactor_3 = 28 },
     { prefab = PrismaticBeePrefab, name = "Prismatic Bee", spawnFactor_0 = 0, spawnFactor_1 = 4, spawnFactor_2 = 10, spawnFactor_3 = 20 },
     { prefab = AstralBeePrefab, name = "Astral Bee", spawnFactor_0 = 0, spawnFactor_1 = 4, spawnFactor_2 = 8, spawnFactor_3 = 18 },
-    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 0, spawnFactor_1 = 2, spawnFactor_2 = 5, spawnFactor_3 = 11 }
+    { prefab = RainbowBeePrefab, name = "Rainbow Bee", spawnFactor_0 = 0, spawnFactor_1 = 2, spawnFactor_2 = 5, spawnFactor_3 = 11 },
+    { prefab = TechnoBeePrefab, name = "Techno Bee", spawnFactor_0 = 0, spawnFactor_1 = 6, spawnFactor_2 = 18, spawnFactor_3 = 30 },
+    { prefab = PsychedelicBeePrefab, name = "Psychedelic Bee", spawnFactor_0 = 0, spawnFactor_1 = 4, spawnFactor_2 = 10, spawnFactor_3 = 20 },
 }
 
 
@@ -123,7 +147,17 @@ beeData = {
     ["Astral Bee"] = { honeyRate = 60, sellPrice = 4500, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
     ["Rainbow Bee"] = { honeyRate = 80, sellPrice = 6000, growTime = 200, rarity = "Mythical", set = "Platinum Set" },
 
-    ["Festive Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee" }
+    ["Festive Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee" },
+
+    -- 1.3 Update
+    ["Meadow Bee"] = { honeyRate = 10, sellPrice = 70, growTime = 40, rarity = "Common", set = "Bronze Set" },
+    ["Bronze Bee"] = { honeyRate = 18, sellPrice = 140, growTime = 80, rarity = "Uncommon", set = "Bronze Set" },
+    ["Oceanic Bee"] = { honeyRate = 20, sellPrice = 140, growTime = 40, rarity = "Uncommon", set = "Silver Set" },
+    ["Ruby Bee"] = { honeyRate = 26, sellPrice = 230, growTime = 80, rarity = "Rare", set = "Silver Set" },
+    ["Camo Bee"] = { honeyRate = 30, sellPrice = 600, growTime = 40, rarity = "Rare", set = "Gold Set" },
+    ["Crystal Bee"] = { honeyRate = 36, sellPrice = 900, growTime = 80, rarity = "Epic", set = "Gold Set" },
+    ["Techno Bee"] = { honeyRate = 46, sellPrice = 2500, growTime = 40, rarity = "Epic", set = "Platinum Set" },
+    ["Psychedelic Bee"] = { honeyRate = 58, sellPrice = 4000, growTime = 80, rarity = "Legendary", set = "Platinum Set" }
 }
 
 

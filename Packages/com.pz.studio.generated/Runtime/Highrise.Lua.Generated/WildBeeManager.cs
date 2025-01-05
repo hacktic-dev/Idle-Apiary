@@ -49,6 +49,14 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_PrismaticBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_AstralBeePrefab = default;
         [SerializeField] public UnityEngine.GameObject m_RainbowBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_MeadowBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_BronzeBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_OceanicBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_RubyBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_CamoBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_CrystalBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_TechnoBeePrefab = default;
+        [SerializeField] public UnityEngine.GameObject m_PsychedelicBeePrefab = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -81,6 +89,14 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(21), m_PrismaticBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(22), m_AstralBeePrefab),
                 CreateSerializedProperty(_script.GetPropertyAt(23), m_RainbowBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(24), m_MeadowBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(25), m_BronzeBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(26), m_OceanicBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(27), m_RubyBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(28), m_CamoBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(29), m_CrystalBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(30), m_TechnoBeePrefab),
+                CreateSerializedProperty(_script.GetPropertyAt(31), m_PsychedelicBeePrefab),
             };
         }
     }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2954367146540853892}
   - component: {fileID: 1990918487542546686}
+  - component: {fileID: -4375334142326151013}
   m_Layer: 0
   m_Name: Goose
   m_TagString: Untagged
@@ -57,6 +58,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &-4375334142326151013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471304016359239742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 869450252, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
 --- !u!1 &4693476240916845607
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +83,6 @@ GameObject:
   - component: {fileID: 3162287304968449659}
   - component: {fileID: 3926483437645225190}
   - component: {fileID: 3102121495283576060}
-  - component: {fileID: 1190803769952262040}
   m_Layer: 0
   m_Name: Anchor
   m_TagString: Untagged
@@ -99,7 +112,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4693476240916845607}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1995790281, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
   m_Name: 
@@ -146,29 +159,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.67, y: 0.07, z: 2.72}
   m_Center: {x: 0, y: -0.54, z: 0}
---- !u!114 &1190803769952262040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4693476240916845607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03822e9361341319215728bca795ad6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkId: 0
-  _script: {fileID: -974389366465450183, guid: 5ae7223c8ccc41e428ca725e70a65a03, type: 3}
-  _properties: []
-  _uiOutput: 0
-  _uiOutputSettings:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!1001 &1801162723933882694
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,12 +3,6 @@
 local requestObjectPlacement = Event.new("requestObjectPlacement")
 local requestObjectDeletion = Event.new("requestObjectDeletion")
 closePlacementMenu = Event.new("closePlacementMenu")
-local clientSpawnPlacedObject = Event.new("clientSpawnPlacedObject")
-local clientRemovePlacedObject = Event.new("clientRemovePlacedObject")
-local removeObjectRequest = Event.new("removeObjectRequest")
-
-requestSitPlayerOnSeat = Event.new("requestSitPlayerOnSeat")
-clientSitPlayerOnSeat = Event.new("clientSitPlayerOnSeat")
 
 requestFreeSpaces = Event.new("requestFreeSpaces")
 receiveFreeSpaces = Event.new("receiveFreeSpaces")
@@ -113,7 +107,7 @@ function InitServer()
 
 		apiaryPosition = apiaryManager.GetPlayerApiaryLocation(player)
 
-		clientSpawnPlacedObject:FireAllClients(placedObject, player.user.id, apiaryPosition)
+		self:GetComponent(ObjectSpawnController).SpawnObject(placedObject, player.user.id, apiaryPosition)
 	
 			if placedObjects[player] == nil then
 					placedObjects[player] = {}
@@ -140,7 +134,7 @@ function InitServer()
 			end
 		end
 
-		clientRemovePlacedObject:FireAllClients(id)
+		self:GetComponent(ObjectSpawnController).RemoveObject(id)
 
 		local transaction = InventoryTransaction.new():GivePlayer(player, utils.LookupFurnitureIdByName(name), 1)
 		Inventory.CommitTransaction(transaction)
@@ -165,10 +159,6 @@ function InitServer()
 		print("Requesting occupied spaces")
 		receiveOccupiedSpaces:FireClient(player, placedObjects[player])
 	end)
-
-	requestSitPlayerOnSeat:Connect(function(player, placedId)
-		clientSitPlayerOnSeat:FireAllClients(player, placedId)
-	end)
 end
 
 function Delete(id)
@@ -191,46 +181,11 @@ function CheckIfSpaceFree(player, i, j)
 end
 
 function InitClient()
-  print("Initing client")
-	clientSpawnPlacedObject:Connect(function(placedObject, userId, apiaryPosition)
-		
-		print(placedObject.rotation)
-		local spawnedObject = Object.Instantiate(utils.GetPlacementObjectByName(placedObject.name))
-		spawnedObject:GetComponent(Transform).position = apiaryPosition + Vector3.new(placedObject.x*2, 0, placedObject.y*2)
 
-		rotation = spawnedObject:GetComponent(Transform).localRotation.eulerAngles
-		spawnedObject:GetComponent(Transform).localRotation = Quaternion.Euler(rotation.x, rotation.y + placedObject.rotation, rotation.z)
-
-		spawnedObject:GetComponent(Furniture).SetOwner(userId)
-		spawnedObject:GetComponent(Furniture).SetPlacedId(placedObject.id)
-		spawnedObjects[placedObject.id] = spawnedObject
-	end)
-
-	clientRemovePlacedObject:Connect(function(id)
-		if spawnedObjects[id] then
-			Object.Destroy(spawnedObjects[id])
-			spawnedObjects[id] = nil
-		end
-	end)
-
-	removeObjectRequest:Connect(function(id)
-		    if spawnedObjects[id] then
-        Object.Destroy(spawnedObjects[id])
-        spawnedObjects[id] = nil
-    end
-	end)
-
-	clientSitPlayerOnSeat:Connect(function(player, placedId)
-		spawnedObjects[placedId]:GetComponent(Furniture).ClientSitPlayerOnSeat(player)
-	end)
 end
 
 function SpawnAllObjectsForIncomingPlayer(player)
-	for owner, objectList in pairs(placedObjects) do
-		for _, object in ipairs(objectList) do
-			clientSpawnPlacedObject:FireClient(player, object, owner.user.id, apiaryManager.GetPlayerApiaryLocation(owner))
-		end
-	end
+
 end
 
 function RemoveAllPlayerPlacedObjects(player) -- server
@@ -239,7 +194,7 @@ function RemoveAllPlayerPlacedObjects(player) -- server
         for _ , object in ipairs(placedObjects[player]) do
             local id = object.id
 
-            removeObjectRequest:FireAllClients(id)
+            self:GetComponent(ObjectSpawnController):RemoveObject(id)
         end
 
         placedObjects[player] = nil
@@ -258,7 +213,7 @@ function SpawnPlayerPlacedObjectsOnAllClients(player, _apiaryPosition)
         
         placedObjects[player] = storedObjects
         for _, object in ipairs(storedObjects) do
-            clientSpawnPlacedObject:FireAllClients(object, player.user.id, apiaryPosition)
+            self:GetComponent(ObjectSpawnController).SpawnObject(object, player.user.id, apiaryPosition)
         end
     end)
 end

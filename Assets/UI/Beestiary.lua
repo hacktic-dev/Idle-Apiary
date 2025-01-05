@@ -31,11 +31,10 @@ local playerManager = require("PlayerManager")
 
 -- Create a list of bee names
 beeNames = {
-    "Common Bee", "Stone Bee", "Forest Bee", "Aquatic Bee", "Giant Bee", "Silver Bee",
-    "Muddy Bee", "Frigid Bee", "Steel Bee", "Magma Bee", "Ghostly Bee", "Iridescent Bee",
-    "Sandy Bee", "Autumnal Bee", "Petal Bee", "Galactic Bee", "Industrial Bee", "Pearlescent Bee",
-    "Hypnotic Bee", "Radiant Bee", "Shadow Bee", "Prismatic Bee", "Astral Bee", "Rainbow Bee"
-}
+    "Common Bee", "Stone Bee", "Forest Bee", "Meadow Bee", "Aquatic Bee", "Giant Bee", "Bronze Bee", "Silver Bee",
+    "Muddy Bee", "Frigid Bee", "Steel Bee", "Oceanic Bee", "Magma Bee", "Ghostly Bee", "Ruby Bee", "Iridescent Bee",
+    "Sandy Bee", "Autumnal Bee", "Petal Bee", "Camo Bee", "Galactic Bee", "Industrial Bee", "Crystal Bee", "Pearlescent Bee",
+    "Hypnotic Bee", "Radiant Bee", "Shadow Bee", "Techno Bee",  "Prismatic Bee", "Astral Bee", "Psychedelic Bee", "Rainbow Bee"}
 
 function Populate(seenBees)
     _InventoryContent:Clear()
@@ -110,7 +109,7 @@ function Init()
 				end
 
         howManyToNextRank = 8 - (count % 8)
-        if count == 24 then
+        if count == 32 then
             _rankLabel:SetPrelocalizedText("You have discovered every bee!")
         elseif howManyToNextRank == 1 then
             _rankLabel:SetPrelocalizedText("Discover 1 more bee to reach the next rank!")

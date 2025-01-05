@@ -91,7 +91,7 @@
 }
 
 .portrait .title {
-    padding-top: 3%;
+    padding-top: 15%;
     font-size: 14px;
 }
 
@@ -189,9 +189,17 @@
 }
 
 
-.furniture_container {
+ .furniture_container {
   display: flex;
-  overflow: hidden;
+
+  border-width: 2px;
+  border-radius: 8px;
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.landscape .furniture_container
+{
 
   padding: 6px;
   min-height: 250px;
@@ -203,10 +211,12 @@
   width: 100%;
   height: 100%;
 
-  border-width: 2px;
-  border-radius: 8px;
-  background-image: url("project://database/Assets/Textures/background_blur.png");
-    -unity-background-scale-mode: scale-and-crop;
+}
+
+.portrait .furniture_container {
+    padding: 6px;
+height: 100%;
+  width: 98%;
 }
 
 .priceContainer

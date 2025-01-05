@@ -457,33 +457,41 @@ end
         Bronze = {
             {name = "Common Bee", chance = 19},  -- 5 * 5
             {name = "Stone Bee", chance = 19},   -- 5 * 5
+            {name = "Meadow Bee", chance = 19},  -- 5 * 5
             {name = "Forest Bee", chance = 19},  -- 5 * 5
             {name = "Aquatic Bee", chance = 15}, -- 2 * 5
             {name = "Giant Bee", chance = 15},   -- 2 * 5
+            {name = "Bronze Bee", change = 15},
             {name = "Silver Bee", chance = 13}    -- 1 * 5
         },
         Silver = {
             {name = "Muddy Bee", chance = 19},   -- 5 * 5
             {name = "Frigid Bee", chance = 19},  -- 5 * 5
+            {name = "Oceanic Bee", chance = 19}, -- 5 * 5
             {name = "Steel Bee", chance = 19},   -- 5 * 5
             {name = "Magma Bee", chance = 15},   -- 2 * 5
             {name = "Ghostly Bee", chance = 15}, -- 2 * 5
+            {name = "Ruby Bee", chance = 15}  ,   -- 1 * 5
             {name = "Iridescent Bee", chance = 13} -- 1 * 5
         },
         Gold = {
             {name = "Sandy Bee", chance = 19},   -- 5 * 5
             {name = "Autumnal Bee", chance = 19},-- 5 * 5
             {name = "Petal Bee", chance = 19},   -- 5 * 5
-            {name = "Galact ic Bee", chance = 15},-- 2 * 5
+            {name = "Camo Bee", chance = 19},    -- 5 * 5
+            {name = "Galactic Bee", chance = 15},-- 2 * 5
             {name = "Industrial Bee", chance = 15}, -- 2 * 5
+            {name = "Crystal Bee", chance = 15}, -- 1 * 5
             {name = "Pearlescent Bee", chance = 13}   -- 1 * 5
         },
         Platinum = {
             {name = "Hypnotic Bee", chance = 19},   -- 5 * 5
             {name = "Radiant Bee", chance = 19},-- 5 * 5
             {name = "Shadow Bee", chance = 19},   -- 5 * 5
+            {name = "Techno Bee", chance = 19},    -- 5 * 5
             {name = "Prismatic Bee", chance = 15},-- 2 * 5
             {name = "Astral Bee", chance = 15}, -- 2 * 5
+            {name = "Psychedelic Bee", chance = 15}, -- 1 * 5
             {name = "Rainbow Bee", chance = 13}   -- 1 * 5
         }
     }
