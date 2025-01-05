@@ -32,6 +32,10 @@ local playerScores = {} -- Memory structure to store player-specific scores
 -- Periodic saving interval in seconds
 local SAVE_INTERVAL = 30
 
+function GetPlayerScore(player)
+    return playerScores[player]
+end
+
 -- Function to save a player's score to storage
 local function SavePlayerScore(player)
     if player ~= nil and playerScores[player] ~= nil then

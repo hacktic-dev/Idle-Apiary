@@ -589,3 +589,85 @@
 {
   height: 69%;
 }
+
+.furniture-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: rgba(0,0,0,.3);
+  border-radius: 10px;
+}
+
+.portrait .furniture-item {
+  height: 43%;
+  width: 48%;
+}
+
+.landscape .furniture-item {
+  height: 45%;
+  width: 32%;
+}
+
+.furniture-price {
+  margin: 5px;
+  color: white;
+  align-self: center;
+  white-space: normal;
+  -unity-text-align: middle-center;
+}
+
+.portrait .furniture-price {
+  font-size: 11.5px;
+}
+
+.landscape .furniture-price {
+  font-size: 13.5px;
+}
+
+.furniture-title {
+  margin: 0px 5px;
+  color: white;
+  align-self: center;
+  white-space: normal;
+  -unity-text-align: middle-center;
+}
+
+.portrait .furniture-title {
+  font-size: 13.5px;
+}
+
+.landscape .furniture-title {
+  margin-top: 3px;
+  font-size: 20.5px;
+}
+
+.priceContainerFurniture {
+  margin-top: -3px;
+  margin-left: 3px;
+  flex-direction: row;
+  align-self: center;
+}
+
+.portrait .furniture-image {
+  height: 75%;
+}
+
+.landscape .furniture-image {
+  height: 200px;
+  padding-bottom: 5px;
+}
+
+.landscape .furniture-image-small {
+  flex-grow: 0;
+  flex-shrink: 1;
+  height: 120px;
+  padding-bottom: 5px;
+}
+
+.furniture-item .button__content {
+  height: 100%;
+}

@@ -5,22 +5,23 @@ local beeTextures : {Texture} = nil
 --!SerializeField
 local hatTextures : {Texture} = nil
 --!SerializeField
+local placementTextures : {Texture} = nil
+--!SerializeField
 local placementObjects : {GameObject} = nil
 
 PlacementObject = {
-	["Test"] = placementObjects[1],
-	["Chair"] = placementObjects[2],
-	["Table"] = placementObjects[3],
-	["Chess Table"] = placementObjects[4],
-	["Book Table"] = placementObjects[5],
-	["White Flower Planter"] = placementObjects[6],
-	["Apple Box"] = placementObjects[7],
-	["Red Mushroom"] = placementObjects[8],
-	["Brown Mushroom"] = placementObjects[9],
-	["Teddy Bear"] = placementObjects[10],
-	["Toy Goose"] = placementObjects[11],
-	["Pillow"] = placementObjects[12],
-	["Fountain"] = placementObjects[13],
+    ["Chair"] = placementObjects[1],
+    ["Table"] = placementObjects[2],
+    ["Chess Table"] = placementObjects[3],
+    ["Book Table"] = placementObjects[4],
+    ["White Flower Planter"] = placementObjects[5],
+    ["Apple Box"] = placementObjects[6],
+    ["Red Mushroom"] = placementObjects[7],
+    ["Brown Mushroom"] = placementObjects[8],
+    ["Teddy Bear"] = placementObjects[9],
+    ["Toy Goose"] = placementObjects[10],
+    ["Pillow"] = placementObjects[11],
+    ["Fountain"] = placementObjects[12],
 }
 
 BeeImage = {
@@ -75,6 +76,21 @@ HatImage = {
     ["Mustache"] = hatTextures[18],
 }
 
+FurnitureImage = {
+    ["Chair"] = placementTextures[1],
+    ["Table"] = placementTextures[2],
+    ["Chess Table"] = placementTextures[3],
+    ["Book Table"] = placementTextures[4],
+    ["White Flower Planter"] = placementTextures[5],
+    ["Apple Box"] = placementTextures[6],
+    ["Red Mushroom"] = placementTextures[7],
+    ["Brown Mushroom"] = placementTextures[8],
+    ["Teddy Bear"] = placementTextures[9],
+    ["Toy Goose"] = placementTextures[10],
+    ["Pillow"] = placementTextures[11],
+    ["Fountain"] = placementTextures[12],
+}
+
 local hatData = 
 {
     {name = "Yellow Wooly Hat", id = "yellow_wooly", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 3000, goldCost = 100},
@@ -99,30 +115,63 @@ local hatData =
     {name = "Mustache", id = "mustache", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 600},
 }
 
+local furnitureData = {
+    {name = "Chair", id = "chair", cost = 6000, goldCost = 200},
+    {name = "Table", id = "table", cost = 6000, goldCost = 200},
+    {name = "Chess Table", id = "table_chess", cost = 8000, goldCost = 230},
+    {name = "Book Table", id = "table_book", cost = 8000, goldCost = 230},
+    {name = "White Flower Planter", id = "flower_box", cost = 5000, goldCost = 150},
+    {name = "Apple Box", id = "apple_box", cost = 5000, goldCost = 150},
+    {name = "Red Mushroom", id = "mushroom_red", cost = 4000, goldCost = 125},
+    {name = "Brown Mushroom", id = "mushroom_brown", cost = 4000, goldCost = 125},
+    {name = "Teddy Bear", id = "teddy", cost = 10000, goldCost = 250},
+    {name = "Toy Goose", id = "goose", cost = 10000, goldCost = 250},
+    {name = "Pillow", id = "pillow", cost = 4000, goldCost = 125},
+    {name = "Fountain", id = "fountain", cost = 10000, goldCost = 300},
+}
+
+function IsHat(id)
+    for _, hat in ipairs(hatData) do
+        if hat.id == id then
+            return true
+        end
+    end
+    return false
+end
+
+function IsFurniture(id)
+    for _, furniture in ipairs(furnitureData) do
+        if furniture.id == id then
+            return true
+        end
+    end
+    return false
+end
+
 function GetPlacementObjectByName(name)
-	return PlacementObject[name]
+    return PlacementObject[name]
 end
 
 function GetPlacementObjectByIndex(index)
   i = 1
-	for name, object in pairs(PlacementObject) do
-		if i == index then
-			return object
-		end
+    for name, object in pairs(PlacementObject) do
+        if i == index then
+            return object
+        end
 
-		i = i + 1
-	end
+        i = i + 1
+    end
 end
 
 function GetPlacementObjectNameByIndex(index)
   i = 1
-	for name, object in pairs(PlacementObject) do
-		if i == index then
-			return name
-		end
+    for name, object in pairs(PlacementObject) do
+        if i == index then
+            return name
+        end
 
-		i = i + 1
-	end
+        i = i + 1
+    end
 end
 
 
@@ -130,6 +179,15 @@ function LookupHatName(id)
     for _, hat in ipairs(hatData) do
         if hat.id == id then
             return hat.name
+        end
+    end
+    return nil -- Return nil if no matching id is found
+end
+
+function LookupFurnitureName(id)
+    for _, furniture in ipairs(furnitureData) do
+        if furniture.id == id then
+            return furniture.name
         end
     end
     return nil -- Return nil if no matching id is found
@@ -172,4 +230,9 @@ function ChooseHat(isGold)
 
     -- Fallback in case no species is selected (this shouldn't happen)
     return hat[0]
+end
+
+function ChooseFurniture()
+    local index = math.random(#furnitureData)
+    return furnitureData[index]
 end

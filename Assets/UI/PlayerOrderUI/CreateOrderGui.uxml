@@ -24,6 +24,9 @@
         <VisualElement class="nav-button--deselected" name="_cosmeticsTab">
           <Label class="nav-text" text="Hats" />
         </VisualElement>
+        <VisualElement class="nav-button--deselected" name="_furnitureTab">
+          <Label class="nav-text" text="Furniture" />
+        </VisualElement>
       </VisualElement>
     </VisualElement>
 

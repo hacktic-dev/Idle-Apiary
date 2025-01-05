@@ -388,6 +388,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2711836196418280312}
     m_Modifications:
+    - target: {fileID: 572561277462240001, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977091650749525984, guid: 980f492354f06944e9a1a5596d3228fd,
         type: 3}
       propertyPath: m_IsActive
@@ -398,10 +403,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2757821372553426105, guid: 980f492354f06944e9a1a5596d3228fd,
+    - target: {fileID: 2021388979022000489, guid: 980f492354f06944e9a1a5596d3228fd,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2807316115771229927, guid: 980f492354f06944e9a1a5596d3228fd,
         type: 3}
@@ -502,6 +507,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929773388530764387, guid: 980f492354f06944e9a1a5596d3228fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

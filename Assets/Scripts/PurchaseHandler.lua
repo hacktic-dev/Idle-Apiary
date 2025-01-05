@@ -62,8 +62,6 @@ function ServerHandlePurchase(purchase, player: Player)
     isHoney = true
   end
 
-	print("here")
-
   if isHoney then
     playerManager.SetHoneyDoublerForPlayer(player, time)
 
@@ -91,7 +89,7 @@ function ServerHandlePurchase(purchase, player: Player)
 
 		return
   else
-    -- Not honey, so it must be a hat. Add to inventory and commit
+    -- Not honey or bee size, so it must be an item (hat/furniture). Add to inventory and commit
     local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
     Inventory.CommitTransaction(transaction)
     playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))

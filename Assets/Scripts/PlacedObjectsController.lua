@@ -11,6 +11,10 @@ clientSitPlayerOnSeat = Event.new("clientSitPlayerOnSeat")
 requestFreeSpaces = Event.new("requestFreeSpaces")
 receiveFreeSpaces = Event.new("receiveFreeSpaces")
 
+queryOwnedFurniture = Event.new("queryOwnedFurniture")
+receiveOwnedFurniture = Event.new("receiveOwnedFurniture")
+noFurnitureOwned = Event.new("noFurnitureOwned")
+
 selectItem = Event.new("selectItem")
 
 prospectiveObject = nil
@@ -46,6 +50,35 @@ end
 
 function InitServer()	
   print("Initing server")
+  print("Initing server2")
+
+	queryOwnedFurniture:Connect(function(player)
+		print("Getting furniture")
+		Inventory.GetPlayerItems(player, 25, "", function(items, newCursorId, errorCode)
+			if items == nil then
+				print(errorCode)
+			end
+
+			print("Furniture recieved")
+
+			furnitureOwned = false
+
+			for index, item in items do
+
+				print(item.id)
+
+				if utils.IsFurniture(item.id) then
+					receiveOwnedFurniture:FireClient(player, item.id, item.amount)
+					furnitureOwned = true
+				end
+			end
+
+			if furnitureOwned == false then 
+				print("No owned hats")
+				noFurnitureOwned:FireClient(player)
+			end
+		end)
+	end)
 
 	requestObjectPlacement:Connect(function(player, _name, _x, _y)
 		print("spawning")

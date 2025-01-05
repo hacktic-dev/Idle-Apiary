@@ -26,11 +26,17 @@ local AddHatMenuObject : GameObject = nil
 --!SerializeField
 local CenterPlayerButtonObject : GameObject = nil
 --!SerializeField
-local LeaderboardObject : GameObject = nil
+-- local LeaderboardObject : GameObject = nil
+--!SerializeField
+local PlaceFurnitureMenuObject : GameObject = nil
+--!SerializeField
+local PlaceObjectsUiObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
 local audioManager = require("AudioManager")
+
+initPlaceFurnitureMenu = Event.new("initPlaceFurnitureMenu")
 
 local uiMap = {
     BeeList = BeeListObject,
@@ -45,26 +51,28 @@ local uiMap = {
     PlaceFlowerMenu = PlaceFlowerMenuObject,
     AddHatMenu = AddHatMenuObject,
     CenterPlayerButton = CenterPlayerButtonObject,
-    Leaderboard = LeaderboardObject
+    -- Leaderboard = LeaderboardObject,
+    PlaceFurnitureMenu = PlaceFurnitureMenuObject,
+    PlaceObjectsUi = PlaceObjectsUiObject
 }
 
-  -- Activate the object if it is not active
-  function ActivateObject(object)
+-- Activate the object if it is not active
+function ActivateObject(object)
     if not object.activeSelf then
-      object:SetActive(true)
-      --print("UI activated")
+        object:SetActive(true)
+        --print("UI activated")
     end
-  end
-  
-  -- Deactivate the object if it is active
-  function DeactivateObject(object)
-    if object.activeSelf then
-      object:SetActive(false)
-      --print("UI deactivated")
-    end
-  end
+end
 
-  --- Toggles visibility for all UI components, with an optional exclusion list
+-- Deactivate the object if it is active
+function DeactivateObject(object)
+    if object.activeSelf then
+        object:SetActive(false)
+        --print("UI deactivated")
+    end
+end
+
+--- Toggles visibility for all UI components, with an optional exclusion list
 function ToggleAll(visible: boolean, except)
     for ui, component in pairs(uiMap) do
         if not (except and except[ui]) then
@@ -181,6 +189,7 @@ end
 
 function HideAll()
     ToggleUI("PlaceFlowerMenu", false)
+    ToggleUI("PlaceFurnitureMenu", false)
     ToggleUI("AddHatMenu", false)
     ToggleUI("BeeList", false)
     ToggleUI("ShearsTutorial", false)
@@ -191,8 +200,9 @@ function HideAll()
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceStatus", false)
-    ToggleUI("Leaderboard", false)
+    --ToggleUI("Leaderboard", false)
     ToggleUI("Tutorial", false)
+    ToggleUI("PlaceObjectsUi", false)
 end
 
 function OpenShearsTutorial()
@@ -224,6 +234,34 @@ function ClosePlaceFlowerMenu()
     ToggleUI("PlaceButtons", true)
 end
 
+function OpenPlaceFurnitureMenu()
+    ToggleUI("PlaceFurnitureMenu", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+    initPlaceFurnitureMenu:Fire()
+end
+
+function ClosePlaceFurnitureMenu()
+    ToggleUI("PlaceFurnitureMenu", false)
+    ShowMenu()
+    ToggleUI("PlaceButtons", true)
+end
+
+function OpenPlaceObjectsUi()
+    ToggleUI("PlaceObjectsUi", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("PlaceFurnitureMenu", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+    PlaceObjectsUiObject:GetComponent(PlaceObjectsUi).Init()
+end
+
+function ClosePlaceObjectsUi()
+    ToggleUI("PlaceObjectsUi", false)
+    ShowMenu()
+    ToggleUI("PlaceButtons", true)
+end
 
 function OpenAddHatMenu()
     ToggleUI("AddHatMenu", true)
@@ -240,22 +278,23 @@ function CloseAddHatMenu()
     ToggleUI("PlaceButtons", true)
 end
 
-function OpenLeaderboard()
-    ToggleUI("Leaderboard", true)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
-    LeaderboardObject:GetComponent(Leaderboard).Init()
-end
+-- function OpenLeaderboard()
+--     ToggleUI("Leaderboard", true)
+--     ToggleUI("PlayerStats", false)
+--     ToggleUI("CenterPlayerButton", false)
+--     ToggleUI("PlaceButtons", false)
+--     LeaderboardObject:GetComponent(Leaderboard).Init()
+-- end
 
-function CloseLeaderboard()
-    ToggleUI("Leaderboard", false)
-    ToggleUI("PlayerStats", true)
-    ToggleUI("CenterPlayerButton", true)
-    ToggleUI("PlaceButtons", true)
-end
+-- function CloseLeaderboard()
+--     ToggleUI("Leaderboard", false)
+--     ToggleUI("PlayerStats", true)
+--     ToggleUI("CenterPlayerButton", true)
+--     ToggleUI("PlaceButtons", true)
+-- end
 
 function OpenTutorialByPlayer()
+    ToggleUI("Tutorial", true)
     TutorialObject:GetComponent(Tutorial).Init(true, false)
 end
 
@@ -278,16 +317,15 @@ playerManager.notifyBeePurchased:Connect((function(species)
     InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
 end))
 
-playerManager.notifyHatPurchased:Connect((function(hat)
+playerManager.notifyItemPurchased:Connect((function(item)
     audioManager.PlaySound("purchaseSound", 1)
     ToggleUI("BeeCard", true)
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
-    InfoCardObject:GetComponent(InfoCard).ShowHat(hat)
+    InfoCardObject:GetComponent(InfoCard).ShowPurchasedItem(item)
     InfoCardObject:GetComponent(InfoCard).SetCloseCallback( function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
 end))
-
 
 function self:ClientAwake()
     Timer.new(0.2, function() 
