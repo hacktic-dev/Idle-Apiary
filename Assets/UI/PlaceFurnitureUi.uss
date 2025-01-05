@@ -72,7 +72,7 @@
     width: 100%;
 }
 
-.no-furnitures {
+.no-furniture {
     color: white;
     align-self: center;
     white-space: normal;
