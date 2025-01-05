@@ -41,11 +41,11 @@ local playerJoins = {}
 giveBeeRequest = Event.new("GiveBeeRequest")
 sellBeeRequest = Event.new("SellBeeRequest")
 notifyBeePurchased = Event.new("NotifyBeePurchased")
-notifyHatPurchased = Event.new("NotifyHatPurchased")
+notifyItemPurchased = Event.new("NotifyItemPurchased")
 beeCountUpdated = Event.new("BeeCountUpdated")
 playerEarnRateChanged = Event.new("PlayerEarnRateChanged")
 giveShearsRequest = Event.new("GiveShearsRequest")
-givePlayerHatRequest = Event.new("GivePlayerHatRequest")
+givePlayerItemRequest = Event.new("GivePlayerHatRequest")
 requestRemoveBeeHat = Event.new("requestRemoveBeeHat")
 setPlayerVersionString = Event.new("setPlayerVersionString")
 
@@ -58,6 +58,8 @@ requestEarnRates = Event.new("RequestEarnRates")
 receiveEarnRates = Event.new("ReceiveEarnRates")
 requestHatStatus = Event.new("RequestHatStatus")
 receiveHatStatus = Event.new("ReceiveHatStatus")
+requestFurnitureStatus = Event.new("RequestFurnitureStatus")
+receiveFurnitureStatus = Event.new("ReceiveFurnitureStatus")
 setHatStatus = Event.new("SetHatStatus")
 
 local restartTimerRequest = Event.new("RestartCashTimer")
@@ -138,6 +140,10 @@ end
 
 function SaveHatStatus(player, id)
     requestHatStatus:FireClient(player)
+end
+
+function SaveFurnitureStatus(player, id)
+    requestFurnitureStatus:FireClient(player)
 end
 
 -- Function to get the list of all bee species a player has obtained
@@ -598,6 +604,7 @@ function SaveProgress(player, wasDc)
     UpdateStorage(player, player.user.id)
     SaveSeenBeeSpecies(player, player.user.id)
     SaveHatStatus(player, player.user.id)
+    SaveFurnitureStatus(player, player.user.id)
     flowerManager.SaveFlowerPositions(player, player.user.id)
 		placedObjectsManager.SavePlacedObjects(player, player.user.id)
     for player, playerData in pairs(players) do
@@ -726,6 +733,7 @@ function self:ClientAwake()
     updateBeeList:Connect(function() RequestBeeList() end)
 
     requestHatStatus:Connect(function() receiveHatStatus:FireServer(CreateOrderObject:GetComponent(CreateOrderGui).GetSoldOutHats()) end)
+    requestFurnitureStatus:Connect(function() receiveFurnitureStatus:FireServer(CreateOrderObject:GetComponent(CreateOrderGui).GetSoldOutFurniture()) end)
 
     setHatStatus:Connect(function(_soldOutHats) soldOutHats = _soldOutHats end)
 
@@ -971,7 +979,7 @@ function self:ServerAwake()
         end)
     end)
 
-    givePlayerHatRequest:Connect(function(player, Id)
+    givePlayerItemRequest:Connect(function(player, Id)
         local transaction = InventoryTransaction.new():GivePlayer(player, Id, 1)
         Inventory.CommitTransaction(transaction)
     end)
@@ -985,7 +993,7 @@ function self:ServerAwake()
     end
     )
 
-    Timer.new(60, function() 
+    Timer.new(90, function() 
     for player, data in pairs(players) do
         if player ~= nil then
             print("saving for player " .. player.name .. ".")
@@ -1007,6 +1015,10 @@ function self:ServerAwake()
         Storage.SetPlayerValue(player, "HatStatus", soldOutHats)
     end)
 
+    receiveFurnitureStatus:Connect(function(player, soldOutFurniture)
+        Storage.SetPlayerValue(player, "FurnitureStatus", soldOutFurniture)
+    end)
+
 		print("PlayerManager ServerAwake finished")
 end
 
@@ -1026,8 +1038,8 @@ function PlayerHasActiveHoneyDoubler(player)
     return false
 end
 
-function GiveHat(Id)
-    givePlayerHatRequest:FireServer(Id)
+function GiveItem(Id)
+    givePlayerItemRequest:FireServer(Id)
 end
 
 showBadges = true
@@ -1047,3 +1059,4 @@ function ToggleShowBadges()
 
     showBadgesChanged:Fire(showBadges)
 end
+

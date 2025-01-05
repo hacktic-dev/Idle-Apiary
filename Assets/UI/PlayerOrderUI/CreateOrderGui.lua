@@ -16,6 +16,8 @@ local _honeyTab : UIButton = nil
 --!Bind
 local _cosmeticsTab : UIButton = nil
 --!Bind
+local _furnitureTab : UIButton = nil
+--!Bind
 local upgrades : UILabel = nil
 --!Bind
 local timeToReset : UILabel = nil
@@ -33,6 +35,7 @@ local _confirmBuyLabel : UILabel= nil
 local _declineBuyButton : UIButton = nil
 --!Bind
 local _declineBuyLabel : UILabel = nil
+
 
 
 --!SerializeField
@@ -54,26 +57,36 @@ local selectedIsGold
 local selectedId
 local selectedCash
 local  selectedName
-local isHat = false
+local purchaseType = "generic"
 
 -- client
 local soldOutHats = {}
+
+local soldOutFurniture = {}
+
+function GetSoldOutFurniture()
+    return soldOutFurniture
+end
 
 _upgradesTab:RegisterPressCallback(function()
     local success = ButtonPressed("upgrades")
   end, true, true, true)
   
 _beesTab:RegisterPressCallback(function()
-local success = ButtonPressed("bees")
+    local success = ButtonPressed("bees")
 end, true, true, true)
 
 _honeyTab:RegisterPressCallback(function()
     local success = ButtonPressed("honey")
-    end, true, true, true)
+end, true, true, true)
 
-    _cosmeticsTab:RegisterPressCallback(function()
+_cosmeticsTab:RegisterPressCallback(function()
     local success = ButtonPressed("cosmetics")
-    end, true, true, true)
+end, true, true, true)
+
+_furnitureTab:RegisterPressCallback(function()
+    local success = ButtonPressed("furniture")
+end, true, true, true)
 
 function GetSoldOutHats()
     return soldOutHats
@@ -153,6 +166,8 @@ local function timeUntilNextSeed()
     --TODO reset shop when timeout
     if next_seed_time - now == 14400 and state == 3 then
         InitCosmeticsTab()
+    elseif next_seed_time - now == 14400 and state == 4 then
+        InitFurnitureTab()
     end
 
     return formatTime(next_seed_time - now) -- Time remaining until the next 4-hour block
@@ -172,7 +187,7 @@ function InitCosmeticsTab()
         local hat = Utils.ChooseHat(true)
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
-            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true, false, false)
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.goldCost, true, false)
             i = i + 1
         end
     end
@@ -184,10 +199,126 @@ function InitCosmeticsTab()
         if hat and hats[hat.name] == nil then
             hats[hat.name] = hat
             local isSoldOut = soldOutHats[hat.id] and os.time() < soldOutHats[hat.id]
-            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false, true, isSoldOut)
+            CreateHatItem(hat.name, hat.id, hat.rarity, hat.cost, false, isSoldOut)
             i = i + 1
         end
     end
+end
+
+function InitFurnitureTab()
+    -- Seed the random number generator
+    print("Seed: " .. getSeed())
+    math.randomseed(getSeed())
+    Orders_Root:Clear()
+
+    local furnitureItems = {}
+
+    local i = 0
+    -- First loop for premium furniture items
+    while i < 2 do
+        local furniture = Utils.ChooseFurniture(true)
+        if furniture and furnitureItems[furniture.name] == nil then
+            furnitureItems[furniture.name] = furniture
+            CreateFurnitureItem(furniture.name, furniture.id, furniture.goldCost, true, false)
+            i = i + 1
+        end
+    end
+
+    i = 0
+    -- Second loop for regular furniture items
+    while i < 4 do
+        local furniture = Utils.ChooseFurniture(false)
+        if furniture and furnitureItems[furniture.name] == nil then
+            furnitureItems[furniture.name] = furniture
+            local isSoldOut = soldOutFurniture[furniture.id] and os.time() < soldOutFurniture[furniture.id]
+            CreateFurnitureItem(furniture.name, furniture.id, furniture.cost, false, isSoldOut)
+            i = i + 1
+        end
+    end
+end
+
+function CreateFurnitureItem(Name, Id, Cash, isGold, isSoldOut)
+    local questItem = UIButton.new()
+    questItem:AddToClassList("furniture-item") -- Add a class to style the quest item.
+
+    if isSoldOut then
+        local soldOutLabel = UILabel.new()
+        soldOutLabel:AddToClassList("furniture-title")
+        soldOutLabel:AddToClassList("text-center")
+        soldOutLabel:SetPrelocalizedText("Sold Out")
+        questItem:Add(soldOutLabel)
+
+        local soldOutLabelDescription = UILabel.new()
+        soldOutLabelDescription:AddToClassList("description")
+        soldOutLabelDescription:AddToClassList("text-center")
+        soldOutLabelDescription:SetPrelocalizedText("Check back again later")
+        questItem:Add(soldOutLabelDescription)
+
+        Orders_Root:Add(questItem)
+
+        return questItem
+    end
+
+    -- Create a label for the quest item's title and add it to the quest item.
+    local _titleLabel = UILabel.new()
+    _titleLabel:AddToClassList("furniture-title")
+    _titleLabel:SetPrelocalizedText(Name) -- Set the text to display the quest item's name.
+    questItem:Add(_titleLabel)
+
+    local _priceContainer = VisualElement.new()
+    _priceContainer:AddToClassList("priceContainerFurniture")
+
+    if not isGold then
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_honey")
+        _priceContainer:Add(_icon)
+    else
+        local _icon = UIImage.new()
+        _icon:AddToClassList("icon_gold")
+        _priceContainer:Add(_icon)
+    end
+
+    local _image = UIImage.new()
+
+    local container = VisualElement.new()
+    container:AddToClassList("row-container")
+
+    -- Create a label for the quest item's cash cost and add it to the quest item.
+    local _cashLabel = UILabel.new()
+    if Screen.width > Screen.height and Screen.height < 1000 then
+        _cashLabel:AddToClassList("furniture-price")
+        _image:AddToClassList("furniture-image-small")
+    else
+        _cashLabel:AddToClassList("furniture-price")
+        _image:AddToClassList("furniture-image")
+    end
+
+    _image.image = Utils.FurnitureImage[Name]
+    questItem:Add(_image)
+
+    _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
+    _priceContainer:Add(_cashLabel)
+    container:Add(_priceContainer)
+
+    questItem:Add(container)
+
+    questItem:RegisterPressCallback(function()
+        if not isGold then
+            selectedIsGold = isGold
+            selectedId = Id
+            selectedCash = Cash
+            selectedName = Name
+            purchaseType = "furniture"
+            _confirmBuy.visible = true
+        else
+            BuyItem(isGold, Id, Name, Cash, "furniture")
+        end
+    end)
+
+    -- Add the quest item to the UI.
+    Orders_Root:Add(questItem)
+
+    return questItem
 end
 
 function ButtonPressed(btn: string)
@@ -199,6 +330,7 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
+      _furnitureTab:AddToClassList("nav-button--deselected")
       Orders_Root:RemoveFromClassList("high-margin")
       timeContainer.visible = false
       InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
@@ -212,6 +344,7 @@ function ButtonPressed(btn: string)
       _upgradesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
       _cosmeticsTab:AddToClassList("nav-button--deselected")
+      _furnitureTab:AddToClassList("nav-button--deselected")
       Orders_Root:RemoveFromClassList("high-margin")
       timeContainer.visible = false
       InitBeesTab()
@@ -225,6 +358,7 @@ function ButtonPressed(btn: string)
         _beesTab:AddToClassList("nav-button--deselected")
         _upgradesTab:AddToClassList("nav-button--deselected")
         _cosmeticsTab:AddToClassList("nav-button--deselected")
+        _furnitureTab:AddToClassList("nav-button--deselected")
         Orders_Root:RemoveFromClassList("high-margin")
         timeContainer.visible = false
         InitHoneyTab()
@@ -236,11 +370,26 @@ function ButtonPressed(btn: string)
       _beesTab:AddToClassList("nav-button--deselected")
       _upgradesTab:AddToClassList("nav-button--deselected")
       _honeyTab:AddToClassList("nav-button--deselected")
+      _furnitureTab:AddToClassList("nav-button--deselected")
       timeContainer.visible = true
       Orders_Root:AddToClassList("high-margin")
       timeToReset:SetPrelocalizedText("Time until shop resets: " .. timeUntilNextSeed())
       InitCosmeticsTab()
       return true
+    elseif btn == "furniture" then
+        if state == 4 then return end
+        state = 4
+        _furnitureTab:AddToClassList("nav-button--selected")
+        _furnitureTab:RemoveFromClassList("nav-button--deselected")
+        _upgradesTab:AddToClassList("nav-button--deselected")
+        _beesTab:AddToClassList("nav-button--deselected")
+        _honeyTab:AddToClassList("nav-button--deselected")
+        _cosmeticsTab:AddToClassList("nav-button--deselected")
+        Orders_Root:AddToClassList("high-margin")
+        timeToReset:SetPrelocalizedText("Time until shop resets: " .. timeUntilNextSeed())
+        timeContainer.visible = true
+        InitFurnitureTab()
+        return true
     end
 end
   
@@ -315,7 +464,7 @@ end
             {name = "Sandy Bee", chance = 19},   -- 5 * 5
             {name = "Autumnal Bee", chance = 19},-- 5 * 5
             {name = "Petal Bee", chance = 19},   -- 5 * 5
-            {name = "Galactic Bee", chance = 15},-- 2 * 5
+            {name = "Galact ic Bee", chance = 15},-- 2 * 5
             {name = "Industrial Bee", chance = 15}, -- 2 * 5
             {name = "Pearlescent Bee", chance = 13}   -- 1 * 5
         },
@@ -349,8 +498,7 @@ end
         end
     end
 end
-
-function CreateHatItem(Name, Id, Rarity, Cash, isGold, shouldConfirm, isSoldOut)
+function CreateHatItem(Name, Id, Rarity, Cash, isGold, isSoldOut)
     local questItem = UIButton.new()
     questItem:AddToClassList("hat-item") -- Add a class to style the quest item.
 
@@ -427,15 +575,15 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold, shouldConfirm, isSoldOut)
     questItem:Add(container)
 
     questItem:RegisterPressCallback(function()
-        if shouldConfirm then
+        if not isGold then
             selectedIsGold = isGold
             selectedId = Id
             selectedCash = Cash
             selectedName = Name
-            isHat = true
+            purchaseType = "hat"
             _confirmBuy.visible = true
         else
-            BuyHat(isGold, Id, Name, Cash)
+            BuyItem(isGold, Id, Name, Cash, "hat")
         end
     end)
 
@@ -494,7 +642,7 @@ function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm)
             selectedIsGold = isGold
             selectedId = Id
             selectedCash = Cash
-            isHat = false
+            purchaseType = "generic"
             _confirmBuy.visible = true
        else
             Buy(isGold, Id, Cash)
@@ -508,10 +656,12 @@ function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm)
 end
 
 _confirmBuyButton:RegisterPressCallback(function()
-    if isHat then
-        BuyHat(selectedIsGold, selectedId, selectedName, selectedCash)
-    else 
+    if purchaseType == "hat" then
+        BuyItem(selectedIsGold, selectedId, selectedName, selectedCash, "hat")
+    elseif purchaseType == "generic" then
         Buy(selectedIsGold, selectedId, selectedCash)
+    elseif purchaseType == "furniture" then
+        BuyItem(selectedIsGold, selectedId, selectedName, selectedCash, "furntiure")
     end
     _confirmBuy.visible = false end, true, true, true
 )
@@ -613,29 +763,32 @@ function IncreaseBeeCapacity()
 	playerManager.IncrementStat("BeeCapacity", 1)
 end
 
-function  BuyHat(isGold, Id, Name, Cash)
-        -- Handle gold payments
-        if isGold then
-            purchaseHandler.PromptTokenPurchase(Id)
-            return
-        end
+function BuyItem(isGold, Id, Name, Cash, itemType)
+    -- Handle gold payments
+    if isGold then
+        purchaseHandler.PromptTokenPurchase(Id)
+        return
+    end
 
-        if playerManager.GetPlayerCash() >= Cash then
-              
-            playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
-            playerManager.GiveHat(Id)
-            playerManager.notifyHatPurchased:Fire(Name)
+    if playerManager.GetPlayerCash() >= Cash then
+        playerManager.IncrementStat("Cash", -Cash) -- Deduct cash from the player.
+        playerManager.GiveItem(Id)
+        playerManager.notifyItemPurchased:Fire(Name or Id)
 
-            if math.random() <= 0.5 then
-                local expirationTime = os.time() + 30*60
+        if math.random() <= 0.5 then
+            local expirationTime = os.time() + 30 * 60
+            if itemType == "hat" then
                 soldOutHats[Id] = expirationTime
                 InitCosmeticsTab()
+            elseif itemType == "furniture" then
+                soldOutFurniture[Id] = expirationTime
+                InitFurnitureTab()
             end
-
-        else
-            UIManager.ToggleUI("PlaceStatus", true)
-            statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")
-            audioManager.PlaySound("failSound", .75)
-            Timer.new(2, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
         end
+    else
+        UIManager.ToggleUI("PlaceStatus", true)
+        statusObject:GetComponent("PlaceApiaryStatus").SetStatus("You do not have enough honey.")
+        audioManager.PlaySound("failSound", .75)
+        Timer.new(2, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
+    end
 end

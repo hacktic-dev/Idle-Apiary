@@ -46,7 +46,7 @@ function ShowReceived(species)
     SetTimer()
 end
 
-function ShowHat(hat)
+function ShowPurchasedItem(hat)
     _beeLabel:SetPrelocalizedText("You purchased a " .. hat .. "!")
     _rarity:SetPrelocalizedText("")
     _honeyRateLabel:SetPrelocalizedText("")

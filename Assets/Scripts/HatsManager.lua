@@ -7,6 +7,8 @@ queryOwnedHats = Event.new("QueryOwnedHats")
 receiveOwnedHats = Event.new("ReceiveOwnedHats")
 noHatsOwned = Event.new("NoHatsOwned")
 
+local utils = require("Utils")
+
 local selectedBeeId = nil
 
 function SetSelectedBee(id)
@@ -27,7 +29,7 @@ function self:ServerAwake()
             hatsOwned = false
 
             for index, item in items do
-                if item.id ~= "Red" and item.id ~= "Yellow" and item.id ~= "White" and item.id ~= "Purple" and item.id~="doubler_1" and item.id~="doubler_2" then
+                if utils.IsHat(item.id) then
                     receiveOwnedHats:FireClient(player, item.id, item.amount)
                     hatsOwned = true
                 end

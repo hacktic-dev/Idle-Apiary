@@ -279,16 +279,15 @@ playerManager.notifyBeePurchased:Connect((function(species)
     InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
 end))
 
-playerManager.notifyHatPurchased:Connect((function(hat)
+playerManager.notifyItemPurchased:Connect((function(item)
     audioManager.PlaySound("purchaseSound", 1)
     ToggleUI("BeeCard", true)
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
-    InfoCardObject:GetComponent(InfoCard).ShowHat(hat)
+    InfoCardObject:GetComponent(InfoCard).ShowPurchasedItem(item)
     InfoCardObject:GetComponent(InfoCard).SetCloseCallback( function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
 end))
-
 
 function self:ClientAwake()
     Timer.new(0.2, function() 

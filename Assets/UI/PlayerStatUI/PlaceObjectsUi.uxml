@@ -11,7 +11,7 @@
   <hr:UIButton class="button" name="button">
     <Label text="Confirm"/>
   </hr:UIButton>
-  <hr:UIButton class="button" name="cycleButton">
+  <hr:UIButton class="cycleButton" name="cycleButton">
     <Label text="Cycle"/>
   </hr:UIButton>
   </hr:UILuaView>
