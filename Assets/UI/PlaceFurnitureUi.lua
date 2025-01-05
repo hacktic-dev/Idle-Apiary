@@ -67,7 +67,7 @@ function AddFurnitureCard(id, amount)
 end
 
 function NoFurniture()
-    if #Furniture_Root:GetChildren() == 0 then
+    if Furniture_Root.childCount == 0 then
         local titleLabel = UILabel.new()
         titleLabel:AddToClassList("no-furniture")
         titleLabel:SetPrelocalizedText("You don't have any furniture :(")
