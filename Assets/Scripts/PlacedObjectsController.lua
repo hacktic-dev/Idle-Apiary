@@ -97,7 +97,8 @@ function InitServer()
 			end
 
 			table.insert(placedObjects[player], placedObject)
-			-- TODO: take object from inventory
+			local transaction = InventoryTransaction.new():TakePlayer(player, utils.LookupFurnitureIdByName(placedObject.name), 1)
+			Inventory.CommitTransaction(transaction)
 
 	end)
 

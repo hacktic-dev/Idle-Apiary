@@ -184,6 +184,15 @@ function LookupHatName(id)
     return nil -- Return nil if no matching id is found
 end
 
+function LookupFurnitureIdByName(Name)
+    for _, furniture in ipairs(furnitureData) do
+        if furniture.name == Name then
+            return furniture.id
+        end
+    end
+    return nil -- Return nil if no matching id is found
+end
+
 function LookupFurnitureName(id)
     for _, furniture in ipairs(furnitureData) do
         if furniture.id == id then

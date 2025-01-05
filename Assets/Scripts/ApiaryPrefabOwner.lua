@@ -21,6 +21,7 @@ local objectName = nil
 local spawnedObject = nil
 
 placedObjectsManager = require("PlacedObjectsController")
+UIManager = require("UIManager")
 
 placementLocations = {}
 
@@ -61,6 +62,8 @@ function self:ClientAwake()
 			Object.Destroy(spawnedObject)
 			spawnedObject = nil
 		end
+
+		UIManager.ClosePlaceObjectsUi()
 	end)
 
 	placedObjectsManager.selectItem:Connect(function(object, name)
