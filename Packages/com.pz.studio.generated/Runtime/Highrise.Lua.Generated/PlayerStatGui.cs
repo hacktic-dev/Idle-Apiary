@@ -1,6 +1,6 @@
 /*
 
-    Copyright (c) 2024 Pocketz World. All rights reserved.
+    Copyright (c) 2025 Pocketz World. All rights reserved.
 
     This is a generated file, do not edit!
 
@@ -45,9 +45,8 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(7), null),
                 CreateSerializedProperty(_script.GetPropertyAt(8), null),
                 CreateSerializedProperty(_script.GetPropertyAt(9), null),
-                CreateSerializedProperty(_script.GetPropertyAt(10), null),
-                CreateSerializedProperty(_script.GetPropertyAt(11), m_BeeListObject),
-                CreateSerializedProperty(_script.GetPropertyAt(12), m_ShopObject),
+                CreateSerializedProperty(_script.GetPropertyAt(10), m_BeeListObject),
+                CreateSerializedProperty(_script.GetPropertyAt(11), m_ShopObject),
             };
         }
     }

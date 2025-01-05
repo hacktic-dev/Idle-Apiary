@@ -24,6 +24,8 @@ hideUiEvent = Event.new("HideUiEvent")
 purchaseSucceededEvent = Event.new("purchaseSucceededEvent")
 purchaseFailedEvent = Event.new("purchaseFailedEvent")
 
+beeCapacityPurchaseSuccessful = Event.new("beeCapacityPurchaseSuccessfuls")
+
 responseTesting = false
 
 attempts = 0
@@ -60,6 +62,8 @@ function ServerHandlePurchase(purchase, player: Player)
     isHoney = true
   end
 
+	print("here")
+
   if isHoney then
     playerManager.SetHoneyDoublerForPlayer(player, time)
 
@@ -74,6 +78,18 @@ function ServerHandlePurchase(purchase, player: Player)
     end)
 
     return
+	elseif productId == "bee_size_1" or productId == "bee_size_2" then
+		 print("here")
+		 Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+      if ackErr ~= PaymentsError.None then
+        print("Error acknowledging purchase: " .. ackErr)
+        purchaseFailedEvent:FireClient(player)
+        return
+      end
+				beeCapacityPurchaseSuccessful:FireClient(player)
+    end)
+
+		return
   else
     -- Not honey, so it must be a hat. Add to inventory and commit
     local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)

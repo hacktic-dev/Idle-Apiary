@@ -15,9 +15,11 @@ local MIN_DISTANCE = 23
 local apiaries = {}
 
 local playerManager = require("PlayerManager")
+local placedObjectsManager = require("PlacedObjectsController")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
+local utils = require("Utils")
 
 --!SerializeField
 local ApiaryPrefab : GameObject = nil
@@ -102,6 +104,8 @@ apiaryPlacementRequest:Connect(function(player, position)
           end)
 
         flowerManager.SpawnPlayerFlowersOnAllClients(player, position)
+				placedObjectsManager.SpawnPlayerPlacedObjectsOnAllClients(player, position)
+
         notifyApiaryPlacementSucceeded:FireClient(player, position)
     else
         -- Notify the player that the placement was invalid
@@ -215,6 +219,13 @@ function self:ClientAwake()
                 newApiary:GetComponent(ApiaryPrefabOwner).GetRegularBox():SetActive(true)
                 newApiary:GetComponent(ApiaryPrefabOwner).GetGoldBox():SetActive(false)
             end
+
+						if owner == client.localPlayer.name then
+							newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(4)
+							objectToSpawn = utils.GetPlacementObjectByName("Toy Goose")
+							newApiary:GetComponent(ApiaryPrefabOwner).SetObjectToSpawn(objectToSpawn, "Toy Goose")
+							newApiary:GetComponent(ApiaryPrefabOwner).ShowPlacementLocations()
+						end
 
             newApiary:GetComponent(ApiaryPrefabOwner).GetOwnerUi():GetComponent(ApiaryOwnerUi).SetLabel(owner, count)
 

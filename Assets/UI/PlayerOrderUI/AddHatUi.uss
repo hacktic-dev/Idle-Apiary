@@ -8,6 +8,12 @@
     align-items: center;
 }
 
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
 .portrait .place-hat-ui {
     bottom: 10%;
     height: 85%
@@ -29,7 +35,7 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
-    background-color: rgba(0,0,0,.35);
+    background-color: rgba(0,0,0,.3);
     border-radius: 10px;
     margin-left: 10px;
 }
@@ -168,7 +174,7 @@
 
 
 .close-button {
-    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    background-color: rgba(180, 0, 0, 0.8); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
@@ -197,7 +203,8 @@
 
   border-width: 2px;
   border-radius: 8px;
-  background-color: rgba(0,0,0,.25);
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
 }
 
 .priceContainer

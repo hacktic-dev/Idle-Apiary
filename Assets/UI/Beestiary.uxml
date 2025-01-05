@@ -8,13 +8,13 @@
 >
 
   <hr:UILuaView class="beestiary">
-    <hr:UIButton name="background" class="background">
+    <hr:UIButton name="background" class="background image-background-top">
       <hr:UILabel name="_rankLabel" class="title" />
     </hr:UIButton>
-    <hr:UIScrollView name="_InventoryContent" class="inventory__content">
+    <hr:UIScrollView name="_InventoryContent" class="inventory__content image-background-main">
       <!-- Inventory Content -->
     </hr:UIScrollView>
-    <VisualElement name="_beeCard" class="bee-card__container">
+    <VisualElement name="_beeCard" class="bee-card__container image-background-card">
        <hr:UILabel name="_beeLabel" class="main-bee-label" text="You caught a bee" />
        <hr:UIImage name="_beeImage" class="bee-image" src="bee_image.png" />
        <hr:UILabel name="_rarity" class="bee-label" text="" />

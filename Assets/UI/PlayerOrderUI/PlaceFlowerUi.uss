@@ -1,3 +1,9 @@
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
 .place-flower-ui {
     margin-right: auto;
     margin-left: auto;
@@ -30,7 +36,7 @@
     align-items: center;
     margin-top: 2.5%;
     margin-bottom: 2.5%;
-    background-color: rgba(0,0,0,.35);
+    background-color: rgba(0,0,0,.3);
     border-radius: 10px;
     height: 45%;
     width: 48%;
@@ -63,7 +69,7 @@
 .close{
     margin: 10px;
     color: white;
-    font-size: 12px;
+    font-size: 16px;
     align-self: center;
     white-space: normal;
     -unity-text-align: middle-center;
@@ -151,11 +157,11 @@
 
 
 .close-button {
-    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    background-color: rgba(180, 0, 0, 0.8); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     margin-top: 10px;
     width: 200px;
     margin-left: auto;
@@ -180,7 +186,8 @@
 
   border-width: 2px;
   border-radius: 8px;
-  background-color: rgba(0,0,0,.25);
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
 }
 
 .priceContainer

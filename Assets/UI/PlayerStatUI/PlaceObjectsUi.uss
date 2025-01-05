@@ -1,0 +1,46 @@
+.place-objects {
+    position: relative
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+}
+
+.portrait .place-objects
+{
+    width:10%;
+    flex-direction: column;
+    bottom: 50px;
+    justify-content: space-between;
+}
+
+.landscape .place-objects
+{
+    bottom: -57px;
+    justify-content: flex-end;
+}
+
+.button__content
+{
+    width: 75%;
+    height: 75%;
+}
+
+.button{
+    width: 96px;
+    height: 48px;
+    border-radius: 9px;
+    background-color: rgba(0,0,0,.4);
+}
+
+.portrait .button
+{
+    margin-bottom: 6px;
+    margin-left: 8px;
+}
+
+
+.landscape .button
+{
+    margin-left: 50px;
+    right: -103px;
+}

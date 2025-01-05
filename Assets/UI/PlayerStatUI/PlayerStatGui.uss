@@ -8,6 +8,12 @@
   min-height: 50px;
 }
 
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
 .container {
   padding: 8px;
   display: flex;

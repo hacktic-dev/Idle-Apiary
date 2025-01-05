@@ -94,18 +94,22 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
         netPrice = 1000
     end
 
-    CreateQuestItem("Purchase a Bee Net", "Net", netPrice, false, "", false)
+    CreateQuestItem("Bee Net", "Net", netPrice, false, "", false)
 
-    if beeCapacity < 20 then
+    if beeCapacity < 18 then
         CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", true)
-    end
+    elseif beeCapacity == 18 then
+			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_1", 100, true, "", false)
+		elseif beeCapacity == 19 then
+			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_2", 250, true, "", false)
+		end
 
     if sweetScentLevel < 3 then
         CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1, "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false, "Rarer bees spawn more frequently", true)
     end
 
     if playerManager.players[client.localPlayer].HasShears.value == false then
-        CreateQuestItem("Purchase Shears", "Shears", 5000, false, "Can be used to pick flowers", true)
+        CreateQuestItem("Shears", "Shears", 5000, false, "Can be used to pick flowers", true)
     else
        if flowerCapacity < 10 then
         CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false, "", true)
@@ -115,16 +119,16 @@ end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase a Random Bee", "Bronze", 50, false, "Bronze Set", false)
-    CreateQuestItem("Purchase a Random Bee", "Silver", 250, false, "Silver Set", false)
-    CreateQuestItem("Purchase a Random Bee", "Gold", 1250, false, "Gold Set", false)
-    CreateQuestItem("Purchase a Random Bee", "Platinum", 5000, false, "Platinum Set", false)
+    CreateQuestItem("Random Bee", "Bronze", 50, false, "Bronze Set", false)
+    CreateQuestItem("Random Bee", "Silver", 250, false, "Silver Set", false)
+    CreateQuestItem("Random Bee", "Gold", 1250, false, "Gold Set", false)
+    CreateQuestItem("Random Bee", "Platinum", 5000, false, "Platinum Set", false)
 end
 
 local function InitHoneyTab()
     Orders_Root:Clear()
-    CreateQuestItem("Purchase Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.", false)
-    CreateQuestItem("Purchase Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes", false)
+    CreateQuestItem("Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.", false)
+    CreateQuestItem("Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes", false)
 end
 
 local function getSeed()
@@ -265,25 +269,25 @@ function LookupFlowerCapacityUpgradePrice(capacity)
 end
 
 function LookupBeeCapacityUpgradePrice(capacity)
-    if capacity == 11 then
+    if capacity == 9 then
         return 200
-    elseif capacity == 12 then
+    elseif capacity == 10 then
         return 500
-    elseif capacity == 13 then
+    elseif capacity == 11 then
         return 1000
-    elseif capacity == 14 then
+    elseif capacity == 12 then
         return 2000
-    elseif capacity == 15 then
+    elseif capacity == 13 then
         return 5000
-    elseif capacity == 16 then
+    elseif capacity == 14 then
         return 8000
-    elseif capacity == 17 then
+    elseif capacity == 15 then
         return 10000
-    elseif capacity == 18 then
+    elseif capacity == 16 then
         return 15000
-    elseif capacity == 19 then
+    elseif capacity == 17 then
         return 25000
-    elseif capacity == 20 then
+    elseif capacity == 18 then
         return 50000
     end
 end
@@ -527,6 +531,8 @@ function Init()
 
     _confirmBuy.visible = false
 
+		purchaseHandler.beeCapacityPurchaseSuccessful:Connect(function() IncreaseBeeCapacity() end)
+
     if Screen.width > Screen.height then
         upgrades:SetPrelocalizedText("Upgrades / Items")
     else
@@ -570,8 +576,7 @@ function Buy(isGold, Id, Cash)
                 return
             end
 
-            InitUpgradesTab(playerManager.GetPlayerBeeCapacity()+1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
-            playerManager.IncrementStat("BeeCapacity", 1)
+						IncreaseBeeCapacity()
             return
         elseif Id == "FlowerCapacity" then
             InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity()+1, playerManager.GetPlayerSweetScentLevel())
@@ -601,6 +606,11 @@ function Buy(isGold, Id, Cash)
         audioManager.PlaySound("failSound", .75)
         Timer.new(3.5, function() UIManager.ToggleUI("PlaceStatus", false) end, false)
     end
+end
+
+function IncreaseBeeCapacity()
+	InitUpgradesTab(playerManager.GetPlayerBeeCapacity()+1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
+	playerManager.IncrementStat("BeeCapacity", 1)
 end
 
 function  BuyHat(isGold, Id, Name, Cash)

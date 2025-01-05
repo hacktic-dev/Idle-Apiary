@@ -26,7 +26,7 @@
     align-items: center;
     margin-top: 1.5%;
     margin-bottom: 1.5%;
-    background-color: rgba(0,0,0,.35);
+    background-color: rgba(0,0,0,.3);
     border-radius: 10px;
     height: 100px;
     width: 48%;
@@ -48,7 +48,7 @@
     margin-bottom: 1.5%;
     padding-left: 0px;
     padding-right: 0px;
-    background-color: rgba(0,0,0,.35);
+    background-color: rgba(0,0,0,.3);
     border-radius: 10px;
 }
 
@@ -90,7 +90,7 @@
 }
 
 .landscape .title {
-    font-size: 21.5px;
+    font-size: 20px;
 }
 
 .confirm-label {
@@ -166,7 +166,7 @@
 }
 
 .landscape .description {
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .rarity-label {
@@ -185,7 +185,7 @@
 }
 
 .landscape .rarity-label-small {
-    font-size: 12px;
+    font-size: 11px;
     color: white;
     align-self: center;
     white-space: normal;
@@ -220,7 +220,7 @@
 
 
 .close-button {
-    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    background-color: rgba(210, 0, 0, 0.8); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
@@ -251,7 +251,14 @@
 
   border-width: 2px;
   border-radius: 8px;
-  background-color: rgba(0,0,0,.3);
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
 }
 
 .portrait .shop__container
@@ -287,7 +294,7 @@
 
   align-self: center;
 
-  text-shadow: 0px 0px 5px rgba(0, 0, 0, .4);
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, .3);
   -unity-font-definition: var(--font-inter-black);
 }
 
@@ -319,7 +326,7 @@
   border-bottom-width: 0px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  background-color: rgba(0,0,0,.35);
+  background-color: rgba(0,0,0,.3);
 }
 
 .nav-button--deselected {
@@ -340,7 +347,7 @@
   border-bottom-width: 0px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  background-color: rgba(0,0,0,.35);
+  background-color: rgba(0,0,0,.3);
 }
 
 .icon_honey {
@@ -380,7 +387,7 @@
 
 .landscape .nav-text
 {
-  font-size: 16.6px;
+  font-size: 14.5px;
   margin:0px;
   padding-bottom: 4px;
   padding-left: 1px;
@@ -409,6 +416,7 @@
   top: 72px;
   height: 30px;
     border-radius: 5px;
+		background-color: rgba(0,0,0,.3);
 }
 
 .time-to-reset
@@ -417,7 +425,7 @@
 }
 
 .Legendary {
-  height: 25px;
+  height: 20px;
     flex-grow: 1;
   padding: 4px;
       margin-left: 12px;
@@ -427,7 +435,7 @@
 }
 
 .Rare {
-  height: 25px;
+  height: 20px;
     flex-grow: 1;
         margin-left: 12px;
     margin-right: 12px;
@@ -437,7 +445,7 @@
 }
 
 .Uncommon {
-  height: 25px;
+  height: 20px;
     flex-grow: 1;
     padding: 4px;
         margin-left: 12px;
@@ -447,7 +455,7 @@
 }
 
 .Common {
-  height: 25px;
+  height: 20px;
   flex-grow: 1;
     padding: 4px;
     margin-left: 12px;

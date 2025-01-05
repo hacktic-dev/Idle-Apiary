@@ -18,9 +18,6 @@ local _beestiaryButton : UIButton = nil
 local _openShopButton : UIButton = nil
 
 --!Bind
-local _leaderboardButton : UIButton = nil
-
---!Bind
 local _viewTutorialButton : UIButton = nil
 
 --!Bind
@@ -93,10 +90,6 @@ _toggleBadgesButton:RegisterPressCallback(function()
     playerManager.ToggleShowBadges()
 end, true, true, true)
 
-_leaderboardButton:RegisterPressCallback(function()
-    UIManager.OpenLeaderboard()
-end, true, true, true)
-
 
 -- Initialize the UI with default values for role, cash, and XP
 SetCashUI(100)
@@ -155,7 +148,7 @@ function OpenMenu()
     _openShopButton:EnableInClassList("hide", false)
     _beestiaryButton:EnableInClassList("hide", false)
     _viewBeesButton:EnableInClassList("hide", false)
-    _leaderboardButton:EnableInClassList("hide", false)
+    --_leaderboardButton:EnableInClassList("hide", false)
     _hamburgerButton:EnableInClassList("hide", true)
 end
 
@@ -163,7 +156,7 @@ function ShowMenu()
     _openShopButton:EnableInClassList("hide", useHamburger)
     _beestiaryButton:EnableInClassList("hide", useHamburger)
     _viewBeesButton:EnableInClassList("hide", useHamburger)
-    _leaderboardButton:EnableInClassList("hide", useHamburger)
+    --_leaderboardButton:EnableInClassList("hide", useHamburger)
     _hamburgerButton:EnableInClassList("hide", not useHamburger)
 end
 
@@ -175,7 +168,7 @@ function ShowButtons()
     _hamburgerButton.visible = true
     _settingsButton.visible = true
     _toggleBadgesButton.visible = true
-    _leaderboardButton.visible = true
+    --_leaderboardButton.visible = true
 end
 
 function HideButtons(boolean : isVisible)
@@ -186,5 +179,5 @@ function HideButtons(boolean : isVisible)
     _hamburgerButton.visible = false
     _settingsButton.visible = false
     _toggleBadgesButton.visible = false
-    _leaderboardButton.visible = false
+    --_leaderboardButton.visible = false
 end

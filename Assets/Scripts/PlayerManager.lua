@@ -11,7 +11,7 @@ local ApiaryManager = require("ApiaryManager")
 local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
-local festiveBeeManager = require("FestiveBeeManager")
+local placedObjectsManager = require("PlacedObjectsController")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
@@ -211,7 +211,6 @@ local function SaveBeeStorage(player, id)
     if player ~= nil and playerBeeStorage[player] ~= nil then
         -- Save the bee storage to persistent storage
         Storage.SetValue(id .. "/" ..  "BeeStorage", playerBeeStorage[player], function(errorCode)
-            print("saved bees for " .. player.name)
         end)
     end
 end
@@ -478,9 +477,10 @@ function TrackPlayers(game, characterCallback)
             ApiaryManager.SpawnAllApiariesForPlayer(player)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
+						placedObjectsManager.SpawnAllObjectsForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.2.10")
-            festiveBeeManager.OnPlayerJoined(player)
+            setPlayerVersionString:FireClient(player, "1.2.12")
+            --festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
                 RecalculatePlayerEarnRate(player)
@@ -496,19 +496,23 @@ function TrackPlayers(game, characterCallback)
                 version = IntValue.new("LastJoinedVersion" .. tostring(player.id), 0)
                 version.value = data.version
 
-                if data.version < 1 then
-                    data.version = 1
-                end
+                data.version = 1
 
-                data.festiveGoldGiven2 = nil
-                data.festiveGoldGiven3 = nil
+								if data.owed ~= nil then
+									if data.owed > 0 then
+									  print("Awarding winner " .. player.name .. data.owed .. " gold.")
+								    Wallet.TransferGoldToPlayer(player, data.owed, function(response, err)
+                        if err ~= WalletError.None then
+			                    error("Something went wrong while transferring gold: " .. WalletError[err])
+			                    return
+		                    end
 
-                -- give missing gold
-                if data.festiveGoldGiven == nil or data.festiveGoldGiven == false then
-                    data.festiveGoldGiven = true
-                    print("Gold is missing for player " .. player.name .. ". Initiating transfer.")
-                    GivePlayerMissingGold(player)
-                end
+												data.owed = 0
+												Storage.SetPlayerValue(player, player.name, data)
+                        print("Sent gold to " .. player.name .. " successfully.")
+                      end)
+										end
+								end
 
                 print("player joins are " .. data.joins)
 
@@ -549,8 +553,9 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             flowerManager.RemoveAllPlayerFlowers(player)
+						placedObjectsManager.RemoveAllPlayerPlacedObjects(player)
             playerJoins[player] = nil
-            festiveBeeManager.OnPlayerLeft(player)
+            --festiveBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
             players[player] = nil
@@ -594,6 +599,7 @@ function SaveProgress(player, wasDc)
     SaveSeenBeeSpecies(player, player.user.id)
     SaveHatStatus(player, player.user.id)
     flowerManager.SaveFlowerPositions(player, player.user.id)
+		placedObjectsManager.SavePlacedObjects(player, player.user.id)
     for player, playerData in pairs(players) do
         RecalculatePlayerEarnRate(player, wasDc)
     end
@@ -722,6 +728,8 @@ function self:ClientAwake()
     requestHatStatus:Connect(function() receiveHatStatus:FireServer(CreateOrderObject:GetComponent(CreateOrderGui).GetSoldOutHats()) end)
 
     setHatStatus:Connect(function(_soldOutHats) soldOutHats = _soldOutHats end)
+
+		placedObjectsManager.InitClient()
 end
 
 function SendCashBatch()
@@ -762,19 +770,20 @@ function self:ServerAwake()
     -- Track players joining and leaving the game
     TrackPlayers(server) 
 
-    print("hello")
+    print("PlayerManager ServerAwake started")
 
     -- Fetch a player's stats from storage when they join
     getStatsRequest:Connect(function(player)
         Storage.GetPlayerValue(player, "PlayerStats", function(stats, errorCode)
 
             if not errorCode == 0 then
-                return
+                getStatsRequest:Fire(player)
+								return
             end
 
             -- If no existing stats are found, create default stats
             if stats == nil then 
-                stats = {Cash = 100, Nets = 1, BeeCapacity = 10, FlowerCapacity = 5, SweetScentLevel = 0, HasShears = false}
+                stats = {Cash = 100, Nets = 1, BeeCapacity = 8, FlowerCapacity = 5, SweetScentLevel = 0, HasShears = false}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
 
@@ -823,7 +832,6 @@ function self:ServerAwake()
 
     -- Increment a player's stat when requested by the client
     incrementStatRequest:Connect(function(player, stat, value)
-
          --Increment the  Cash / Nets / Stat of the player by 'value' with +=
          if stat == "Cash" then players[player].Cash.value += value end
          if stat == "Nets" then players[player].Nets.value += value end
@@ -977,7 +985,7 @@ function self:ServerAwake()
     end
     )
 
-    Timer.new(45, function() 
+    Timer.new(60, function() 
     for player, data in pairs(players) do
         if player ~= nil then
             print("saving for player " .. player.name .. ".")
@@ -988,8 +996,8 @@ function self:ServerAwake()
     print("Saved!")
     end, true)
 
-    print("hello")
-
+		print("About to init placed objects")
+		placedObjectsManager.InitServer()
     requestEarnRates:Connect(function(player)
         print("Earn rates requested")
         receiveEarnRates:FireClient(player, playerMoneyEarnRates)
@@ -998,6 +1006,8 @@ function self:ServerAwake()
     receiveHatStatus:Connect(function(player, soldOutHats)
         Storage.SetPlayerValue(player, "HatStatus", soldOutHats)
     end)
+
+		print("PlayerManager ServerAwake finished")
 end
 
 function SetHoneyDoublerForPlayer(player, time)

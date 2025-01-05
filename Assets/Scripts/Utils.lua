@@ -4,6 +4,24 @@
 local beeTextures : {Texture} = nil
 --!SerializeField
 local hatTextures : {Texture} = nil
+--!SerializeField
+local placementObjects : {GameObject} = nil
+
+PlacementObject = {
+	["Test"] = placementObjects[1],
+	["Chair"] = placementObjects[2],
+	["Table"] = placementObjects[3],
+	["Chess Table"] = placementObjects[4],
+	["Book Table"] = placementObjects[5],
+	["White Flower Planter"] = placementObjects[6],
+	["Apple Box"] = placementObjects[7],
+	["Red Mushroom"] = placementObjects[8],
+	["Brown Mushroom"] = placementObjects[9],
+	["Teddy Bear"] = placementObjects[10],
+	["Toy Goose"] = placementObjects[11],
+	["Pillow"] = placementObjects[12],
+	["Fountain"] = placementObjects[13],
+}
 
 BeeImage = {
     ["Common Bee"] = beeTextures[1],
@@ -80,6 +98,33 @@ local hatData =
     {name = "Sleeping Cap", id = "sleeping_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 4000, goldCost = 200},
     {name = "Mustache", id = "mustache", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 600},
 }
+
+function GetPlacementObjectByName(name)
+	return PlacementObject[name]
+end
+
+function GetPlacementObjectByIndex(index)
+  i = 1
+	for name, object in pairs(PlacementObject) do
+		if i == index then
+			return object
+		end
+
+		i = i + 1
+	end
+end
+
+function GetPlacementObjectNameByIndex(index)
+  i = 1
+	for name, object in pairs(PlacementObject) do
+		if i == index then
+			return name
+		end
+
+		i = i + 1
+	end
+end
+
 
 function LookupHatName(id)
     for _, hat in ipairs(hatData) do

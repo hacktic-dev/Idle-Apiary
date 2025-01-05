@@ -78,6 +78,8 @@ MonoBehaviour:
   m_RegularBox: {fileID: 1251486666243016358}
   m_GoldBox: {fileID: 892060489574941733}
   m_OwnerUI: {fileID: 1636164116762368238}
+  m_locationObject: {fileID: 1752369167828540089, guid: d22e0431f2e1d0c44ac16516594c1ba9,
+    type: 3}
   references:
     version: 2
     RefIds:
