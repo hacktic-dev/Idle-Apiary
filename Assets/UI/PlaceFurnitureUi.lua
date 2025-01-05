@@ -13,9 +13,12 @@ local Utils = require("Utils")
 local audioManager = require("AudioManager")
 local ApiaryManager = require("ApiaryManager")
 
+local existingFurnitureCards = {}
+
 function Init()
     closeLabel:SetPrelocalizedText("Close", true)
     Furniture_Root:Clear()
+    existingFurnitureCards = {}
     closeButton:RegisterPressCallback(function()
         UIManager.ClosePlaceFurnitureMenu()
     end, true, true, true)
@@ -30,6 +33,10 @@ function Init()
 end
 
 function AddFurnitureCard(id, amount)
+    if existingFurnitureCards[id] then
+        return
+    end
+
     local furnitureCard = UIButton.new()
     furnitureCard:AddToClassList("furniture-item")
 
@@ -56,13 +63,16 @@ function AddFurnitureCard(id, amount)
     end, true, true, true)
 
     Furniture_Root:Add(furnitureCard)
+    existingFurnitureCards[id] = furnitureCard
 end
 
 function NoFurniture()
-    local titleLabel = UILabel.new()
-    titleLabel:AddToClassList("no-furniture")
-    titleLabel:SetPrelocalizedText("You don't have any furniture :(")
-    Furniture_Root:Add(titleLabel)
+    if #Furniture_Root:GetChildren() == 0 then
+        local titleLabel = UILabel.new()
+        titleLabel:AddToClassList("no-furniture")
+        titleLabel:SetPrelocalizedText("You don't have any furniture :(")
+        Furniture_Root:Add(titleLabel)
+    end
 end
 
 function self:ClientAwake()
