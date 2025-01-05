@@ -69193,7 +69193,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_zoom: 10
-  m_zoomMin: 10
+  m_zoomMin: 2
   m_zoomMax: 40
   m_fov: 30
   m_allowRotation: 1
