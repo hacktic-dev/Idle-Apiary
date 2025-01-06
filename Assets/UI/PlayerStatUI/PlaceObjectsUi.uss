@@ -7,9 +7,10 @@
 
 .portrait .place-objects
 {
-    width:10%;
-    flex-direction: column;
-    bottom: 50px;
+    bottom: 5px;
+    right: 10px;
+    width: 98%;
+    align-self: center;
     justify-content: space-between;
 }
 
