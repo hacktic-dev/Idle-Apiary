@@ -39,7 +39,7 @@ placementLocations = {}
 
 function SetApiarySize(size)
 	apiarySize = size
-	if size == 3 then
+	if size == 2 then
 		apiarySize0:SetActive(true)
 		apiarySize1:SetActive(false)
 		apiarySize2:SetActive(false)

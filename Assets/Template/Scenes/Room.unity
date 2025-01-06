@@ -1758,6 +1758,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: square box red (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8445,6 +8450,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: star 2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 665518236226980003, guid: 10f3a37c84296d9448fdd91f5d22985e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8618,6 +8628,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rectangular box white
+      objectReference: {fileID: 0}
+    - target: {fileID: 5247942547742074466, guid: b1c59fb8677a8b746945cc7065e86eac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10068,6 +10083,7 @@ GameObject:
   m_Component:
   - component: {fileID: 360320263}
   - component: {fileID: 360320264}
+  - component: {fileID: 360320265}
   m_Layer: 0
   m_Name: PlacedObjectsManager
   m_TagString: Untagged
@@ -10108,6 +10124,51 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &360320265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360320261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f690b778c913ada1c321dfeb8027db8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: 4c4fb7ad73ccad7479fedf3e3af8db5f, type: 3}
+  _properties: []
+  _uiOutput: 0
+  _uiOutputSettings:
+    rid: -2
+  m_chair: {fileID: 6150770344185259146, guid: 9681ed390627bb24a973eadda3605985, type: 3}
+  m_table: {fileID: 2471304016359239742, guid: 0c57a6352ab91554dbdc3e24a831254b, type: 3}
+  m_chessTable: {fileID: 8340235487621428255, guid: 5a5602a83558deb4e9c87d05a1a13022,
+    type: 3}
+  m_bookTable: {fileID: 8340235487621428255, guid: 44ed67ce1e9145640b969d321ec9db93,
+    type: 3}
+  m_whiteFlowerPlanter: {fileID: 2471304016359239742, guid: 3076c706f3ec14d4c97371fbdcf8d6e9,
+    type: 3}
+  m_appleBox: {fileID: 6150770344185259146, guid: a907b9c663e14e34d9deac0dd143b196,
+    type: 3}
+  m_redMushroom: {fileID: 6150770344185259146, guid: ad91c3320bb8e47428624d92c9345121,
+    type: 3}
+  m_brownMushroom: {fileID: 6150770344185259146, guid: a22dc070512131245a8c184779112156,
+    type: 3}
+  m_teddyBear: {fileID: 2471304016359239742, guid: 0bf07a1ea623ba24ba58e71577297495,
+    type: 3}
+  m_toyGoose: {fileID: 2471304016359239742, guid: 786473a16b8d675468822206c7fefbf4,
+    type: 3}
+  m_pillow: {fileID: 2471304016359239742, guid: a1f0faec550ec6a469bc39ba3caec5cb,
+    type: 3}
+  m_fountain: {fileID: 2471304016359239742, guid: 4aa0167d8652123449b9aede6af0da0f,
+    type: 3}
   references:
     version: 2
     RefIds:
@@ -10204,6 +10265,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452096437080974683, guid: aa12e5cb12838c044ad9068cc4f0359d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2975832735215927265, guid: aa12e5cb12838c044ad9068cc4f0359d,
         type: 3}
@@ -11372,6 +11438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: star 2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 665518236226980003, guid: 10f3a37c84296d9448fdd91f5d22985e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14248,6 +14319,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball red
       objectReference: {fileID: 0}
+    - target: {fileID: 1976063996013337045, guid: 7d19815f924c5534ea83a7a9872a8708,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14940,6 +15016,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball red (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1976063996013337045, guid: 7d19815f924c5534ea83a7a9872a8708,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15363,6 +15444,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball red (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1976063996013337045, guid: 7d19815f924c5534ea83a7a9872a8708,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15451,6 +15537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: garland (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766991716932327034, guid: e72a65da2b79bcc498c87d27bd9409b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15664,6 +15755,22 @@ MonoBehaviour:
     type: 3}
   m_ShadowBee: {fileID: 5446098579520547776, guid: c70814ff6dac44048b04a2c459e0026f,
     type: 3}
+  m_MeadowBee: {fileID: 699414589519791530, guid: 648d7c35625517449a99f240d05312a4,
+    type: 3}
+  m_BronzeBee: {fileID: 699414589519791530, guid: 52bd4ac6353d7c54e9004901db7e1f79,
+    type: 3}
+  m_OceanicBee: {fileID: 5984187404624863385, guid: 4ccbaf40e848772418b0a35577aa60db,
+    type: 3}
+  m_RubyBee: {fileID: 5984187404624863385, guid: 86e5fdf658df8754e90a852a50754bfa,
+    type: 3}
+  m_CamoBee: {fileID: 2374071146995412979, guid: deda15ab023d23e4faa9c48386530b7d,
+    type: 3}
+  m_CrystalBee: {fileID: 2995856147499693821, guid: 56c961e932bad7049b435e6bd23c6bea,
+    type: 3}
+  m_TechnoBee: {fileID: 5361268666580630896, guid: ac9b72a610ad0f3448ff7bfd71780310,
+    type: 3}
+  m_PsychedelicBee: {fileID: 5620507023329056384, guid: b6234f3482900b241b4544efcae75fe8,
+    type: 3}
   m_FestiveBee: {fileID: 7146890897877862297, guid: 584d6814e5bb26147b5304cd92454ca8,
     type: 3}
   references:
@@ -15761,6 +15868,22 @@ MonoBehaviour:
   m_AstralBeePrefab: {fileID: 4864691403604932850, guid: 6f0911f9f6a335444990f768cedf324e,
     type: 3}
   m_RainbowBeePrefab: {fileID: 5446098579520547776, guid: b5baf652b528cd34ab3197a2c93ec489,
+    type: 3}
+  m_MeadowBeePrefab: {fileID: 699414589519791530, guid: 648d7c35625517449a99f240d05312a4,
+    type: 3}
+  m_BronzeBeePrefab: {fileID: 699414589519791530, guid: 52bd4ac6353d7c54e9004901db7e1f79,
+    type: 3}
+  m_OceanicBeePrefab: {fileID: 5984187404624863385, guid: 4ccbaf40e848772418b0a35577aa60db,
+    type: 3}
+  m_RubyBeePrefab: {fileID: 5984187404624863385, guid: 86e5fdf658df8754e90a852a50754bfa,
+    type: 3}
+  m_CamoBeePrefab: {fileID: 2374071146995412979, guid: deda15ab023d23e4faa9c48386530b7d,
+    type: 3}
+  m_CrystalBeePrefab: {fileID: 2995856147499693821, guid: 56c961e932bad7049b435e6bd23c6bea,
+    type: 3}
+  m_TechnoBeePrefab: {fileID: 5361268666580630896, guid: ac9b72a610ad0f3448ff7bfd71780310,
+    type: 3}
+  m_PsychedelicBeePrefab: {fileID: 5620507023329056384, guid: b6234f3482900b241b4544efcae75fe8,
     type: 3}
   references:
     version: 2
@@ -15899,6 +16022,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball pink
+      objectReference: {fileID: 0}
+    - target: {fileID: 5279828683319619841, guid: 171ac6aa44ac85440a96826050140a3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18868,6 +18996,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: square box red (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21053,6 +21186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball purple (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115518899306558280, guid: 45fdc4754ee623f4d9ca7716855cb2d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7634927456105703922, guid: 45fdc4754ee623f4d9ca7716855cb2d0,
         type: 3}
@@ -23315,6 +23453,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: fir garland 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2161255982103602475, guid: 3ebcf4503046a2341b3b7ae025ab7a30,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24042,6 +24185,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: star 2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 665518236226980003, guid: 10f3a37c84296d9448fdd91f5d22985e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24760,6 +24908,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: square box red (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24958,6 +25111,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rectangular box white (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5247942547742074466, guid: b1c59fb8677a8b746945cc7065e86eac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25824,6 +25982,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: round box green (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761218551046249776, guid: 6c0b77dd5732739479e0596e3f5b0322,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4573784704570410890, guid: 6c0b77dd5732739479e0596e3f5b0322,
         type: 3}
@@ -27434,6 +27597,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: square box red (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30102,6 +30270,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: round box green (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3761218551046249776, guid: 6c0b77dd5732739479e0596e3f5b0322,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4573784704570410890, guid: 6c0b77dd5732739479e0596e3f5b0322,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -30354,6 +30527,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: square box red
+      objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30707,6 +30885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball purple (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115518899306558280, guid: 45fdc4754ee623f4d9ca7716855cb2d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7634927456105703922, guid: 45fdc4754ee623f4d9ca7716855cb2d0,
         type: 3}
@@ -32061,6 +32244,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: square box red (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32742,6 +32930,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: round box green
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761218551046249776, guid: 6c0b77dd5732739479e0596e3f5b0322,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4573784704570410890, guid: 6c0b77dd5732739479e0596e3f5b0322,
         type: 3}
@@ -34136,6 +34329,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: rectangular box white (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5247942547742074466, guid: b1c59fb8677a8b746945cc7065e86eac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34360,6 +34558,14 @@ MonoBehaviour:
   - {fileID: 2800000, guid: f583453fb762e6e48a41eaebbe7023df, type: 3}
   - {fileID: 2800000, guid: f88a414772a0c2546a6123d15f8d0a1f, type: 3}
   - {fileID: 2800000, guid: 54ddaced57378164da402de3b10a8111, type: 3}
+  - {fileID: 2800000, guid: 1bb214e5b21d4a14b940d3ec84ce8b09, type: 3}
+  - {fileID: 2800000, guid: ddd8daed7df76ec48b2e923d542858ce, type: 3}
+  - {fileID: 2800000, guid: 0be626dfb991141459a821fb349cab0b, type: 3}
+  - {fileID: 2800000, guid: 26f040d5ede88a24aa3a5e0a7f6564d2, type: 3}
+  - {fileID: 2800000, guid: e9a3b996424460a42987ff4ad716ad84, type: 3}
+  - {fileID: 2800000, guid: cf89b6fd9f1dfe246ab0b4c4d97a29f2, type: 3}
+  - {fileID: 2800000, guid: 1a38e5b3ecea92f4eb6b395113d55577, type: 3}
+  - {fileID: 2800000, guid: 3f2f0f29efcf02647a1d0c3e5a9b4cfb, type: 3}
   - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
   m_hatTextures:
   - {fileID: 2800000, guid: 2834b47a57a739d4baeb32f22d4c766f, type: 3}
@@ -35062,6 +35268,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: garland (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766991716932327034, guid: e72a65da2b79bcc498c87d27bd9409b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36541,6 +36752,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: star 2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 665518236226980003, guid: 10f3a37c84296d9448fdd91f5d22985e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38740,6 +38956,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rectangular box white (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5247942547742074466, guid: b1c59fb8677a8b746945cc7065e86eac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -43283,6 +43504,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: rectangular box white (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5247942547742074466, guid: b1c59fb8677a8b746945cc7065e86eac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -43741,6 +43967,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: christmas sock red
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672129928659713692, guid: 9a7b6122d70269d41861c3016e5c2fdb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2053441194590987302, guid: 9a7b6122d70269d41861c3016e5c2fdb,
         type: 3}
@@ -44395,6 +44626,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: garland (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7766991716932327034, guid: e72a65da2b79bcc498c87d27bd9409b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -44864,6 +45100,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rectangular box white (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5247942547742074466, guid: b1c59fb8677a8b746945cc7065e86eac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -46928,6 +47169,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: round box green (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3761218551046249776, guid: 6c0b77dd5732739479e0596e3f5b0322,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4573784704570410890, guid: 6c0b77dd5732739479e0596e3f5b0322,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -48810,6 +49056,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: rectangular box white (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5247942547742074466, guid: b1c59fb8677a8b746945cc7065e86eac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -48898,6 +49149,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: star 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 665518236226980003, guid: 10f3a37c84296d9448fdd91f5d22985e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -49172,6 +49428,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: round box green (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761218551046249776, guid: 6c0b77dd5732739479e0596e3f5b0322,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4573784704570410890, guid: 6c0b77dd5732739479e0596e3f5b0322,
         type: 3}
@@ -55415,6 +55676,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: round box green (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3761218551046249776, guid: 6c0b77dd5732739479e0596e3f5b0322,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4573784704570410890, guid: 6c0b77dd5732739479e0596e3f5b0322,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -56447,6 +56713,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball yellow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452096437080974683, guid: aa12e5cb12838c044ad9068cc4f0359d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2975832735215927265, guid: aa12e5cb12838c044ad9068cc4f0359d,
         type: 3}
@@ -59576,6 +59847,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball pink (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5279828683319619841, guid: 171ac6aa44ac85440a96826050140a3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60184,6 +60460,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: square box red (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61491,6 +61772,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball blue
       objectReference: {fileID: 0}
+    - target: {fileID: 530050014798834836, guid: 1e6c88417f1322d4296dd7793c2e7b20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 869420138837194286, guid: 1e6c88417f1322d4296dd7793c2e7b20,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -62453,6 +62739,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: square box red (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 664397046793953960, guid: c0d7aae3e09636f4591631219358f46c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62831,6 +63122,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: garland
       objectReference: {fileID: 0}
+    - target: {fileID: 7766991716932327034, guid: e72a65da2b79bcc498c87d27bd9409b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62998,6 +63294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: garland (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766991716932327034, guid: e72a65da2b79bcc498c87d27bd9409b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -63821,6 +64122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: christmas wreath
+      objectReference: {fileID: 0}
+    - target: {fileID: 1407064524947948199, guid: 4e29490d2f8b3874aadb4c3605a2c192,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1787143002639292445, guid: 4e29490d2f8b3874aadb4c3605a2c192,
         type: 3}
@@ -65439,6 +65745,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball yellow (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2452096437080974683, guid: aa12e5cb12838c044ad9068cc4f0359d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2975832735215927265, guid: aa12e5cb12838c044ad9068cc4f0359d,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -66026,6 +66337,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: round box green (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761218551046249776, guid: 6c0b77dd5732739479e0596e3f5b0322,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4573784704570410890, guid: 6c0b77dd5732739479e0596e3f5b0322,
         type: 3}
@@ -68122,6 +68438,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: star 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8322409252437680682, guid: 8dd4931c6d2474645b194d910fb42d4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8661815930852522128, guid: 8dd4931c6d2474645b194d910fb42d4c,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -69318,8 +69639,8 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
-  m_zoom: 10
-  m_zoomMin: 2
+  m_zoom: 15
+  m_zoomMin: 10
   m_zoomMax: 40
   m_fov: 30
   m_allowRotation: 1

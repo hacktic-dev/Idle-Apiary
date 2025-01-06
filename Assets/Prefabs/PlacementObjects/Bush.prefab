@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2954367146540853892}
-  - component: {fileID: 3971843418541694756}
   - component: {fileID: 9141549845527269909}
   - component: {fileID: 1990918487542546686}
+  - component: {fileID: -1110888528077588653}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -35,27 +35,6 @@ Transform:
   - {fileID: 8417321050040404686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3971843418541694756
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2471304016359239742}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1.4316616}
-  m_Center: {x: 0, y: 0.21016335, z: 0.21583095}
 --- !u!208 &9141549845527269909
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -95,6 +74,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &-1110888528077588653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471304016359239742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 869450252, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
 --- !u!1001 &6717648317226762670
 PrefabInstance:
   m_ObjectHideFlags: 0

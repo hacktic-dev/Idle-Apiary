@@ -53,6 +53,24 @@ local PrismaticBee : GameObject = nil
 --!SerializeField
 local ShadowBee : GameObject = nil
 
+-- 1.3 bees
+--!SerializeField
+local MeadowBee : GameObject = nil
+--!SerializeField
+local BronzeBee : GameObject = nil
+--!SerializeField
+local OceanicBee : GameObject = nil
+--!SerializeField
+local RubyBee : GameObject = nil
+--!SerializeField
+local CamoBee : GameObject = nil
+--!SerializeField
+local CrystalBee : GameObject = nil
+--!SerializeField
+local TechnoBee : GameObject = nil
+--!SerializeField
+local PsychedelicBee : GameObject = nil
+
 -- Event bees
 --!SerializeField
 local FestiveBee : GameObject = nil
@@ -209,6 +227,22 @@ function self:ClientAwake()
             Bee = HypnoticBee
         elseif species == "Festive Bee" then
             Bee = FestiveBee
+        elseif species == "Meadow Bee" then
+            Bee = MeadowBee
+        elseif species == "Bronze Bee" then
+            Bee = BronzeBee
+        elseif species == "Oceanic Bee" then    
+            Bee = OceanicBee
+        elseif species == "Ruby Bee" then
+            Bee = RubyBee
+        elseif species == "Camo Bee" then
+            Bee = CamoBee
+        elseif species == "Crystal Bee" then
+            Bee = CrystalBee
+        elseif species == "Techno Bee" then
+            Bee = TechnoBee
+        elseif species == "Psychedelic Bee" then
+            Bee = PsychedelicBee
         end
         
 
@@ -233,7 +267,7 @@ function self:ClientAwake()
             end
 
             -- Set the position with a slight random offset
-            newBee.transform.position = position + Vector3.new(math.random() + math.random(-8, 7), 0, math.random() + math.random(-8, 7))
+            newBee.transform.position = position + Vector3.new(math.random() + math.random(-4, 3), 0, math.random() + math.random(-4, 3))
             
             -- Initialize bee behavior by setting its spawn position
             newBee:GetComponent(BeeWandererScript).SetSpawnPosition(position, playerManager.GetPlayerApiarySize(player)*2.5 + 5)

@@ -216,7 +216,17 @@ function self:ClientAwake()
             -- Store the apiary on the client, indexed by its ID
             apiaries[apiaryID] = newApiary
 
-            newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(size + 3)
+            apiarySize = nil
+
+            if size == 0 then
+                apiarySize = 2
+            elseif size == 1 then
+                apiarySize = 4
+            elseif size == 2 then
+                apiarySize = 5
+            end
+
+            newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(apiarySize)
 
             if isGold then
                 newApiary:GetComponent(ApiaryPrefabOwner).GetRegularBox():SetActive(false)

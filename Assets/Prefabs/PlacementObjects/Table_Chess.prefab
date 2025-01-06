@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7361734004022207840}
   - component: {fileID: 7966310737177881866}
+  - component: {fileID: 7947273380993008473}
   m_Layer: 0
   m_Name: Table_Chess
   m_TagString: Untagged
@@ -102,6 +103,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &7947273380993008473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8340235487621428255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 869450252, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
 --- !u!1001 &82289369583827362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -725,7 +739,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 488752749607934369, guid: 69999a52fc24ecd45a88d2945a218b57, type: 3}
+    - {fileID: 7550803085443054919, guid: 69999a52fc24ecd45a88d2945a218b57, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

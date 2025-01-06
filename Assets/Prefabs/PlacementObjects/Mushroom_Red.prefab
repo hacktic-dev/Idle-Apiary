@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2959020156353744084}
-  - component: {fileID: 5265070370247459706}
-  - component: {fileID: 2858989490143618391}
   - component: {fileID: 5960538819049771163}
   - component: {fileID: 5636525390864598146}
+  - component: {fileID: 3853066521153609397}
   m_Layer: 0
   m_Name: Anchor
   m_TagString: Untagged
@@ -35,46 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7180153080554826374}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &5265070370247459706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4829181730886474098}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1995790281, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkId: 0
-  _animation: 0
-  _tappable: 1
-  _enterFrom: {fileID: 0}
-  _exitTo: {fileID: 0}
---- !u!114 &2858989490143618391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4829181730886474098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03822e9361341319215728bca795ad6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkId: 0
-  _script: {fileID: -974389366465450183, guid: 5ae7223c8ccc41e428ca725e70a65a03, type: 3}
-  _properties: []
-  _uiOutput: 0
-  _uiOutputSettings:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &5960538819049771163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +71,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 0.07, z: 2}
   m_Center: {x: 0, y: -1.13, z: 0}
+--- !u!114 &3853066521153609397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829181730886474098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1995790281, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _animation: 0
+  _tappable: 1
+  _enterFrom: {fileID: 0}
+  _exitTo: {fileID: 0}
 --- !u!1 &6150770344185259146
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7180153080554826374}
   - component: {fileID: 1356245300082484780}
+  - component: {fileID: 3026307168347288660}
   m_Layer: 0
   m_Name: Mushroom_Red
   m_TagString: Untagged
@@ -169,6 +146,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &3026307168347288660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6150770344185259146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 869450252, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
 --- !u!1001 &3000761956534126107
 PrefabInstance:
   m_ObjectHideFlags: 0

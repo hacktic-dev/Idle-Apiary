@@ -39,6 +39,12 @@
     -unity-text-outline-color: #502099;
 }
 
+.master
+{
+    color: #e3ad18;
+    -unity-text-outline-color:rgb(139, 111, 32);
+}
+
 .legendary
 {
     color: #EFEC3E;
