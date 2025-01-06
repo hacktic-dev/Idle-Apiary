@@ -8,6 +8,9 @@
 >
 
   <hr:UILuaView class="remove-furniture-ui">
+      <hr:UIButton class="cancel-button" name="_cancelButton">
+      <hr:UILabel class="text" name="_cancelLabel" text="Cancel"/>
+    </hr:UIButton>
   </hr:UILuaView>
 
 </UXML>

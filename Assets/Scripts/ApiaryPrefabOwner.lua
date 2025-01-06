@@ -94,6 +94,7 @@ function self:ClientAwake()
 		end
 
 		UIManager.ClosePlaceObjectsUi()
+		UIManager.CloseRemoveFurnitureMenu()
 	end)
 
 	placedObjectsManager.selectItem:Connect(function(object, name)
@@ -146,7 +147,7 @@ function self:ClientAwake()
 					Object.Destroy(object)
 				end
 
-				UIManager.ClosePlaceObjectsUi()
+				UIManager.CloseRemoveFurnitureMenu()
 			end)
 		end
 	end)

@@ -403,7 +403,7 @@
 
 .portrait .nav-text
 {
-  font-size: 14px;
+  font-size: 12.2px;
   margin:0px;
   padding-bottom: 4px;
   padding-left: 1px;

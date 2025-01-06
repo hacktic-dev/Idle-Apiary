@@ -272,6 +272,7 @@ function OpenRemoveFurnitureMenu()
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceButtons", false)
+    print("Opening remove furniture menu")
     RemoveFurnitureMenuObject:GetComponent(RemoveFurnitureUi).Init()
 end
 
