@@ -11,8 +11,11 @@
     <hr:UIButton class="rotate-button" name="_rotateCounterClockwiseButton">
       <hr:UIImage name="_rotateCounterClockwiseImage" class="rotate-counter-clockwise"/>
   </hr:UIButton>
-  <hr:UIButton class="button" name="button">
+  <hr:UIButton class="confirm-button" name="button">
     <hr:UILabel class="text" name="_confirm" text="Confirm"/>
+  </hr:UIButton>
+  <hr:UIButton class="cancel-button" name="_cancelButton">
+    <hr:UILabel class="text" name="_cancel" text="Cancel"/>
   </hr:UIButton>
     <hr:UIButton class="rotate-button" name="_rotateClockwiseButton">
       <hr:UIImage name="_rotateClockwiseImage" class="rotate-clockwise"/>

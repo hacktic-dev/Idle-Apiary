@@ -25,12 +25,20 @@
     height: 75%;
 }
 
-.button{
+.confirm-button{
     width: 96px;
     left: 0px;
     height: 48px;
     border-radius: 9px;
-    background-color: rgba(0,0,0,.4);
+    background-color: rgba(43, 201, 22, 0.4);
+}
+
+.cancel-button{
+    width: 96px;
+    left: 0px;
+    height: 48px;
+    border-radius: 9px;
+    background-color: rgba(211, 20, 20, 0.4);
 }
 
 .rotate-button

@@ -35,7 +35,6 @@ function SetProspectiveObject(_object, _name, _x, _y)
 end
 
 function Confirm()
-	print(prospectiveObject.rotation)
 	requestObjectPlacement:FireServer(prospectiveObject.name, prospectiveObject.x, prospectiveObject.y, prospectiveObject.rotation)
 	closePlacementMenu:Fire()
 end	
@@ -44,6 +43,10 @@ function Rotate(angle)
 	rotation = prospectiveobjectPrefab.transform.localRotation.eulerAngles
 	prospectiveobjectPrefab.transform.localRotation = Quaternion.Euler(rotation.x, rotation.y + angle, rotation.z)
 	prospectiveObject.rotation = prospectiveObject.rotation + angle
+end
+
+function Cancel()
+	closePlacementMenu:Fire()
 end
 
 function Cycle()
