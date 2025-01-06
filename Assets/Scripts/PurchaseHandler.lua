@@ -25,6 +25,7 @@ purchaseSucceededEvent = Event.new("purchaseSucceededEvent")
 purchaseFailedEvent = Event.new("purchaseFailedEvent")
 
 beeCapacityPurchaseSuccessful = Event.new("beeCapacityPurchaseSuccessfuls")
+apiarySizePurchaseSuccessful = Event.new("apiarySizePurchaseSuccessful")
 
 responseTesting = false
 
@@ -60,6 +61,19 @@ function ServerHandlePurchase(purchase, player: Player)
   elseif productId == "doubler_2" then
     time = 900
     isHoney = true
+  end
+
+  if productId == "apiary_size_1" or productId == "apiary_size_2" then
+    Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+      if ackErr ~= PaymentsError.None then
+        print("Error acknowledging purchase: " .. ackErr)
+        purchaseFailedEvent:FireClient(player)
+        return
+      end
+      print("Player ".. player.name .." apiary size is now increased")
+      apiarySizePurchaseSuccessful:FireClient(player)
+    end)
+    return
   end
 
   if isHoney then

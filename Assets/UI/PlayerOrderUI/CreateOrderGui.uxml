@@ -13,13 +13,13 @@
 
       <VisualElement class="navigation">
         <VisualElement class="nav-button--selected" name="_upgradesTab">
-          <hr:UILabel name="upgrades" class="nav-text"/>
+          <hr:UILabel name="upgradesLabel" class="nav-text"/>
         </VisualElement>
         <VisualElement class="nav-button--deselected" name="_beesTab">
           <Label class="nav-text" text="Bees" />
         </VisualElement>
         <VisualElement class="nav-button--deselected" name="_honeyTab">
-          <Label class="nav-text" text="Honey" />
+          <hr:UILabel name="honeyLabel" class="nav-text"/>
         </VisualElement>
         <VisualElement class="nav-button--deselected" name="_cosmeticsTab">
           <Label class="nav-text" text="Hats" />

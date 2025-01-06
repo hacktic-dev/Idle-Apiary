@@ -25,8 +25,11 @@ bobOffset = nil        -- Random phase offset for each bee
 -- Time variable for controlling the sine wave
 bobTime = 0
 
-function SetSpawnPosition(position)
+wanderDistance = 8
+
+function SetSpawnPosition(position, _wanderDistance)
     spawnPosition = position
+    wanderDistance = _wanderDistance or 8
 
     -- Randomize bobFrequency and bobOffset for each bee
     bobFrequency = baseBobFrequency + math.random() * 0.5 -- Slightly randomize frequency (within 0.5 of base)
@@ -35,8 +38,8 @@ end
 
 -- Randomly choose a new target position within a 16x16 area (X and Z)
 function ChooseNewTarget()
-    local randomX = math.random(-8, 8)
-    local randomZ = math.random(-8, 8)
+    local randomX = math.random(-wanderDistance, wanderDistance)
+    local randomZ = math.random(-wanderDistance, wanderDistance)
     -- Ignore Y-axis for wandering (X and Z only)
     targetPosition = spawnPosition + Vector3.new(randomX, 0, randomZ)
 end

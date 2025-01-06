@@ -9,7 +9,7 @@ local apiaryPositions = {} -- Server-side table to track all apiary positions
 local playerApiaries = {} -- Table to track which apiaries belong to which player
 
 -- Distance threshold to prevent overlapping apiaries
-local MIN_DISTANCE = 23
+local MIN_DISTANCE = 30
 
 -- Table to store active apiary GameObjects on the client side
 local apiaries = {}
@@ -39,6 +39,7 @@ apiaryRemoveRequest = Event.new("ApiaryRemoveRequest")
 notifyApiaryPlacementFailed = Event.new("NotifyApiaryPlacementFailed")
 notifyApiaryPlacementSucceeded = Event.new("NotifyApiaryPlacementSucceeded")
 requestIsValidLocation = Event.new("RequestIsValidLocation")
+requestResetApiary = Event.new("RequestResetApiary")
 
 localApiaryPosition = nil --client value for local players apiary pos
 
@@ -49,7 +50,7 @@ local function isPositionValid(position)
         return 1
     end
 
-    if math.abs(position.x) < 37 and math.abs(position.z) < 37 then
+    if math.abs(position.x) < 45 and math.abs(position.z) < 45 then
         return 2
     end
 
@@ -170,9 +171,9 @@ function SpawnAllApiariesForPlayer(player)
             playerManager.GetSeenBeeSpeciesList(owner, function(bees)
 
                 if #bees == 24 then
-                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, true, #bees)
+                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, true, #bees, playerManager.GetPlayerApiarySize(owner))
                 else
-                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, false, #bees)
+                    addNewApiaryRequest:FireClient(player, apiaryData.id, owner.name, apiaryData.location, false, #bees, playerManager.GetPlayerApiarySize(owner))
                 end
             end)
         end
@@ -196,9 +197,9 @@ function SpawnApiary(player, location)
     playerManager.GetSeenBeeSpeciesList(player, function(bees)
         -- Send the retrieved bee list back to the client
         if #bees == 24 then
-            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), true, #bees)
+            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), true, #bees, playerManager.GetPlayerApiarySize(player))
         else
-            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), false, #bees)
+            addNewApiaryRequest:FireAllClients(apiaryID, player.name, Vector3.new(location.x, location.y, location.z), false, #bees, playerManager.GetPlayerApiarySize(player))
         end
     end)
 end
@@ -207,13 +208,15 @@ end
 
 function self:ClientAwake()
     -- Listen for new apiary spawning requests
-    addNewApiaryRequest:Connect(function(apiaryID, owner, position, isGold, count)
+    addNewApiaryRequest:Connect(function(apiaryID, owner, position, isGold, count, size)
         if ApiaryPrefab then
             -- Instantiate the apiary prefab
             local newApiary = Object.Instantiate(ApiaryPrefab)
 
             -- Store the apiary on the client, indexed by its ID
             apiaries[apiaryID] = newApiary
+
+            newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(size + 3)
 
             if isGold then
                 newApiary:GetComponent(ApiaryPrefabOwner).GetRegularBox():SetActive(false)
@@ -256,7 +259,6 @@ function self:ClientAwake()
 end
 
 function SetPlacementMode(furnitureName)
-    clientApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(4)
     objectToSpawn = utils.GetPlacementObjectByName(furnitureName)
     clientApiary:GetComponent(ApiaryPrefabOwner).SetObjectToSpawn(objectToSpawn, furnitureName)
     clientApiary:GetComponent(ApiaryPrefabOwner).ShowPlacementLocations()
@@ -275,4 +277,33 @@ function self:ServerAwake()
         notifyIsValidLocation:FireClient(player, false)
     end
     end)
+
+    requestResetApiary:Connect(function(player)
+    
+        print("Resetting apiary on server")
+
+        apiaryPosition = nil
+
+        if playerApiaries[player] then
+            for _, apiaryData in ipairs(playerApiaries[player]) do
+                local apiaryID = apiaryData.id
+                apiaryPosition = apiaryData.location
+
+                print("Removing apiary with ID: " .. apiaryID)
+                -- Fire an event to all clients to remove this apiary by its ID
+                removeApiaryRequest:FireAllClients(apiaryID)
+            end
+    
+            print("Respawning apiary for player: " .. player.name)
+            SpawnApiary(player, apiaryPosition)
+        else
+            print("No apiaries to remove for player: " .. player.name)
+        end
+
+    end)
+end
+
+function ResetApiary()
+    print("Resetting apiary")
+    requestResetApiary:FireServer()
 end

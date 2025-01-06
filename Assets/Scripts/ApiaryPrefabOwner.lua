@@ -15,6 +15,15 @@ local locationObject : GameObject = nil
 --!SerializeField
 local removalObject : GameObject = nil 
 
+--!SerializeField
+local apiarySize0 : GameObject = nil
+
+--!SerializeField
+local apiarySize1 : GameObject = nil
+
+--!SerializeField
+local apiarySize2 : GameObject = nil
+
 local apiarySize = nil
 
 local objectToSpawn = nil
@@ -30,6 +39,19 @@ placementLocations = {}
 
 function SetApiarySize(size)
 	apiarySize = size
+	if size == 3 then
+		apiarySize0:SetActive(true)
+		apiarySize1:SetActive(false)
+		apiarySize2:SetActive(false)
+	elseif size == 4 then
+		apiarySize0:SetActive(false)
+		apiarySize1:SetActive(true)
+		apiarySize2:SetActive(false)
+	elseif size == 5 then
+		apiarySize0:SetActive(false)
+		apiarySize1:SetActive(false)
+		apiarySize2:SetActive(true)
+	end
 end
 
 function SetObjectToSpawn(object, name)

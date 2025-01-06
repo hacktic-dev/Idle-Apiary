@@ -18,7 +18,9 @@ local _cosmeticsTab : UIButton = nil
 --!Bind
 local _furnitureTab : UIButton = nil
 --!Bind
-local upgrades : UILabel = nil
+local upgradesLabel : UILabel = nil
+--!Bind
+local honeyLabel : UILabel = nil
 --!Bind
 local timeToReset : UILabel = nil
 --!Bind
@@ -49,6 +51,7 @@ local playerManager = require("PlayerManager")
 local UIManager = require("UIManager") 
 local audioManager = require("AudioManager")
 local purchaseHandler = require("PurchaseHandler")
+local apiaryManager = require("ApiaryManager")
 local Utils = require("Utils")
 
 local state = 0 -- Which tab are we on?
@@ -92,22 +95,8 @@ function GetSoldOutHats()
     return soldOutHats
 end
 
-function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
+function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel, apiarySize)
     Orders_Root:Clear()
-
-    print("Initing upgrades with bee capacity " .. beeCapacity .. ", flower capacity " .. flowerCapacity .. ", and sweet scent level " .. sweetScentLevel)
-
-    if sweetScentLevel == 0 then
-        netPrice = 50
-    elseif sweetScentLevel == 1 then
-        netPrice = 200
-    elseif sweetScentLevel == 2 then
-        netPrice = 600
-    elseif sweetScentLevel >= 3 then
-        netPrice = 1000
-    end
-
-    CreateQuestItem("Bee Net", "Net", netPrice, false, "", false)
 
     if beeCapacity < 18 then
         CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", true)
@@ -128,6 +117,13 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel)
         CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false, "", true)
        end
     end
+
+    if apiarySize == 0 then
+        CreateQuestItem("Upgrade Apiary Size", "apiary_size_1", 250, true, "Make space for more furniture", false)
+    elseif apiarySize == 1 then
+        CreateQuestItem("Upgrade Apiary Size", "apiary_size_2", 500, true, "Make space for more furniture", false)
+    end
+
 end
 
 local function InitBeesTab()
@@ -138,8 +134,22 @@ local function InitBeesTab()
     CreateQuestItem("Random Bee", "Platinum", 5000, false, "Platinum Set", false)
 end
 
-local function InitHoneyTab()
+local function InitHoneyTab(sweetScentLevel)
     Orders_Root:Clear()
+
+    if sweetScentLevel == 0 then
+        netPrice = 50
+    elseif sweetScentLevel == 1 then
+        netPrice = 200
+    elseif sweetScentLevel == 2 then
+        netPrice = 600
+    elseif sweetScentLevel >= 3 then
+        netPrice = 1000
+    end
+
+    CreateQuestItem("Bee Net", "Net", netPrice, false, "", false)
+
+
     CreateQuestItem("Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.", false)
     CreateQuestItem("Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes", false)
 end
@@ -333,7 +343,7 @@ function ButtonPressed(btn: string)
       _furnitureTab:AddToClassList("nav-button--deselected")
       Orders_Root:RemoveFromClassList("high-margin")
       timeContainer.visible = false
-      InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
+      InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel(), playerManager.GetPlayerApiarySize())
       --audioManager.PlaySound("paperSound1", 1)
       return true
     elseif btn == "bees" then
@@ -361,7 +371,7 @@ function ButtonPressed(btn: string)
         _furnitureTab:AddToClassList("nav-button--deselected")
         Orders_Root:RemoveFromClassList("high-margin")
         timeContainer.visible = false
-        InitHoneyTab()
+        InitHoneyTab(playerManager.GetPlayerSweetScentLevel())
     elseif btn == "cosmetics" then
     if state == 3 then return end
       state = 3
@@ -681,13 +691,17 @@ function Init()
 
     _confirmBuy.visible = false
 
-		purchaseHandler.beeCapacityPurchaseSuccessful:Connect(function() IncreaseBeeCapacity() end)
+	purchaseHandler.beeCapacityPurchaseSuccessful:Connect(function() IncreaseBeeCapacity() audioManager.PlaySound("purchaseSound", 1) end)
+    purchaseHandler.apiarySizePurchaseSuccessful:Connect(function() IncreaseApiarySize() end)
 
     if Screen.width > Screen.height then
-        upgrades:SetPrelocalizedText("Upgrades / Items")
+        honeyLabel:SetPrelocalizedText("Honey / Items")
     else
-        upgrades:SetPrelocalizedText("Items")
+        honeyLabel:SetPrelocalizedText("Items")
     end
+
+    upgradesLabel:SetPrelocalizedText("Upgrades")
+
     closeButton:RegisterPressCallback(function()
         UIManager.CloseShop()
     end, true, true, true)
@@ -725,20 +739,18 @@ function Buy(isGold, Id, Cash)
             if playerManager.GetPlayerBeeCapacity() == 20 then
                 return
             end
-
-						IncreaseBeeCapacity()
+            IncreaseBeeCapacity()
             return
         elseif Id == "FlowerCapacity" then
-            InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity()+1, playerManager.GetPlayerSweetScentLevel())
+            InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity()+1, playerManager.GetPlayerSweetScentLevel(), playerManager.GetPlayerApiarySize())
             playerManager.IncrementStat("FlowerCapacity", 1)
             return
         elseif Id == "SweetScentLevel" then
-
-             if playerManager.GetPlayerSweetScentLevel() == 3 then
+            if playerManager.GetPlayerSweetScentLevel() == 3 then
                 return
             end
 
-            InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel()+1)
+            InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel()+1, playerManager.GetPlayerApiarySize())
             playerManager.IncrementStat("SweetScentLevel", 1)
             return
         elseif Id == "Shears" then
@@ -759,8 +771,20 @@ function Buy(isGold, Id, Cash)
 end
 
 function IncreaseBeeCapacity()
-	InitUpgradesTab(playerManager.GetPlayerBeeCapacity()+1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel())
+	InitUpgradesTab(playerManager.GetPlayerBeeCapacity()+1, playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel(), playerManager.GetPlayerApiarySize())
 	playerManager.IncrementStat("BeeCapacity", 1)
+end
+
+function IncreaseApiarySize()
+    if playerManager.GetPlayerBeeCapacity() == 2 then
+        return
+    end
+
+    print("incrementing apiary size")
+    audioManager.PlaySound("purchaseSound", 1)
+    InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel(), playerManager.GetPlayerApiarySize()+1)
+    playerManager.IncrementStat("ApiarySize", 1)
+    apiaryManager.ResetApiary()
 end
 
 function BuyItem(isGold, Id, Name, Cash, itemType)

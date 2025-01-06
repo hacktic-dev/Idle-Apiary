@@ -236,7 +236,7 @@ function self:ClientAwake()
             newBee.transform.position = position + Vector3.new(math.random() + math.random(-8, 7), 0, math.random() + math.random(-8, 7))
             
             -- Initialize bee behavior by setting its spawn position
-            newBee:GetComponent(BeeWandererScript).SetSpawnPosition(position)
+            newBee:GetComponent(BeeWandererScript).SetSpawnPosition(position, playerManager.GetPlayerApiarySize(player)*2.5 + 5)
 
             if hat ~= nil then
                 newBee.transform:Find("Hats"):GetComponent(HatController).ApplyHat(hat)

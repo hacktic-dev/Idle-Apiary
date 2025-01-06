@@ -30,6 +30,9 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_OwnerUI = default;
         [SerializeField] public UnityEngine.GameObject m_locationObject = default;
         [SerializeField] public UnityEngine.GameObject m_removalObject = default;
+        [SerializeField] public UnityEngine.GameObject m_apiarySize0 = default;
+        [SerializeField] public UnityEngine.GameObject m_apiarySize1 = default;
+        [SerializeField] public UnityEngine.GameObject m_apiarySize2 = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -43,6 +46,9 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(2), m_OwnerUI),
                 CreateSerializedProperty(_script.GetPropertyAt(3), m_locationObject),
                 CreateSerializedProperty(_script.GetPropertyAt(4), m_removalObject),
+                CreateSerializedProperty(_script.GetPropertyAt(5), m_apiarySize0),
+                CreateSerializedProperty(_script.GetPropertyAt(6), m_apiarySize1),
+                CreateSerializedProperty(_script.GetPropertyAt(7), m_apiarySize2),
             };
         }
     }
