@@ -113,7 +113,7 @@ function self:ClientAwake()
 		for _, object in ipairs(objects) do
 			newObject = Object.Instantiate(removalObject)
 			newObject.transform.parent = self.transform
-			newObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
+			newObject.transform.localPosition = Vector3.new(object.x*2, 0, object.y*2)
 
 			table.insert(placementLocations, newObject)
 
