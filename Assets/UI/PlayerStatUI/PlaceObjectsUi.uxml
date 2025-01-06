@@ -8,11 +8,14 @@
 >
 
   <hr:UILuaView class="place-objects" name="place_objects" picking-mode="Ignore">
-  <hr:UIButton class="button" name="button">
-    <Label text="Confirm"/>
+    <hr:UIButton class="rotate-button" name="_rotateCounterClockwiseButton">
+      <hr:UIImage name="_rotateCounterClockwiseImage" class="rotate-counter-clockwise"/>
   </hr:UIButton>
-  <hr:UIButton class="cycleButton" name="cycleButton">
-    <Label text="Cycle"/>
+  <hr:UIButton class="button" name="button">
+    <hr:UILabel class="text" name="_confirm" text="Confirm"/>
+  </hr:UIButton>
+    <hr:UIButton class="rotate-button" name="_rotateClockwiseButton">
+      <hr:UIImage name="_rotateClockwiseImage" class="rotate-clockwise"/>
   </hr:UIButton>
   </hr:UILuaView>
 

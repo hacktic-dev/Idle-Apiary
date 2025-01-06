@@ -33,6 +33,15 @@
     background-color: rgba(0,0,0,.4);
 }
 
+.rotate-button
+{
+    width: 48px;
+    left: 0px;
+    height: 48px;
+    border-radius: 9px;
+    background-color: rgba(0,0,0,.4);
+}
+
 cycleButton{
     width: 96px;
     right: 0px;
@@ -52,4 +61,25 @@ cycleButton{
 {
     margin-left: 50px;
     right: -103px;
+}
+
+.rotate-clockwise
+{
+  width: 25px;
+  height: 25px;
+  background-image: url("project://database/Assets/Icons/rotate_clockwise.png");
+}
+
+
+.rotate-counter-clockwise
+{
+  width: 25px;
+  height: 25px;
+  background-image: url("project://database/Assets/Icons/rotate_counterclockwise.png");
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
 }

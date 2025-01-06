@@ -29,15 +29,22 @@ local spawnedObjects = {} -- Spawned objects on client
 
 index = 1
 
-function SetProspectiveObject(_name, _x, _y)
-	prospectiveObject = {name = _name, x = _x, y = _y}
+function SetProspectiveObject(_object, _name, _x, _y)
+	prospectiveobjectPrefab = _object
+	prospectiveObject = {name = _name, x = _x, y = _y, rotation = 0}
 end
 
 function Confirm()
-	print("confirm hit")
-	requestObjectPlacement:FireServer(prospectiveObject.name, prospectiveObject.x, prospectiveObject.y)
+	print(prospectiveObject.rotation)
+	requestObjectPlacement:FireServer(prospectiveObject.name, prospectiveObject.x, prospectiveObject.y, prospectiveObject.rotation)
 	closePlacementMenu:Fire()
 end	
+
+function Rotate(angle)
+	rotation = prospectiveobjectPrefab.transform.localRotation.eulerAngles
+	prospectiveobjectPrefab.transform.localRotation = Quaternion.Euler(rotation.x, rotation.y + angle, rotation.z)
+	prospectiveObject.rotation = prospectiveObject.rotation + angle
+end
 
 function Cycle()
 	index = index + 1
@@ -80,15 +87,13 @@ function InitServer()
 		end)
 	end)
 
-	requestObjectPlacement:Connect(function(player, _name, _x, _y)
-		print("spawning")
+	requestObjectPlacement:Connect(function(player, _name, _x, _y, _rotation)
+		print(_rotation)
 
 		local _id = playerManager.GenerateUniqueID()
-		placedObject = {name = _name, x = _x, y = _y, id = _id}
+		placedObject = {name = _name, x = _x, y = _y, id = _id, rotation = _rotation}
 
 		apiaryPosition = apiaryManager.GetPlayerApiaryLocation(player)
-
-		position = 
 
 		clientSpawnPlacedObject:FireAllClients(placedObject, player.user.id, apiaryPosition)
 	
@@ -140,9 +145,14 @@ end
 function InitClient()
   print("Initing client")
 	clientSpawnPlacedObject:Connect(function(placedObject, userId, apiaryPosition)
-		print("Spawning object")
+		
+		print(placedObject.rotation)
 		local spawnedObject = Object.Instantiate(utils.GetPlacementObjectByName(placedObject.name))
 		spawnedObject:GetComponent(Transform).position = apiaryPosition + Vector3.new(placedObject.x*2, 0, placedObject.y*2)
+
+		rotation = spawnedObject:GetComponent(Transform).localRotation.eulerAngles
+		spawnedObject:GetComponent(Transform).localRotation = Quaternion.Euler(rotation.x, rotation.y + placedObject.rotation, rotation.z)
+
 		spawnedObject:GetComponent(Furniture).SetOwner(userId)
 		spawnedObject:GetComponent(Furniture).SetPlacedId(placedObject.id)
 		spawnedObjects[placedObject.id] = spawnedObject

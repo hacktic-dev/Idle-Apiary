@@ -86,11 +86,13 @@ function self:ClientAwake()
 					spawnedObject = nil
 				end
 
-				placedObjectsManager.SetProspectiveObject(objectName, space.x, space.y)
-
 				spawnedObject = Object.Instantiate(objectToSpawn)
 				spawnedObject.transform.parent = self.transform
 				spawnedObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
+
+				placedObjectsManager.SetProspectiveObject(spawnedObject, objectName, space.x, space.y)
+
+
 				print("Position " .. space.x .. ", " .. space.y .. " tapped.")
 				end)
 			end
