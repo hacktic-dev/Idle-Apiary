@@ -30,8 +30,7 @@ local MIN_SPAWN_DISTANCE = 45
 
 flowerAreaEnteredEvent = Event.new("FlowerAreaEnteredEvent")
 flowerAreaExitedEvent = Event.new("FlowerAreaExitedEvent")
-apiaryCanPlaceFlower = Event.new("ApiaryCanPlaceFlowerEvent")
-apiaryCannotPlaceFlower = Event.new("ApiaryCannotPlaceFlowerEvent")
+apiaryPlayerStatusChanged = Event.new("ApiaryPlayerStatusChangedEvent")
 queryOwnedFlowers = Event.new("queryOwnedFlowers")
 receiveOwnedFlowers = Event.new("receiveOwnedFlowers")
 noFlowersOwned = Event.new("noFlowersOwned")
@@ -173,16 +172,10 @@ function self:Update()
 
     -- Check if the player is within the square
     if (position ~= nil ) and (playerPosition.x >= position.x - 9 and playerPosition.x <= position.x + 9) and
-    (playerPosition.z >= position.z - 9 and playerPosition.z <= position.z + 9) and playerManager.GetPlayerOwnsShears() then
-        if canPlaceFLower == false then
-            canPlaceFLower = true
-            apiaryCanPlaceFlower:Fire()
-        end
+    (playerPosition.z >= position.z - 9 and playerPosition.z <= position.z + 9) then
+        apiaryPlayerStatusChanged:Fire(true, playerManager.GetPlayerOwnsShears())
     else
-        if canPlaceFLower == true then
-            canPlaceFLower = false
-            apiaryCannotPlaceFlower:Fire()
-        end
+        apiaryPlayerStatusChanged:Fire(false, playerManager.GetPlayerOwnsShears())
     end
 end
 
