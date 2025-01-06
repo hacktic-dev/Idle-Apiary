@@ -92,7 +92,14 @@ function ServerHandlePurchase(purchase, player: Player)
     -- Not honey or bee size, so it must be an item (hat/furniture). Add to inventory and commit
     local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
     Inventory.CommitTransaction(transaction)
-    playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
+    if Utils.IsHat(productId) then
+      playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
+    elseif Utils.IsFurniture(productId) then
+      playerManager.notifyFurniturePurchased:FireClient(player, Utils.LookupFurnitureName(productId))
+    else
+      print("Unknown product ID: " .. productId)
+      purchaseFailedEvent:FireClient(player)
+    end
   end
 end
 
