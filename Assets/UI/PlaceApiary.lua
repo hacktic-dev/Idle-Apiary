@@ -183,13 +183,8 @@ function self:ClientAwake()
         toggleUIElement(_PickFlowerButton, false)
     end)
 
-    flowerManager.apiaryCanPlaceFlower:Connect(function()
-        toggleUIElement(_PlaceFlowerButton, true)
-        toggleUIElement(_PlaceFurnitureButton, true)
-    end)
-
-    flowerManager.apiaryCannotPlaceFlower:Connect(function()
-        toggleUIElement(_PlaceFlowerButton, false)
-        toggleUIElement(_PlaceFurnitureButton, false)
+    flowerManager.apiaryPlayerStatusChanged:Connect(function(inApiary, hasShears)
+        toggleUIElement(_PlaceFlowerButton, inApiary and hasShears)
+        toggleUIElement(_PlaceFurnitureButton, inApiary)
     end)
 end

@@ -253,7 +253,7 @@
 
 
 .close-button {
-    background-color: rgba(255, 0, 0, 0.5); /* Red for visibility */
+    background-color: rgba(180, 0, 0, 0.8); /* Red for visibility */
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
@@ -266,6 +266,12 @@
     position: relative;
     height: 7%;
 }
+
+.close-button:hover
+{
+    background-color: rgba(185, 26, 26, 0.8);
+}
+
 
 .shop__container {
   align-self: center;

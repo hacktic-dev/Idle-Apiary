@@ -170,6 +170,12 @@
     position: relative;
 }
 
+.close-button:hover
+{
+    background-color: rgba(185, 26, 26, 0.8);
+}
+
+
 .flower_container {
   display: flex;
   overflow: hidden;

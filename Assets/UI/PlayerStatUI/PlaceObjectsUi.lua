@@ -1,7 +1,10 @@
 --!Type(UI)
 
 --!Bind
-local button : UIButton = nil
+local _confirmButton : UIButton = nil
+
+--!Bind
+local _cancelButton : UIButton = nil
 
 --!Bind
 local _rotateClockwiseButton : UIButton = nil
@@ -10,14 +13,14 @@ local _rotateClockwiseButton : UIButton = nil
 local _rotateCounterClockwiseButton : UIButton = nil
 
 --!Bind
-local _confirm : UILabel = nil
+local _confirmLabel : UILabel = nil
 
 --!Bind
-local _cancel : UILabel = nil
+local _cancelLabel : UILabel = nil
 
 placedObjectsManager = require("PlacedObjectsController")
 
-button:RegisterPressCallback(function()
+_confirmButton:RegisterPressCallback(function()
  placedObjectsManager.Confirm()
 end, true, true, true)
 
@@ -29,11 +32,18 @@ _rotateCounterClockwiseButton:RegisterPressCallback(function()
     placedObjectsManager.Rotate(-90)
 end, true, true, true)
 
-_cancel:RegisterPressCallback(function()
+_cancelButton:RegisterPressCallback(function()
     placedObjectsManager.Cancel()
 end, true, true, true)
 
 function self:ClientAwake()
-    _confirm:SetPrelocalizedText("Confirm")
-    _cancel:SetPrelocalizedText("Cancel")
+    _confirmLabel:SetPrelocalizedText("Confirm")
+    _cancelLabel:SetPrelocalizedText("Cancel")
+
+    placedObjectsManager.setConfirmButtonState:Connect(function(state)
+        print("state changed")
+        _confirmButton.visible = state
+        _rotateClockwiseButton.visible = state
+        _rotateCounterClockwiseButton.visible = state
+    end)
 end
