@@ -262,6 +262,11 @@ function SetPlacementMode(furnitureName)
     clientApiary:GetComponent(ApiaryPrefabOwner).ShowPlacementLocations()
 end
 
+function SetRemovalMode()
+    print("Setting removal mode")
+    clientApiary:GetComponent(ApiaryPrefabOwner).ShowRemovalLocations()
+end
+
 function self:ServerAwake()
     requestIsValidLocation:Connect(function(player, position)
     if isPositionValid(position) == 0 then

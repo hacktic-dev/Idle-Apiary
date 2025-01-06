@@ -18,6 +18,8 @@ local _PickFlowerButton : UIButton = nil
 local _PlaceFlowerButton : UIButton = nil
 --!Bind
 local _PlaceFurnitureButton : UIButton = nil
+--!Bind
+local _RemoveFurnitureButton : UIButton = nil
 
 local wildBeeManager = require("WildBeeManager")
 local audioManager = require("AudioManager")
@@ -124,6 +126,11 @@ _PlaceFurnitureButton:RegisterPressCallback(function()
 end, true, true, true
 )
 
+_RemoveFurnitureButton:RegisterPressCallback(function()
+    UIManager.OpenRemoveFurnitureMenu()
+end, true, true, true
+)
+
 -- Function to check player's proximity to bees and show the UI accordingly
 local function updateCaptureUI(player)
     local isNearBee = false
@@ -186,5 +193,6 @@ function self:ClientAwake()
     flowerManager.apiaryPlayerStatusChanged:Connect(function(inApiary, hasShears)
         toggleUIElement(_PlaceFlowerButton, inApiary and hasShears)
         toggleUIElement(_PlaceFurnitureButton, inApiary)
+        toggleUIElement(_RemoveFurnitureButton, inApiary)
     end)
 end

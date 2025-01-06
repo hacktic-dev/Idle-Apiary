@@ -23,8 +23,13 @@
 
             <VisualElement class="bee-capture__container">
                 <hr:UIButton class="furniture-button" name="_PlaceFurnitureButton">
-                <Label text="Place Furniture"/>
-            </hr:UIButton>
+                    <Label text="Place Furniture"/>
+                </hr:UIButton>
+            </VisualElement>
+            <VisualElement class="bee-capture__container">
+                <hr:UIButton class="remove-button" name="_RemoveFurnitureButton">
+                    <Label text="Remove Furniture"/>
+                </hr:UIButton>
             </VisualElement>
             <VisualElement class="bee-capture__container">
                 <hr:UIButton class="flower-button" name="_PickFlowerButton">

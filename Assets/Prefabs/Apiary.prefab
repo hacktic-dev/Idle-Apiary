@@ -80,6 +80,8 @@ MonoBehaviour:
   m_OwnerUI: {fileID: 1636164116762368238}
   m_locationObject: {fileID: 1752369167828540089, guid: d22e0431f2e1d0c44ac16516594c1ba9,
     type: 3}
+  m_removalObject: {fileID: 1752369167828540089, guid: 79d49ea817abf0e4cb913d237ff097b2,
+    type: 3}
   references:
     version: 2
     RefIds:

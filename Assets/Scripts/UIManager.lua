@@ -31,6 +31,8 @@ local CenterPlayerButtonObject : GameObject = nil
 local PlaceFurnitureMenuObject : GameObject = nil
 --!SerializeField
 local PlaceObjectsUiObject : GameObject = nil
+--!SerializeField
+local RemoveFurnitureMenuObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
@@ -53,7 +55,8 @@ local uiMap = {
     CenterPlayerButton = CenterPlayerButtonObject,
     -- Leaderboard = LeaderboardObject,
     PlaceFurnitureMenu = PlaceFurnitureMenuObject,
-    PlaceObjectsUi = PlaceObjectsUiObject
+    PlaceObjectsUi = PlaceObjectsUiObject,
+    RemoveFurnitureMenu = RemoveFurnitureMenuObject
 }
 
 -- Activate the object if it is not active
@@ -203,6 +206,7 @@ function HideAll()
     --ToggleUI("Leaderboard", false)
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceObjectsUi", false)
+    ToggleUI("RemoveFurnitureMenu", false)
 end
 
 function OpenShearsTutorial()
@@ -259,6 +263,20 @@ end
 
 function ClosePlaceObjectsUi()
     ToggleUI("PlaceObjectsUi", false)
+    ShowMenu()
+    ToggleUI("PlaceButtons", true)
+end
+
+function OpenRemoveFurnitureMenu()
+    ToggleUI("RemoveFurnitureMenu", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+    RemoveFurnitureMenuObject:GetComponent(RemoveFurnitureUi).Init()
+end
+
+function CloseRemoveFurnitureMenu()
+    ToggleUI("RemoveFurnitureMenu", false)
     ShowMenu()
     ToggleUI("PlaceButtons", true)
 end

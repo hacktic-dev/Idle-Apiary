@@ -39,6 +39,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_CenterPlayerButtonObject = default;
         [SerializeField] public UnityEngine.GameObject m_PlaceFurnitureMenuObject = default;
         [SerializeField] public UnityEngine.GameObject m_PlaceObjectsUiObject = default;
+        [SerializeField] public UnityEngine.GameObject m_RemoveFurnitureMenuObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -61,6 +62,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(11), m_CenterPlayerButtonObject),
                 CreateSerializedProperty(_script.GetPropertyAt(12), m_PlaceFurnitureMenuObject),
                 CreateSerializedProperty(_script.GetPropertyAt(13), m_PlaceObjectsUiObject),
+                CreateSerializedProperty(_script.GetPropertyAt(14), m_RemoveFurnitureMenuObject),
             };
         }
     }

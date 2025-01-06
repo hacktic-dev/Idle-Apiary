@@ -11674,6 +11674,7 @@ MonoBehaviour:
   m_CenterPlayerButtonObject: {fileID: 800445246}
   m_PlaceFurnitureMenuObject: {fileID: 1372714132}
   m_PlaceObjectsUiObject: {fileID: 111461374}
+  m_RemoveFurnitureMenuObject: {fileID: 852216042}
   references:
     version: 2
     RefIds:
@@ -11706,6 +11707,7 @@ Transform:
   - {fileID: 800445247}
   - {fileID: 111461375}
   - {fileID: 1372714133}
+  - {fileID: 852216043}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &422976808
@@ -25047,6 +25049,61 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 851170300}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &852216042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 852216043}
+  - component: {fileID: 852216044}
+  m_Layer: 0
+  m_Name: RemoveFurnitureUi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &852216043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852216042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 421081548}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &852216044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852216042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb63d33a75eff671c2a0597b619e0a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: 41bcd3efcf30f6a4787f59aedb410ab4, type: 3}
+  _properties: []
+  _uiOutput: 2
+  _uiOutputSettings:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1001 &852742080
 PrefabInstance:
   m_ObjectHideFlags: 0

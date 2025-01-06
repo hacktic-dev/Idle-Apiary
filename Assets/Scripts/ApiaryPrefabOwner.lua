@@ -12,6 +12,9 @@ local OwnerUI : GameObject = nil
 --!SerializeField
 local locationObject : GameObject = nil
 
+--!SerializeField
+local removalObject : GameObject = nil 
+
 local apiarySize = nil
 
 local objectToSpawn = nil
@@ -48,6 +51,11 @@ end
 
 function ShowPlacementLocations()
 	placedObjectsManager.requestFreeSpaces:FireServer(apiarySize)
+end
+
+function ShowRemovalLocations()
+	print("Showing removal locations")
+	placedObjectsManager.requestOccupiedSpaces:FireServer()
 end
 
 function self:ClientAwake()
@@ -98,5 +106,26 @@ function self:ClientAwake()
 			end
 		end
 
+	end)
+
+	placedObjectsManager.receiveOccupiedSpaces:Connect(function(objects)
+		print("Received occupied spaces")
+		for _, object in ipairs(objects) do
+			newObject = Object.Instantiate(removalObject)
+			newObject.transform.parent = self.transform
+			newObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
+
+			table.insert(placementLocations, newObject)
+
+			newObject.gameObject:GetComponent(TapHandler).Tapped:Connect(function()
+				placedObjectsManager.Delete(object.id)
+
+				for _, object in placementLocations do
+					Object.Destroy(object)
+				end
+
+				UIManager.ClosePlaceObjectsUi()
+			end)
+		end
 	end)
 end

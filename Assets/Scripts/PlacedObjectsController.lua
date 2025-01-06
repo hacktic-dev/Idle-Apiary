@@ -1,8 +1,10 @@
 --!Type(Module)
 
 local requestObjectPlacement = Event.new("requestObjectPlacement")
+local requestObjectDeletion = Event.new("requestObjectDeletion")
 closePlacementMenu = Event.new("closePlacementMenu")
 local clientSpawnPlacedObject = Event.new("clientSpawnPlacedObject")
+local clientRemovePlacedObject = Event.new("clientRemovePlacedObject")
 local removeObjectRequest = Event.new("removeObjectRequest")
 
 requestSitPlayerOnSeat = Event.new("requestSitPlayerOnSeat")
@@ -10,6 +12,8 @@ clientSitPlayerOnSeat = Event.new("clientSitPlayerOnSeat")
 
 requestFreeSpaces = Event.new("requestFreeSpaces")
 receiveFreeSpaces = Event.new("receiveFreeSpaces")
+requestOccupiedSpaces = Event.new("requestOccupiedSpaces")
+receiveOccupiedSpaces = Event.new("receiveOccupiedSpaces")
 
 queryOwnedFurniture = Event.new("queryOwnedFurniture")
 receiveOwnedFurniture = Event.new("receiveOwnedFurniture")
@@ -33,14 +37,12 @@ index = 1
 function Reset()
 	
 	prospectiveObject = nil
-	print("resetting")
 	setConfirmButtonState:Fire(false)
 end
 
 function SetProspectiveObject(_object, _name, _x, _y)
 	prospectiveobjectPrefab = _object
 	prospectiveObject = {name = _name, x = _x, y = _y, rotation = 0}
-	print("setting prospective object")
 	setConfirmButtonState:Fire(true)
 end
 
@@ -73,7 +75,7 @@ end
 
 function InitServer()	
   print("Initing server")
-  print("Initing server2")
+  print("Initing server3")
 
 	queryOwnedFurniture:Connect(function(player)
 		print("Getting furniture")
@@ -123,6 +125,27 @@ function InitServer()
 
 	end)
 
+	requestObjectDeletion:Connect(function(player, id)
+		if placedObjects[player] == nil then
+			return
+		end
+
+		local name = nil
+
+		for index, object in ipairs(placedObjects[player]) do
+			if object.id == id then
+				name = object.name
+				table.remove(placedObjects[player], index)
+				break
+			end
+		end
+
+		clientRemovePlacedObject:FireAllClients(id)
+
+		local transaction = InventoryTransaction.new():GivePlayer(player, utils.LookupFurnitureIdByName(name), 1)
+		Inventory.CommitTransaction(transaction)
+	end)
+
 	requestFreeSpaces:Connect(function(player, size)
 
 		freeSpaces = {}
@@ -138,9 +161,18 @@ function InitServer()
 		receiveFreeSpaces:FireClient(player, freeSpaces)
 	end)
 
+	requestOccupiedSpaces:Connect(function(player)
+		print("Requesting occupied spaces")
+		receiveOccupiedSpaces:FireClient(player, placedObjects[player])
+	end)
+
 	requestSitPlayerOnSeat:Connect(function(player, placedId)
 		clientSitPlayerOnSeat:FireAllClients(player, placedId)
 	end)
+end
+
+function Delete(id)
+	requestObjectDeletion:FireServer(id)
 end
 
 function CheckIfSpaceFree(player, i, j)
@@ -172,6 +204,13 @@ function InitClient()
 		spawnedObject:GetComponent(Furniture).SetOwner(userId)
 		spawnedObject:GetComponent(Furniture).SetPlacedId(placedObject.id)
 		spawnedObjects[placedObject.id] = spawnedObject
+	end)
+
+	clientRemovePlacedObject:Connect(function(id)
+		if spawnedObjects[id] then
+			Object.Destroy(spawnedObjects[id])
+			spawnedObjects[id] = nil
+		end
 	end)
 
 	removeObjectRequest:Connect(function(id)
