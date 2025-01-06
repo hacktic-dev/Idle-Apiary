@@ -93,9 +93,9 @@ function ServerHandlePurchase(purchase, player: Player)
     local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
     Inventory.CommitTransaction(transaction)
     if Utils.IsHat(productId) then
-      playerManager.notifyHatPurchased:FireClient(player, Utils.LookupHatName(productId))
+      playerManager.notifyItemPurchased:FireClient(player, Utils.LookupHatName(productId))
     elseif Utils.IsFurniture(productId) then
-      playerManager.notifyFurniturePurchased:FireClient(player, Utils.LookupFurnitureName(productId))
+      playerManager.notifyItemPurchased:FireClient(player, Utils.LookupFurnitureName(productId))
     else
       print("Unknown product ID: " .. productId)
       purchaseFailedEvent:FireClient(player)
