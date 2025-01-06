@@ -51,7 +51,7 @@
 
 
 .flower-button {
-    background-color: #06660a;
+    background-color:rgba(5, 88, 8, 0.8);
     font-size: 18px;
     color: #fff
     border-radius: 10px;
@@ -60,9 +60,9 @@
 }
 
 .furniture-button {
-    background-color:rgb(234, 218, 34);
+    background-color:rgba(22, 92, 161, 0.8);
     font-size: 18px;
-    color: #000000
+    color: #ffffff
     border-radius: 10px;
     padding: 12px;
     margin-top: 10px;
@@ -82,4 +82,11 @@
 
 .shown{
     display: flex;
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+    -unity-text-align: middle-center;
 }

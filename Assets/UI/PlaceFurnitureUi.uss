@@ -84,7 +84,7 @@
 .close{
     margin: 10px;
     color: white;
-    font-size: 12px;
+    font-size: 18px;
     align-self: center;
     white-space: normal;
     -unity-text-align: middle-center;

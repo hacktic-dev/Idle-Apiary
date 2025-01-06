@@ -30,7 +30,7 @@
     left: 0px;
     height: 48px;
     border-radius: 9px;
-    background-color: rgba(43, 201, 22, 0.4);
+    background-color: rgba(37, 177, 19, 0.8);
 }
 
 .cancel-button{
@@ -38,7 +38,8 @@
     left: 0px;
     height: 48px;
     border-radius: 9px;
-    background-color: rgba(211, 20, 20, 0.4);
+    margin-top: 5px;
+    background-color: rgba(168, 11, 11, 0.8);
 }
 
 .rotate-button
@@ -90,4 +91,11 @@ cycleButton{
 {
 	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
 	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+        -unity-text-align: middle-center;
+    color: #ffffff;
+}
+
+.button-container
+{
+    bottom: 50px;
 }
