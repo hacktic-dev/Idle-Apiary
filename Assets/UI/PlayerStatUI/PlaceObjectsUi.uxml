@@ -12,11 +12,11 @@
       <hr:UIImage name="_rotateCounterClockwiseImage" class="rotate-counter-clockwise"/>
   </hr:UIButton>
   <VisualElement class="button-container">
-    <hr:UIButton class="confirm-button" name="button">
-      <hr:UILabel class="text" name="_confirm" text="Confirm"/>
+    <hr:UIButton class="confirm-button" name="_confirmButton">
+      <hr:UILabel class="text" name="_confirmLabel" text="Confirm"/>
     </hr:UIButton>
     <hr:UIButton class="cancel-button" name="_cancelButton">
-      <hr:UILabel class="text" name="_cancel" text="Cancel"/>
+      <hr:UILabel class="text" name="_cancelLabel" text="Cancel"/>
     </hr:UIButton>
   </VisualElement>
     <hr:UIButton class="rotate-button" name="_rotateClockwiseButton">

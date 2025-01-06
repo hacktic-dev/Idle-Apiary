@@ -14,6 +14,7 @@ receiveFreeSpaces = Event.new("receiveFreeSpaces")
 queryOwnedFurniture = Event.new("queryOwnedFurniture")
 receiveOwnedFurniture = Event.new("receiveOwnedFurniture")
 noFurnitureOwned = Event.new("noFurnitureOwned")
+setConfirmButtonState = Event.new("setConfirmButtonState")
 
 selectItem = Event.new("selectItem")
 
@@ -29,12 +30,24 @@ local spawnedObjects = {} -- Spawned objects on client
 
 index = 1
 
+function Reset()
+	
+	prospectiveObject = nil
+	print("resetting")
+	setConfirmButtonState:Fire(false)
+end
+
 function SetProspectiveObject(_object, _name, _x, _y)
 	prospectiveobjectPrefab = _object
 	prospectiveObject = {name = _name, x = _x, y = _y, rotation = 0}
+	print("setting prospective object")
+	setConfirmButtonState:Fire(true)
 end
 
 function Confirm()
+	if prospectiveObject == nil then
+		return
+	end
 	requestObjectPlacement:FireServer(prospectiveObject.name, prospectiveObject.x, prospectiveObject.y, prospectiveObject.rotation)
 	closePlacementMenu:Fire()
 end	

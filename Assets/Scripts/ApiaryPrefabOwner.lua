@@ -71,7 +71,7 @@ function self:ClientAwake()
 	end)
 
 	placedObjectsManager.receiveFreeSpaces:Connect(function(freeSpaces)
-	
+		placedObjectsManager.Reset()
 		for _, space in ipairs(freeSpaces) do
 			if space.x ~= 0 or space.y ~= 0 then
 				newObject = Object.Instantiate(locationObject)
