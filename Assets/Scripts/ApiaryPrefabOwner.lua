@@ -24,6 +24,8 @@ local apiarySize1 : GameObject = nil
 --!SerializeField
 local apiarySize2 : GameObject = nil
 
+local ownerName = nil
+
 local apiarySize = nil
 
 local objectToSpawn = nil
@@ -36,6 +38,10 @@ placedObjectsManager = require("PlacedObjectsController")
 UIManager = require("UIManager")
 
 placementLocations = {}
+
+function SetOwnerName(id)
+	ownerName = id
+end
 
 function SetApiarySize(size)
 	apiarySize = size
@@ -72,6 +78,7 @@ function GetOwnerUi()
 end
 
 function ShowPlacementLocations()
+	print("Showing placement locations")
 	placedObjectsManager.requestFreeSpaces:FireServer(apiarySize)
 end
 
@@ -101,8 +108,14 @@ function self:ClientAwake()
 	 SetObjectToSpawn(object, name)
 	end)
 
-	placedObjectsManager.receiveFreeSpaces:Connect(function(freeSpaces)
+	placedObjectsManager.receiveFreeSpaces:Connect(function(player, freeSpaces)
+
+		if ownerName ~= player.name then
+			return
+		end
+
 		placedObjectsManager.Reset()
+
 		for _, space in ipairs(freeSpaces) do
 			if space.x ~= 0 or space.y ~= 0 then
 				newObject = Object.Instantiate(locationObject)
