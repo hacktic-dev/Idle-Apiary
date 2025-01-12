@@ -16,7 +16,7 @@
 
 .portrait .place-hat-ui {
     bottom: 10%;
-    height: 85%
+    height: 85%;
     width: 100%;
     max-width: 95%;
 }
@@ -47,7 +47,7 @@
 
 .portrait .hat-item {
     height: 33%;
-    width: 46.5%;
+    width: 45.5%;
 }
 
 
