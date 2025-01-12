@@ -461,7 +461,7 @@ end
             {name = "Forest Bee", chance = 19},  -- 5 * 5
             {name = "Aquatic Bee", chance = 15}, -- 2 * 5
             {name = "Giant Bee", chance = 15},   -- 2 * 5
-            {name = "Bronze Bee", change = 15},
+            {name = "Bronze Bee", chance = 15},
             {name = "Silver Bee", chance = 13}    -- 1 * 5
         },
         Silver = {
@@ -700,7 +700,7 @@ function Init()
     _confirmBuy.visible = false
 
 	purchaseHandler.beeCapacityPurchaseSuccessful:Connect(function() IncreaseBeeCapacity() audioManager.PlaySound("purchaseSound", 1) end)
-    purchaseHandler.apiarySizePurchaseSuccessful:Connect(function() IncreaseApiarySize() end)
+    purchaseHandler.apiarySizePurchaseSuccessful:Connect(function(product_id) IncreaseApiarySize(product_id) end)
 
     if Screen.width > Screen.height then
         honeyLabel:SetPrelocalizedText("Honey / Items")
@@ -783,16 +783,14 @@ function IncreaseBeeCapacity()
 	playerManager.IncrementStat("BeeCapacity", 1)
 end
 
-function IncreaseApiarySize()
-    if playerManager.GetPlayerBeeCapacity() == 2 then
+function IncreaseApiarySize(product_id)
+    if (playerManager.GetPlayerApiarySize() == 0 and product_id == "apiary_size_1") or (playerManager.GetPlayerApiarySize() == 1 and product_id == "apiary_size_2") then
+        audioManager.PlaySound("purchaseSound", 1)
+        InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel(), playerManager.GetPlayerApiarySize()+1)
+        playerManager.IncrementStat("ApiarySize", 1)
+        apiaryManager.ResetApiary()
         return
     end
-
-    print("incrementing apiary size")
-    audioManager.PlaySound("purchaseSound", 1)
-    InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel(), playerManager.GetPlayerApiarySize()+1)
-    playerManager.IncrementStat("ApiarySize", 1)
-    apiaryManager.ResetApiary()
 end
 
 function BuyItem(isGold, Id, Name, Cash, itemType)
