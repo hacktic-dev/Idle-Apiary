@@ -71,7 +71,7 @@ function ServerHandlePurchase(purchase, player: Player)
         return
       end
       print("Player ".. player.name .." apiary size is now increased")
-      apiarySizePurchaseSuccessful:FireClient(player)
+      apiarySizePurchaseSuccessful:FireClient(player, productId)
     end)
     return
   end
