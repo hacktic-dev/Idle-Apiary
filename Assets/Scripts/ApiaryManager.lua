@@ -227,6 +227,7 @@ function self:ClientAwake()
             end
 
             newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(apiarySize)
+            newApiary:GetComponent(ApiaryPrefabOwner).SetOwnerName(owner)
 
             if isGold then
                 newApiary:GetComponent(ApiaryPrefabOwner).GetRegularBox():SetActive(false)

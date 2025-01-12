@@ -54,7 +54,7 @@ PlacementObject = {
 spawnedObjects = {}
 
 function SpawnObject(placedObject, userId, apiaryPosition)
-    print("spawning object " .. placedObject.name)
+    print("spawning object " .. placedObject.name .. " with id " .. placedObject.id)
     print(tostring(self.transform.position))
     print(tostring(apiaryPosition))
     local spawnedObject = Object.Instantiate(PlacementObject[placedObject.name], apiaryPosition + Vector3.new(placedObject.x*2, 0, placedObject.y*2), Quaternion.Euler(0, placedObject.rotation, 0))
@@ -66,8 +66,8 @@ end
 
 
 function RemoveObject(id)
-    if spawnedObjects[id] then
-        Object.Destroy(spawnedObjects[id])
-        spawnedObjects[id] = nil
-    end
+    print("removing object " .. id)
+    Object.Destroy(spawnedObjects[id])
+    spawnedObjects[id] = nil
+
 end

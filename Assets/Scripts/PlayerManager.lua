@@ -486,7 +486,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.3.0")
+            setPlayerVersionString:FireClient(player, "1.3.1")
             --festiveBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
@@ -560,7 +560,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             flowerManager.RemoveAllPlayerFlowers(player)
-						placedObjectsManager.RemoveAllPlayerPlacedObjects(player)
+			placedObjectsManager.RemoveAllPlayerPlacedObjects(player)
             playerJoins[player] = nil
             --festiveBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)

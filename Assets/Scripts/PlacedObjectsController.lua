@@ -152,7 +152,7 @@ function InitServer()
 			end
 		end
 
-		receiveFreeSpaces:FireClient(player, freeSpaces)
+		receiveFreeSpaces:FireClient(player, player, freeSpaces)
 	end)
 
 	requestOccupiedSpaces:Connect(function(player)
@@ -192,9 +192,7 @@ function RemoveAllPlayerPlacedObjects(player) -- server
     print("removing all objects for player " .. player.name)
     if placedObjects[player] then
         for _ , object in ipairs(placedObjects[player]) do
-            local id = object.id
-
-            self:GetComponent(ObjectSpawnController):RemoveObject(id)
+            self:GetComponent(ObjectSpawnController).RemoveObject(object.id)
         end
 
         placedObjects[player] = nil
