@@ -18,14 +18,14 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/FestiveBeeManager")]
-    [LuaRegisterType(0xa8da61dd7a2d4e60, typeof(LuaBehaviour))]
-    public class FestiveBeeManager : LuaBehaviourThunk
+    [AddComponentMenu("Lua/RomanticBeeManager")]
+    [LuaRegisterType(0x409ee1dd9e2bee91, typeof(LuaBehaviour))]
+    public class RomanticBeeManager : LuaBehaviourThunk
     {
         private const string s_scriptGUID = "785f28adaf01c93458e226d856b1a49a";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public UnityEngine.GameObject m_FestiveBee = default;
+        [SerializeField] public UnityEngine.GameObject m_RomanticBee = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -34,7 +34,7 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
-                CreateSerializedProperty(_script.GetPropertyAt(0), m_FestiveBee),
+                CreateSerializedProperty(_script.GetPropertyAt(0), m_RomanticBee),
             };
         }
     }

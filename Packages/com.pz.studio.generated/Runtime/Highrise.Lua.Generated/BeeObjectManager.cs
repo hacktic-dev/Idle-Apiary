@@ -58,6 +58,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_TechnoBee = default;
         [SerializeField] public UnityEngine.GameObject m_PsychedelicBee = default;
         [SerializeField] public UnityEngine.GameObject m_FestiveBee = default;
+        [SerializeField] public UnityEngine.GameObject m_RomanticBee = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -99,6 +100,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(30), m_TechnoBee),
                 CreateSerializedProperty(_script.GetPropertyAt(31), m_PsychedelicBee),
                 CreateSerializedProperty(_script.GetPropertyAt(32), m_FestiveBee),
+                CreateSerializedProperty(_script.GetPropertyAt(33), m_RomanticBee),
             };
         }
     }

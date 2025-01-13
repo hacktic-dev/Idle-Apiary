@@ -74,6 +74,8 @@ local PsychedelicBee : GameObject = nil
 -- Event bees
 --!SerializeField
 local FestiveBee : GameObject = nil
+--!SerializeField
+local RomanticBee : GameObject = nil
 
 -- Server-side table to track which bees belong to which player
 local playerBees = {}
@@ -243,6 +245,8 @@ function self:ClientAwake()
             Bee = TechnoBee
         elseif species == "Psychedelic Bee" then
             Bee = PsychedelicBee
+        elseif species == "Romantic Bee" then
+            Bee = RomanticBee
         end
         
 

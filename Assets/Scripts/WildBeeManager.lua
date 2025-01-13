@@ -148,6 +148,7 @@ beeData = {
     ["Rainbow Bee"] = { honeyRate = 80, sellPrice = 6000, growTime = 200, rarity = "Mythical", set = "Platinum Set" },
 
     ["Festive Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee" },
+    ["Romantic Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee" },
 
     -- 1.3 Update
     ["Meadow Bee"] = { honeyRate = 10, sellPrice = 70, growTime = 40, rarity = "Common", set = "Bronze Set" },

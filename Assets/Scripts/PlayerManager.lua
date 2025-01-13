@@ -12,6 +12,7 @@ local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
 local placedObjectsManager = require("PlacedObjectsController")
+local romanticBeeManager = require("RomanticBeeManager")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
@@ -486,8 +487,8 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.3.4")
-            --festiveBeeManager.OnPlayerJoined(player)
+            setPlayerVersionString:FireClient(player, "1.4.0")
+            romanticBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
                 RecalculatePlayerEarnRate(player)
@@ -495,7 +496,7 @@ function TrackPlayers(game, characterCallback)
 
             Storage.GetPlayerValue(player, player.name, function(data, errorCode)
                 if data == nil or data.joins == nil then
-                    data = {name = player.name, version = 1, joins = 1, festiveGoldGiven = true} -- remember to increment version for each breaking change
+                    data = {name = player.name, version = 1, joins = 1} -- remember to increment version for each breaking change
                 else
                     data.joins = data.joins + 1
                 end
@@ -562,42 +563,12 @@ function TrackPlayers(game, characterCallback)
             flowerManager.RemoveAllPlayerFlowers(player)
 			placedObjectsManager.RemoveAllPlayerPlacedObjects(player)
             playerJoins[player] = nil
-            --festiveBeeManager.OnPlayerLeft(player)
+            romanticBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
             players[player] = nil
         end
     end)
-end
-
-function GivePlayerMissingGold(player)
-    Timer.new(3, function()
-        InitializeBeeStorage(player, function(storedBees)
-            score = festiveBeeManager.GetPlayerScore(player)
-
-            for index, bee in ipairs(storedBees) do
-                if bee.species == "Festive Bee" then
-                    score = score - 1
-                end
-            end
-
-            print("Attempted to transfer ".. score .. " missing gold to player " .. player.name .. ".")
-            Wallet.TransferGoldToPlayer(player, score, function(response, err)
-                if err ~= WalletError.None then
-                        print("Something went wrong while transferring gold: " .. WalletError[err])
-
-                        Storage.GetPlayerValue(player, player.name, function(data, errorCode)
-                            data.festiveGoldGiven = false
-                            Storage.SetPlayerValue(player, player.name, data)
-                        end)
-                        
-                        return
-                    end
-
-                print("Sent missing gold, Gold remaining: " .. response.gold)
-            end)
-        end)
-    end, false)
 end
 
 function SaveProgress(player, wasDc)
@@ -930,7 +901,7 @@ function self:ServerAwake()
                     -- Save the updated bee storage back to persistent storage
                     beeCountUpdated:FireClient(player, #playerBeeStorage[player])
 
-                    if bee.species == "Festive Bee" then
+                    if bee.species == "Festive Bee" or bee.species == "Romantic Bee" then
                       Wallet.TransferGoldToPlayer(player, 1, function(response, err)
 
                         if err ~= WalletError.None then
@@ -1013,7 +984,6 @@ function self:ServerAwake()
     for player, data in pairs(players) do
         if player ~= nil then
             print("saving for player " .. player.name .. ".")
-            print("test")
             SaveProgress(player, false)
         end
     end

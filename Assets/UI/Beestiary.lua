@@ -103,7 +103,7 @@ function Init()
 				count = #seenBees
 
 				for index, value in ipairs(seenBees) do
-					if value == "Festive Bee" then
+					if value == "Festive Bee" or value == "Romantic Bee" then
 						count = count - 1
 					end
 				end

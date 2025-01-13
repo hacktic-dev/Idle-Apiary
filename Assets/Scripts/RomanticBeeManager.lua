@@ -7,16 +7,16 @@ isBeeSpawned = false -- client
 spawnedBee = nil -- client
 
 beeCountToRemoveFromPool = 0 -- server
-festiveLeaderboard = nil -- server
+romanticLeaderboard = nil -- server
 
-notifyFestiveBeeCaught = Event.new("NotifyFestiveBeeCaught")
-requestFestiveLeaderboard = Event.new("RequestFestiveLeaderboard")
-receiveFestiveLeaderboard = Event.new("ReceiveFestiveLeaderboard")
+notifyRomanticBeeCaught = Event.new("NotifyRomanticBeeCaught")
+requestRomanticLeaderboard = Event.new("RequestRomanticLeaderboard")
+receiveRomanticLeaderboard = Event.new("ReceiveRomanticLeaderboard")
 requestPlayerScore = Event.new("RequestPlayerScore")
 receivePlayerScore = Event.new("ReceivePlayerScore")
 
 --!SerializeField
-local FestiveBee : GameObject = nil
+local RomanticBee : GameObject = nil
 
 local MIN_SPAWN_DISTANCE = 50 -- Minimum distance from player to spawn a bee
 local MIN_CAPTURE_DISTANCE = 4.5 -- Minimum distance from player to spawn a bee
@@ -39,7 +39,7 @@ end
 -- Function to save a player's score to storage
 local function SavePlayerScore(player)
     if player ~= nil and playerScores[player] ~= nil then
-        Storage.SetPlayerValue(player, "FestiveBeeScore", playerScores[player], function(errorCode)
+        Storage.SetPlayerValue(player, "RomanticBeeScore", playerScores[player], function(errorCode)
             if errorCode ~= 0 then
                 print("Error saving player score for " .. player.name)
             else
@@ -49,13 +49,13 @@ local function SavePlayerScore(player)
     end
 end
 
-function RequestFestiveLeaderboard()
-    requestFestiveLeaderboard:FireServer()
+function RequestRomanticLeaderboard()
+    requestRomanticLeaderboard:FireServer()
 end
 
 function self:ServerAwake()
-    requestFestiveLeaderboard:Connect(function(player)
-        receiveFestiveLeaderboard:FireClient(player, festiveLeaderboard)
+    requestRomanticLeaderboard:Connect(function(player)
+        receiveRomanticLeaderboard:FireClient(player, romanticLeaderboard)
     end
     )
 
@@ -64,15 +64,15 @@ function self:ServerAwake()
     end
     )
 
-    spawnRate = NumberValue.new("FestiveBeeSpawnRate", 0)
-    poolSize = IntValue.new("FestiveBeePool", 0)
+    spawnRate = NumberValue.new("RomanticBeeSpawnRate", 0)
+    poolSize = IntValue.new("RomanticBeePool", 0)
 
-    RetrieveFestiveBeePool()
-    UpdateFestiveLeaderboard()
+    RetrieveRomanticBeePool()
+    UpdateRomanticLeaderboard()
 
-    Timer.new(30, function() RetrieveFestiveBeePool() end, true)
+    Timer.new(30, function() RetrieveRomanticBeePool() end, true)
 
-    Timer.new(15, function() UpdateFestiveLeaderboard() end, true)
+    Timer.new(15, function() UpdateRomanticLeaderboard() end, true)
 
     Timer.new(SAVE_INTERVAL, function()
         for player, _ in pairs(playerScores) do
@@ -80,7 +80,7 @@ function self:ServerAwake()
         end
     end, true)
 
-    notifyFestiveBeeCaught:Connect(function(player)
+    notifyRomanticBeeCaught:Connect(function(player)
         beeCountToRemoveFromPool = beeCountToRemoveFromPool + 1
         poolSize.value = poolSize.value - 1
 
@@ -95,7 +95,7 @@ function self:ServerAwake()
 end
 
 function OnPlayerJoined(player)
-        Storage.GetPlayerValue(player, "FestiveBeeScore", function(score, errorCode)
+        Storage.GetPlayerValue(player, "RomanticBeeScore", function(score, errorCode)
             if errorCode ~= 0 then
                 print("Error loading player score for " .. player.name)
                 score = 0 -- Default score
@@ -110,16 +110,16 @@ function OnPlayerLeft(player)
 end
 
 function self:ClientAwake()
-    Timer.new(1, function() TrySpawnFestiveBee() end, true)
-    spawnRate = NumberValue.new("FestiveBeeSpawnRate", 0)
-    poolSize = IntValue.new("FestiveBeePool", 0)
+    Timer.new(1, function() TrySpawnRomanticBee() end, true)
+    spawnRate = NumberValue.new("RomanticBeeSpawnRate", 0)
+    poolSize = IntValue.new("RomanticBeePool", 0)
 end
 
 -- Server
-function RetrieveFestiveBeePool()
-    Storage.GetValue("FestiveBeePool", function(pool, errorCode)
+function RetrieveRomanticBeePool()
+    Storage.GetValue("RomanticBeePool", function(pool, errorCode)
     if errorCode ~= 0 then
-        print("Error: couldn't get festive bee pool")
+        print("Error: couldn't get romantic bee pool")
         return
     end
 
@@ -136,16 +136,16 @@ function RetrieveFestiveBeePool()
     poolSize.value = pool.size
     spawnRate.value = pool.rate
 
-    Storage.SetValue("FestiveBeePool", pool, function(errorCode) if not errorCode == 0 then print("Error: Festive bee pool update failed!") end end)
+    Storage.SetValue("RomanticBeePool", pool, function(errorCode) if not errorCode == 0 then print("Error: Romantic bee pool update failed!") end end)
     end)
 
 end
 
-function UpdateFestiveLeaderboard()
+function UpdateRomanticLeaderboard()
     -- Get the central leaderboard from storage
-    Storage.GetValue("FestiveLeaderboard", function(leaderboard, errorCode)
+    Storage.GetValue("RomanticLeaderboard", function(leaderboard, errorCode)
         if errorCode ~= 0 then
-            print("Error: couldn't get festive leaderboard")
+            print("Error: couldn't get romantic leaderboard")
             return
         end
 
@@ -182,10 +182,10 @@ function UpdateFestiveLeaderboard()
             table.remove(leaderboard)
         end
 
-        festiveLeaderboard = leaderboard
+        romanticLeaderboard = leaderboard
 
         -- Save updated leaderboard back to storage
-        Storage.SetValue("FestiveLeaderboard", leaderboard, function(errorCode)
+        Storage.SetValue("RomanticLeaderboard", leaderboard, function(errorCode)
             if errorCode ~= 0 then
                 print("Error saving leaderboard")
             end
@@ -195,7 +195,7 @@ end
 
 
 -- Client
-function TrySpawnFestiveBee()
+function TrySpawnRomanticBee()
     if math.random() > spawnRate.value then
         return
     end
@@ -217,11 +217,11 @@ function TrySpawnFestiveBee()
         if distance > MIN_SPAWN_DISTANCE and distance < MAX_SPAWN_DISTANCE then break end
     end
 
-    spawnedBee = Object.Instantiate(FestiveBee)
+    spawnedBee = Object.Instantiate(RomanticBee)
     spawnedBee.transform.position = spawnPosition
     spawnedBee:GetComponent(BeeWandererScript).SetSpawnPosition(spawnPosition)
 
-    table.insert(wildBeeManager.wildBees, { bee = spawnedBee, speciesName = "Festive Bee", player = client.localPlayer })
+    table.insert(wildBeeManager.wildBees, { bee = spawnedBee, speciesName = "Romantic Bee", player = client.localPlayer })
 
     isBeeSpawned = true
 end
@@ -259,14 +259,14 @@ function captureBee(bee)
     playerManager.IncrementStat("Nets", -1)
 
     -- Give the captured bee species to the player
-    playerManager.GiveBee("Festive Bee", true)
+    playerManager.GiveBee("Romantic Bee", true)
 
     -- Remove the bee from the wild bees list and despawn it
     despawnWildBee(bee)
 
     print("Bee captured and moved to apiary for player: " .. client.localPlayer.name)
-    wildBeeManager.notifyCaptureSucceeded:Fire("Festive Bee")
-    notifyFestiveBeeCaught:FireServer()
+    wildBeeManager.notifyCaptureSucceeded:Fire("Romantic Bee")
+    notifyRomanticBeeCaught:FireServer()
 end
 
 function self:Update()
