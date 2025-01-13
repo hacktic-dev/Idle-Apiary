@@ -124,18 +124,18 @@ local hatData =
 }
 
 local furnitureData = {
-    {name = "Chair", id = "chair", cost = 6000, goldCost = 200, selectFactorRegular = 10, selectFactorGold = 10},
-    {name = "Table", id = "table", cost = 6000, goldCost = 200, selectFactorRegular = 10, selectFactorGold = 10},
-    {name = "Chess Table", id = "table_chess", cost = 8000, goldCost = 230, selectFactorRegular = 10, selectFactorGold = 10},
-    {name = "Book Table", id = "table_book", cost = 8000, goldCost = 230, selectFactorRegular = 10, selectFactorGold = 10},
+    {name = "Chair", id = "chair", cost = 6000, goldCost = 200, selectFactorRegular = 10, selectFactorGold = 3},
+    {name = "Table", id = "table", cost = 6000, goldCost = 200, selectFactorRegular = 10, selectFactorGold = 3},
+    {name = "Chess Table", id = "table_chess", cost = 8000, goldCost = 230, selectFactorRegular = 10, selectFactorGold = 3},
+    {name = "Book Table", id = "table_book", cost = 8000, goldCost = 230, selectFactorRegular = 10, selectFactorGold = 3},
     {name = "White Flower Planter", id = "white_flower_planter", cost = 7000, goldCost = 200, selectFactorRegular = 8, selectFactorGold = 12},
-    {name = "Apple Box", id = "apple_box", cost = 5000, goldCost = 150, selectFactorRegular = 10, selectFactorGold = 10},
+    {name = "Apple Box", id = "apple_box", cost = 5000, goldCost = 150, selectFactorRegular = 10, selectFactorGold = 5},
     {name = "Red Mushroom", id = "mushroom_red", cost = 4000, goldCost = 125, selectFactorRegular = 10, selectFactorGold = 10},
     {name = "Brown Mushroom", id = "mushroom_brown", cost = 4000, goldCost = 125, selectFactorRegular = 10, selectFactorGold = 10},
-    {name = "Teddy Bear", id = "teddy", cost = 10000, goldCost = 250, selectFactorRegular = 5, selectFactorGold = 15},
-    {name = "Toy Goose", id = "goose", cost = 10000, goldCost = 250, selectFactorRegular = 5, selectFactorGold = 15},
+    {name = "Teddy Bear", id = "teddy", cost = 10000, goldCost = 250, selectFactorRegular = 5, selectFactorGold = 18},
+    {name = "Toy Goose", id = "goose", cost = 10000, goldCost = 250, selectFactorRegular = 5, selectFactorGold = 18},
     {name = "Pillow", id = "pillow", cost = 4000, goldCost = 125, selectFactorRegular = 10, selectFactorGold = 10},
-    {name = "Fountain", id = "fountain", cost = 10000, goldCost = 300, selectFactorRegular = 8, selectFactorGold = 12},
+    {name = "Fountain", id = "fountain", cost = 10000, goldCost = 300, selectFactorRegular = 6, selectFactorGold = 15},
 }
 
 function IsHat(id)
