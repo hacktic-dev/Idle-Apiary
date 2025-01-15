@@ -37,6 +37,10 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_toyGoose = default;
         [SerializeField] public UnityEngine.GameObject m_pillow = default;
         [SerializeField] public UnityEngine.GameObject m_fountain = default;
+        [SerializeField] public UnityEngine.GameObject m_flower_purple = default;
+        [SerializeField] public UnityEngine.GameObject m_flower_red = default;
+        [SerializeField] public UnityEngine.GameObject m_flower_white = default;
+        [SerializeField] public UnityEngine.GameObject m_flower_yellow = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -57,6 +61,10 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(9), m_toyGoose),
                 CreateSerializedProperty(_script.GetPropertyAt(10), m_pillow),
                 CreateSerializedProperty(_script.GetPropertyAt(11), m_fountain),
+                CreateSerializedProperty(_script.GetPropertyAt(12), m_flower_purple),
+                CreateSerializedProperty(_script.GetPropertyAt(13), m_flower_red),
+                CreateSerializedProperty(_script.GetPropertyAt(14), m_flower_white),
+                CreateSerializedProperty(_script.GetPropertyAt(15), m_flower_yellow),
             };
         }
     }

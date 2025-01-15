@@ -22,6 +22,10 @@ PlacementObject = {
     ["Toy Goose"] = placementObjects[10],
     ["Pillow"] = placementObjects[11],
     ["Fountain"] = placementObjects[12],
+    ["Purple Flower"] = placementObjects[13],
+    ["Red Flower"] = placementObjects[14],
+    ["White Flower"] = placementObjects[15],
+    ["Yellow Flower"] = placementObjects[16],
 }
 
 BeeImage = {
@@ -98,6 +102,10 @@ FurnitureImage = {
     ["Toy Goose"] = placementTextures[10],
     ["Pillow"] = placementTextures[11],
     ["Fountain"] = placementTextures[12],
+    ["Purple Flower"] = placementTextures[13],
+    ["Red Flower"] = placementTextures[14],
+    ["White Flower"] = placementTextures[15],
+    ["Yellow Flower"] = placementTextures[16],
 }
 
 local hatData = 
@@ -137,6 +145,10 @@ local furnitureData = {
     {name = "Toy Goose", id = "goose", cost = 10000, goldCost = 250, selectFactorRegular = 5, selectFactorGold = 18},
     {name = "Pillow", id = "pillow", cost = 4000, goldCost = 125, selectFactorRegular = 10, selectFactorGold = 10},
     {name = "Fountain", id = "fountain", cost = 10000, goldCost = 300, selectFactorRegular = 6, selectFactorGold = 15},
+    {name = "Red Flower", id = "Red", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "White Flower", id = "White", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Yellow Flower", id = "Yellow", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Purple Flower", id = "Purple", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
 }
 
 function IsHat(id)
@@ -155,6 +167,10 @@ function IsFurniture(id)
         end
     end
     return false
+end
+
+function IsFlower(id)
+    return id == "Red" or id == "White" or id == "Yellow" or id == "Purple"
 end
 
 function GetPlacementObjectByName(name)

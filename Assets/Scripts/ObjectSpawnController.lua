@@ -36,6 +36,19 @@ local pillow : GameObject = nil
 --!SerializeField
 local fountain : GameObject = nil
 
+--!SerializeField
+local flower_purple : GameObject = nil
+
+--!SerializeField
+local flower_red : GameObject = nil
+
+--!SerializeField
+local flower_white : GameObject = nil
+
+--!SerializeField
+local flower_yellow : GameObject = nil
+
+
 PlacementObject = {
     ["Chair"] = chair,
     ["Table"] = table,
@@ -49,6 +62,10 @@ PlacementObject = {
     ["Toy Goose"] = toyGoose,
     ["Pillow"] = pillow,
     ["Fountain"] = fountain,
+    ["Purple Flower"] = flower_purple,
+    ["Red Flower"] = flower_red,
+    ["White Flower"] = flower_white,
+    ["Yellow Flower"] = flower_yellow
 }
 
 spawnedObjects = {}
@@ -59,8 +76,13 @@ function SpawnObject(placedObject, userId, apiaryPosition)
     print(tostring(apiaryPosition))
     local spawnedObject = Object.Instantiate(PlacementObject[placedObject.name], apiaryPosition + Vector3.new(placedObject.x*2, 0, placedObject.y*2), Quaternion.Euler(0, placedObject.rotation, 0))
 
-    spawnedObject:GetComponent(Furniture).SetOwner(userId)
-    spawnedObject:GetComponent(Furniture).SetPlacedId(placedObject.id)
+    if spawnedObject:GetComponent(Furniture) ~= nil then
+        spawnedObject:GetComponent(Furniture).SetOwner(userId)
+        spawnedObject:GetComponent(Furniture).SetPlacedId(placedObject.id)
+    elseif spawnedObject:GetComponent(Flower) ~= nil then
+        spawnedObject:GetComponent(Flower).SetOwner(userId)
+        spawnedObject:GetComponent(Flower).SetPlacedId(placedObject.id)
+    end
     spawnedObjects[placedObject.id] = spawnedObject
 end
 

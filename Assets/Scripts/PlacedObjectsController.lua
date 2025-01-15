@@ -86,7 +86,7 @@ function InitServer()
 
 				print(item.id)
 
-				if utils.IsFurniture(item.id) then
+				if utils.IsFurniture(item.id) or utils.IsFlower(item.id) then
 					receiveOwnedFurniture:FireClient(player, item.id, item.amount)
 					furnitureOwned = true
 				end

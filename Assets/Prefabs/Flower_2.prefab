@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2475266528121093269}
   - component: {fileID: 3344443099956351905}
   - component: {fileID: 6484590455366281264}
+  - component: {fileID: 5427536170886232327}
   m_Layer: 0
   m_Name: Flower_2
   m_TagString: Untagged
@@ -74,6 +75,19 @@ MonoBehaviour:
   _distance: 1
   _moveTo: 1
   _moveTarget: {fileID: 0}
+--- !u!114 &5427536170886232327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959491017258182191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 869450252, guid: 5e99434f214126023bd8db55a8296c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
 --- !u!1001 &7450501607214544744
 PrefabInstance:
   m_ObjectHideFlags: 0
