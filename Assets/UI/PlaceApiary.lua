@@ -15,8 +15,6 @@ local _CaptureButton : UIButton = nil
 --!Bind
 local _PickFlowerButton : UIButton = nil
 --!Bind
-local _PlaceFlowerButton : UIButton = nil
---!Bind
 local _PlaceFurnitureButton : UIButton = nil
 --!Bind
 local _RemoveFurnitureButton : UIButton = nil
@@ -116,11 +114,6 @@ _PickFlowerButton:RegisterPressCallback(function()
 end, true, true, true
 )
 
-_PlaceFlowerButton:RegisterPressCallback(function()
-    UIManager.OpenPlaceFlowerMenu()
-end, true, true, true
-)
-
 _PlaceFurnitureButton:RegisterPressCallback(function()
     UIManager.OpenPlaceFurnitureMenu()
 end, true, true, true
@@ -161,7 +154,6 @@ end
 
 function self:ClientAwake()
     toggleUIElement(_PickFlowerButton, false)
-    toggleUIElement(_PlaceFlowerButton, false)
     toggleUIElement(_PlaceFurnitureButton, false)
 
     Timer.new(0.5, function()
@@ -191,7 +183,7 @@ function self:ClientAwake()
     end)
 
     flowerManager.apiaryPlayerStatusChanged:Connect(function(inApiary, hasShears)
-        toggleUIElement(_PlaceFlowerButton, inApiary and hasShears)
+
         toggleUIElement(_PlaceFurnitureButton, inApiary)
         toggleUIElement(_RemoveFurnitureButton, inApiary)
     end)

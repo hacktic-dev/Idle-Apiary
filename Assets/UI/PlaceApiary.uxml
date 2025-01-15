@@ -36,12 +36,6 @@
                     <Label text="Pick Flower"/>
                 </hr:UIButton>
             </VisualElement>
-
-            <VisualElement class="bee-capture__container">
-                <hr:UIButton class="flower-button" name="_PlaceFlowerButton">
-                    <Label text="Place Flower"/>
-                </hr:UIButton>
-            </VisualElement>
         </VisualElement>
     </hr:UILuaView>
 </UXML>
