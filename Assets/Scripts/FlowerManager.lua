@@ -50,8 +50,6 @@ local flowerObjects = {
     ["Red"] = Flowers[4],
 }
 
-canPlaceFLower = true
-
 local flower : GameObject = nil
 local id : string = nil
 local desc : string = nil
@@ -77,7 +75,7 @@ function TrySpawnFlower()
         end
     end
 
-    print("Spawning flower at spot " .. selection)
+    --print("Spawning flower at spot " .. selection)
 
     selection = math.random(1, #Flowers)
     local flower = Object.Instantiate(Flowers[selection])

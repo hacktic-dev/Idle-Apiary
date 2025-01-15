@@ -55,10 +55,8 @@
 {
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
   margin-left:2.5%;
   margin-right:2.5%;
-  height: 100%;
 }
 
 .button .button__content

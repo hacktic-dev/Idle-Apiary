@@ -11,6 +11,7 @@ receiveOccupiedSpaces = Event.new("receiveOccupiedSpaces")
 
 queryOwnedFurniture = Event.new("queryOwnedFurniture")
 receiveOwnedFurniture = Event.new("receiveOwnedFurniture")
+setFlowerStatus = Event.new("setFlowerStatus")
 noFurnitureOwned = Event.new("noFurnitureOwned")
 setConfirmButtonState = Event.new("setConfirmButtonState")
 
@@ -81,6 +82,10 @@ function InitServer()
 			print("Furniture recieved")
 
 			furnitureOwned = false
+
+			print("placed flower count: " .. GetPlacedFlowerCount(player) .. " max flowers: " ..  playerManager.GetPlayerFlowerCapacity(player))
+			local canPlaceFlower = GetPlacedFlowerCount(player) <  playerManager.GetPlayerFlowerCapacity(player)
+			setFlowerStatus:FireClient(player, canPlaceFlower)
 
 			for index, item in items do
 
@@ -221,4 +226,17 @@ function SavePlacedObjects(player, id) -- server
         print("Saving placed objects for " .. player.name)
         Storage.SetValue(id .. "/" .. "PlacedObjects", placedObjects[player], function(errorCode) if not errorCode == 0 then print("Placed objects storage failed!") end end)
     end
+end
+
+function GetPlacedFlowerCount(player)
+	local count = 0
+	if placedObjects[player] then
+		for _, object in ipairs(placedObjects[player]) do
+			print("Checking object " .. object.id)
+			if utils.IsFlower(utils.GetPlacementObjectIdByName(object.name)) then
+				count = count + 1
+			end
+		end
+	end
+	return count + #flowerManager.GetPlacedFlowers(player)
 end

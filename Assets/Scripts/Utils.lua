@@ -106,6 +106,10 @@ FurnitureImage = {
     ["Red Flower"] = placementTextures[14],
     ["White Flower"] = placementTextures[15],
     ["Yellow Flower"] = placementTextures[16],
+    ["Purple Flower Greyed"] = placementTextures[17],
+    ["Red Flower Greyed"] = placementTextures[18],
+    ["White Flower Greyed"] = placementTextures[19],
+    ["Yellow Flower Greyed"] = placementTextures[20],
 }
 
 local hatData = 
@@ -197,6 +201,15 @@ function GetPlacementObjectNameByIndex(index)
 
         i = i + 1
     end
+end
+
+function GetPlacementObjectIdByName(name)
+    for _, furniture in ipairs(furnitureData) do
+        if furniture.name == name then
+            return furniture.id
+        end
+    end
+    return nil
 end
 
 

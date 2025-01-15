@@ -34671,6 +34671,10 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 56371960073b905449994dc6e35221c0, type: 3}
   - {fileID: 2800000, guid: efb0bb6a6c236bc46a520ab6ef738231, type: 3}
   - {fileID: 2800000, guid: 56ded2896511f814e8185722907f32f5, type: 3}
+  - {fileID: 2800000, guid: 4c99215ad73619e42b4688ef1fcb44a6, type: 3}
+  - {fileID: 2800000, guid: 67621141ae392a44594af1fe3bafe028, type: 3}
+  - {fileID: 2800000, guid: 1ae2082145a367c40adc0e7e1de82733, type: 3}
+  - {fileID: 2800000, guid: f96f5469719919f4f893cdc67d8255a6, type: 3}
   m_placementObjects:
   - {fileID: 6150770344185259146, guid: 9681ed390627bb24a973eadda3605985, type: 3}
   - {fileID: 2471304016359239742, guid: 0c57a6352ab91554dbdc3e24a831254b, type: 3}
@@ -40793,7 +40797,7 @@ MonoBehaviour:
   _networkId: 0
   _script: {fileID: -974389366465450183, guid: 0f79ffe66cddc3a4ba6c5c6ff339edff, type: 3}
   _properties: []
-  _uiOutput: 2
+  _uiOutput: 3
   _uiOutputSettings:
     rid: -2
   references:

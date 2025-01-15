@@ -12,6 +12,9 @@ local placedObjectsManager = require("PlacedObjectsController")
 local Utils = require("Utils")
 local audioManager = require("AudioManager")
 local ApiaryManager = require("ApiaryManager")
+local flowerManager = require("FlowerManager")
+
+local canPlaceFlower = true
 
 local existingFurnitureCards = {}
 
@@ -24,6 +27,8 @@ function Init()
     end, true, true, true)
 
     placedObjectsManager.receiveOwnedFurniture:Connect(function(name, amount) AddFurnitureCard(name, amount) end)
+
+    placedObjectsManager.setFlowerStatus:Connect(function(_canPlaceFlower) print("setting can place flower to " .. tostring(canPlaceFlower)) canPlaceFlower = _canPlaceFlower end)
 
     placedObjectsManager.noFurnitureOwned:Connect(function() NoFurniture() end)
 
@@ -48,19 +53,37 @@ function AddFurnitureCard(id, amount)
     local image = UIImage.new()
     image:AddToClassList("furniture-image")
     image:AddToClassList("image")
-    image.image = Utils.FurnitureImage[Utils.LookupFurnitureName(id)]
+    if Utils.IsFlower(id) and not canPlaceFlower then
+        image.image = Utils.FurnitureImage[Utils.LookupFurnitureName(id) .. " Greyed"]
+    else
+        image.image = Utils.FurnitureImage[Utils.LookupFurnitureName(id)]
+    end
     furnitureCard:Add(image)
+
+    if Utils.IsFlower(id) then
+        local descriptionLabel = UILabel.new()
+        descriptionLabel:AddToClassList("description")
+        if canPlaceFlower then
+            descriptionLabel:SetPrelocalizedText(flowerManager.LookupFlowerDescription(id))
+        else
+            descriptionLabel:SetPrelocalizedText("You have placed the maximum amount of flowers.")
+        end
+
+        furnitureCard:Add(descriptionLabel)
+    end
 
     local amountLabel = UILabel.new()
     amountLabel:AddToClassList("amount")
     amountLabel:SetPrelocalizedText("x" .. amount)
     furnitureCard:Add(amountLabel)
 
-    furnitureCard:RegisterPressCallback(function()
-        ApiaryManager.SetPlacementMode(Utils.LookupFurnitureName(id))
-        UIManager.OpenPlaceObjectsUi()
+    if not Utils.IsFlower(id) or canPlaceFlower then
+        furnitureCard:RegisterPressCallback(function()
+            ApiaryManager.SetPlacementMode(Utils.LookupFurnitureName(id))
+            UIManager.OpenPlaceObjectsUi()  
 
-    end, true, true, true)
+        end, true, true, true)
+    end
 
     Furniture_Root:Add(furnitureCard)
     existingFurnitureCards[id] = furnitureCard
