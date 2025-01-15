@@ -54,6 +54,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_id: White
+  m_isLegacy: 1
   references:
     version: 2
     RefIds:

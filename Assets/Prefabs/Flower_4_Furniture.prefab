@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2134613649752727336}
   - component: {fileID: 9146794891570792733}
   m_Layer: 0
-  m_Name: Flower_4
+  m_Name: Flower_4_Furniture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,6 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_id: Red
-  m_isLegacy: 1
   references:
     version: 2
     RefIds:

@@ -26,6 +26,7 @@ namespace Highrise.Lua.Generated
         public override string ScriptGUID => s_scriptGUID;
 
         [SerializeField] public System.String m_id = "";
+        [SerializeField] public System.Boolean m_isLegacy = false;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -35,6 +36,7 @@ namespace Highrise.Lua.Generated
             return new SerializedPropertyValue[]
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), m_id),
+                CreateSerializedProperty(_script.GetPropertyAt(1), m_isLegacy),
             };
         }
     }

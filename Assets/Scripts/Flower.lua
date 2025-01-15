@@ -3,6 +3,9 @@
 --!SerializeField
 local id : string = ""
 
+--!SerializeField
+local isLegacy : boolean = false
+
 local placedId = nil
 
 owner = nil
@@ -34,7 +37,7 @@ function self:Update()
 
     if (not inRange) and (owner == nil or owner == client.localPlayer.user.id) and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) < 3 then
         inRange = true
-        flowerManager.flowerAreaEntered(self:GetComponent(Transform).gameObject, id, flowerManager.LookupFlowerDescription(id), owner, placedId)
+        flowerManager.flowerAreaEntered(self:GetComponent(Transform).gameObject, id, flowerManager.LookupFlowerDescription(id), owner, placedId, isLegacy)
     elseif inRange and  Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) > 3 then
         inRange = false
         flowerManager.flowerAreaExited()

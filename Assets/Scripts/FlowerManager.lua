@@ -23,7 +23,7 @@ local apiaryManager = require("ApiaryManager")
 giveFlower = Event.new("giveFlowerEvent")
 
 function self:ClientAwake()
-    Timer.new(35, function() TrySpawnFlower() end, true)
+    Timer.new(.1, function() TrySpawnFlower() end, true)
 end
 
 local MIN_SPAWN_DISTANCE = 45 
@@ -84,7 +84,7 @@ function TrySpawnFlower()
     flower.transform.position = position
 end
 
-function flowerAreaEntered(_flower, _id, _desc, _owner, _placedId)
+function flowerAreaEntered(_flower, _id, _desc, _owner, _placedId, legacy)
 
     if playerManager.GetPlayerOwnsShears() == false then
         return
@@ -95,7 +95,7 @@ function flowerAreaEntered(_flower, _id, _desc, _owner, _placedId)
     desc = _desc
     nearOwner = _owner
     nearPlacedId = _placedId
-    flowerAreaEnteredEvent:Fire()
+    flowerAreaEnteredEvent:Fire(legacy)
 end
 
 function getFlower()

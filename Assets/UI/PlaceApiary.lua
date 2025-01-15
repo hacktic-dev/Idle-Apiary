@@ -30,7 +30,7 @@ local captureUIVisible = true
 
 local species = ""
 local nearBee = nil
-
+local inApiary = false
 
 -- Function to place an apiary at the player's position
 local function placeApiary()
@@ -174,16 +174,16 @@ function self:ClientAwake()
         end
     end)
 
-    flowerManager.flowerAreaEnteredEvent:Connect(function()
-        toggleUIElement(_PickFlowerButton, true)
+    flowerManager.flowerAreaEnteredEvent:Connect(function(legacy)
+        toggleUIElement(_PickFlowerButton, legacy or not inApiary) 
     end)
 
     flowerManager.flowerAreaExitedEvent:Connect(function()
         toggleUIElement(_PickFlowerButton, false)
     end)
 
-    flowerManager.apiaryPlayerStatusChanged:Connect(function(inApiary, hasShears)
-
+    flowerManager.apiaryPlayerStatusChanged:Connect(function(_inApiary, hasShears)
+        inApiary = _inApiary
         toggleUIElement(_PlaceFurnitureButton, inApiary)
         toggleUIElement(_RemoveFurnitureButton, inApiary)
     end)
