@@ -26,6 +26,7 @@ PlacementObject = {
     ["Red Flower"] = placementObjects[14],
     ["White Flower"] = placementObjects[15],
     ["Yellow Flower"] = placementObjects[16],
+    ["Bee Box"] = placementObjects[17],
 }
 
 BeeImage = {
@@ -110,6 +111,7 @@ FurnitureImage = {
     ["Red Flower Greyed"] = placementTextures[18],
     ["White Flower Greyed"] = placementTextures[19],
     ["Yellow Flower Greyed"] = placementTextures[20],
+    ["Bee Box"] = placementTextures[21],
 }
 
 local hatData = 
@@ -153,6 +155,7 @@ local furnitureData = {
     {name = "White Flower", id = "White", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
     {name = "Yellow Flower", id = "Yellow", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
     {name = "Purple Flower", id = "Purple", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Bee Box", id = "bee_box", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
 }
 
 function IsHat(id)

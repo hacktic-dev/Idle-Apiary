@@ -230,6 +230,11 @@ function SpawnPlayerPlacedObjectsOnAllClients(player, _apiaryPosition)
             storedObjects = {}
             return
         end
+
+		if playerManager.GetPlayerLastJoinedVersion(player) < 2 then
+			object = {name = "Bee Box", x = 0, y = 0, id = playerManager.GenerateUniqueID(), rotation = 0}
+			table.insert(storedObjects, object)
+		end
         
         placedObjects[player] = storedObjects
         for _, object in ipairs(storedObjects) do

@@ -36,6 +36,8 @@ local playerHasHoneyDoubler = {}
 
 local playerTimers = {}
 
+local playerLastJoinedVersions = {}
+
 -- Track how many times a player has joined (server)
 local playerJoins = {}
 
@@ -351,7 +353,7 @@ function RecalculatePlayerEarnRate(player, isDc)
             for i, flower in ipairs(newFlowers) do
                 table.insert(flowers, flower)
             end
-            
+
             -- Calculate flowers amount
             for index , flower in ipairs(flowers) do
                 if flower == "Red" then
@@ -463,8 +465,8 @@ function ReinitPlayer(player)
     end
 end
 
-function GetLastJoinedVersion()
-    return lastJoinedVersion.value
+function GetPlayerLastJoinedVersion(player)
+    return playerLastJoinedVersions[player].value
 end
 
 -- Function to track players joining and leaving the game
@@ -509,31 +511,32 @@ function TrackPlayers(game, characterCallback)
 
             Storage.GetPlayerValue(player, player.name, function(data, errorCode)
                 if data == nil or data.joins == nil then
-                    data = {name = player.name, version = 1, joins = 1} -- remember to increment version for each breaking change
+                    data = {name = player.name, version = 2, joins = 1} -- remember to increment version for each breaking change
                 else
                     data.joins = data.joins + 1
                 end
 
                 version = IntValue.new("LastJoinedVersion" .. tostring(player.id), 0)
                 version.value = data.version
+                playerLastJoinedVersions[player] = version
 
-                data.version = 1
+                data.version = 2
 
-								if data.owed ~= nil then
-									if data.owed > 0 then
-									  print("Awarding winner " .. player.name .. data.owed .. " gold.")
-								    Wallet.TransferGoldToPlayer(player, data.owed, function(response, err)
-                        if err ~= WalletError.None then
-			                    error("Something went wrong while transferring gold: " .. WalletError[err])
-			                    return
-		                    end
+                if data.owed ~= nil then
+                    if data.owed > 0 then
+                        print("Awarding winner " .. player.name .. data.owed .. " gold.")
+                        Wallet.TransferGoldToPlayer(player, data.owed, function(response, err)
+                            if err ~= WalletError.None then
+                                error("Something went wrong while transferring gold: " .. WalletError[err])
+                                return
+                            end
 
-												data.owed = 0
-												Storage.SetPlayerValue(player, player.name, data)
-                        print("Sent gold to " .. player.name .. " successfully.")
-                      end)
-										end
-								end
+                            data.owed = 0
+                            Storage.SetPlayerValue(player, player.name, data)
+                            print("Sent gold to " .. player.name .. " successfully.")
+                        end)
+                    end
+                end
 
                 print("player joins are " .. data.joins)
 

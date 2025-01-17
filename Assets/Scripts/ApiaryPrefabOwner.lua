@@ -1,12 +1,6 @@
 --!Type(Client)
 
 --!SerializeField
-local RegularBox : GameObject = nil
-
---!SerializeField
-local GoldBox : GameObject = nil
-
---!SerializeField
 local OwnerUI : GameObject = nil
 
 --!SerializeField
@@ -65,14 +59,6 @@ function SetObjectToSpawn(object, name)
 	objectName = name
 end
 
-function GetGoldBox()
-    return GoldBox
-end
-
-function GetRegularBox()
-    return RegularBox
-end
-
 function GetOwnerUi()
     return OwnerUI
 end
@@ -117,29 +103,27 @@ function self:ClientAwake()
 		placedObjectsManager.Reset()
 
 		for _, space in ipairs(freeSpaces) do
-			if space.x ~= 0 or space.y ~= 0 then
-				newObject = Object.Instantiate(locationObject)
-				newObject.transform.parent = self.transform
-				newObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
+			newObject = Object.Instantiate(locationObject)
+			newObject.transform.parent = self.transform
+			newObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
 
-				table.insert(placementLocations, newObject)
+			table.insert(placementLocations, newObject)
 
-				newObject.gameObject:GetComponent(TapHandler).Tapped:Connect(function()
-				if spawnedObject ~= nil then
-					Object.Destroy(spawnedObject)
-					spawnedObject = nil
-				end
-
-				spawnedObject = Object.Instantiate(objectToSpawn)
-				spawnedObject.transform.parent = self.transform
-				spawnedObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
-
-				placedObjectsManager.SetProspectiveObject(spawnedObject, objectName, space.x, space.y)
-
-
-				print("Position " .. space.x .. ", " .. space.y .. " tapped.")
-				end)
+			newObject.gameObject:GetComponent(TapHandler).Tapped:Connect(function()
+			if spawnedObject ~= nil then
+				Object.Destroy(spawnedObject)
+				spawnedObject = nil
 			end
+
+			spawnedObject = Object.Instantiate(objectToSpawn)
+			spawnedObject.transform.parent = self.transform
+			spawnedObject.transform.localPosition = Vector3.new(space.x*2, 0, space.y*2)
+
+			placedObjectsManager.SetProspectiveObject(spawnedObject, objectName, space.x, space.y)
+
+
+			print("Position " .. space.x .. ", " .. space.y .. " tapped.")
+			end)
 		end
 
 	end)

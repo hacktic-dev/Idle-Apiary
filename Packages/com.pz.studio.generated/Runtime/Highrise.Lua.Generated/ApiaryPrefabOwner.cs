@@ -25,8 +25,6 @@ namespace Highrise.Lua.Generated
         private const string s_scriptGUID = "ed04c801dc299ec4e8fb2c21f46e5a4b";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public UnityEngine.GameObject m_RegularBox = default;
-        [SerializeField] public UnityEngine.GameObject m_GoldBox = default;
         [SerializeField] public UnityEngine.GameObject m_OwnerUI = default;
         [SerializeField] public UnityEngine.GameObject m_locationObject = default;
         [SerializeField] public UnityEngine.GameObject m_removalObject = default;
@@ -41,14 +39,12 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
-                CreateSerializedProperty(_script.GetPropertyAt(0), m_RegularBox),
-                CreateSerializedProperty(_script.GetPropertyAt(1), m_GoldBox),
-                CreateSerializedProperty(_script.GetPropertyAt(2), m_OwnerUI),
-                CreateSerializedProperty(_script.GetPropertyAt(3), m_locationObject),
-                CreateSerializedProperty(_script.GetPropertyAt(4), m_removalObject),
-                CreateSerializedProperty(_script.GetPropertyAt(5), m_apiarySize0),
-                CreateSerializedProperty(_script.GetPropertyAt(6), m_apiarySize1),
-                CreateSerializedProperty(_script.GetPropertyAt(7), m_apiarySize2),
+                CreateSerializedProperty(_script.GetPropertyAt(0), m_OwnerUI),
+                CreateSerializedProperty(_script.GetPropertyAt(1), m_locationObject),
+                CreateSerializedProperty(_script.GetPropertyAt(2), m_removalObject),
+                CreateSerializedProperty(_script.GetPropertyAt(3), m_apiarySize0),
+                CreateSerializedProperty(_script.GetPropertyAt(4), m_apiarySize1),
+                CreateSerializedProperty(_script.GetPropertyAt(5), m_apiarySize2),
             };
         }
     }

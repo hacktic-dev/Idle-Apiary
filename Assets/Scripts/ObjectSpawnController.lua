@@ -48,6 +48,9 @@ local flower_white : GameObject = nil
 --!SerializeField
 local flower_yellow : GameObject = nil
 
+--!SerializeField
+local beeBox : GameObject = nil
+
 
 PlacementObject = {
     ["Chair"] = chair,
@@ -65,7 +68,8 @@ PlacementObject = {
     ["Purple Flower"] = flower_purple,
     ["Red Flower"] = flower_red,
     ["White Flower"] = flower_white,
-    ["Yellow Flower"] = flower_yellow
+    ["Yellow Flower"] = flower_yellow,
+    ["Bee Box"] = beeBox
 }
 
 spawnedObjects = {}

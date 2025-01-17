@@ -10177,6 +10177,8 @@ MonoBehaviour:
     type: 3}
   m_flower_yellow: {fileID: 2959491017258182191, guid: a787658b82b10b64a892154326e8fdb5,
     type: 3}
+  m_beeBox: {fileID: 6150770344185259146, guid: 5c6c6387b04b2c548a05700a5465b00f,
+    type: 3}
   references:
     version: 2
     RefIds:
@@ -34675,6 +34677,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 67621141ae392a44594af1fe3bafe028, type: 3}
   - {fileID: 2800000, guid: 1ae2082145a367c40adc0e7e1de82733, type: 3}
   - {fileID: 2800000, guid: f96f5469719919f4f893cdc67d8255a6, type: 3}
+  - {fileID: 2800000, guid: ad813f61de05f78448453da7489dc9cd, type: 3}
   m_placementObjects:
   - {fileID: 6150770344185259146, guid: 9681ed390627bb24a973eadda3605985, type: 3}
   - {fileID: 2471304016359239742, guid: 0c57a6352ab91554dbdc3e24a831254b, type: 3}
@@ -34692,6 +34695,7 @@ MonoBehaviour:
   - {fileID: 2959491017258182191, guid: 72fa0102e12387c4a9811566df9bcf03, type: 3}
   - {fileID: 2959491017258182191, guid: 87034b624b1b032488cf26759737f16f, type: 3}
   - {fileID: 2959491017258182191, guid: a787658b82b10b64a892154326e8fdb5, type: 3}
+  - {fileID: 6150770344185259146, guid: 5c6c6387b04b2c548a05700a5465b00f, type: 3}
   references:
     version: 2
     RefIds:

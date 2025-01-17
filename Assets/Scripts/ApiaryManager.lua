@@ -229,14 +229,6 @@ function self:ClientAwake()
             newApiary:GetComponent(ApiaryPrefabOwner).SetApiarySize(apiarySize)
             newApiary:GetComponent(ApiaryPrefabOwner).SetOwnerName(owner)
 
-            if isGold then
-                newApiary:GetComponent(ApiaryPrefabOwner).GetRegularBox():SetActive(false)
-                newApiary:GetComponent(ApiaryPrefabOwner).GetGoldBox():SetActive(true)
-            else
-                newApiary:GetComponent(ApiaryPrefabOwner).GetRegularBox():SetActive(true)
-                newApiary:GetComponent(ApiaryPrefabOwner).GetGoldBox():SetActive(false)
-            end
-
             if owner == client.localPlayer.name then
                 clientApiary = newApiary
             end

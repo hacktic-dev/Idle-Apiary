@@ -41,6 +41,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_flower_red = default;
         [SerializeField] public UnityEngine.GameObject m_flower_white = default;
         [SerializeField] public UnityEngine.GameObject m_flower_yellow = default;
+        [SerializeField] public UnityEngine.GameObject m_beeBox = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -65,6 +66,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(13), m_flower_red),
                 CreateSerializedProperty(_script.GetPropertyAt(14), m_flower_white),
                 CreateSerializedProperty(_script.GetPropertyAt(15), m_flower_yellow),
+                CreateSerializedProperty(_script.GetPropertyAt(16), m_beeBox),
             };
         }
     }
