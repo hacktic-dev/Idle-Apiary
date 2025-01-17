@@ -333,21 +333,34 @@ function RecalculatePlayerEarnRate(player, isDc)
         end
 
         totalEffect = 1
-        if flowerManager.GetPlacedFlowers(player) ~= nil then
+        if flowerManager.GetPlacedFlowers(player) ~= nil or placedObjectsManager.GetPlacedFlowers(player) ~= nil then
             redCount = 0
             whiteCount = 0
             yellowCount = 0
             purpleCount = 0
 
+            legacyFlowers = flowerManager.GetPlacedFlowers(player)
+            newFlowers = placedObjectsManager.GetPlacedFlowers(player)
+            flowers = {}
+
+            --join the two tables
+            for i, flower in ipairs(legacyFlowers) do
+                table.insert(flowers, flower.id)
+            end
+
+            for i, flower in ipairs(newFlowers) do
+                table.insert(flowers, flower)
+            end
+            
             -- Calculate flowers amount
-            for index , flower in ipairs(flowerManager.GetPlacedFlowers(player)) do
-                if flower.name == "Red" then
+            for index , flower in ipairs(flowers) do
+                if flower == "Red" then
                     redCount = redCount + 1
-                elseif flower.name == "White" then
+                elseif flower == "White" then
                     whiteCount = whiteCount + 1
-                elseif flower.name == "Yellow" then
+                elseif flower == "Yellow" then
                     yellowCount = yellowCount + 1
-                elseif flower.name == "Purple" then
+                elseif flower == "Purple" then
                     purpleCount = purpleCount + 1
                 end
             end

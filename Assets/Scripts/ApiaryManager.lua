@@ -108,7 +108,7 @@ apiaryPlacementRequest:Connect(function(player, position)
           end)
 
         flowerManager.SpawnPlayerFlowersOnAllClients(player, position)
-				placedObjectsManager.SpawnPlayerPlacedObjectsOnAllClients(player, position)
+		placedObjectsManager.SpawnPlayerPlacedObjectsOnAllClients(player, position)
 
         notifyApiaryPlacementSucceeded:FireClient(player, position)
     else

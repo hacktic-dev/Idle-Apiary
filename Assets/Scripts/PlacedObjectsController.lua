@@ -21,6 +21,7 @@ prospectiveObject = nil
 
 apiaryManager = require("ApiaryManager")
 playerManager = require("PlayerManager")
+flowerManager = require("FlowerManager")
 utils = require("Utils")
 
 local placedObjects = {} -- Placed objects across all players (server)
@@ -28,6 +29,21 @@ local placedObjects = {} -- Placed objects across all players (server)
 local spawnedObjects = {} -- Spawned objects on client
 
 index = 1
+
+function GetPlacedFlowers(player)
+	print("Getting placed flowers")
+	local flowers = {}
+	if placedObjects[player] then
+		for _, object in ipairs(placedObjects[player]) do
+			print("Checking object " .. object.id .. " with object id " .. utils.GetPlacementObjectIdByName(object.name))
+			if utils.IsFlower(utils.GetPlacementObjectIdByName(object.name)) then
+				print("Object is a flower")
+				table.insert(flowers, utils.GetPlacementObjectIdByName(object.name))
+			end
+		end
+	end
+	return flowers
+end
 
 function Reset()
 	
@@ -114,14 +130,14 @@ function InitServer()
 
 		self:GetComponent(ObjectSpawnController).SpawnObject(placedObject, player.user.id, apiaryPosition)
 	
-			if placedObjects[player] == nil then
-					placedObjects[player] = {}
-			end
+		if placedObjects[player] == nil then
+				placedObjects[player] = {}
+		end
 
-			table.insert(placedObjects[player], placedObject)
-			local transaction = InventoryTransaction.new():TakePlayer(player, utils.LookupFurnitureIdByName(placedObject.name), 1)
-			Inventory.CommitTransaction(transaction)
-
+		table.insert(placedObjects[player], placedObject)
+		local transaction = InventoryTransaction.new():TakePlayer(player, utils.LookupFurnitureIdByName(placedObject.name), 1)
+		Inventory.CommitTransaction(transaction)
+		playerManager.RecalculatePlayerEarnRate(player)
 	end)
 
 	requestObjectDeletion:Connect(function(player, id)
@@ -143,6 +159,7 @@ function InitServer()
 
 		local transaction = InventoryTransaction.new():GivePlayer(player, utils.LookupFurnitureIdByName(name), 1)
 		Inventory.CommitTransaction(transaction)
+		playerManager.RecalculatePlayerEarnRate(player)
 	end)
 
 	requestFreeSpaces:Connect(function(player, size)
@@ -238,5 +255,7 @@ function GetPlacedFlowerCount(player)
 			end
 		end
 	end
+	print("Returning count " .. count)
+	print("flower manager count " .. #flowerManager.GetPlacedFlowers(player))
 	return count + #flowerManager.GetPlacedFlowers(player)
 end
