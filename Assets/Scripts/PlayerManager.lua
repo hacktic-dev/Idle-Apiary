@@ -469,6 +469,10 @@ function GetPlayerLastJoinedVersion(player)
     return playerLastJoinedVersions[player].value
 end
 
+function GetLastJoinedVersion()
+    return lastJoinedVersion.value
+end
+
 -- Function to track players joining and leaving the game
 function TrackPlayers(game, characterCallback)
     -- Connect to the event when a player joins the game

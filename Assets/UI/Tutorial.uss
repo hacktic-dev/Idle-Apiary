@@ -72,9 +72,9 @@
     background-image: url("project://database/Assets/Textures/tutorial2.png");
 }
 
-.festive-image
+.romantic-image
 {
-    background-image: url("project://database/Assets/Textures/festivebee.png");
+    background-image: url("project://database/Assets/Textures/romanticbee.png");
 }
 
 .leaderboard-image
