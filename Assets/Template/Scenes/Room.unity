@@ -10394,6 +10394,27 @@ MonoBehaviour:
     type: 3}
   m_beeBox: {fileID: 6150770344185259146, guid: 5c6c6387b04b2c548a05700a5465b00f,
     type: 3}
+  m_streetLamp: {fileID: 6150770344185259146, guid: d9697af9aa7a2ee4c92eeb98666fb951,
+    type: 3}
+  m_modernFountain: {fileID: 2471304016359239742, guid: b2a996cca3933a04abba9e31f28b0805,
+    type: 3}
+  m_bench: {fileID: 6150770344185259146, guid: aeaa55dcd45b9ab429473f13f1b87b65, type: 3}
+  m_redFlowerPlanter: {fileID: 2471304016359239742, guid: 8e77f1f2555de1c4f8d250f1cff90632,
+    type: 3}
+  m_pinkFlowerPlanter: {fileID: 2471304016359239742, guid: 0039f2ec36481ae4695fa494c25999c8,
+    type: 3}
+  m_whiteFlowerPot: {fileID: 2471304016359239742, guid: 47c1a5cf839633940a8ec6a7c231cb0f,
+    type: 3}
+  m_redFlowerPot: {fileID: 2471304016359239742, guid: 7c4b888da1186f84a9dab4f9e4bdf3b7,
+    type: 3}
+  m_pinkFlowerPot: {fileID: 2471304016359239742, guid: d4461685d5c2b084cadab98844f92238,
+    type: 3}
+  m_cherryBlossomPetal: {fileID: 6150770344185259146, guid: d7fd17a2d2c09dd47a39b95a8b1a2127,
+    type: 3}
+  m_cherryBlossomTree: {fileID: 6150770344185259146, guid: b7b1155feb61ce04fac0cc0d72d7884b,
+    type: 3}
+  m_heartPillow: {fileID: 2471304016359239742, guid: 8289325b3cb627e498d76c74f3a641b8,
+    type: 3}
   references:
     version: 2
     RefIds:
@@ -35356,6 +35377,17 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 1ae2082145a367c40adc0e7e1de82733, type: 3}
   - {fileID: 2800000, guid: f96f5469719919f4f893cdc67d8255a6, type: 3}
   - {fileID: 2800000, guid: 55753cc2c4db92c41bb7b44252cd82df, type: 3}
+  - {fileID: 2800000, guid: d0eadf9d39f0e8d49850ab7f84fe12e6, type: 3}
+  - {fileID: 2800000, guid: e135be0f56036e4459e436b18e3b2127, type: 3}
+  - {fileID: 2800000, guid: 7f28a0fe548140948bd6501a27a65562, type: 3}
+  - {fileID: 2800000, guid: 67dc3ee9d682a2a43b87e3c097ef4cbb, type: 3}
+  - {fileID: 2800000, guid: 96db7a444497b43498818e55c63c26c3, type: 3}
+  - {fileID: 2800000, guid: 78537e9b98cef7b439c0e61be9ee1b96, type: 3}
+  - {fileID: 2800000, guid: d783cb52086d6694c8397b2fe7b4b5e2, type: 3}
+  - {fileID: 2800000, guid: 52383be436730bf47a80f454cfce0f70, type: 3}
+  - {fileID: 2800000, guid: 8c3548703ae6aa34bbb1600189c2843e, type: 3}
+  - {fileID: 2800000, guid: 3681d927135112d468615243da913434, type: 3}
+  - {fileID: 2800000, guid: a83e255af6313c04880e45ae321ffbe4, type: 3}
   m_placementObjects:
   - {fileID: 6150770344185259146, guid: 9681ed390627bb24a973eadda3605985, type: 3}
   - {fileID: 2471304016359239742, guid: 0c57a6352ab91554dbdc3e24a831254b, type: 3}
@@ -35374,6 +35406,17 @@ MonoBehaviour:
   - {fileID: 2959491017258182191, guid: 87034b624b1b032488cf26759737f16f, type: 3}
   - {fileID: 2959491017258182191, guid: a787658b82b10b64a892154326e8fdb5, type: 3}
   - {fileID: 6150770344185259146, guid: 5c6c6387b04b2c548a05700a5465b00f, type: 3}
+  - {fileID: 6150770344185259146, guid: d9697af9aa7a2ee4c92eeb98666fb951, type: 3}
+  - {fileID: 2471304016359239742, guid: b2a996cca3933a04abba9e31f28b0805, type: 3}
+  - {fileID: 6150770344185259146, guid: aeaa55dcd45b9ab429473f13f1b87b65, type: 3}
+  - {fileID: 2471304016359239742, guid: 8e77f1f2555de1c4f8d250f1cff90632, type: 3}
+  - {fileID: 2471304016359239742, guid: 0039f2ec36481ae4695fa494c25999c8, type: 3}
+  - {fileID: 2471304016359239742, guid: 47c1a5cf839633940a8ec6a7c231cb0f, type: 3}
+  - {fileID: 2471304016359239742, guid: 7c4b888da1186f84a9dab4f9e4bdf3b7, type: 3}
+  - {fileID: 2471304016359239742, guid: d4461685d5c2b084cadab98844f92238, type: 3}
+  - {fileID: 6150770344185259146, guid: d7fd17a2d2c09dd47a39b95a8b1a2127, type: 3}
+  - {fileID: 6150770344185259146, guid: b7b1155feb61ce04fac0cc0d72d7884b, type: 3}
+  - {fileID: 2471304016359239742, guid: 8289325b3cb627e498d76c74f3a641b8, type: 3}
   references:
     version: 2
     RefIds:
@@ -71136,7 +71179,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_zoom: 15
-  m_zoomMin: 10
+  m_zoomMin: 2
   m_zoomMax: 40
   m_fov: 30
   m_allowRotation: 1

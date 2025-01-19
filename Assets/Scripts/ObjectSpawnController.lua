@@ -51,6 +51,41 @@ local flower_yellow : GameObject = nil
 --!SerializeField
 local beeBox : GameObject = nil
 
+--!SerializeField
+local streetLamp : GameObject = nil
+
+--!SerializeField
+local streetLamp : GameObject = nil
+
+--!SerializeField
+local modernFountain : GameObject = nil
+
+--!SerializeField
+local bench : GameObject = nil
+
+--!SerializeField
+local redFlowerPlanter : GameObject = nil
+
+--!SerializeField
+local pinkFlowerPlanter : GameObject = nil
+
+--!SerializeField
+local whiteFlowerPot : GameObject = nil
+
+--!SerializeField
+local redFlowerPot : GameObject = nil
+
+--!SerializeField
+local pinkFlowerPot : GameObject = nil
+
+--!SerializeField
+local cherryBlossomPetal : GameObject = nil
+
+--!SerializeField
+local cherryBlossomTree : GameObject = nil
+
+--!SerializeField
+local heartPillow : GameObject = nil
 
 PlacementObject = {
     ["Chair"] = chair,
@@ -69,7 +104,18 @@ PlacementObject = {
     ["Red Flower"] = flower_red,
     ["White Flower"] = flower_white,
     ["Yellow Flower"] = flower_yellow,
-    ["Bee Box"] = beeBox
+    ["Bee Box"] = beeBox,
+    ["Street Lamp"] = streetLamp,
+    ["Modern Fountain"] = modernFountain,
+    ["Bench"] = bench,
+    ["Red Flower Planter"] = redFlowerPlanter,
+    ["Pink Flower Planter"] = pinkFlowerPlanter,
+    ["White Flower Pot"] = whiteFlowerPot,
+    ["Red Flower Pot"] = redFlowerPot,
+    ["Pink Flower Pot"] = pinkFlowerPot,
+    ["Cherry Blossom Petal"] = cherryBlossomPetal,
+    ["Cherry Blossom Tree"] = cherryBlossomTree,
+    ["Heart Pillow"] = heartPillow
 }
 
 spawnedObjects = {}

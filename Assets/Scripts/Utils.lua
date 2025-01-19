@@ -27,6 +27,17 @@ PlacementObject = {
     ["White Flower"] = placementObjects[15],
     ["Yellow Flower"] = placementObjects[16],
     ["Bee Box"] = placementObjects[17],
+    ["Street Lamp"] = placementObjects[18],
+    ["Modern Fountain"] = placementObjects[19],
+    ["Bench"] = placementObjects[20],
+    ["Red Flower Planter"] = placementObjects[21],
+    ["Pink Flower Planter"] = placementObjects[22],
+    ["White Flower Pot"] = placementObjects[23],
+    ["Red Flower Pot"] = placementObjects[24],
+    ["Pink Flower Pot"] = placementObjects[25],
+    ["Cherry Blossom Petal"] = placementObjects[26],
+    ["Cherry Blossom Tree"] = placementObjects[27],
+    ["Heart Pillow" ] = placementObjects[28]
 }
 
 BeeImage = {
@@ -112,6 +123,18 @@ FurnitureImage = {
     ["White Flower Greyed"] = placementTextures[19],
     ["Yellow Flower Greyed"] = placementTextures[20],
     ["Bee Box"] = placementTextures[21],
+
+    ["Street Lamp"] = placementTextures[22],
+    ["Modern Fountain"] = placementTextures[23],
+    ["Bench"] = placementTextures[24],
+    ["Red Flower Planter"] = placementTextures[25],
+    ["Pink Flower Planter"] = placementTextures[26],
+    ["White Flower Pot"] = placementTextures[27],
+    ["Red Flower Pot"] = placementTextures[28],
+    ["Pink Flower Pot"] = placementTextures[29],
+    ["Cherry Blossom Petal"] = placementTextures[30],
+    ["Cherry Blossom Tree"] = placementTextures[31],
+    ["Heart Pillow"] = placementTextures[33]
 }
 
 local hatData = 
@@ -156,6 +179,18 @@ local furnitureData = {
     {name = "Yellow Flower", id = "Yellow", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
     {name = "Purple Flower", id = "Purple", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
     {name = "Bee Box", id = "bee_box", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+
+    {name = "Street Lamp", id = "street_lamp", cost = 800, goldCost = 250, selectFactorRegular = 10, selectFactorGold = 10},
+    {name = "Modern Fountain", id = "modern_fountain", cost = 12000, goldCost = 300, selectFactorRegular = 6, selectFactorGold = 15},
+    {name = "Bench", id = "bench", cost = 8000, goldCost = 220, selectFactorRegular = 10, selectFactorGold = 10},
+    {name = "Red Flower Planter", id = "red_flower_planter", cost = 7000, goldCost = 200, selectFactorRegular = 8, selectFactorGold = 12},
+    {name = "Pink Flower Planter", id = "pink_flower_planter", cost = 7000, goldCost = 200, selectFactorRegular = 8, selectFactorGold = 12},
+    {name = "White Flower Pot", id = "white_flower_pot", cost = 5000, goldCost = 150, selectFactorRegular = 10, selectFactorGold = 5},
+    {name = "Red Flower Pot", id = "red_flower_pot", cost = 5000, goldCost = 150, selectFactorRegular = 10, selectFactorGold = 5},
+    {name = "Pink Flower Pot", id = "pink_flower_pot", cost = 5000, goldCost = 150, selectFactorRegular = 10, selectFactorGold = 5},
+    {name = "Cherry Blossom Petal", id = "cherry_blossom_petal", cost = 5000, goldCost = 150, selectFactorRegular = 5, selectFactorGold = 30},
+    {name = "Cherry Blossom Tree", id = "cherry_blossom_tree", cost = 25000, goldCost = 400, selectFactorRegular = 4, selectFactorGold = 30},
+    {name = "Heart Pillow", id = "heart_pillow", cost = 12000, goldCost = 350, selectFactorRegular = 4, selectFactorGold = 30}
 }
 
 function IsHat(id)
@@ -244,15 +279,11 @@ function LookupFurnitureName(id)
 end
 
 -- Function to calculate total spawn factor
-local function GetTotalSelectionFactor(isGold)
+local function GetTotalSelectionFactor(data, isGold)
     local totalFactor = 0
 
-    for _, hat in ipairs(hatData) do
-        if isGold == true then
-            factor = hat.selectFactorGold
-        else
-            factor = hat.selectFactorRegular
-        end
+    for _, item in ipairs(data) do
+        local factor = isGold and item.selectFactorGold or item.selectFactorRegular
         totalFactor = totalFactor + factor
     end
     return totalFactor
@@ -260,7 +291,7 @@ end
 
 -- Function to choose a bee species based on spawn factors
 function ChooseHat(isGold)
-    local totalSpawnFactor = GetTotalSelectionFactor(isGold)
+    local totalSpawnFactor = GetTotalSelectionFactor(hatData, isGold)
     local rand = math.random() * totalSpawnFactor
     local cumulativeFactor = 0
 
@@ -283,7 +314,7 @@ function ChooseHat(isGold)
 end
 
 function ChooseFurniture(isGold)
-    local totalSpawnFactor = GetTotalSelectionFactor(isGold)
+    local totalSpawnFactor = GetTotalSelectionFactor(furnitureData, isGold)
     local rand = math.random() * totalSpawnFactor
     local cumulativeFactor = 0
 

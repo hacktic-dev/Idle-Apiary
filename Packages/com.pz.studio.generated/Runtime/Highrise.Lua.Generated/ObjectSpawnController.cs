@@ -42,6 +42,17 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_flower_white = default;
         [SerializeField] public UnityEngine.GameObject m_flower_yellow = default;
         [SerializeField] public UnityEngine.GameObject m_beeBox = default;
+        [SerializeField] public UnityEngine.GameObject m_streetLamp = default;
+        [SerializeField] public UnityEngine.GameObject m_modernFountain = default;
+        [SerializeField] public UnityEngine.GameObject m_bench = default;
+        [SerializeField] public UnityEngine.GameObject m_redFlowerPlanter = default;
+        [SerializeField] public UnityEngine.GameObject m_pinkFlowerPlanter = default;
+        [SerializeField] public UnityEngine.GameObject m_whiteFlowerPot = default;
+        [SerializeField] public UnityEngine.GameObject m_redFlowerPot = default;
+        [SerializeField] public UnityEngine.GameObject m_pinkFlowerPot = default;
+        [SerializeField] public UnityEngine.GameObject m_cherryBlossomPetal = default;
+        [SerializeField] public UnityEngine.GameObject m_cherryBlossomTree = default;
+        [SerializeField] public UnityEngine.GameObject m_heartPillow = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -67,6 +78,17 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(14), m_flower_white),
                 CreateSerializedProperty(_script.GetPropertyAt(15), m_flower_yellow),
                 CreateSerializedProperty(_script.GetPropertyAt(16), m_beeBox),
+                CreateSerializedProperty(_script.GetPropertyAt(17), m_streetLamp),
+                CreateSerializedProperty(_script.GetPropertyAt(18), m_modernFountain),
+                CreateSerializedProperty(_script.GetPropertyAt(19), m_bench),
+                CreateSerializedProperty(_script.GetPropertyAt(20), m_redFlowerPlanter),
+                CreateSerializedProperty(_script.GetPropertyAt(21), m_pinkFlowerPlanter),
+                CreateSerializedProperty(_script.GetPropertyAt(22), m_whiteFlowerPot),
+                CreateSerializedProperty(_script.GetPropertyAt(23), m_redFlowerPot),
+                CreateSerializedProperty(_script.GetPropertyAt(24), m_pinkFlowerPot),
+                CreateSerializedProperty(_script.GetPropertyAt(25), m_cherryBlossomPetal),
+                CreateSerializedProperty(_script.GetPropertyAt(26), m_cherryBlossomTree),
+                CreateSerializedProperty(_script.GetPropertyAt(27), m_heartPillow),
             };
         }
     }
