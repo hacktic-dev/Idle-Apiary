@@ -37,6 +37,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_PlaceFlowerMenuObject = default;
         [SerializeField] public UnityEngine.GameObject m_AddHatMenuObject = default;
         [SerializeField] public UnityEngine.GameObject m_CenterPlayerButtonObject = default;
+        [SerializeField] public UnityEngine.GameObject m_LeaderboardObject = default;
         [SerializeField] public UnityEngine.GameObject m_PlaceFurnitureMenuObject = default;
         [SerializeField] public UnityEngine.GameObject m_PlaceObjectsUiObject = default;
         [SerializeField] public UnityEngine.GameObject m_RemoveFurnitureMenuObject = default;
@@ -60,9 +61,10 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(9), m_PlaceFlowerMenuObject),
                 CreateSerializedProperty(_script.GetPropertyAt(10), m_AddHatMenuObject),
                 CreateSerializedProperty(_script.GetPropertyAt(11), m_CenterPlayerButtonObject),
-                CreateSerializedProperty(_script.GetPropertyAt(12), m_PlaceFurnitureMenuObject),
-                CreateSerializedProperty(_script.GetPropertyAt(13), m_PlaceObjectsUiObject),
-                CreateSerializedProperty(_script.GetPropertyAt(14), m_RemoveFurnitureMenuObject),
+                CreateSerializedProperty(_script.GetPropertyAt(12), m_LeaderboardObject),
+                CreateSerializedProperty(_script.GetPropertyAt(13), m_PlaceFurnitureMenuObject),
+                CreateSerializedProperty(_script.GetPropertyAt(14), m_PlaceObjectsUiObject),
+                CreateSerializedProperty(_script.GetPropertyAt(15), m_RemoveFurnitureMenuObject),
             };
         }
     }

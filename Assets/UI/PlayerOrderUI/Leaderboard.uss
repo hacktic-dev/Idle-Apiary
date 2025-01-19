@@ -14,14 +14,21 @@
   background-color: rgba(0,0,0,.3);
 }
 
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
 .red
 {
-  background-color: rgba(163,38,54,1);
+  background-color: rgba(0, 0, 0, 0.31);
 }
 
 .green
 {
-  background-color: rgba(53,124,49,1);
+  background-image: url("project://database/Assets/Textures/hearts_background.png");
+	-unity-background-scale-mode: scale-and-crop;
 }
 
 .portrait .create-order-gui {
@@ -34,10 +41,14 @@
     height: 80%
 }
 
+.fixed-width{
+  width: 200px;
+}
 
 .order-item {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     margin-top: 3px;
     margin-bottom: 3px;
@@ -397,6 +408,11 @@
   width: 25px;
   height: 25px;
   background-image: url("project://database/Assets/Icons/gold.png");
+}
+
+.group-element
+{
+  flex-direction: row;
 }
 
 .priceContainer

@@ -34,6 +34,10 @@
        <Label class="buttonLabel" text="Beestiary" />
       </hr:UIButton>
 
+      <hr:UIButton class="regularButton" name="_leaderboardButton">
+        <Label class="buttonLabel" text="Leaderboard" />
+      </hr:UIButton>
+
       <VisualElement class="left-container">
       <hr:UIButton class="settingsButton" name="_settingsButton">
        <hr:UIImage class="hamburger" name="settingsIcon"/>

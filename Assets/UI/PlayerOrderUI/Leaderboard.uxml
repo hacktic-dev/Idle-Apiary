@@ -12,8 +12,8 @@
     <VisualElement class="shop__header">
 
       <VisualElement class="navigation">
-        <VisualElement class="nav-button--selected" name="_festiveTab">
-          <Label class="nav-text" text="Festive Event" />
+        <VisualElement class="nav-button--selected" name="_romanticTab">
+          <Label class="nav-text" text="Valentine's Event" />
         </VisualElement>
 
       </VisualElement>

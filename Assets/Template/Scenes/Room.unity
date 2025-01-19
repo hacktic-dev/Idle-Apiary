@@ -11999,6 +11999,7 @@ MonoBehaviour:
   m_PlaceFlowerMenuObject: {fileID: 1810974072}
   m_AddHatMenuObject: {fileID: 193848034}
   m_CenterPlayerButtonObject: {fileID: 800445246}
+  m_LeaderboardObject: {fileID: 1674868247}
   m_PlaceFurnitureMenuObject: {fileID: 1372714132}
   m_PlaceObjectsUiObject: {fileID: 111461374}
   m_RemoveFurnitureMenuObject: {fileID: 852216042}
@@ -12035,6 +12036,7 @@ Transform:
   - {fileID: 111461375}
   - {fileID: 1372714133}
   - {fileID: 852216043}
+  - {fileID: 1674868248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &422976808
@@ -51111,6 +51113,61 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1670845122}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1674868247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1674868248}
+  - component: {fileID: 1674868251}
+  m_Layer: 0
+  m_Name: Leaderboard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1674868248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674868247}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 421081548}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1674868251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674868247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c79782ee7a3a91c274de4fa53726a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: eb18975754a53a4478abde9a1fe82671, type: 3}
+  _properties: []
+  _uiOutput: 2
+  _uiOutputSettings:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1001 &1675054155
 PrefabInstance:
   m_ObjectHideFlags: 0

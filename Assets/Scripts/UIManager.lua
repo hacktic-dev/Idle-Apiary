@@ -26,7 +26,7 @@ local AddHatMenuObject : GameObject = nil
 --!SerializeField
 local CenterPlayerButtonObject : GameObject = nil
 --!SerializeField
--- local LeaderboardObject : GameObject = nil
+ local LeaderboardObject : GameObject = nil
 --!SerializeField
 local PlaceFurnitureMenuObject : GameObject = nil
 --!SerializeField
@@ -53,7 +53,7 @@ local uiMap = {
     PlaceFlowerMenu = PlaceFlowerMenuObject,
     AddHatMenu = AddHatMenuObject,
     CenterPlayerButton = CenterPlayerButtonObject,
-    -- Leaderboard = LeaderboardObject,
+    Leaderboard = LeaderboardObject,
     PlaceFurnitureMenu = PlaceFurnitureMenuObject,
     PlaceObjectsUi = PlaceObjectsUiObject,
     RemoveFurnitureMenu = RemoveFurnitureMenuObject
@@ -203,7 +203,7 @@ function HideAll()
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceStatus", false)
-    --ToggleUI("Leaderboard", false)
+    ToggleUI("Leaderboard", false)
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceObjectsUi", false)
     ToggleUI("RemoveFurnitureMenu", false)
@@ -297,20 +297,20 @@ function CloseAddHatMenu()
     ToggleUI("PlaceButtons", true)
 end
 
--- function OpenLeaderboard()
---     ToggleUI("Leaderboard", true)
---     ToggleUI("PlayerStats", false)
---     ToggleUI("CenterPlayerButton", false)
---     ToggleUI("PlaceButtons", false)
---     LeaderboardObject:GetComponent(Leaderboard).Init()
--- end
+ function OpenLeaderboard()
+     ToggleUI("Leaderboard", true)
+     ToggleUI("PlayerStats", false)
+     ToggleUI("CenterPlayerButton", false)
+     ToggleUI("PlaceButtons", false)
+     LeaderboardObject:GetComponent(Leaderboard).Init()
+ end
 
--- function CloseLeaderboard()
---     ToggleUI("Leaderboard", false)
---     ToggleUI("PlayerStats", true)
---     ToggleUI("CenterPlayerButton", true)
---     ToggleUI("PlaceButtons", true)
--- end
+ function CloseLeaderboard()
+     ToggleUI("Leaderboard", false)
+     ToggleUI("PlayerStats", true)
+     ToggleUI("CenterPlayerButton", true)
+     ToggleUI("PlaceButtons", true)
+ end
 
 function OpenTutorialByPlayer()
     ToggleUI("Tutorial", true)
