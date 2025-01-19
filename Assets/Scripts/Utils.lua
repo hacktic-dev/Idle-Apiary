@@ -99,6 +99,7 @@ HatImage = {
     ["Cat Ears"] = hatTextures[16],
     ["Sleeping Cap"] = hatTextures[17],
     ["Mustache"] = hatTextures[18],
+    ["Heart Headband"] = hatTextures[19]
 }
 
 FurnitureImage = {
@@ -159,6 +160,7 @@ local hatData =
     {name = "Cat Ears", id = "cat_ears", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 700},
     {name = "Sleeping Cap", id = "sleeping_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 4000, goldCost = 200},
     {name = "Mustache", id = "mustache", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 600},
+    {name = "Heart Headband", id = "heart_headband", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 35000, goldCost = 500}
 }
 
 local furnitureData = {
