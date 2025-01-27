@@ -156,13 +156,14 @@ end
 
 local function getSeed()
     local now = os.time() -- Get the current time
-    local four_hours = 7200 -- 2 hours in seconds
-    return math.floor(now / four_hours) -- Determine the current 4-hour block
+    local one_hour = 3600 -- 1 hour in seconds
+    return math.floor(now / one_hour) -- Determine the current 4-hour block
 end
 
 local function formatTime(seconds)
-    local hours = math.floor(seconds / 3600)
-    local minutes = math.floor((seconds % 3600) / 60)
+    local one_hour = 3600 
+    local hours = math.floor(seconds / one_hour)
+    local minutes = math.floor((seconds % one_hour) / 60)
     local secs = seconds % 60
     return string.format("%02d:%02d:%02d", hours, minutes, secs)
 end
@@ -170,13 +171,13 @@ end
 -- Function to calculate the time until the next seed change
 local function timeUntilNextSeed()
     local now = os.time() -- Get the current time
-    local four_hours = 7200 -- 2 hours in seconds
-    local next_seed_time = (math.floor(now / four_hours) + 1) * four_hours
+    local one_hour = 3600 -- 1 hour in seconds
+    local next_seed_time = (math.floor(now / one_hour) + 1) * one_hour
 
     --TODO reset shop when timeout
-    if next_seed_time - now == 7200 and state == 3 then
+    if next_seed_time - now == one_hour and state == 3 then
         InitCosmeticsTab()
-    elseif next_seed_time - now == 7200 and state == 4 then
+    elseif next_seed_time - now == one_hour and state == 4 then
         InitFurnitureTab()
     end
 
