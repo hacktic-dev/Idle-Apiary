@@ -103,17 +103,26 @@ function ServerHandlePurchase(purchase, player: Player)
 
 		return
   else
-    -- Not honey or bee size, so it must be an item (hat/furniture). Add to inventory and commit
-    local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
-    Inventory.CommitTransaction(transaction)
-    if Utils.IsHat(productId) then
-      playerManager.notifyItemPurchased:FireClient(player, Utils.LookupHatName(productId))
-    elseif Utils.IsFurniture(productId) then
-      playerManager.notifyItemPurchased:FireClient(player, Utils.LookupFurnitureName(productId))
-    else
-      print("Unknown product ID: " .. productId)
-      purchaseFailedEvent:FireClient(player)
-    end
+    Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+      
+      if ackErr ~= PaymentsError.None then
+        print("Error acknowledging purchase: " .. ackErr)
+        purchaseFailedEvent:FireClient(player)
+        return
+      end
+
+      -- Not honey or bee size, so it must be an item (hat/furniture). Add to inventory and commit
+      local transaction = InventoryTransaction.new():GivePlayer(player, productId, 1)
+      Inventory.CommitTransaction(transaction)
+      if Utils.IsHat(productId) then
+        playerManager.notifyItemPurchased:FireClient(player, Utils.LookupHatName(productId))
+      elseif Utils.IsFurniture(productId) then
+        playerManager.notifyItemPurchased:FireClient(player, Utils.LookupFurnitureName(productId))
+      else
+        print("Unknown product ID: " .. productId)
+        purchaseFailedEvent:FireClient(player)
+      end
+    end)
   end
 end
 
