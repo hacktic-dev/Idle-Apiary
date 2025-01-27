@@ -120,6 +120,7 @@ function Init()
     closeLabel:SetPrelocalizedText("Close", true)
 
     ButtonPressed("romantic")
+    InitRomanticTab()
 
     closeButton:RegisterPressCallback(function()
         UIManager.CloseLeaderboard()
@@ -128,8 +129,6 @@ end
 
 function InitRomanticTab()
     Orders_Root:Clear()
-
-    print("Initing")
 
     title = UILabel.new()
     title:AddToClassList("title-small")

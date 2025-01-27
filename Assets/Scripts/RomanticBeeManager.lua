@@ -143,6 +143,7 @@ end
 
 function UpdateRomanticLeaderboard()
     -- Get the central leaderboard from storage
+
     Storage.GetValue("RomanticLeaderboard", function(leaderboard, errorCode)
         if errorCode ~= 0 then
             print("Error: couldn't get romantic leaderboard")
