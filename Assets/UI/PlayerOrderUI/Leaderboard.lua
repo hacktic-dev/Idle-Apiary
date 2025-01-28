@@ -167,7 +167,7 @@ function ButtonPressed(btn: string)
       _romanticTab:AddToClassList("nav-button--selected")
       _romanticTab:RemoveFromClassList("nav-button--deselected")
       --_roomTab:AddToClassList("nav-button--deselected")
-      InitRomanticTab()
+      --InitRomanticTab()
       return true
     elseif btn == "room" then
       if state == 1 then return end
