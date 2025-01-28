@@ -181,7 +181,7 @@
 }
 
 .landscape .rarity-label {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .landscape .rarity-label-small {

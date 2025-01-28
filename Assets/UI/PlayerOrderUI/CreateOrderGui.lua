@@ -130,9 +130,9 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel, apiarySiz
     end
 
     if apiarySize == 0 then
-        CreateQuestItem("Upgrade Apiary Size", "apiary_size_1", 100000, false, "Make space for more furniture", false, 250)
+        CreateQuestItem("Upgrade Apiary Size", "apiary_size_1", 250000, false, "Make space for more furniture", false, 250)
     elseif apiarySize == 1 then
-        CreateQuestItem("Upgrade Apiary Size", "apiary_size_2", 250000, false, "Make space for more furniture", false, 500)
+        CreateQuestItem("Upgrade Apiary Size", "apiary_size_2", 500000, false, "Make space for more furniture", false, 500)
     end
 
 end
@@ -167,12 +167,12 @@ end
 
 local function getSeed()
     local now = os.time() -- Get the current time
-    local one_hour = 3600 -- 1 hour in seconds
+    local one_hour = 36 -- 1 hour in seconds
     return math.floor(now / one_hour) -- Determine the current 4-hour block
 end
 
 local function formatTime(seconds)
-    local one_hour = 3600 
+    local one_hour = 36
     local hours = math.floor(seconds / one_hour)
     local minutes = math.floor((seconds % one_hour) / 60)
     local secs = seconds % 60
@@ -182,7 +182,7 @@ end
 -- Function to calculate the time until the next seed change
 local function timeUntilNextSeed()
     local now = os.time() -- Get the current time
-    local one_hour = 3600 -- 1 hour in seconds
+    local one_hour = 36 -- 1 hour in seconds
     local next_seed_time = (math.floor(now / one_hour) + 1) * one_hour
 
     --TODO reset shop when timeout
