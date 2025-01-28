@@ -568,6 +568,33 @@
     margin-top: 10px;
 }
 
+.gold-buy-button{
+    background-color: rgba(255, 205, 6, 0.8); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    font-size: 14px;
+    height: 60%;
+    width: 40%;
+    margin-top: 10px;
+}
+
+
+.honey-buy-button{
+    background-color: rgba(255, 255, 255, 0.3); /* Red for visibility */
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    font-size: 14px;
+    height: 60%;
+    width: 40%;
+    margin-top: 10px;
+}
+
 .decline-buy-button {
     background-color: rgba(255, 0, 0, 0.7); /* Red for visibility */
     border-radius: 5px;

@@ -38,7 +38,18 @@ local _declineBuyButton : UIButton = nil
 --!Bind
 local _declineBuyLabel : UILabel = nil
 
-
+--!Bind
+local _confirmGoldOrHoney : VisualElement = nil
+--!Bind
+local _confirmGoldOrHoneyDescription : UILabel = nil
+--!Bind
+local _buyWithGoldButton : UIButton = nil
+--!Bind
+local _buyWithGoldLabel : UILabel= nil
+--!Bind
+local _buyWithHoneyButton : UIButton = nil
+--!Bind
+local _buyWithHoneyLabel : UILabel = nil
 
 --!SerializeField
 local statusObject : GameObject = nil
@@ -119,9 +130,9 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel, apiarySiz
     end
 
     if apiarySize == 0 then
-        CreateQuestItem("Upgrade Apiary Size", "apiary_size_1", 250, true, "Make space for more furniture", false)
+        CreateQuestItem("Upgrade Apiary Size", "apiary_size_1", 100000, false, "Make space for more furniture", false, 250)
     elseif apiarySize == 1 then
-        CreateQuestItem("Upgrade Apiary Size", "apiary_size_2", 500, true, "Make space for more furniture", false)
+        CreateQuestItem("Upgrade Apiary Size", "apiary_size_2", 250000, false, "Make space for more furniture", false, 500)
     end
 
 end
@@ -614,7 +625,7 @@ end
 
 
 -- Creates a new quest item in the UI.
-function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm)
+function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm, GoldPrice)
     -- Create a new button for the quest item.
     local questItem = UIButton.new()
     questItem:AddToClassList("order-item") -- Add a class to style the quest item.
@@ -631,33 +642,50 @@ function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm)
         questItem:Add(_descLabel)
     end
 
-    -- Create a label for the quest item's XP reward and add it to the quest item.
-    -- local _xpLabel = UILabel.new()
-    -- _xpLabel:AddToClassList("title")
-    -- _xpLabel:SetPrelocalizedText(tostring(XP).."xp") -- Set the text to display the XP reward.
-   --  questItem:Add(_xpLabel)
     local _priceContainer = VisualElement.new()
     _priceContainer:AddToClassList("priceContainer")
 
-    if not isGold then
+    if Cash then
         local _icon = UIImage.new()
         _icon:AddToClassList("icon_honey")
         _priceContainer:Add(_icon)
-    else
+
+        local _cashLabel = UILabel.new()
+        _cashLabel:AddToClassList("title")
+        _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
+        _priceContainer:Add(_cashLabel)
+    end
+
+    if GoldPrice then
+
+        local _cashLabel = UILabel.new()
+        _cashLabel:AddToClassList("title")
+        _cashLabel:SetPrelocalizedText("/ ") -- Set the text to display the cash cost.
+        _priceContainer:Add(_cashLabel)
+
         local _icon = UIImage.new()
         _icon:AddToClassList("icon_gold")
         _priceContainer:Add(_icon)
+
+        local _goldLabel = UILabel.new()
+        _goldLabel:AddToClassList("title")
+        _goldLabel:SetPrelocalizedText(tostring(GoldPrice)) -- Set the text to display the gold cost.
+        _priceContainer:Add(_goldLabel)
     end
 
-    -- Create a label for the quest item's cash cost and add it to the quest item.
-    local _cashLabel = UILabel.new()
-    _cashLabel:AddToClassList("title")
-    _cashLabel:SetPrelocalizedText(tostring(Cash)) -- Set the text to display the cash cost.
-    _priceContainer:Add(_cashLabel)
     questItem:Add(_priceContainer)
 
     questItem:RegisterPressCallback(function()
-       if shouldConfirm then
+        if GoldPrice then
+            _confirmGoldOrHoney.visible = true
+            selectedHasGoldAndHoneyPrice = true
+            selectedId = Id
+            selectedCash = Cash
+            purchaseType = "generic"
+            return
+        end
+
+        if shouldConfirm then
             selectedIsGold = isGold
             selectedId = Id
             selectedCash = Cash
@@ -673,6 +701,16 @@ function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm)
 
     return questItem
 end
+
+_buyWithGoldButton:RegisterPressCallback(function()
+    Buy(true, selectedId, selectedCash)
+    _confirmGoldOrHoney.visible = false end, true, true, true
+)
+
+_buyWithHoneyButton:RegisterPressCallback(function()
+    Buy(false, selectedId, selectedCash)
+    _confirmGoldOrHoney.visible = false end, true, true, true
+)
 
 _confirmBuyButton:RegisterPressCallback(function()
     if purchaseType == "hat" then
@@ -699,6 +737,11 @@ function Init()
     _declineBuyLabel:SetPrelocalizedText("Don't Buy")
 
     _confirmBuy.visible = false
+    _confirmGoldOrHoney.visible = false
+
+    _confirmGoldOrHoneyDescription:SetPrelocalizedText("Purchase with gold or honey?")
+    _buyWithHoneyLabel:SetPrelocalizedText("Honey")
+    _buyWithGoldLabel:SetPrelocalizedText("Gold")
 
 	purchaseHandler.beeCapacityPurchaseSuccessful:Connect(function() IncreaseBeeCapacity() audioManager.PlaySound("purchaseSound", 1) end)
     purchaseHandler.apiarySizePurchaseSuccessful:Connect(function(product_id) IncreaseApiarySize(product_id) end)
@@ -766,6 +809,9 @@ function Buy(isGold, Id, Cash)
             playerManager.GiveShears()
             UIManager.OpenShearsTutorial()
             return
+        elseif Id == "apiary_size_1" or Id == "apiary_size_2" then
+            IncreaseApiarySize(Id)
+            return
         end
         
         local bee = GenerateBee(Id)
@@ -785,6 +831,7 @@ function IncreaseBeeCapacity()
 end
 
 function IncreaseApiarySize(product_id)
+    print("Apiary size with product id: " .. product_id .. " purchased, increasing size")
     if (playerManager.GetPlayerApiarySize() == 0 and product_id == "apiary_size_1") or (playerManager.GetPlayerApiarySize() == 1 and product_id == "apiary_size_2") then
         audioManager.PlaySound("purchaseSound", 1)
         InitUpgradesTab(playerManager.GetPlayerBeeCapacity(), playerManager.GetPlayerFlowerCapacity(), playerManager.GetPlayerSweetScentLevel(), playerManager.GetPlayerApiarySize()+1)

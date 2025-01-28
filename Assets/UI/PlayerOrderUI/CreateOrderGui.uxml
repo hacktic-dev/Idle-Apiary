@@ -52,6 +52,18 @@
         </hr:UIButton>
       </VisualElement>
     </VisualElement>
+
+    <VisualElement class="confirm-buy" name="_confirmGoldOrHoney">
+      <hr:UILabel name="_confirmGoldOrHoneyDescription" class="confirm-title" />
+      <VisualElement class="confirm-row-container">
+        <hr:UIButton class = "honey-buy-button" name = "_buyWithHoneyButton">
+          <hr:UILabel name = "_buyWithHoneyLabel" class = "confirm-label" />
+        </hr:UIButton>
+        <hr:UIButton class = "gold-buy-button" name = "_buyWithGoldButton">
+          <hr:UILabel name = "_buyWithGoldLabel" class = "confirm-label" />
+        </hr:UIButton>
+      </VisualElement>
+    </VisualElement>
 </hr:UILuaView>
 
 </UXML>
