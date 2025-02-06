@@ -43,7 +43,7 @@ function self:Update()
         flowerManager.flowerAreaExited()
     end
 
-    if timeAlive > 180 and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) > MIN_SPAWN_DISTANCE then
+    if isLegacy and timeAlive > 180 and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) > MIN_SPAWN_DISTANCE then
         print("Despawning flower")
         Object.Destroy(self:GetComponent(Transform).gameObject)
     end
