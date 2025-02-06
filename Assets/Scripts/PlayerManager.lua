@@ -506,7 +506,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.4.1")
+            setPlayerVersionString:FireClient(player, "1.4.2")
             romanticBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
