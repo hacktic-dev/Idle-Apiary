@@ -135,7 +135,7 @@ FurnitureImage = {
     ["Pink Flower Pot"] = placementTextures[29],
     ["Cherry Blossom Petal"] = placementTextures[30],
     ["Cherry Blossom Tree"] = placementTextures[31],
-    ["Heart Pillow"] = placementTextures[33]
+    ["Heart Pillow"] = placementTextures[32]
 }
 
 local hatData = 
