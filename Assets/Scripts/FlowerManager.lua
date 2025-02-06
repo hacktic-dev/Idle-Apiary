@@ -167,10 +167,14 @@ function self:Update()
 
     position = apiaryManager.GetLocalPlayerApiaryLocation()
     playerPosition = client.localPlayer.character:GetComponent(Transform).position
+    apiarySize = playerManager.GetPlayerApiarySize()
+
+    local sizeCheck = { [0] = 7, [1] = 9, [2] = 11 }
+    local checkSize = sizeCheck[apiarySize] or 9
 
     -- Check if the player is within the square
-    if (position ~= nil ) and (playerPosition.x >= position.x - 9 and playerPosition.x <= position.x + 9) and
-    (playerPosition.z >= position.z - 9 and playerPosition.z <= position.z + 9) then
+    if (position ~= nil) and (playerPosition.x >= position.x - checkSize and playerPosition.x <= position.x + checkSize) and
+    (playerPosition.z >= position.z - checkSize and playerPosition.z <= position.z + checkSize) then
         apiaryPlayerStatusChanged:Fire(true, playerManager.GetPlayerOwnsShears())
     else
         apiaryPlayerStatusChanged:Fire(false, playerManager.GetPlayerOwnsShears())
