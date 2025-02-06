@@ -88,6 +88,7 @@ MonoBehaviour:
   - {fileID: 2757821372553426105}
   - {fileID: 5493407937633730181}
   - {fileID: 2021388979022000489}
+  - {fileID: 651237805121567694}
   references:
     version: 2
     RefIds:
@@ -279,6 +280,12 @@ PrefabInstance:
 --- !u!4 &162826650317431156 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cad6cd95ea009e74c98653bcf0dd391c,
+    type: 3}
+  m_PrefabInstance: {fileID: 416794641696704159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &651237805121567694 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cad6cd95ea009e74c98653bcf0dd391c,
     type: 3}
   m_PrefabInstance: {fileID: 416794641696704159}
   m_PrefabAsset: {fileID: 0}
