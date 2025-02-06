@@ -55,9 +55,6 @@ local beeBox : GameObject = nil
 local streetLamp : GameObject = nil
 
 --!SerializeField
-local streetLamp : GameObject = nil
-
---!SerializeField
 local modernFountain : GameObject = nil
 
 --!SerializeField
