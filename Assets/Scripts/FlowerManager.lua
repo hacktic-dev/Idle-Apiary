@@ -169,7 +169,7 @@ function self:Update()
     playerPosition = client.localPlayer.character:GetComponent(Transform).position
     apiarySize = playerManager.GetPlayerApiarySize()
 
-    local sizeCheck = { [0] = 7, [1] = 9, [2] = 11 }
+    local sizeCheck = { [0] = 7.5, [1] = 9.5, [2] = 12 }
     local checkSize = sizeCheck[apiarySize] or 9
 
     -- Check if the player is within the square

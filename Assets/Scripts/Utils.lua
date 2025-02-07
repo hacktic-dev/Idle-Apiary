@@ -182,7 +182,7 @@ local furnitureData = {
     {name = "Purple Flower", id = "Purple", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
     {name = "Bee Box", id = "bee_box", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
 
-    {name = "Street Lamp", id = "street_lamp", cost = 800, goldCost = 250, selectFactorRegular = 10, selectFactorGold = 10},
+    {name = "Street Lamp", id = "street_lamp", cost = 8000, goldCost = 250, selectFactorRegular = 10, selectFactorGold = 10},
     {name = "Modern Fountain", id = "modern_fountain", cost = 12000, goldCost = 300, selectFactorRegular = 6, selectFactorGold = 15},
     {name = "Bench", id = "bench", cost = 8000, goldCost = 220, selectFactorRegular = 10, selectFactorGold = 10},
     {name = "Red Flower Planter", id = "red_flower_planter", cost = 7000, goldCost = 200, selectFactorRegular = 8, selectFactorGold = 12},

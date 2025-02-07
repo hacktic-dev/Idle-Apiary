@@ -506,7 +506,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.4.4")
+            setPlayerVersionString:FireClient(player, "1.4.5")
             romanticBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
@@ -524,7 +524,8 @@ function TrackPlayers(game, characterCallback)
                 version.value = data.version
                 playerLastJoinedVersions[player] = version
 
-                data.version = 2
+                -- Set the current save data version (for compatibility with future changes)
+                data.version = 3
 
                 if data.owed ~= nil then
                     if data.owed > 0 then
