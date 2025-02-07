@@ -112,9 +112,9 @@ function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel, apiarySiz
     if beeCapacity < 18 then
         CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", true)
     elseif beeCapacity == 18 then
-			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_1", 100, true, "", false)
+			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_1", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", false, 100)
 		elseif beeCapacity == 19 then
-			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_2", 250, true, "", false)
+			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_2", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", false, 250)
 		end
 
     if sweetScentLevel < 3 then
@@ -460,6 +460,10 @@ function LookupBeeCapacityUpgradePrice(capacity)
         return 25000
     elseif capacity == 18 then
         return 50000
+    elseif capacity == 19 then
+        return 100000
+    elseif capacity == 20 then
+        return 250000
     end
 end
 
@@ -797,7 +801,7 @@ function Buy(isGold, Id, Cash)
         if Id == "Net" then
             playerManager.IncrementStat("Nets", 1)
             return
-        elseif Id == "BeeCapacity" then
+        elseif Id == "BeeCapacity" or Id=="bee_size_1" or Id == "bee_size_2" then
             
             if playerManager.GetPlayerBeeCapacity() == 20 then
                 return
