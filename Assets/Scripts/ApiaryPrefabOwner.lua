@@ -128,8 +128,13 @@ function self:ClientAwake()
 
 	end)
 
-	placedObjectsManager.receiveOccupiedSpaces:Connect(function(objects)
+	placedObjectsManager.receiveOccupiedSpaces:Connect(function(player, objects)
 		print("Received occupied spaces")
+
+		if ownerName ~= player.name then
+			return
+		end
+
 		for _, object in ipairs(objects) do
 			newObject = Object.Instantiate(removalObject)
 			newObject.transform.parent = self.transform

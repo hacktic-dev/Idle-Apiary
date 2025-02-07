@@ -179,7 +179,7 @@ function InitServer()
 
 	requestOccupiedSpaces:Connect(function(player)
 		print("Requesting occupied spaces")
-		receiveOccupiedSpaces:FireClient(player, placedObjects[player])
+		receiveOccupiedSpaces:FireClient(player, player, placedObjects[player])
 	end)
 end
 
