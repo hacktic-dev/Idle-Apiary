@@ -733,7 +733,7 @@ _confirmBuyButton:RegisterPressCallback(function()
     elseif purchaseType == "generic" then
         Buy(selectedIsGold, selectedId, selectedCash)
     elseif purchaseType == "furniture" then
-        BuyItem(selectedIsGold, selectedId, selectedName, selectedCash, "furntiure")
+        BuyItem(selectedIsGold, selectedId, selectedName, selectedCash, "furniture")
     end
     _confirmBuy.visible = false end, true, true, true
 )
