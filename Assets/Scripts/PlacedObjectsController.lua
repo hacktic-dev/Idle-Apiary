@@ -228,10 +228,19 @@ function SpawnPlayerPlacedObjectsOnAllClients(player, _apiaryPosition)
 
         if storedObjects == nil then
             storedObjects = {}
-            return
         end
 
-		if playerManager.GetPlayerLastJoinedVersion(player) < 2 then
+		-- Don't overwrite any existing objects at the origin
+		local hasObjectAtOrigin = false
+		for _, object in ipairs(storedObjects) do
+			if object.x == 0 and object.y == 0 then
+			hasObjectAtOrigin = true
+			break
+			end
+		end
+
+		-- Add a bee box at the origin for players who haven't placed anything yet
+		if not hasObjectAtOrigin and playerManager.GetPlayerLastJoinedVersion(player) < 3 then
 			object = {name = "Bee Box", x = 0, y = 0, id = playerManager.GenerateUniqueID(), rotation = 0}
 			table.insert(storedObjects, object)
 		end

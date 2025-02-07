@@ -524,7 +524,8 @@ function TrackPlayers(game, characterCallback)
                 version.value = data.version
                 playerLastJoinedVersions[player] = version
 
-                data.version = 2
+                -- Set the current save data version (for compatibility with future changes)
+                data.version = 3
 
                 if data.owed ~= nil then
                     if data.owed > 0 then
