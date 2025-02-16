@@ -1,4 +1,4 @@
---!Type(Module) -- Module type declaration, typically used in specific game engines or frameworks.
+ --!Type(Module) -- Module type declaration, typically used in specific game engines or frameworks.
 
 -- Create events for different types of requests, these will be used for communication between client and server.
 getStatsRequest = Event.new("GetStatsRequest")
@@ -412,17 +412,19 @@ function RecalculatePlayerEarnRate(player, isDc)
 end
 
 local function UpdateStorage(player, id)
-    local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, FlowerCapacity = 0, SweetScentLevel = 0, ApiarySize = 0, HasShears = false}
-    stats.Cash = players[player].Cash.value
-    stats.Nets = players[player].Nets.value
-    stats.BeeCapacity = players[player].BeeCapacity.value
-    stats.FlowerCapacity = players[player].FlowerCapacity.value
-    stats.SweetScentLevel = players[player].SweetScentLevel.value
-    stats.ApiarySize = players[player].ApiarySize.value
-    stats.HasShears = players[player].HasShears.value
+    if player ~= nil and players[player] ~= nil then
+        local stats = {Cash = 0, Nets = 0, BeeCapacity = 0, FlowerCapacity = 0, SweetScentLevel = 0, ApiarySize = 0, HasShears = false}
+        stats.Cash = players[player].Cash.value
+        stats.Nets = players[player].Nets.value
+        stats.BeeCapacity = players[player].BeeCapacity.value
+        stats.FlowerCapacity = players[player].FlowerCapacity.value
+        stats.SweetScentLevel = players[player].SweetScentLevel.value
+        stats.ApiarySize = players[player].ApiarySize.value
+        stats.HasShears = players[player].HasShears.value
 
-    -- Save the stats to storage and handle any errors
-    Storage.SetValue(id .. "/" .. "PlayerStats", stats, function(errorCode)    end)
+        -- Save the stats to storage and handle any errors
+        Storage.SetValue(id .. "/" .. "PlayerStats", stats, function(errorCode)    end)
+    end
     --print(player.name .. " Stats Saved")
 end
 
@@ -786,12 +788,20 @@ function self:ServerAwake()
         Storage.GetPlayerValue(player, "PlayerStats", function(stats, errorCode)
 
             if not errorCode == 0 then
+                print("Something went wrong loading player stats. Retrying...")
                 getStatsRequest:Fire(player)
-								return
+				return
             end
 
             -- If no existing stats are found, create default stats
-            if stats == nil then 
+            if stats == nil then
+                
+                if(Storage.GetPlayerValue(player, player.name) ~= nil) then
+                    print("Player " .. player.name .. " has no stats, but player is registered! Retrying...")
+                    getStatsRequest:Fire(player)
+                    return
+                end
+
                 stats = {Cash = 100, Nets = 1, BeeCapacity = 8, FlowerCapacity = 5, SweetScentLevel = 0, ApiarySize = 0, HasShears = false}
                 Storage.SetPlayerValue(player, "PlayerStats", stats) 
             end
