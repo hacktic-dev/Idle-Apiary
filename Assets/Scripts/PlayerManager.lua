@@ -12,7 +12,6 @@ local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
 local placedObjectsManager = require("PlacedObjectsController")
-local romanticBeeManager = require("RomanticBeeManager")
 
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
@@ -509,7 +508,6 @@ function TrackPlayers(game, characterCallback)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
             setPlayerVersionString:FireClient(player, "1.4.5")
-            romanticBeeManager.OnPlayerJoined(player)
 
             for player, playerData in pairs(players) do
                 RecalculatePlayerEarnRate(player)
@@ -586,7 +584,6 @@ function TrackPlayers(game, characterCallback)
             flowerManager.RemoveAllPlayerFlowers(player)
 			placedObjectsManager.RemoveAllPlayerPlacedObjects(player)
             playerJoins[player] = nil
-            romanticBeeManager.OnPlayerLeft(player)
             SaveProgress(player, true)
             removeElement(onlinePlayers, player)
             players[player] = nil

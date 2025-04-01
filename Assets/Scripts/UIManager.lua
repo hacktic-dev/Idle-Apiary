@@ -203,7 +203,6 @@ function HideAll()
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceStatus", false)
-    ToggleUI("Leaderboard", false)
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceObjectsUi", false)
     ToggleUI("RemoveFurnitureMenu", false)
@@ -296,21 +295,6 @@ function CloseAddHatMenu()
     ShowMenu()
     ToggleUI("PlaceButtons", true)
 end
-
- function OpenLeaderboard()
-     ToggleUI("Leaderboard", true)
-     ToggleUI("PlayerStats", false)
-     ToggleUI("CenterPlayerButton", false)
-     ToggleUI("PlaceButtons", false)
-     LeaderboardObject:GetComponent(Leaderboard).Init()
- end
-
- function CloseLeaderboard()
-     ToggleUI("Leaderboard", false)
-     ToggleUI("PlayerStats", true)
-     ToggleUI("CenterPlayerButton", true)
-     ToggleUI("PlaceButtons", true)
- end
 
 function OpenTutorialByPlayer()
     ToggleUI("Tutorial", true)
