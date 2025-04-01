@@ -36,6 +36,11 @@
                     <Label text="Pick Flower"/>
                 </hr:UIButton>
             </VisualElement>
+            <VisualElement class="bee-capture__container">
+            <hr:UIButton class="egg-button" name="_CollectEggButton">
+                <Label text="Collect Egg"/>
+            </hr:UIButton>
+            </VisualElement>
         </VisualElement>
     </hr:UILuaView>
 </UXML>

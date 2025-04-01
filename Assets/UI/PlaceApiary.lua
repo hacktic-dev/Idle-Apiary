@@ -10,6 +10,9 @@ local hasPlacedApiary = false
 --!SerializeField
 local statusObject : GameObject = nil
 
+--!SerializeField
+local EggSpawner : EggSpawner = nil
+
 --!Bind
 local _CaptureButton : UIButton = nil
 --!Bind
@@ -18,6 +21,8 @@ local _PickFlowerButton : UIButton = nil
 local _PlaceFurnitureButton : UIButton = nil
 --!Bind
 local _RemoveFurnitureButton : UIButton = nil
+--!Bind
+local _CollectEggButton : UIButton = nil
 
 local wildBeeManager = require("WildBeeManager")
 local audioManager = require("AudioManager")
@@ -155,6 +160,7 @@ end
 function self:ClientAwake()
     toggleUIElement(_PickFlowerButton, false)
     toggleUIElement(_PlaceFurnitureButton, false)
+    toggleUIElement(_CollectEggButton, false)
 
     Timer.new(0.5, function()
         if _placeApiaryButton.visible == false then
@@ -186,5 +192,13 @@ function self:ClientAwake()
         inApiary = _inApiary
         toggleUIElement(_PlaceFurnitureButton, inApiary)
         toggleUIElement(_RemoveFurnitureButton, inApiary)
+    end)
+
+    EggSpawner.EnteredEggRange:Connect(function()
+        toggleUIElement(_CollectEggButton, true)
+    end)
+
+    EggSpawner.ExitedEggRange:Connect(function()
+        toggleUIElement(_CollectEggButton, false)
     end)
 end

@@ -26,6 +26,8 @@ namespace Highrise.Lua.Generated
         public override string ScriptGUID => s_scriptGUID;
 
         [SerializeField] public UnityEngine.GameObject m_statusObject = default;
+        [LuaScriptPropertyAttribute("c5ed8c75affd77340a27356580ade885")]
+        [SerializeField] public UnityEngine.Object m_EggSpawner = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -36,10 +38,12 @@ namespace Highrise.Lua.Generated
             {
                 CreateSerializedProperty(_script.GetPropertyAt(0), null),
                 CreateSerializedProperty(_script.GetPropertyAt(1), m_statusObject),
-                CreateSerializedProperty(_script.GetPropertyAt(2), null),
+                CreateSerializedProperty(_script.GetPropertyAt(2), m_EggSpawner),
                 CreateSerializedProperty(_script.GetPropertyAt(3), null),
                 CreateSerializedProperty(_script.GetPropertyAt(4), null),
                 CreateSerializedProperty(_script.GetPropertyAt(5), null),
+                CreateSerializedProperty(_script.GetPropertyAt(6), null),
+                CreateSerializedProperty(_script.GetPropertyAt(7), null),
             };
         }
     }

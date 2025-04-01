@@ -63,6 +63,21 @@
     background-color:rgba(11, 106, 14, 0.8);
 }
 
+.egg-button
+{
+    background-color:rgba(237, 127, 200, 0.8);
+    font-size: 18px;
+    color: #fff
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.egg-button:hover
+{
+    background-color:rgba(247, 156, 216, 0.8);
+}
+
 .furniture-button {
     background-color:rgba(0, 123, 255, 0.8);
     font-size: 18px;

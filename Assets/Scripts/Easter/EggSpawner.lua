@@ -17,6 +17,15 @@ local GoldEggPrefab : GameObject = nil
 
 SPAWN_INTERVAL = 2
 MIN_SPAWN_DISTANCE = 50
+EGG_RANGE = 2
+
+eggs = {}
+
+local wasInRange = false
+
+--Events
+EnteredEggRange = Event.new("EnteredEggRange")
+ExitedEggRange = Event.new("ExitedEggRange")
 
 easterEventVariableRetriever = require("EasterEventVariableRetriever")
 
@@ -55,4 +64,39 @@ function TrySpawnEgg()
 
     local egg = Object.Instantiate(eggPrefab)
     egg.transform.position = position
+    table.insert(eggs, egg)
+    egg:GetComponent(Egg).EggDespawnEvent:Connect(function()
+        for i, e in ipairs(eggs) do
+            if e == egg then
+                table.remove(eggs, i)
+                print("Egg despawned")
+                break
+            end
+        end
+    end)
+end
+
+function self:Update()
+local playerPosition = client.localPlayer.character:GetComponent(Transform).position
+local isInRange = false
+local inRangeEgg = nil
+
+for _, egg in ipairs(eggs) do
+    local eggPosition = egg.transform.position
+    if Vector3.Distance(playerPosition, eggPosition) <= EGG_RANGE then
+        isInRange = true
+        inRangeEgg = egg
+        break
+    end
+end
+
+if isInRange and not self.wasInRange then
+    self.wasInRange = true
+    EnteredEggRange:Fire(inRangeEgg)
+    print("Entered egg range")
+elseif not isInRange and self.wasInRange then
+    self.wasInRange = false
+    ExitedEggRange:Fire()
+    print("Exited egg range")
+end
 end

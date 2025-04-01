@@ -61614,6 +61614,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_statusObject: {fileID: 2039243172}
+  m_EggSpawner: {fileID: 1840137721}
   references:
     version: 2
     RefIds:
