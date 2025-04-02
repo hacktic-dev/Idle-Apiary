@@ -7,7 +7,20 @@ local MAX_TIME_ALIVE = 180
 
 local inRange = false
 
+--!SerializeField
+local colour : string = ""
+--!SerializeField
+local id : string = ""
+
 EggDespawnEvent = Event.new("EggDespawnEvent")
+
+function GetColour()
+    return colour
+end
+
+function GetId()
+    return id
+end
 
 function self:Update()
     timeAlive += Time.deltaTime

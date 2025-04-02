@@ -19,19 +19,29 @@ SPAWN_INTERVAL = 2
 MIN_SPAWN_DISTANCE = 50
 EGG_RANGE = 2
 
+eggInventoryHandler = require("EggInventoryHandler")
+
 eggs = {}
 
 local wasInRange = false
-
---Events
-EnteredEggRange = Event.new("EnteredEggRange")
-ExitedEggRange = Event.new("ExitedEggRange")
 
 easterEventVariableRetriever = require("EasterEventVariableRetriever")
 
 function self:ClientAwake()
     Timer.new(SPAWN_INTERVAL, function()
         TrySpawnEgg()
+    end)
+
+    eggInventoryHandler.DestroyEggPrefabEvent:Connect(function(egg)
+        print("Destroying egg prefab")
+        for i, e in ipairs(eggs) do
+            if e == egg.gameObject then
+                table.remove(eggs, i)
+                Object.Destroy(e)
+                print("Egg destroyed")
+                break
+            end
+        end
     end)
 end
 
@@ -77,26 +87,26 @@ function TrySpawnEgg()
 end
 
 function self:Update()
-local playerPosition = client.localPlayer.character:GetComponent(Transform).position
-local isInRange = false
-local inRangeEgg = nil
+    local playerPosition = client.localPlayer.character:GetComponent(Transform).position
+    local isInRange = false
+    local inRangeEgg = nil
 
-for _, egg in ipairs(eggs) do
-    local eggPosition = egg.transform.position
-    if Vector3.Distance(playerPosition, eggPosition) <= EGG_RANGE then
-        isInRange = true
-        inRangeEgg = egg
-        break
+    for _, egg in ipairs(eggs) do
+        local eggPosition = egg.transform.position
+        if Vector3.Distance(playerPosition, eggPosition) <= EGG_RANGE then
+            isInRange = true
+            inRangeEgg = egg
+            break
+        end
     end
-end
 
-if isInRange and not self.wasInRange then
-    self.wasInRange = true
-    EnteredEggRange:Fire(inRangeEgg)
-    print("Entered egg range")
-elseif not isInRange and self.wasInRange then
-    self.wasInRange = false
-    ExitedEggRange:Fire()
-    print("Exited egg range")
-end
+    if isInRange and not self.wasInRange then
+        self.wasInRange = true
+        eggInventoryHandler.EnteredEggRange(inRangeEgg:GetComponent(Egg))
+        print("Entered egg range: " .. inRangeEgg:GetComponent(Egg).GetId())
+    elseif not isInRange and self.wasInRange then
+        self.wasInRange = false
+        eggInventoryHandler.ExitedEggRange()
+        print("Exited egg range")
+    end
 end

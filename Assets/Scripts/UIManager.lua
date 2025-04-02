@@ -37,6 +37,7 @@ local RemoveFurnitureMenuObject : GameObject = nil
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
 local audioManager = require("AudioManager")
+local eggInventoryHandler = require("EggInventoryHandler")
 
 initPlaceFurnitureMenu = Event.new("initPlaceFurnitureMenu")
 
@@ -311,6 +312,7 @@ wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) ToggleUI("CenterPlayerButton", true) end)
 end))
 
+
 playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("BeeCard", true)
     ToggleUI("PlayerStats", false)
@@ -347,6 +349,22 @@ function self:ClientAwake()
             TutorialObject:GetComponent(Tutorial).Init(false, true)
         end
     end, false)
+
+    eggInventoryHandler.NotifyEggCollectedEvent:Connect((function(eggColour)
+        ToggleUI("BeeCard", true)
+        ToggleUI("PlaceButtons", false)
+        ToggleUI("PlayerStats", false)
+        ToggleUI("CenterPlayerButton", false)
+        InfoCardObject:GetComponent(InfoCard).ShowEggCollected(eggColour)
+        audioManager.PlaySound("captureSound", 1)
+        InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+            function()  
+                ToggleUI("BeeCard", false) 
+                ToggleUI("PlaceButtons", true) 
+                ToggleUI("PlayerStats", true) 
+                ToggleUI("CenterPlayerButton", true)
+            end)
+    end))
 end
 
 function ShowMenu()

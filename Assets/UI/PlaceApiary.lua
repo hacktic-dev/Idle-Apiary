@@ -10,9 +10,6 @@ local hasPlacedApiary = false
 --!SerializeField
 local statusObject : GameObject = nil
 
---!SerializeField
-local EggSpawner : EggSpawner = nil
-
 --!Bind
 local _CaptureButton : UIButton = nil
 --!Bind
@@ -29,6 +26,7 @@ local audioManager = require("AudioManager")
 local UIManager = require("UIManager")
 local flowerManager = require("FlowerManager")
 local romanticBeeManager = require("RomanticBeeManager")
+local eggInventoryHandler = require("EggInventoryHandler")
 
 -- Table to store the current UI state (whether the button is visible)
 local captureUIVisible = true
@@ -129,6 +127,10 @@ _RemoveFurnitureButton:RegisterPressCallback(function()
 end, true, true, true
 )
 
+_CollectEggButton:RegisterPressCallback(function()
+    eggInventoryHandler.CollectEgg()
+end, true, true, true)
+
 -- Function to check player's proximity to bees and show the UI accordingly
 local function updateCaptureUI(player)
     local isNearBee = false
@@ -194,11 +196,11 @@ function self:ClientAwake()
         toggleUIElement(_RemoveFurnitureButton, inApiary)
     end)
 
-    EggSpawner.EnteredEggRange:Connect(function()
+    eggInventoryHandler.EnteredEggRangeEvent:Connect(function()
         toggleUIElement(_CollectEggButton, true)
     end)
 
-    EggSpawner.ExitedEggRange:Connect(function()
+    eggInventoryHandler.ExitedEggRangeEvent:Connect(function()
         toggleUIElement(_CollectEggButton, false)
     end)
 end

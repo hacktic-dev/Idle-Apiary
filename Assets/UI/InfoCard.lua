@@ -38,6 +38,14 @@ function ShowCaughtWild(species)
     SetTimer()
 end
 
+function ShowEggCollected(eggColour)
+    _beeLabel:SetPrelocalizedText("You collected a " .. eggColour .. " egg!")
+    _rarity:SetPrelocalizedText("")
+    _honeyRateLabel:SetPrelocalizedText("")
+    _sellPriceLabel:SetPrelocalizedText("")
+    SetTimer()
+end
+
 function ShowReceived(species)
     _beeLabel:SetPrelocalizedText("You received a " .. species .. "!")
     _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")

@@ -51,6 +51,8 @@ MonoBehaviour:
   _uiOutput: 0
   _uiOutputSettings:
     rid: -2
+  m_colour: red
+  m_id: egg_red
   references:
     version: 2
     RefIds:

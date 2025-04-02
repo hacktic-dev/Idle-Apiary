@@ -18,15 +18,13 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/Egg")]
-    [LuaRegisterType(0xd8e112198df7ada6, typeof(LuaBehaviour))]
-    public class Egg : LuaBehaviourThunk
+    [AddComponentMenu("Lua/EggInventoryHandler")]
+    [LuaRegisterType(0x6891368339162bba, typeof(LuaBehaviour))]
+    public class EggInventoryHandler : LuaBehaviourThunk
     {
-        private const string s_scriptGUID = "0d8ac27380208f04d93c4dbae86af234";
+        private const string s_scriptGUID = "70525b7bdcf9fc44eaa60587858e1930";
         public override string ScriptGUID => s_scriptGUID;
 
-        [SerializeField] public System.String m_colour = "";
-        [SerializeField] public System.String m_id = "";
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -35,8 +33,6 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
-                CreateSerializedProperty(_script.GetPropertyAt(0), m_colour),
-                CreateSerializedProperty(_script.GetPropertyAt(1), m_id),
             };
         }
     }

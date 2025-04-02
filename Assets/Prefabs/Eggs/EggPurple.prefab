@@ -8,6 +8,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2155949621881907857, guid: efa9e51288a583b468cb5af9a7831f13,
+        type: 3}
+      propertyPath: m_id
+      value: egg_purple
+      objectReference: {fileID: 0}
+    - target: {fileID: 2155949621881907857, guid: efa9e51288a583b468cb5af9a7831f13,
+        type: 3}
+      propertyPath: m_colour
+      value: purple
+      objectReference: {fileID: 0}
     - target: {fileID: 4863936905781447837, guid: efa9e51288a583b468cb5af9a7831f13,
         type: 3}
       propertyPath: m_Name

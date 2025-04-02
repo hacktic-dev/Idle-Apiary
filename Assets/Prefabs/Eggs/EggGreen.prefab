@@ -68,6 +68,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: EggGreen
       objectReference: {fileID: 0}
+    - target: {fileID: 4705328443435691590, guid: 45e2d2939ca21e742854b52249dad2a8,
+        type: 3}
+      propertyPath: m_id
+      value: egg_green
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705328443435691590, guid: 45e2d2939ca21e742854b52249dad2a8,
+        type: 3}
+      propertyPath: m_colour
+      value: green
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
