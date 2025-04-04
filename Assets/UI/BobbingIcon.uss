@@ -1,0 +1,35 @@
+.bobbing-icon {
+}
+
+.text
+{
+    color: #ffffff;
+    font-size: 120px;
+        align-self: center;
+        height: 100%;
+        margin-bottom: 0;
+        overflow: wrap;
+
+          -unity-text-outline-width: 2px;
+  -unity-text-outline-color:rgb(216, 216, 216);
+}
+
+.text-small
+{
+    color: #ffffff;
+    font-size: 180px;
+        align-self: center;
+        height: 100%;
+        margin-bottom: 0;
+        overflow: wrap;
+
+          -unity-text-outline-width: 2px;
+  -unity-text-outline-color:rgb(216, 216, 216);
+}
+
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 2px 2px 12.5px rgba(0,0,0,0.6);
+}

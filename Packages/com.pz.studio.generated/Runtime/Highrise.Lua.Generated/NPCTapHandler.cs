@@ -18,13 +18,14 @@ using Highrise.Lua;
 
 namespace Highrise.Lua.Generated
 {
-    [AddComponentMenu("Lua/PlayerOrderGui")]
-    [LuaRegisterType(0x2afbbb33c10f0b73, typeof(LuaBehaviour))]
-    public class PlayerOrderGui : LuaBehaviourThunk
+    [AddComponentMenu("Lua/NPCTapHandler")]
+    [LuaRegisterType(0x401412ab499db313, typeof(LuaBehaviour))]
+    public class NPCTapHandler : LuaBehaviourThunk
     {
-        private const string s_scriptGUID = "5522b126b9c612445aa468489c5c7015";
+        private const string s_scriptGUID = "49f55fd777add68488825bcbc7f83fea";
         public override string ScriptGUID => s_scriptGUID;
 
+        [SerializeField] public System.String m_npcName = "";
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -33,7 +34,7 @@ namespace Highrise.Lua.Generated
 
             return new SerializedPropertyValue[]
             {
-                CreateSerializedProperty(_script.GetPropertyAt(0), null),
+                CreateSerializedProperty(_script.GetPropertyAt(0), m_npcName),
             };
         }
     }

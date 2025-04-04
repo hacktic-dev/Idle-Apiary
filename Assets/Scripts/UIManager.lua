@@ -34,6 +34,10 @@ local PlaceObjectsUiObject : GameObject = nil
 --!SerializeField
 local RemoveFurnitureMenuObject : GameObject = nil
 
+--EASTER
+--!SerializeField
+local EggCraftingUiObject : GameObject = nil
+
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
 local audioManager = require("AudioManager")
@@ -57,7 +61,8 @@ local uiMap = {
     Leaderboard = LeaderboardObject,
     PlaceFurnitureMenu = PlaceFurnitureMenuObject,
     PlaceObjectsUi = PlaceObjectsUiObject,
-    RemoveFurnitureMenu = RemoveFurnitureMenuObject
+    RemoveFurnitureMenu = RemoveFurnitureMenuObject,
+    EggCraftingUi = EggCraftingUiObject,
 }
 
 -- Activate the object if it is not active
@@ -207,6 +212,7 @@ function HideAll()
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceObjectsUi", false)
     ToggleUI("RemoveFurnitureMenu", false)
+    ToggleUI("EggCraftingUi", false)
 end
 
 function OpenShearsTutorial()
@@ -293,6 +299,20 @@ end
 
 function CloseAddHatMenu()
     ToggleUI("AddHatMenu", false)
+    ShowMenu()
+    ToggleUI("PlaceButtons", true)
+end
+
+function ShowEggCraftingUi()
+    ToggleUI("EggCraftingUi", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+    EggCraftingUiObject:GetComponent(EggCraftingUi).Init()
+end
+
+function CloseEggCraftingUi()
+    ToggleUI("EggCraftingUi", false)
     ShowMenu()
     ToggleUI("PlaceButtons", true)
 end
