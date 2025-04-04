@@ -109,45 +109,43 @@ end
 function InitUpgradesTab(beeCapacity, flowerCapacity, sweetScentLevel, apiarySize)
     Orders_Root:Clear()
 
-    if beeCapacity < 18 then
-        CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "BeeCapacity", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", true)
-    elseif beeCapacity == 18 then
-			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_1", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", false, 100)
-		elseif beeCapacity == 19 then
-			CreateQuestItem("Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", "bee_size_2", LookupBeeCapacityUpgradePrice(beeCapacity + 1), false, "", false, 250)
-		end
+    local upgradeItems = {
+        {name = "Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", id = "BeeCapacity", price = LookupBeeCapacityUpgradePrice(beeCapacity + 1), isGold = false, description = "", shouldConfirm = true, condition = beeCapacity < 18},
+        {name = "Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", id = "bee_size_1", price = LookupBeeCapacityUpgradePrice(beeCapacity + 1), isGold = false, description = "", shouldConfirm = false, goldPrice = 100, condition = beeCapacity == 18},
+        {name = "Upgrade Bee Capacity to " .. beeCapacity+1 .. " Bees", id = "bee_size_2", price = LookupBeeCapacityUpgradePrice(beeCapacity + 1), isGold = false, description = "", shouldConfirm = false, goldPrice = 250, condition = beeCapacity == 19},
+        {name = "Sweet Scent Upgrade #" .. sweetScentLevel+1, id = "SweetScentLevel", price = LookupSweetScentLevelPrice(sweetScentLevel + 1), isGold = false, description = "Rarer bees spawn more frequently", shouldConfirm = true, condition = sweetScentLevel < 3},
+        {name = "Shears", id = "Shears", price = 5000, isGold = false, description = "Can be used to pick flowers", shouldConfirm = true, condition = not playerManager.players[client.localPlayer].HasShears.value},
+        {name = "Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", id = "FlowerCapacity", price = LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), isGold = false, description = "", shouldConfirm = true, condition = playerManager.players[client.localPlayer].HasShears.value and flowerCapacity < 10},
+        {name = "Upgrade Apiary Size", id = "apiary_size_1", price = 250000, isGold = false, description = "Make space for more furniture", shouldConfirm = false, goldPrice = 250, condition = apiarySize == 0},
+        {name = "Upgrade Apiary Size", id = "apiary_size_2", price = 500000, isGold = false, description = "Make space for more furniture", shouldConfirm = false, goldPrice = 500, condition = apiarySize == 1}
+    }
 
-    if sweetScentLevel < 3 then
-        CreateQuestItem("Sweet Scent Upgrade #" .. sweetScentLevel+1, "SweetScentLevel", LookupSweetScentLevelPrice(sweetScentLevel + 1), false, "Rarer bees spawn more frequently", true)
+    for _, item in ipairs(upgradeItems) do
+        if item.condition then
+            CreateShopItem(item.name, item.id, item.price, item.isGold, item.description, item.shouldConfirm, item.goldPrice)
+        end
     end
-
-    if playerManager.players[client.localPlayer].HasShears.value == false then
-        CreateQuestItem("Shears", "Shears", 5000, false, "Can be used to pick flowers", true)
-    else
-       if flowerCapacity < 10 then
-        CreateQuestItem("Upgrade Flower Capacity to " .. flowerCapacity+1 .. " Flowers", "FlowerCapacity", LookupFlowerCapacityUpgradePrice(flowerCapacity + 1), false, "", true)
-       end
-    end
-
-    if apiarySize == 0 then
-        CreateQuestItem("Upgrade Apiary Size", "apiary_size_1", 250000, false, "Make space for more furniture", false, 250)
-    elseif apiarySize == 1 then
-        CreateQuestItem("Upgrade Apiary Size", "apiary_size_2", 500000, false, "Make space for more furniture", false, 500)
-    end
-
 end
 
 local function InitBeesTab()
     Orders_Root:Clear()
-    CreateQuestItem("Random Bee", "Bronze", 50, false, "Bronze Set", false)
-    CreateQuestItem("Random Bee", "Silver", 250, false, "Silver Set", false)
-    CreateQuestItem("Random Bee", "Gold", 1250, false, "Gold Set", false)
-    CreateQuestItem("Random Bee", "Platinum", 5000, false, "Platinum Set", false)
+
+    local beeItems = {
+        {name = "Random Bee", id = "Bronze", price = 50, isGold = false, description = "Bronze Set"},
+        {name = "Random Bee", id = "Silver", price = 250, isGold = false, description = "Silver Set"},
+        {name = "Random Bee", id = "Gold", price = 1250, isGold = false, description = "Gold Set"},
+        {name = "Random Bee", id = "Platinum", price = 5000, isGold = false, description = "Platinum Set"}
+    }
+
+    for _, item in ipairs(beeItems) do
+        CreateShopItem(item.name, item.id, item.price, item.isGold, item.description, false)
+    end
 end
 
 local function InitHoneyTab(sweetScentLevel)
     Orders_Root:Clear()
 
+    local netPrice
     if sweetScentLevel == 0 then
         netPrice = 50
     elseif sweetScentLevel == 1 then
@@ -158,11 +156,16 @@ local function InitHoneyTab(sweetScentLevel)
         netPrice = 1000
     end
 
-    CreateQuestItem("Bee Net", "Net", netPrice, false, "", false)
+    local honeyItems = {
+        {name = "Bee Net", id = "Net", price = netPrice, isGold = false, description = ""},
+        {name = "Honey Doubler", id = "doubler_1", price = 250, isGold = true, description = "Doubles honey rate for the next 5 minutes."},
+        {name = "Honey Doubler Pro", id = "doubler_2", price = 500, isGold = true, description = "Doubles honey rate for the next 15 minutes"},
+        {name = "Egg Finder", id = "egg_finder", price = 250, isGold = true, description = "Increases spawn rate of rare eggs for the next 15 minutes."},
+    }
 
-
-    CreateQuestItem("Honey Doubler", "doubler_1", 250, true, "Doubles honey rate for the next 5 minutes.", false)
-    CreateQuestItem("Honey Doubler Pro", "doubler_2", 500, true, "Doubles honey rate for the next 15 minutes", false)
+    for _, item in ipairs(honeyItems) do
+        CreateShopItem(item.name, item.id, item.price, item.isGold, item.description, false)
+    end
 end
 
 local function getSeed()
@@ -628,8 +631,7 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold, isSoldOut)
 end
 
 
--- Creates a new quest item in the UI.
-function CreateQuestItem(Name, Id, Cash, isGold, description, shouldConfirm, GoldPrice)
+function CreateShopItem(Name, Id, Cash, isGold, description, shouldConfirm, GoldPrice)
     -- Create a new button for the quest item.
     local questItem = UIButton.new()
     questItem:AddToClassList("order-item") -- Add a class to style the quest item.

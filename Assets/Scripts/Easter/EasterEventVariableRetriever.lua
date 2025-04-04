@@ -4,6 +4,7 @@
 pinkEggSpawnRate = 0
 whiteEggSpawnRate = 0
 goldEggSpawnRate = 0
+eggSpawnChance = 0
 
 -- Function to retrieve Easter event data from storage
 local function RetrieveEasterEventData()
@@ -14,11 +15,12 @@ local function RetrieveEasterEventData()
         end
 
         -- Initialize default values if data is nil
-        data = data or { pinkEggSpawnRate = 0.1, whiteEggSpawnRate = 0.05, goldEggSpawnRate = 0.01 }
+        data = data or { pinkEggSpawnRate = 0.1, whiteEggSpawnRate = 0.05, goldEggSpawnRate = 0.01, eggSpawnChance = 0.033 }
 
         pinkEggSpawnRate.value = data.pinkEggSpawnRate
         whiteEggSpawnRate.value = data.whiteEggSpawnRate
         goldEggSpawnRate.value = data.goldEggSpawnRate
+        eggSpawnChance.value = data.eggSpawnChance
 
         -- Save the updated data back to storage
         Storage.SetValue("EasterEventData", data, function(saveErrorCode)
@@ -35,6 +37,7 @@ function self:ServerAwake()
     pinkEggSpawnRate = NumberValue.new("PinkEggSpawnRate", 0)
     whiteEggSpawnRate = NumberValue.new("WhiteEggSpawnRate", 0)
     goldEggSpawnRate = NumberValue.new("GoldEggSpawnRate", 0)
+    eggSpawnChance = NumberValue.new("EggSpawnChance", 0)
 
     RetrieveEasterEventData()
     Timer.new(30, function() RetrieveEasterEventData() end, true)
@@ -45,6 +48,7 @@ function self:ClientAwake()
    pinkEggSpawnRate = NumberValue.new("PinkEggSpawnRate", 0)
    whiteEggSpawnRate = NumberValue.new("WhiteEggSpawnRate", 0)
    goldEggSpawnRate = NumberValue.new("GoldEggSpawnRate", 0)
+    eggSpawnChance = NumberValue.new("EggSpawnChance", 0)
 end
 
 function GetPinkEggSpawnRate()
@@ -57,4 +61,8 @@ end
 
 function GetGoldEggSpawnRate()
     return goldEggSpawnRate.value
+end
+
+function GetEggSpawnChance()
+    return eggSpawnChance.value
 end

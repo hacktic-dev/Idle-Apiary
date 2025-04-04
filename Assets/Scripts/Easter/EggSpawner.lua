@@ -15,7 +15,7 @@ local WhiteEggPrefab : GameObject = nil
 --!SerializeField
 local GoldEggPrefab : GameObject = nil
 
-SPAWN_INTERVAL = 2
+SPAWN_INTERVAL = 1
 MIN_SPAWN_DISTANCE = 50
 EGG_RANGE = 2
 
@@ -24,11 +24,17 @@ eggInventoryHandler = require("EggInventoryHandler")
 eggs = {}
 
 local wasInRange = false
+local eggFinderActive = false
 
 easterEventVariableRetriever = require("EasterEventVariableRetriever")
 
 function self:ClientAwake()
     Timer.new(SPAWN_INTERVAL, function()
+        eggInventoryHandler.RequestEggFinderActiveEvent:FireServer()
+    end, true)
+
+    eggInventoryHandler.NotifyEggFinderActiveEvent:Connect(function(isActive)
+        eggFinderActive = isActive
         TrySpawnEgg()
     end)
 
@@ -46,7 +52,12 @@ function self:ClientAwake()
 end
 
 function TrySpawnEgg()
-    if math.random(0, 100) > 50 then
+    local spawnChance = easterEventVariableRetriever.GetEggSpawnChance()
+    if eggFinderActive then
+        spawnChance = spawnChance * 3
+    end
+
+    if math.random() > spawnChance then
         return -- failed
     end
     
@@ -58,14 +69,24 @@ function TrySpawnEgg()
         end
     end
 
-    local spawnRoll = math.random(0, 100)
+    local spawnRoll = math.random()
     local eggPrefab = nil
 
-    if spawnRoll <= easterEventVariableRetriever.GetGoldEggSpawnRate() then
+    local goldEggRate = easterEventVariableRetriever.GetGoldEggSpawnRate()
+    local whiteEggRate = easterEventVariableRetriever.GetWhiteEggSpawnRate()
+    local pinkEggRate = easterEventVariableRetriever.GetPinkEggSpawnRate()
+
+    if eggFinderActive then
+        goldEggRate = goldEggRate * 2
+        whiteEggRate = whiteEggRate * 2
+        pinkEggRate = pinkEggRate * 2
+    end
+
+    if spawnRoll <= goldEggRate then
         eggPrefab = GoldEggPrefab
-    elseif spawnRoll <= easterEventVariableRetriever.GetGoldEggSpawnRate() + easterEventVariableRetriever.GetWhiteEggSpawnRate() then
+    elseif spawnRoll <= goldEggRate + whiteEggRate then
         eggPrefab = WhiteEggPrefab
-    elseif spawnRoll <= easterEventVariableRetriever.GetGoldEggSpawnRate() + easterEventVariableRetriever.GetWhiteEggSpawnRate() + easterEventVariableRetriever:GetPinkEggSpawnRate() then
+    elseif spawnRoll <= goldEggRate + whiteEggRate + pinkEggRate then
         eggPrefab = PinkEggPrefab
     else
         local regularEggIndex = math.random(1, math.min(#RegularEggPrefabs, 5))

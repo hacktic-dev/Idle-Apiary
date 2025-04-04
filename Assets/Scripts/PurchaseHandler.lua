@@ -9,6 +9,7 @@
 local InfoCardObject : GameObject = nil
 
 local playerManager = require("PlayerManager")
+local eggInventoryHandler = require("EggInventoryHandler")
 audioManager = require("AudioManager")
 local UIManager = require("UIManager")
 local Utils = require("Utils")
@@ -86,6 +87,20 @@ function ServerHandlePurchase(purchase, player: Player)
         return
       end
       print("Player ".. player.name .." honey doubler is now active")
+      purchaseSucceededEvent:FireClient(player, productId)
+    end)
+
+    return
+  elseif productId == "egg_finder" then
+    eggInventoryHandler.SetEggFinderActiveForPlayer(player)
+
+    Payments.AcknowledgePurchase(purchase, true, function(ackErr: PaymentsError)
+      if ackErr ~= PaymentsError.None then
+        print("Error acknowledging purchase: " .. ackErr)
+        purchaseFailedEvent:FireClient(player)
+        return
+      end
+      print("Player ".. player.name .." egg finder is now active")
       purchaseSucceededEvent:FireClient(player, productId)
     end)
 

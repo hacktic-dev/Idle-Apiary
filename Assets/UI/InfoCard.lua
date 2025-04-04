@@ -75,6 +75,8 @@ function showPurchasedHoney(id)
         _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler!")
     elseif id == "doubler_2" then
         _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler Pro!")
+    elseif id == "egg_finder" then
+        _beeLabel:SetPrelocalizedText("You purchased an Egg Finder!")
     end
 
     _rarity:SetPrelocalizedText("Thank you for your purchase!")
