@@ -10265,6 +10265,14 @@ MonoBehaviour:
     type: 3}
   m_heartPillow: {fileID: 2471304016359239742, guid: 8289325b3cb627e498d76c74f3a641b8,
     type: 3}
+  m_regularBeeEgg: {fileID: 2471304016359239742, guid: 2ba875fcd90566a4a9f0e7cec6a5ba71,
+    type: 3}
+  m_pinkBeeEgg: {fileID: 3770721917800103863, guid: 9918e010115f3ec49b27ac78f59bdd0c,
+    type: 3}
+  m_whiteBeeEgg: {fileID: 8243460293498165650, guid: 3e8d3e97e5878c6458cad3a8390336e2,
+    type: 3}
+  m_goldenBeeEgg: {fileID: 8664181005057228116, guid: 4567e1f0c79973e4a93762a24fa3fe60,
+    type: 3}
   references:
     version: 2
     RefIds:
@@ -35295,6 +35303,10 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 8c3548703ae6aa34bbb1600189c2843e, type: 3}
   - {fileID: 2800000, guid: 3681d927135112d468615243da913434, type: 3}
   - {fileID: 2800000, guid: a83e255af6313c04880e45ae321ffbe4, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
   m_placementObjects:
   - {fileID: 6150770344185259146, guid: 9681ed390627bb24a973eadda3605985, type: 3}
   - {fileID: 2471304016359239742, guid: 0c57a6352ab91554dbdc3e24a831254b, type: 3}
@@ -35324,6 +35336,10 @@ MonoBehaviour:
   - {fileID: 6150770344185259146, guid: d7fd17a2d2c09dd47a39b95a8b1a2127, type: 3}
   - {fileID: 6150770344185259146, guid: b7b1155feb61ce04fac0cc0d72d7884b, type: 3}
   - {fileID: 2471304016359239742, guid: 8289325b3cb627e498d76c74f3a641b8, type: 3}
+  - {fileID: 2471304016359239742, guid: 2ba875fcd90566a4a9f0e7cec6a5ba71, type: 3}
+  - {fileID: 3770721917800103863, guid: 9918e010115f3ec49b27ac78f59bdd0c, type: 3}
+  - {fileID: 8243460293498165650, guid: 3e8d3e97e5878c6458cad3a8390336e2, type: 3}
+  - {fileID: 8664181005057228116, guid: 4567e1f0c79973e4a93762a24fa3fe60, type: 3}
   references:
     version: 2
     RefIds:

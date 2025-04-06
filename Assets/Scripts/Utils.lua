@@ -37,7 +37,12 @@ PlacementObject = {
     ["Pink Flower Pot"] = placementObjects[25],
     ["Cherry Blossom Petal"] = placementObjects[26],
     ["Cherry Blossom Tree"] = placementObjects[27],
-    ["Heart Pillow" ] = placementObjects[28]
+    ["Heart Pillow" ] = placementObjects[28],
+    --Easter
+    ["Regular Bee Egg"] = placementObjects[29],
+    ["Pink Bee Egg"] = placementObjects[30],
+    ["White Bee Egg"] = placementObjects[31],
+    ["Golden Bee Egg"] = placementObjects[32]
 }
 
 BeeImage = {
@@ -135,7 +140,13 @@ FurnitureImage = {
     ["Pink Flower Pot"] = placementTextures[29],
     ["Cherry Blossom Petal"] = placementTextures[30],
     ["Cherry Blossom Tree"] = placementTextures[31],
-    ["Heart Pillow"] = placementTextures[32]
+    ["Heart Pillow"] = placementTextures[32],
+
+    --Easter
+    ["Regular Bee Egg"] = placementTextures[33],
+    ["Pink Bee Egg"] = placementTextures[34],
+    ["White Bee Egg"] = placementTextures[35],
+    ["Golden Bee Egg"] = placementTextures[36]
 }
 
 local hatData = 
@@ -192,7 +203,13 @@ local furnitureData = {
     {name = "Pink Flower Pot", id = "pink_flower_pot", cost = 5000, goldCost = 150, selectFactorRegular = 10, selectFactorGold = 5},
     {name = "Cherry Blossom Petal", id = "cherry_blossom_petal", cost = 5000, goldCost = 150, selectFactorRegular = 5, selectFactorGold = 30},
     {name = "Cherry Blossom Tree", id = "cherry_blossom_tree", cost = 25000, goldCost = 400, selectFactorRegular = 4, selectFactorGold = 30},
-    {name = "Heart Pillow", id = "heart_pillow", cost = 12000, goldCost = 350, selectFactorRegular = 4, selectFactorGold = 30}
+    {name = "Heart Pillow", id = "heart_pillow", cost = 12000, goldCost = 350, selectFactorRegular = 4, selectFactorGold = 30},
+
+    --Easter
+    {name = "Regular Bee Egg", id = "regular_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Pink Bee Egg", id = "pink_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "White Bee Egg", id = "white_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Golden Bee Egg", id = "gold_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0}
 }
 
 function IsHat(id)

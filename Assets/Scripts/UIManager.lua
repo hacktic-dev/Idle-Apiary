@@ -389,6 +389,18 @@ function self:ClientAwake()
         ToggleUI("PlaceButtons", false)
         EggCraftingUiObject:GetComponent(EggCraftingUi).Init(eggs)
     end))
+
+    eggInventoryHandler.NotifyEggCraftedEvent:Connect((function(name)
+        ToggleUI("BeeCard", true)
+        ToggleUI("EggCraftingUi", false)
+        InfoCardObject:GetComponent(InfoCard).ShowEggCrafted(name)
+        audioManager.PlaySound("captureSound", 1) --TODO add a new sound here
+        InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+            function()  
+                ToggleUI("BeeCard", false) 
+                ShowEggCraftingUi()
+            end)
+    end))
 end
 
 function ShowMenu()

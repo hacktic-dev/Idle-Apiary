@@ -70,6 +70,14 @@ function ShowFlowerCut(name, effect)
     SetTimer()
 end
 
+function ShowEggCrafted(name)
+    _beeLabel:SetPrelocalizedText("You crafted a " .. name .. "!")
+    _rarity:SetPrelocalizedText("")
+    _honeyRateLabel:SetPrelocalizedText("")
+    _sellPriceLabel:SetPrelocalizedText("")
+    SetTimer()
+end
+
 function showPurchasedHoney(id)
     if id == "doubler_1" then
         _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler!")

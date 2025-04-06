@@ -12,6 +12,9 @@ DestroyEggPrefabEvent = Event.new("DestroyEggPrefabEvent")
 RequestEggFinderActiveEvent = Event.new("RequestEggFinderActiveEvent")
 NotifyEggFinderActiveEvent = Event.new("NotifyEggFinderActiveEvent")
 
+RequestCraftEggEvent = Event.new("RequestCraftEggEvent")
+NotifyEggCraftedEvent = Event.new("NotifyEggCraftedEvent") 
+
 RequestEggInventoryEvent = Event.new("RequestEggInventoryEvent")
 NotifyEggInventoryRecievedEvent = Event.new("NotifyEggInventoryRecievedEvent")
 
@@ -67,6 +70,17 @@ function self:ServerAwake()
     RequestEggInventoryEvent:Connect(function(player)
         GetPlayerItems(player, {}, nil)
     end)
+
+    RequestCraftEggEvent:Connect(function(player, item)
+        local transaction = InventoryTransaction.new():GivePlayer(player, item.id, 1)
+
+        for _, eggId in ipairs(item.requirement) do
+            transaction = transaction:TakePlayer(player, eggId, 1)
+        end
+
+        Inventory.CommitTransaction(transaction)
+        NotifyEggCraftedEvent:FireClient(player, item.name)
+    end)
 end
 
 function GetPlayerItems(player, eggInventory, cursorId)
@@ -97,4 +111,8 @@ function SetEggFinderActiveForPlayer(player)
     Timer.new(900, function()
         activePlayerEggFinders[player] = nil
     end)
+end
+
+function CraftEgg(item)
+    RequestCraftEggEvent:FireServer(item)
 end

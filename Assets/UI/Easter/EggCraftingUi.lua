@@ -40,15 +40,16 @@ local goldEggCount : UILabel = nil
 
 
 UIManager = require("UIManager")
+eggInventoryHandler = require("EggInventoryHandler")
 
 eggInventory = {}
 
 local recipes =
 {
-    {id = "regular_egg", name = "Regular Egg", description = "Hatches a random Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple"} },
-    {id = "pink_egg", name = "Pink Egg", description = "Hatches a rare Pink Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_pink"} },
-    {id = "white_egg", name = "White Egg", description = "Hatches an ultra-rare White Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_white"} },
-    {id = "gold_egg", name = "Golden Egg", description = "Hatches a legendary Golden Easter Bee!", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_gold"} },
+    {id = "regular_bee_egg", name = "Regular Bee Egg", description = "Hatches a random Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple"} },
+    {id = "pink_bee_egg", name = "Pink Bee Egg", description = "Hatches a rare Pink Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_pink"} },
+    {id = "white_bee_egg", name = "White Bee Egg", description = "Hatches an ultra-rare White Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_white"} },
+    {id = "gold_bee_egg", name = "Golden Bee Egg", description = "Hatches a legendary Golden Easter Bee!", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_gold"} },
 }
 
 
@@ -195,7 +196,7 @@ function OnItemClicked(Id)
         if CheckCraftingRequirements(Id) then -- TODO: Check actual crafting conditions
             craftButton:AddToClassList("buy-button")
             craftButton:RegisterPressCallback(function()
-                    CraftEgg(Id, item)
+                eggInventoryHandler.CraftEgg(item)
             end, true, true, true)
         else
             craftButton:AddToClassList("buy-button-greyed")

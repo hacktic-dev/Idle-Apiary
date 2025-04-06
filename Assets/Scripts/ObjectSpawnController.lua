@@ -84,6 +84,18 @@ local cherryBlossomTree : GameObject = nil
 --!SerializeField
 local heartPillow : GameObject = nil
 
+--!SerializeField
+local regularBeeEgg : GameObject = nil
+
+--!SerializeField
+local pinkBeeEgg : GameObject = nil
+
+--!SerializeField
+local whiteBeeEgg : GameObject = nil
+
+--!SerializeField
+local goldenBeeEgg : GameObject = nil
+
 PlacementObject = {
     ["Chair"] = chair,
     ["Table"] = table,
@@ -112,7 +124,12 @@ PlacementObject = {
     ["Pink Flower Pot"] = pinkFlowerPot,
     ["Cherry Blossom Petal"] = cherryBlossomPetal,
     ["Cherry Blossom Tree"] = cherryBlossomTree,
-    ["Heart Pillow"] = heartPillow
+    ["Heart Pillow"] = heartPillow,
+    --Easter
+    ["Regular Bee Egg"] = regularBeeEgg,
+    ["Pink Bee Egg"] = pinkBeeEgg,
+    ["White Bee Egg"] = whiteBeeEgg,
+    ["Golden Bee Egg"] = goldenBeeEgg,
 }
 
 spawnedObjects = {}
