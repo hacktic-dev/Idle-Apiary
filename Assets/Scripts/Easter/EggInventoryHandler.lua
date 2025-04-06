@@ -12,7 +12,22 @@ DestroyEggPrefabEvent = Event.new("DestroyEggPrefabEvent")
 RequestEggFinderActiveEvent = Event.new("RequestEggFinderActiveEvent")
 NotifyEggFinderActiveEvent = Event.new("NotifyEggFinderActiveEvent")
 
+RequestEggInventoryEvent = Event.new("RequestEggInventoryEvent")
+NotifyEggInventoryRecievedEvent = Event.new("NotifyEggInventoryRecievedEvent")
+
 activePlayerEggFinders = {}
+
+eggIds =
+{
+    "egg_red",
+    "egg_orange",
+    "egg_yellow",
+    "egg_green",
+    "egg_purple",
+    "egg_pink",
+    "egg_white",
+    "egg_gold"
+}
 
 function EnteredEggRange(egg)
     if nearEgg == nil then
@@ -47,6 +62,33 @@ function self:ServerAwake()
         else
             NotifyEggFinderActiveEvent:FireClient(player, false)
         end
+    end)
+
+    RequestEggInventoryEvent:Connect(function(player)
+        GetPlayerItems(player, {}, nil)
+    end)
+end
+
+function GetPlayerItems(player, eggInventory, cursorId)
+    Inventory.GetPlayerItems(player, 50, cursorId, function(items, newCursorId, errorCode)
+    if errorCode ~= 0 then
+        print("Error: couldn't retrieve player items")
+        return
+    end
+
+    for index, item in items do
+        print(item.id .. " " .. item.amount)
+        if table.find(eggIds, item.id) then
+            print("found egg " .. item.id)
+            eggInventory[item.id] = (eggInventory[item.id] or 0) + item.amount
+        end
+    end
+
+    if(newCursorId ~= nil) then
+        GetPlayerItems(player, eggInventory, newCursorId)
+    else
+        NotifyEggInventoryRecievedEvent:FireClient(player, eggInventory)
+    end
     end)
 end
 

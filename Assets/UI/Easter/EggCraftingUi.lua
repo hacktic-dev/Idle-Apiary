@@ -21,15 +21,32 @@ local cancelButton : UIButton = nil
 local cancelLabel : UILabel = nil
 --!Bind
 local shopHeader : VisualElement = nil
+--!Bind
+local redEggCount : UILabel = nil
+--!Bind
+local orangeEggCount : UILabel = nil
+--!Bind
+local yellowEggCount : UILabel = nil
+--!Bind
+local greenEggCount : UILabel = nil
+--!Bind
+local purpleEggCount : UILabel = nil
+--!Bind
+local pinkEggCount : UILabel = nil
+--!Bind
+local whiteEggCount : UILabel = nil
+--!Bind
+local goldEggCount : UILabel = nil
+
 
 UIManager = require("UIManager")
 
 local recipes =
 {
-    {id = "regular_egg", name = "Regular Egg", description = "Hatches a random Easter Bee"},
-    {id = "pink_egg", name = "Pink Egg", description = "Hatches a rare Pink Easter Bee"},
-    {id = "white_egg", name = "White Egg", description = "Hatches an ultra-rare White Easter Bee"},
-    {id = "gold_egg", name = "Golden Egg", description = "Hatches a legendary Golden Easter Bee!"},
+    {id = "regular_egg", name = "Regular Egg", description = "Hatches a random Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple"} },
+    {id = "pink_egg", name = "Pink Egg", description = "Hatches a rare Pink Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_pink"} },
+    {id = "white_egg", name = "White Egg", description = "Hatches an ultra-rare White Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_white"} },
+    {id = "gold_egg", name = "Golden Egg", description = "Hatches a legendary Golden Easter Bee!", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple", "egg_gold"} },
 }
 
 
@@ -126,6 +143,48 @@ function OnItemClicked(Id)
         descriptionLabel:SetPrelocalizedText(item.description)
         _shopInfoArea:Add(descriptionLabel)
 
+        local horizontalContainer = VisualElement.new()
+        horizontalContainer:AddToClassList("horizontal-container")
+        _shopInfoArea:Add(horizontalContainer)
+
+        local eggIdToClassMap = {
+            egg_red = "redEggIcon",
+            egg_orange = "orangeEggIcon",
+            egg_yellow = "yellowEggIcon",
+            egg_green = "greenEggIcon",
+            egg_purple = "purpleEggIcon",
+            egg_pink = "pinkEggIcon",
+            egg_white = "whiteEggIcon",
+            egg_gold = "goldEggIcon",
+        }
+
+        local currentRow = horizontalContainer
+        for index, eggId in ipairs(item.requirement) do
+            if (index - 1) % 3 == 0 and index > 1 then
+            -- Create a new row after every 3 items
+            currentRow = VisualElement.new()
+            currentRow:AddToClassList("horizontal-container")
+            _shopInfoArea:Add(currentRow)
+            end
+
+            local eggIcon = VisualElement.new()
+            local className = eggIdToClassMap[eggId]
+            if className then
+            eggIcon:AddToClassList(className)
+            else
+            print("Warning: No class mapping found for egg ID: " .. eggId)
+            end
+            currentRow:Add(eggIcon)
+
+            -- Add a plus label only if it's not the last item
+            if index < #item.requirement then
+            local plusLabel = UILabel.new()
+            plusLabel:AddToClassList("plus-text")
+            plusLabel:SetPrelocalizedText("+")
+            currentRow:Add(plusLabel)
+            end
+        end
+
         local craftButton = UIButton.new()
         local craftButtonLabel = UILabel.new()
         craftButtonLabel:AddToClassList("title")
@@ -148,7 +207,18 @@ function OnItemClicked(Id)
     end
 end
 
-function Init()
+function FillOutEggCounts(eggInventory)
+    redEggCount:SetPrelocalizedText(eggInventory["egg_red"] or 0)
+    orangeEggCount:SetPrelocalizedText(eggInventory["egg_orange"] or 0)
+    yellowEggCount:SetPrelocalizedText(eggInventory["egg_yellow"] or 0)
+    greenEggCount:SetPrelocalizedText(eggInventory["egg_green"] or 0)
+    purpleEggCount:SetPrelocalizedText(eggInventory["egg_purple"] or 0)
+    pinkEggCount:SetPrelocalizedText(eggInventory["egg_pink"] or 0)
+    whiteEggCount:SetPrelocalizedText(eggInventory["egg_white"] or 0)
+    goldEggCount:SetPrelocalizedText(eggInventory["egg_gold"] or 0)
+end
+
+function Init(eggInventory)
     closeLabel:SetPrelocalizedText("Close", true)
     _shopInfoArea:Clear()
 
@@ -161,6 +231,8 @@ function Init()
 
     -- Initialize the first tab
     ButtonPressed("craft eggs")
+
+    FillOutEggCounts(eggInventory)
 end
 
 function self:ClientAwake()

@@ -304,11 +304,7 @@ function CloseAddHatMenu()
 end
 
 function ShowEggCraftingUi()
-    ToggleUI("EggCraftingUi", true)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
-    EggCraftingUiObject:GetComponent(EggCraftingUi).Init()
+    eggInventoryHandler.RequestEggInventoryEvent:FireServer()
 end
 
 function CloseEggCraftingUi()
@@ -384,6 +380,14 @@ function self:ClientAwake()
                 ToggleUI("PlayerStats", true) 
                 ToggleUI("CenterPlayerButton", true)
             end)
+    end))
+
+    eggInventoryHandler.NotifyEggInventoryRecievedEvent:Connect((function(eggs)
+        ToggleUI("EggCraftingUi", true)
+        ToggleUI("PlayerStats", false)
+        ToggleUI("CenterPlayerButton", false)
+        ToggleUI("PlaceButtons", false)
+        EggCraftingUiObject:GetComponent(EggCraftingUi).Init(eggs)
     end))
 end
 

@@ -23,6 +23,25 @@
 
   </VisualElement>
 
+    <VisualElement name="egg-container" class="horizontal-container">
+      <hr:UILabel name="redEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="redEggIcon" />
+      <hr:UILabel name="orangeEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="orangeEggIcon" />
+      <hr:UILabel name="yellowEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="yellowEggIcon" />
+      <hr:UILabel name="greenEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="greenEggIcon" />
+      <hr:UILabel name="purpleEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="purpleEggIcon" />
+      <hr:UILabel name="pinkEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="pinkEggIcon" />
+      <hr:UILabel name="whiteEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="whiteEggIcon" />
+      <hr:UILabel name="goldEggCount" class="egg-count" picking-mode="Ignore"/>
+      <hr:UIImage class="goldEggIcon" />
+    </VisualElement>
+
     <hr:UIButton name="closeButton" class="close-button">
       <hr:UILabel name="closeLabel" class="title" />
     </hr:UIButton>
