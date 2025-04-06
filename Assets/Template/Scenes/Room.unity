@@ -16822,6 +16822,7 @@ GameObject:
   - component: {fileID: 597383378}
   - component: {fileID: 597383380}
   - component: {fileID: 597383379}
+  - component: {fileID: 597383381}
   m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
@@ -16838,8 +16839,8 @@ Transform:
   m_GameObject: {fileID: 597383376}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.11, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 1.66, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2075660429}
@@ -16861,19 +16862,19 @@ MonoBehaviour:
   _properties: []
   _uiOutput: 1
   _uiOutputSettings:
-    rid: 5453587674637795328
-  m_textString: Bee Eggs
+    rid: 5453587674637795337
+  m_textString: Craft Bee Eggs
   m_isSmall: 0
   references:
     version: 2
     RefIds:
-    - rid: 5453587674637795328
+    - rid: 5453587674637795337
       type: {class: UIWorldOutputSettings, ns: Highrise.Client, asm: com.pz.highrise.game.client}
       data:
         Renderer: {fileID: 597383379}
         Size: {x: 512, y: 512}
         ClearColor: 1
-        ClearColorValue: {r: 1, g: 1, b: 1, a: 1}
+        ClearColorValue: {r: 1, g: 1, b: 1, a: 0}
 --- !u!23 &597383379
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16924,6 +16925,30 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597383376}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &597383381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597383376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ef3c9794e7de81723ab2974e81f998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkId: 0
+  _script: {fileID: -974389366465450183, guid: 5f303c422e38de54c8e5b242f45ef94d, type: 3}
+  _properties: []
+  _uiOutput: 0
+  _uiOutputSettings:
+    rid: -2
+  m_mainCam: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!4 &597588840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7479072033529789018, guid: 2c8f9c84f29dbad4fabb8fedade1750f,
