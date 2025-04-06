@@ -103,7 +103,7 @@ function Init()
 				count = #seenBees
 
 				for index, value in ipairs(seenBees) do
-					if value == "Festive Bee" or value == "Romantic Bee" then
+					if wildBeeManager.getSet(value) == "Event Bee" then
 						count = count - 1
 					end
 				end

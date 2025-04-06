@@ -147,8 +147,8 @@ beeData = {
     ["Astral Bee"] = { honeyRate = 60, sellPrice = 4500, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
     ["Rainbow Bee"] = { honeyRate = 80, sellPrice = 6000, growTime = 200, rarity = "Mythical", set = "Platinum Set" },
 
-    ["Festive Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee" },
-    ["Romantic Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee" },
+    ["Festive Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 1 },
+    ["Romantic Bee"] = { honeyRate = 60, sellPrice = "1 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 1 },
 
     -- 1.3 Update
     ["Meadow Bee"] = { honeyRate = 10, sellPrice = 70, growTime = 40, rarity = "Common", set = "Bronze Set" },
@@ -158,7 +158,17 @@ beeData = {
     ["Camo Bee"] = { honeyRate = 30, sellPrice = 600, growTime = 40, rarity = "Rare", set = "Gold Set" },
     ["Crystal Bee"] = { honeyRate = 36, sellPrice = 900, growTime = 80, rarity = "Epic", set = "Gold Set" },
     ["Techno Bee"] = { honeyRate = 46, sellPrice = 2500, growTime = 40, rarity = "Epic", set = "Platinum Set" },
-    ["Psychedelic Bee"] = { honeyRate = 58, sellPrice = 4000, growTime = 80, rarity = "Legendary", set = "Platinum Set" }
+    ["Psychedelic Bee"] = { honeyRate = 58, sellPrice = 4000, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
+
+    -- Easter Bees
+    ["Red Easter Bee"] = { honeyRate = 50, sellPrice = "2 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 2 },
+    ["Orange Easter Bee"] = { honeyRate = 50, sellPrice = "3 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 3  },
+    ["Yellow Easter Bee"] = { honeyRate = 50, sellPrice = "5 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 5  },
+    ["Green Easter Bee"] = { honeyRate = 50, sellPrice = "7 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 7  },
+    ["Purple Easter Bee"] = { honeyRate = 50, sellPrice = "9 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 9  },
+    ["Pink Easter Bee"] = { honeyRate = 60, sellPrice = "50 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 50  },
+    ["White Easter Bee"] = { honeyRate = 70, sellPrice = "250 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 250  },
+    ["Golden Easter Bee"] = { honeyRate = 80, sellPrice = "1000 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 1000  },
 }
 
 
@@ -176,6 +186,16 @@ notifyCaptureSucceeded = Event.new("NotifyCaptureSucceeded")
 
 -- Table to track spawned wild bees
 wildBees = {}
+
+function getGoldSellPrice(speciesName)
+    local species = beeData[speciesName]
+    if species then
+        return species.goldSellPrice
+    else
+        print("Species not found: " .. speciesName)
+        return nil
+    end
+end
 
 function getSet(speciesName)
     local species = beeData[speciesName]
@@ -309,7 +329,7 @@ local function spawnWildBee(player)
     newBee:GetComponent(BeeWandererScript).SetSpawnPosition(spawnPosition)
     table.insert(wildBees, { bee = newBee, speciesName = selectedBeeSpecies.name, player = player })
 
-    print("Spawned wild bee (" .. selectedBeeSpecies.name .. ") at position: " .. tostring(spawnPosition))
+    --print("Spawned wild bee (" .. selectedBeeSpecies.name .. ") at position: " .. tostring(spawnPosition))
 end
 
 -- Function to despawn a wild bee
@@ -323,7 +343,7 @@ local function despawnWildBee(bee)
         end
     end
 
-    print("Wild bee despawned.")
+    --print("Wild bee despawned.")
 end
 
 -- Function to check if a player is near a bee (for UI purposes)

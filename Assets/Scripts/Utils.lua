@@ -80,7 +80,15 @@ BeeImage = {
     ["Techno Bee"] = beeTextures[32],
     ["Psychedelic Bee"] = beeTextures[33],
     ["Romantic Bee"] = beeTextures[34],
-    ["Locked"] = beeTextures[35]
+    ["Red Easter Bee"] = beeTextures[35],
+    ["Orange Easter Bee"] = beeTextures[36],
+    ["Yellow Easter Bee"] = beeTextures[37],
+    ["Green Easter Bee"] = beeTextures[38],
+    ["Purple Easter Bee"] = beeTextures[39],
+    ["Pink Easter Bee"] = beeTextures[40],
+    ["White Easter Bee"] = beeTextures[41],
+    ["Golden Easter Bee"] = beeTextures[42],
+    ["Locked"] = beeTextures[43]
 }
 
 HatImage = {

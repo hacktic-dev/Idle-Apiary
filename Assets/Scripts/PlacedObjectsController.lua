@@ -1,7 +1,7 @@
 --!Type(Module)
 
 local requestObjectPlacement = Event.new("requestObjectPlacement")
-local requestObjectDeletion = Event.new("requestObjectDeletion")
+RequestObjectDeletion = Event.new("RequestObjectDeletion")
 closePlacementMenu = Event.new("closePlacementMenu")
 
 requestFreeSpaces = Event.new("requestFreeSpaces")
@@ -128,7 +128,7 @@ function InitServer()
 
 		apiaryPosition = apiaryManager.GetPlayerApiaryLocation(player)
 
-		self:GetComponent(ObjectSpawnController).SpawnObject(placedObject, player.user.id, apiaryPosition)
+		self:GetComponent(ObjectSpawnController).SpawnObject(placedObject, player, apiaryPosition)
 	
 		if placedObjects[player] == nil then
 				placedObjects[player] = {}
@@ -140,7 +140,7 @@ function InitServer()
 		playerManager.RecalculatePlayerEarnRate(player)
 	end)
 
-	requestObjectDeletion:Connect(function(player, id)
+	RequestObjectDeletion:Connect(function(player, id, returnItem)
 		if placedObjects[player] == nil then
 			return
 		end
@@ -157,8 +157,11 @@ function InitServer()
 
 		self:GetComponent(ObjectSpawnController).RemoveObject(id)
 
-		local transaction = InventoryTransaction.new():GivePlayer(player, utils.LookupFurnitureIdByName(name), 1)
-		Inventory.CommitTransaction(transaction)
+		if returnItem then
+			local transaction = InventoryTransaction.new():GivePlayer(player, utils.LookupFurnitureIdByName(name), 1)
+			Inventory.CommitTransaction(transaction)
+		end
+		
 		playerManager.RecalculatePlayerEarnRate(player)
 	end)
 
@@ -184,7 +187,7 @@ function InitServer()
 end
 
 function Delete(id)
-	requestObjectDeletion:FireServer(id)
+	requestObjectDeletion:FireServer(id, true)
 end
 
 function CheckIfSpaceFree(player, i, j)
@@ -247,7 +250,7 @@ function SpawnPlayerPlacedObjectsOnAllClients(player, _apiaryPosition)
         
         placedObjects[player] = storedObjects
         for _, object in ipairs(storedObjects) do
-            self:GetComponent(ObjectSpawnController).SpawnObject(object, player.user.id, apiaryPosition)
+            self:GetComponent(ObjectSpawnController).SpawnObject(object, player, apiaryPosition)
         end
     end)
 end

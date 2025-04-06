@@ -77,6 +77,24 @@ local FestiveBee : GameObject = nil
 --!SerializeField
 local RomanticBee : GameObject = nil
 
+-- Easter bees
+--!SerializeField
+local RedEasterBee : GameObject = nil
+--!SerializeField
+local OrangeEasterBee : GameObject = nil
+--!SerializeField
+local YellowEasterBee : GameObject = nil
+--!SerializeField
+local GreenEasterBee : GameObject = nil
+--!SerializeField
+local PurpleEasterBee : GameObject = nil
+--!SerializeField
+local PinkEasterBee : GameObject = nil
+--!SerializeField
+local WhiteEasterBee : GameObject = nil
+--!SerializeField
+local GoldenEasterBee : GameObject = nil
+
 -- Server-side table to track which bees belong to which player
 local playerBees = {}
 
@@ -247,8 +265,23 @@ function self:ClientAwake()
             Bee = PsychedelicBee
         elseif species == "Romantic Bee" then
             Bee = RomanticBee
+        elseif species == "Red Easter Bee" then
+            Bee = RedEasterBee
+        elseif species == "Orange Easter Bee" then
+            Bee = OrangeEasterBee
+        elseif species == "Yellow Easter Bee" then
+            Bee = YellowEasterBee
+        elseif species == "Green Easter Bee" then
+            Bee = GreenEasterBee
+        elseif species == "Purple Easter Bee" then
+            Bee = PurpleEasterBee
+        elseif species == "Pink Easter Bee" then
+            Bee = PinkEasterBee
+        elseif species == "White Easter Bee" then
+            Bee = WhiteEasterBee
+        elseif species == "Golden Easter Bee" then
+            Bee = GoldenEasterBee
         end
-        
 
         print("Spawning bee " .. species .. " on client")
 

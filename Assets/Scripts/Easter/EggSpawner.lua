@@ -100,7 +100,6 @@ function TrySpawnEgg()
         for i, e in ipairs(eggs) do
             if e == egg then
                 table.remove(eggs, i)
-                print("Egg despawned")
                 break
             end
         end

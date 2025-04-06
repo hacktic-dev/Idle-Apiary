@@ -44,7 +44,6 @@ function self:Update()
     end
 
     if isLegacy and timeAlive > 180 and Vector3.Distance(self:GetComponent(Transform).position, client.localPlayer.character:GetComponent(Transform).position) > MIN_SPAWN_DISTANCE then
-        print("Despawning flower")
         Object.Destroy(self:GetComponent(Transform).gameObject)
     end
 end

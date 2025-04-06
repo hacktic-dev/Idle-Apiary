@@ -276,7 +276,7 @@ end
 function SellBee(beeSpecies, beeId, isAdult)
     sellBeeRequest:FireServer(beeId)
     local sellPrice = wildBeeManager.getSellPrice(beeSpecies)
-    if beeSpecies ~= "Fesitve Bee" then
+    if wildBeeManager.getSet(beeSpecies) ~= "Event Bee" then
         IncrementStat("Cash", sellPrice)
     end
 end
@@ -929,16 +929,15 @@ function self:ServerAwake()
                     -- Save the updated bee storage back to persistent storage
                     beeCountUpdated:FireClient(player, #playerBeeStorage[player])
 
-                    if bee.species == "Festive Bee" or bee.species == "Romantic Bee" then
-                      Wallet.TransferGoldToPlayer(player, 1, function(response, err)
+                    if wildBeeManager.getSet(bee.species) == "Event Bee" then
+                        Wallet.TransferGoldToPlayer(player, wildBeeManager.getGoldSellPrice(bee.species), function(response, err)
+                            if err ~= WalletError.None then
+                                error("Something went wrong while transferring gold: " .. WalletError[err])
+                                return
+                            end
 
-                        if err ~= WalletError.None then
-			                    error("Something went wrong while transferring gold: " .. WalletError[err])
-			                    return
-		                    end
-
-                            print("Transferred 1 gold to player " .. player.name .. " successfully!")
-                      end)
+                            print("Transferred " .. wildBeeManager.getGoldSellPrice(bee.species) .. " gold to player " .. player.name .. " successfully!")
+                        end)
                     end
 
                     RecalculatePlayerEarnRate(player)
@@ -1074,3 +1073,26 @@ function ToggleShowBadges()
     showBadgesChanged:Fire(showBadges)
 end
 
+function GiveEasterBee(player, egg)
+    bee = ""
+    if egg == "Regular Bee Egg" then
+        local easterBees = {
+            "Red Easter Bee",
+            "Orange Easter Bee",
+            "Yellow Easter Bee",
+            "Green Easter Bee",
+            "Purple Easter Bee"
+        }
+        bee = easterBees[math.random(#easterBees)]
+    elseif egg == "Pink Bee Egg" then
+        bee = "Pink Easter Bee"
+    elseif egg == "White Bee Egg" then
+        bee = "White Easter Bee"
+    elseif egg == "Golden Bee Egg" then
+        bee = "Golden Easter Bee"
+    else
+        print("Invalid egg type: " .. egg)
+        return
+    end
+    giveBeeRequest:Fire(player, bee, true)
+end

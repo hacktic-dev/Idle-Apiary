@@ -264,7 +264,6 @@ function OpenPlaceObjectsUi()
     ToggleUI("PlaceFurnitureMenu", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("PlaceButtons", false)
-    PlaceObjectsUiObject:GetComponent(PlaceObjectsUi).Init()
 end
 
 function ClosePlaceObjectsUi()

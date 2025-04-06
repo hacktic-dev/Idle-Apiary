@@ -15779,6 +15779,22 @@ MonoBehaviour:
     type: 3}
   m_RomanticBee: {fileID: 594921603353048350, guid: 640f2ec89e0cc3e438bd5ff4b16b3863,
     type: 3}
+  m_RedEasterBee: {fileID: 8838736913161031672, guid: 645978ebbec118748a1791447f89c348,
+    type: 3}
+  m_OrangeEasterBee: {fileID: 8838736913161031672, guid: 917b28544f170134dbc37ca27d909a3a,
+    type: 3}
+  m_YellowEasterBee: {fileID: 8838736913161031672, guid: f55b6a85b0af7014db9ba208ace1ea5f,
+    type: 3}
+  m_GreenEasterBee: {fileID: 8838736913161031672, guid: a662d3dfb34de6a4ba629f1c54c6e03b,
+    type: 3}
+  m_PurpleEasterBee: {fileID: 8838736913161031672, guid: 28a7a8c8bd454d64d8ac828708026c11,
+    type: 3}
+  m_PinkEasterBee: {fileID: 8838736913161031672, guid: a0c786065fb0b1b4a84a61daeafac61f,
+    type: 3}
+  m_WhiteEasterBee: {fileID: 8838736913161031672, guid: 23cea6f4c98069f4882b5790b4b66dfa,
+    type: 3}
+  m_GoldenEasterBee: {fileID: 8838736913161031672, guid: 2d91ced6e7a438148a6619f8f1dcefbb,
+    type: 3}
   references:
     version: 2
     RefIds:
@@ -35274,6 +35290,14 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 1a38e5b3ecea92f4eb6b395113d55577, type: 3}
   - {fileID: 2800000, guid: 3f2f0f29efcf02647a1d0c3e5a9b4cfb, type: 3}
   - {fileID: 2800000, guid: d1a28640e94565f48b961a738301be18, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
+  - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
   - {fileID: 2800000, guid: 9ecc534e1e8c2b849b67b1cda1eb6aae, type: 3}
   m_hatTextures:
   - {fileID: 2800000, guid: 2834b47a57a739d4baeb32f22d4c766f, type: 3}

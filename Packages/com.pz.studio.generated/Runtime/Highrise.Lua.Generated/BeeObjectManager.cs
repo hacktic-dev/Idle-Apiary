@@ -59,6 +59,14 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_PsychedelicBee = default;
         [SerializeField] public UnityEngine.GameObject m_FestiveBee = default;
         [SerializeField] public UnityEngine.GameObject m_RomanticBee = default;
+        [SerializeField] public UnityEngine.GameObject m_RedEasterBee = default;
+        [SerializeField] public UnityEngine.GameObject m_OrangeEasterBee = default;
+        [SerializeField] public UnityEngine.GameObject m_YellowEasterBee = default;
+        [SerializeField] public UnityEngine.GameObject m_GreenEasterBee = default;
+        [SerializeField] public UnityEngine.GameObject m_PurpleEasterBee = default;
+        [SerializeField] public UnityEngine.GameObject m_PinkEasterBee = default;
+        [SerializeField] public UnityEngine.GameObject m_WhiteEasterBee = default;
+        [SerializeField] public UnityEngine.GameObject m_GoldenEasterBee = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -101,6 +109,14 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(31), m_PsychedelicBee),
                 CreateSerializedProperty(_script.GetPropertyAt(32), m_FestiveBee),
                 CreateSerializedProperty(_script.GetPropertyAt(33), m_RomanticBee),
+                CreateSerializedProperty(_script.GetPropertyAt(34), m_RedEasterBee),
+                CreateSerializedProperty(_script.GetPropertyAt(35), m_OrangeEasterBee),
+                CreateSerializedProperty(_script.GetPropertyAt(36), m_YellowEasterBee),
+                CreateSerializedProperty(_script.GetPropertyAt(37), m_GreenEasterBee),
+                CreateSerializedProperty(_script.GetPropertyAt(38), m_PurpleEasterBee),
+                CreateSerializedProperty(_script.GetPropertyAt(39), m_PinkEasterBee),
+                CreateSerializedProperty(_script.GetPropertyAt(40), m_WhiteEasterBee),
+                CreateSerializedProperty(_script.GetPropertyAt(41), m_GoldenEasterBee),
             };
         }
     }
