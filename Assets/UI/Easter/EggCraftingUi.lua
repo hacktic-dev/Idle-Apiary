@@ -41,6 +41,8 @@ local goldEggCount : UILabel = nil
 
 UIManager = require("UIManager")
 
+eggInventory = {}
+
 local recipes =
 {
     {id = "regular_egg", name = "Regular Egg", description = "Hatches a random Easter Bee", requirement = {"egg_red", "egg_orange", "egg_yellow", "egg_green", "egg_purple"} },
@@ -190,14 +192,14 @@ function OnItemClicked(Id)
         craftButtonLabel:AddToClassList("title")
         craftButtonLabel:SetPrelocalizedText("Craft")
         craftButton:Add(craftButtonLabel)
-        if false then -- TODO: Check actual crafting conditions
-            craftButton:AddToClassList("buy-button-greyed")
-            craftButtonLabel:SetPrelocalizedText("Insufficient resources")
-        else
+        if CheckCraftingRequirements(Id) then -- TODO: Check actual crafting conditions
             craftButton:AddToClassList("buy-button")
             craftButton:RegisterPressCallback(function()
                     CraftEgg(Id, item)
             end, true, true, true)
+        else
+            craftButton:AddToClassList("buy-button-greyed")
+            craftButtonLabel:SetPrelocalizedText("Insufficient resources")
         end
         local spacer = VisualElement.new()
         spacer:AddToClassList("spacer")
@@ -207,7 +209,26 @@ function OnItemClicked(Id)
     end
 end
 
-function FillOutEggCounts(eggInventory)
+function CheckCraftingRequirements(id)
+    local item = nil
+    for _, recipe in ipairs(recipes) do
+        if recipe.id == id then
+            item = recipe
+            break
+        end
+    end
+
+    if item then
+        for _, eggId in ipairs(item.requirement) do
+            if eggInventory[eggId] == nil or eggInventory[eggId] <= 0 then
+                return false
+            end
+        end
+    end
+    return true
+end
+
+function FillOutEggCounts()
     redEggCount:SetPrelocalizedText(eggInventory["egg_red"] or 0)
     orangeEggCount:SetPrelocalizedText(eggInventory["egg_orange"] or 0)
     yellowEggCount:SetPrelocalizedText(eggInventory["egg_yellow"] or 0)
@@ -218,7 +239,7 @@ function FillOutEggCounts(eggInventory)
     goldEggCount:SetPrelocalizedText(eggInventory["egg_gold"] or 0)
 end
 
-function Init(eggInventory)
+function Init(_eggInventory)
     closeLabel:SetPrelocalizedText("Close", true)
     _shopInfoArea:Clear()
 
@@ -232,7 +253,8 @@ function Init(eggInventory)
     -- Initialize the first tab
     ButtonPressed("craft eggs")
 
-    FillOutEggCounts(eggInventory)
+    eggInventory = _eggInventory
+    FillOutEggCounts()
 end
 
 function self:ClientAwake()
