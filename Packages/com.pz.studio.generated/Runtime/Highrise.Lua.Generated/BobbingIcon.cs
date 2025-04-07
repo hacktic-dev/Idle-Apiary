@@ -27,6 +27,7 @@ namespace Highrise.Lua.Generated
 
         [SerializeField] public System.String m_textString = "";
         [SerializeField] public System.Boolean m_isSmall = false;
+        [SerializeField] public System.Boolean m_shouldBob = false;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -38,6 +39,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(0), null),
                 CreateSerializedProperty(_script.GetPropertyAt(1), m_textString),
                 CreateSerializedProperty(_script.GetPropertyAt(2), m_isSmall),
+                CreateSerializedProperty(_script.GetPropertyAt(3), m_shouldBob),
             };
         }
     }

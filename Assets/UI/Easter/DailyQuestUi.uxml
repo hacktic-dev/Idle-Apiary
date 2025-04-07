@@ -9,8 +9,6 @@
 
   <hr:UILuaView class="daily-quest-ui">
   <VisualElement class="main-container" name="_mainContainer">
-    <VisualElement class="quest-container" name="_questContainer">
-    </VisualElement>
   </VisualElement>
   </hr:UILuaView>
 

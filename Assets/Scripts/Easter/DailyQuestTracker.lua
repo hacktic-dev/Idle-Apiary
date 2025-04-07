@@ -7,6 +7,10 @@ RequestDailyQuestDataEvent = Event.new("RequestDailyQuestDataEvent")
 NotifyDailyQuestDataRecievedEvent = Event.new("NotifyDailyQuestDataRecievedEvent")
 
 RequestClaimDailyQuestRewardEvent = Event.new("RequestClaimDailyQuestRewardEvent")
+RequestUpdateLastInteractionDateEvent = Event.new("RequestUpdateLastInteractionDateEvent")
+
+RequestNotifierVisibilityEvent = Event.new("RequestNotifierVisibilityEvent")
+NotifyNotifierVisibilityEvent = Event.new("NotifyNotifierVisibilityEvent")
 
 dailyQuestData = {}
 
@@ -18,6 +22,7 @@ function GetData(player)
                 {
                     date = GetSeed(),
                     lastCompletedQuestDate = 0,
+                    lastQuestGiverInteractionDate = 0,
                     redEggsCollected = 0,
                     orangeEggsCollected = 0,
                     yellowEggsCollected = 0,
@@ -187,10 +192,39 @@ function self:ServerAwake()
     RequestDailyQuestDataEvent:Connect(function(player)
         NotifyDailyQuestDataRecievedEvent:FireClient(player, dailyQuestData[player])
     end)
+
+    RequestUpdateLastInteractionDateEvent:Connect(function(player)
+        if dailyQuestData[player] then
+            dailyQuestData[player].lastQuestGiverInteractionDate = GetSeed()
+            print("DailyQuestTracker: Player " .. player.name .. " updated last interaction date.")
+        end
+    end)
+
+    RequestNotifierVisibilityEvent:Connect(function(player)
+        if dailyQuestData[player] then
+            local lastInteractionDate = dailyQuestData[player].lastQuestGiverInteractionDate
+            local currentDate = GetSeed()
+
+            local interactedToday = lastInteractionDate == currentDate
+            local questClaimed = dailyQuestData[player].lastCompletedQuestDate == currentDate
+            local questCompleted = dailyQuestData[player][GetDailyQuest().target] and dailyQuestData[player][GetDailyQuest().target] >= GetDailyQuest().amount
+
+            showNotifier = (not interactedToday) or (questCompleted and not questClaimed)
+            NotifyNotifierVisibilityEvent:FireClient(player, showNotifier)
+        end
+    end)
 end
 
 function ClaimDailyQuestReward()
     --TODO add success sound
     --audioManager.PlaySound("quest_complete")
     RequestClaimDailyQuestRewardEvent:FireServer(GetDailyQuest().reward)
+end
+
+function UpdateLastInteractionDate()
+    RequestUpdateLastInteractionDateEvent:FireServer()
+end
+
+function RequestNotifierVisibility()
+    RequestNotifierVisibilityEvent:FireServer()
 end

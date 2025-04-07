@@ -13,6 +13,7 @@ end
 
 function Init(_dailyQuestData)
     _mainContainer:Clear()
+    dailyQuestTracker.UpdateLastInteractionDate()
 
     questContainer = VisualElement.new()
     questContainer:AddToClassList("quest-container")
