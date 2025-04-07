@@ -30,10 +30,9 @@ function Init(_dailyQuestData)
         dailyQuestText = "Congratulations! You have completed today's quest."
     elseif dailyQuest then
         dailyQuestText = string.format(
-            "Today's Quest: %s\nReward: %s Tickets\nProgress: %d/%d",
+            "Today's Quest: %s\nProgress: %d/%d",
             dailyQuest.description,
-            dailyQuest.reward,
-            dailyQuestData[dailyQuest.key] or 0,
+            dailyQuestData[dailyQuest.target] or 0,
             dailyQuest.amount
         )
     else
@@ -43,5 +42,23 @@ function Init(_dailyQuestData)
     textLabel = UILabel.new()
     textLabel:SetPrelocalizedText(dailyQuestText)
     textLabel:AddToClassList("quest-text")
+
+    horizontalContainer = VisualElement.new()
+    horizontalContainer:AddToClassList("horizontal-container")
+
+    rewardLabel = UILabel.new()
+    rewardLabel:SetPrelocalizedText("Reward: " .. (dailyQuest and dailyQuest.reward or 0))
+    rewardLabel:AddToClassList("quest-text")
+    horizontalContainer:Add(rewardLabel)
+
+    ticketIcon = UIImage.new()
+    ticketIcon:AddToClassList("ticket-icon")
+    horizontalContainer:Add(ticketIcon)
+
+    spacer = VisualElement.new()
+    spacer:AddToClassList("spacer")
+
     _questContainer:Add(textLabel)
+    _questContainer:Add(horizontalContainer)
+    _questContainer:Add(spacer)
 end
