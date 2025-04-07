@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1891542535, guid: a1d32ecfae27fdc4a8347da428bbc54a, type: 3}
+  m_Name: VirtualPlayerProfileSettings
+  m_EditorClassIdentifier: 
+  _isSubscriber: 0
+  _isAgeVerifiedAbove18: 0
+  _virtualPlayerProfiles:
+  - {fileID: 11400000, guid: c04cb1ac9ecf79343a4405c3247df64f, type: 2}
+  - {fileID: 11400000, guid: f439f030b956a0b41bd999053a5f28fe, type: 2}
+  - {fileID: 11400000, guid: b45c6eaca8859014988b28e49aeec9a9, type: 2}
+  - {fileID: 11400000, guid: c92e90e733ad5a743b74e85543c2b89b, type: 2}
