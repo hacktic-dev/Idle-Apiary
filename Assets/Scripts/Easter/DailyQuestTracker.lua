@@ -6,6 +6,8 @@ playerManager = require("PlayerManager")
 RequestDailyQuestDataEvent = Event.new("RequestDailyQuestDataEvent")
 NotifyDailyQuestDataRecievedEvent = Event.new("NotifyDailyQuestDataRecievedEvent")
 
+RequestClaimDailyQuestRewardEvent = Event.new("RequestClaimDailyQuestRewardEvent")
+
 dailyQuestData = {}
 
 function GetData(player)
@@ -169,7 +171,26 @@ function self:ServerAwake()
         end
     end)
 
+    RequestClaimDailyQuestRewardEvent:Connect(function(player, reward)
+        if dailyQuestData[player] then
+            if dailyQuestData[player].lastCompletedQuestDate == 0 then
+                dailyQuestData[player].lastCompletedQuestDate = GetSeed()
+                local transaction = InventoryTransaction.new():GivePlayer(player, "ticket", reward)
+                Inventory.CommitTransaction(transaction)
+                print("DailyQuestTracker: Player " .. player.name .. " claimed the daily quest reward: " .. reward)
+            else
+                print("DailyQuestTracker: Player " .. player.name .. " already claimed the daily quest reward today.")
+            end
+        end
+    end)
+
     RequestDailyQuestDataEvent:Connect(function(player)
         NotifyDailyQuestDataRecievedEvent:FireClient(player, dailyQuestData[player])
     end)
+end
+
+function ClaimDailyQuestReward()
+    --TODO add success sound
+    --audioManager.PlaySound("quest_complete")
+    RequestClaimDailyQuestRewardEvent:FireServer(GetDailyQuest().reward)
 end

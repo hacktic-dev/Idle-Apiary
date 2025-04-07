@@ -11,9 +11,6 @@
   <VisualElement class="main-container" name="_mainContainer">
     <VisualElement class="quest-container" name="_questContainer">
     </VisualElement>
-      <hr:UIButton name="_closeButton" class="close-button">
-      <hr:UILabel name="_closeLabel" class="title" />
-    </hr:UIButton>
   </VisualElement>
   </hr:UILuaView>
 

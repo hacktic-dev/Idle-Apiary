@@ -39,7 +39,23 @@
 }
 
 .close-button {
-    background-color: rgba(180, 0, 0, 0.8); /* Red for visibility */
+    background-color: rgba(180, 0, 0, 0.8);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 16px;
+    margin-top: 8px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    position: relative;
+    height: 7%;
+    min-height: 30px;
+}
+
+.claim-button {
+    background-color: rgba(113, 213, 76, 0.7);
     border-radius: 5px;
     padding: 5px 10px;
     color: white;
