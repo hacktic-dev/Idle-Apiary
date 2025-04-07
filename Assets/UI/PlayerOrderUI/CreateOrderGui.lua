@@ -160,7 +160,7 @@ local function InitHoneyTab(sweetScentLevel)
         {name = "Bee Net", id = "Net", price = netPrice, isGold = false, description = ""},
         {name = "Honey Doubler", id = "doubler_1", price = 250, isGold = true, description = "Doubles honey rate for the next 5 minutes."},
         {name = "Honey Doubler Pro", id = "doubler_2", price = 500, isGold = true, description = "Doubles honey rate for the next 15 minutes"},
-        {name = "Egg Finder", id = "egg_finder", price = 250, isGold = true, description = "Increases spawn rate of rare eggs for the next 15 minutes."},
+        {name = "Egg Finder", id = "egg_finder", price = 200, isGold = true, description = "Increases spawn rate of rare eggs for the next 15 minutes."},
     }
 
     for _, item in ipairs(honeyItems) do

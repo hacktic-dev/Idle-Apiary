@@ -1,0 +1,62 @@
+{
+  "IncludeFallbacks": true,
+  "Skeleton": "",
+  "Clothing": [
+    {
+      "Id": "body-flesh",
+      "Color": 0
+    },
+    {
+      "Id": "nose-n_basic2018newnose05",
+      "Color": 0
+    },
+    {
+      "Id": "eyebrow-n_basic2018newbrows07",
+      "Color": 0
+    },
+    {
+      "Id": "freckle-n_basic2018freckle04",
+      "Color": 0
+    },
+    {
+      "Id": "fullsuit-n_eastershop2021overalls",
+      "Color": 0
+    },
+    {
+      "Id": "hat-n_eastershopandsale2022piercedbunnyears",
+      "Color": -1
+    },
+    {
+      "Id": "handbag-n_eastershop2021peep",
+      "Color": 0
+    },
+    {
+      "Id": "eye-n_basic2018femaleround",
+      "Color": 0
+    },
+    {
+      "Id": "mouth-basic2018lollipop",
+      "Color": 0
+    },
+    {
+      "Id": "freckle-n_basic2018freckle33",
+      "Color": 0
+    },
+    {
+      "Id": "hair_front-vipnew_f_03",
+      "Color": 0
+    },
+    {
+      "Id": "hair_back-vipnew_f_03",
+      "Color": 0
+    },
+    {
+      "Id": "gloves-n_diamonddailies2020ring",
+      "Color": -1
+    },
+    {
+      "Id": "shoes-n_pastelmallcollection2022purplechunkmaryjane",
+      "Color": 0
+    }
+  ]
+}

@@ -37,11 +37,14 @@ local RemoveFurnitureMenuObject : GameObject = nil
 --EASTER
 --!SerializeField
 local EggCraftingUiObject : GameObject = nil
+--!SerializeField
+local DailyQuestUiObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
 local audioManager = require("AudioManager")
 local eggInventoryHandler = require("EggInventoryHandler")
+local dailyQuestTracker = require("DailyQuestTracker")
 
 initPlaceFurnitureMenu = Event.new("initPlaceFurnitureMenu")
 
@@ -63,6 +66,7 @@ local uiMap = {
     PlaceObjectsUi = PlaceObjectsUiObject,
     RemoveFurnitureMenu = RemoveFurnitureMenuObject,
     EggCraftingUi = EggCraftingUiObject,
+    DailyQuestUi = DailyQuestUiObject,
 }
 
 -- Activate the object if it is not active
@@ -213,6 +217,7 @@ function HideAll()
     ToggleUI("PlaceObjectsUi", false)
     ToggleUI("RemoveFurnitureMenu", false)
     ToggleUI("EggCraftingUi", false)
+    ToggleUI("DailyQuestUi", false)
 end
 
 function OpenShearsTutorial()
@@ -312,6 +317,16 @@ function CloseEggCraftingUi()
     ToggleUI("PlaceButtons", true)
 end
 
+function ShowDailyQuestUi()
+    dailyQuestTracker.RequestDailyQuestDataEvent:FireServer()
+end
+
+function CloseDailyQuestUi()
+    ToggleUI("DailyQuestUi", false)
+    ShowMenu()
+    ToggleUI("PlaceButtons", true)
+end
+
 function OpenTutorialByPlayer()
     ToggleUI("Tutorial", true)
     TutorialObject:GetComponent(Tutorial).Init(true, false)
@@ -399,6 +414,14 @@ function self:ClientAwake()
                 ToggleUI("BeeCard", false) 
                 ShowEggCraftingUi()
             end)
+    end))
+
+    dailyQuestTracker.NotifyDailyQuestDataRecievedEvent:Connect((function(data)
+        ToggleUI("DailyQuestUi", true)
+        ToggleUI("PlayerStats", false)
+        ToggleUI("CenterPlayerButton", false)
+        ToggleUI("PlaceButtons", false)
+        DailyQuestUiObject:GetComponent(DailyQuestUi).Init(data)
     end))
 end
 

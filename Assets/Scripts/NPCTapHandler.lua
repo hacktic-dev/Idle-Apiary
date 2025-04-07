@@ -10,6 +10,8 @@ function self:ClientAwake()
     TapHand.Tapped:Connect(function()
         if npcName == "crafter" then
             UIManager.ShowEggCraftingUi()
+        elseif npcName == "questGiver" then
+            UIManager.ShowDailyQuestUi()
         end
     end)
 end

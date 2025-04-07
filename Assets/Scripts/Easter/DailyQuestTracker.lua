@@ -3,6 +3,9 @@
 eggInventoryHandler = require("EggInventoryHandler")
 playerManager = require("PlayerManager")
 
+RequestDailyQuestDataEvent = Event.new("RequestDailyQuestDataEvent")
+NotifyDailyQuestDataRecievedEvent = Event.new("NotifyDailyQuestDataRecievedEvent")
+
 dailyQuestData = {}
 
 function GetData(player)
@@ -11,7 +14,7 @@ function GetData(player)
             if data == nil then
                 data = 
                 {
-                    date = math.floor(os.time() / 86400),
+                    date = GetSeed(),
                     lastCompletedQuestDate = 0,
                     redEggsCollected = 0,
                     orangeEggsCollected = 0,
@@ -29,7 +32,7 @@ function GetData(player)
             end
 
             -- Check if the date has changed
-            local currentDate = math.floor(os.time() / 86400)
+            local currentDate = GetSeed()
             if data.date ~= currentDate then
                 -- Reset the daily quest data for the new day
                 data = 
@@ -65,6 +68,60 @@ function SaveData(player)
             end
         end)
     end
+end
+
+function GetSeed()
+    return math.floor(os.time() / 86400)
+end
+
+function GetDailyQuest()
+    math.randomseed(GetSeed())
+    local quest = {}
+    local questType = math.random(1, 3)
+
+    if questType == 1 then
+        -- Collect eggs quest
+        local eggColors = { "redEggsCollected", "orangeEggsCollected", "yellowEggsCollected", "greenEggsCollected", "purpleEggsCollected" }
+        local colorNames = { redEggsCollected = "Red Eggs", orangeEggsCollected = "Orange Eggs", yellowEggsCollected = "Yellow Eggs", greenEggsCollected = "Green Eggs", purpleEggsCollected = "Purple Eggs" }
+        local selectedColor = eggColors[math.random(1, #eggColors)]
+        local amount = math.random(2, 4)
+        local reward = 3 + (amount - 2) * 2 -- Reward scales with the number of eggs
+
+        quest = {
+            type = "collect_eggs",
+            target = selectedColor,
+            amount = amount,
+            reward = reward,
+            description = "Collect " .. amount .. " " .. colorNames[selectedColor]
+        }
+    elseif questType == 2 then
+        -- Craft bee eggs quest
+        local amount = math.random(1, 3)
+        local reward = 5 + (amount - 1) * 2 -- Reward scales with the number of eggs crafted
+
+        quest = {
+            type = "craft_eggs",
+            target = "beeEggsCrafted",
+            amount = amount,
+            reward = reward,
+            description = "Craft " .. amount .. " Bee Eggs"
+        }
+    elseif questType == 3 then
+        -- Hatch a bee of specific color quest
+        local beeColors = { "redBeesHatched", "orangeBeesHatched", "yellowBeesHatched", "greenBeesHatched", "purpleBeesHatched" }
+        local colorNames = { redBeesHatched = "Red Easter Bee", orangeBeesHatched = "Orange Easter Bee", yellowBeesHatched = "Yellow Easter Bee", greenBeesHatched = "Green Easter Bee", purpleBeesHatched = "Purple Easter Bee" }
+        local selectedColor = beeColors[math.random(1, #beeColors)]
+        local reward = 8 + math.random(0, 2) -- Higher base reward for hatching specific bees
+
+        quest = {
+            type = "hatch_bee",
+            target = selectedColor,
+            amount = 1,
+            reward = reward,
+            description = "Hatch a " .. colorNames[selectedColor]
+        }
+    end
+    return quest
 end
 
 function self:ServerAwake()
@@ -110,5 +167,9 @@ function self:ServerAwake()
 
             print("DailyQuestTracker: Player " .. player.name .. " hatched a bee: " .. bee)
         end
+    end)
+
+    RequestDailyQuestDataEvent:Connect(function(player)
+        NotifyDailyQuestDataRecievedEvent:FireClient(player, dailyQuestData[player])
     end)
 end
