@@ -13,6 +13,8 @@ local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
 local placedObjectsManager = require("PlacedObjectsController")
 
+local dailyQuestTracker = require("DailyQuestTracker")
+
 -- Variable to hold the player's statistics GUI component
 local playerStatGui = nil
 
@@ -63,6 +65,8 @@ receiveHatStatus = Event.new("ReceiveHatStatus")
 requestFurnitureStatus = Event.new("RequestFurnitureStatus")
 receiveFurnitureStatus = Event.new("ReceiveFurnitureStatus")
 setHatStatus = Event.new("SetHatStatus")
+
+EasterBeeHatched = Event.new("EasterBeeHatched")
 
 local restartTimerRequest = Event.new("RestartCashTimer")
 
@@ -508,6 +512,7 @@ function TrackPlayers(game, characterCallback)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
             setPlayerVersionString:FireClient(player, "1.4.5")
+            dailyQuestTracker.GetData(player)
 
             for player, playerData in pairs(players) do
                 RecalculatePlayerEarnRate(player)
@@ -597,6 +602,7 @@ function SaveProgress(player, wasDc)
     SaveSeenBeeSpecies(player, player.user.id)
     SaveHatStatus(player, player.user.id)
     SaveFurnitureStatus(player, player.user.id)
+    dailyQuestTracker.SaveData(player)
     flowerManager.SaveFlowerPositions(player, player.user.id)
 		placedObjectsManager.SavePlacedObjects(player, player.user.id)
     for player, playerData in pairs(players) do
@@ -1094,5 +1100,6 @@ function GiveEasterBee(player, egg)
         print("Invalid egg type: " .. egg)
         return
     end
+    EasterBeeHatched:Fire(player, bee)
     giveBeeRequest:Fire(player, bee, true)
 end

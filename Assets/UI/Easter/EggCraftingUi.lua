@@ -14,12 +14,6 @@ local _shopInfoArea : VisualElement = nil
 --!Bind
 local _ShopContent : VisualElement = nil
 --!Bind
-local petOnJobLabel : UILabel = nil
---!Bind
-local cancelButton : UIButton = nil
---!Bind
-local cancelLabel : UILabel = nil
---!Bind
 local shopHeader : VisualElement = nil
 --!Bind
 local redEggCount : UILabel = nil
