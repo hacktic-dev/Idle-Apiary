@@ -12,6 +12,7 @@ function GetData(player)
                 data = 
                 {
                     date = math.floor(os.time() / 86400),
+                    lastCompletedQuestDate = 0,
                     redEggsCollected = 0,
                     orangeEggsCollected = 0,
                     yellowEggsCollected = 0,
