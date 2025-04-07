@@ -12,6 +12,9 @@ RequestUpdateLastInteractionDateEvent = Event.new("RequestUpdateLastInteractionD
 RequestNotifierVisibilityEvent = Event.new("RequestNotifierVisibilityEvent")
 NotifyNotifierVisibilityEvent = Event.new("NotifyNotifierVisibilityEvent")
 
+RequestTicketCountEvent = Event.new("RequestTicketCountEvent")
+NotifyTicketCountReceivedEvent = Event.new("NotifyTicketCountReceivedEvent")
+
 dailyQuestData = {}
 
 function GetData(player)
@@ -213,6 +216,14 @@ function self:ServerAwake()
             NotifyNotifierVisibilityEvent:FireClient(player, showNotifier)
         end
     end)
+
+    RequestTicketCountEvent:Connect(function(player)
+        if dailyQuestData[player] then
+            local ticketCount = Inventory.GetPlayerItem(player, "ticket", function(item)
+                NotifyTicketCountReceivedEvent:FireClient(player, item.amount)
+            end)
+        end
+    end)
 end
 
 function ClaimDailyQuestReward()
@@ -227,4 +238,8 @@ end
 
 function RequestNotifierVisibility()
     RequestNotifierVisibilityEvent:FireServer()
+end
+
+function RequestTickets()
+    RequestTicketCountEvent:FireServer()
 end

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="UnityEngine.UIElements"
+    xmlns:hr="Highrise.UI"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+>
+
+<hr:UILuaView class="create-order-gui">
+  <VisualElement class="shop__container" name="_ShopContainer">
+    <VisualElement class="shop__header" name="shopHeader">
+
+      <VisualElement class="navigation" name="navigationArea">
+      </VisualElement>
+    </VisualElement>
+
+  <VisualElement class="shop__content" name="_ShopContent">
+    <hr:UIScrollView name="Orders_Root" mode="Vertical">
+    </hr:UIScrollView>
+    <VisualElement class="shop__info__area" name="_shopInfoArea">
+    </VisualElement>
+
+  </VisualElement>
+
+    <hr:UIButton name="closeButton" class="close-button">
+      <hr:UILabel name="closeLabel" class="title" />
+    </hr:UIButton>
+
+  </VisualElement>
+</hr:UILuaView>
+
+</UXML>

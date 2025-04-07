@@ -43,6 +43,7 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_RemoveFurnitureMenuObject = default;
         [SerializeField] public UnityEngine.GameObject m_EggCraftingUiObject = default;
         [SerializeField] public UnityEngine.GameObject m_DailyQuestUiObject = default;
+        [SerializeField] public UnityEngine.GameObject m_QuestRewardUiObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -69,6 +70,7 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(15), m_RemoveFurnitureMenuObject),
                 CreateSerializedProperty(_script.GetPropertyAt(16), m_EggCraftingUiObject),
                 CreateSerializedProperty(_script.GetPropertyAt(17), m_DailyQuestUiObject),
+                CreateSerializedProperty(_script.GetPropertyAt(18), m_QuestRewardUiObject),
             };
         }
     }

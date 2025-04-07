@@ -1,0 +1,70 @@
+{
+  "IncludeFallbacks": true,
+  "Skeleton": "",
+  "Clothing": [
+    {
+      "Id": "body-flesh",
+      "Color": 0
+    },
+    {
+      "Id": "nose-n_basic2018newnose05",
+      "Color": 0
+    },
+    {
+      "Id": "eyebrow-n_basic2018newbrows07",
+      "Color": 0
+    },
+    {
+      "Id": "gloves-n_diamonddailies2020ring",
+      "Color": -1
+    },
+    {
+      "Id": "pants-n_bluefloralshorts",
+      "Color": 0
+    },
+    {
+      "Id": "shirt-f_croptopblue",
+      "Color": 0
+    },
+    {
+      "Id": "shoes-n_dailyquest2025lovesneackers",
+      "Color": 0
+    },
+    {
+      "Id": "hair_front-vipnew3_f_04",
+      "Color": 0
+    },
+    {
+      "Id": "hair_back-vipnew3_f_04",
+      "Color": 0
+    },
+    {
+      "Id": "bag-n_mayflowersudcskypass2023bunniiyspringfield",
+      "Color": 0
+    },
+    {
+      "Id": "hat-n_janskypassCozy2022cozybunny",
+      "Color": -1
+    },
+    {
+      "Id": "freckle-n_basic2018freckle04",
+      "Color": 0
+    },
+    {
+      "Id": "freckle-vip_n_01",
+      "Color": 0
+    },
+    {
+      "Id": "freckle-n_basic2018freckle36",
+      "Color": 0
+    },
+    {
+      "Id": "mouth-basic2018fullround",
+      "Color": 0
+    },
+    {
+      "Id": "eye-f_pinksmokeyeyes",
+      "Color": 0
+    }
+  ]
+}

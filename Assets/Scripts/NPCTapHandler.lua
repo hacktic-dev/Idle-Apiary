@@ -12,6 +12,8 @@ function self:ClientAwake()
             UIManager.ShowEggCraftingUi()
         elseif npcName == "questGiver" then
             UIManager.ShowDailyQuestUi()
+        elseif npcName == "questRewarder" then
+            UIManager.ShowQuestRewardUi()
         end
     end)
 end

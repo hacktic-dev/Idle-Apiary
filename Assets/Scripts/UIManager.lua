@@ -39,6 +39,8 @@ local RemoveFurnitureMenuObject : GameObject = nil
 local EggCraftingUiObject : GameObject = nil
 --!SerializeField
 local DailyQuestUiObject : GameObject = nil
+--!SerializeField
+local QuestRewardUiObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
@@ -67,6 +69,7 @@ local uiMap = {
     RemoveFurnitureMenu = RemoveFurnitureMenuObject,
     EggCraftingUi = EggCraftingUiObject,
     DailyQuestUi = DailyQuestUiObject,
+    QuestRewardUi = QuestRewardUiObject,
 }
 
 -- Activate the object if it is not active
@@ -135,7 +138,6 @@ function CloseBeeList()
         return
     end
     ToggleUI("BeeList", false)
-    ToggleUI("PlaceButtons", true)
     ShowMenu()
 end
 
@@ -176,7 +178,6 @@ function CloseBeestiary()
     end
     ToggleUI("Beestiary", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
 end
 
 function CloseShop()
@@ -188,7 +189,6 @@ function CloseShop()
     ToggleUI("ShopUi", false)
     ToggleUI("CenterPlayerButton", true)
     --ToggleUI("PlayerStats", true)
-    ToggleUI("PlaceButtons", true)
 end
 
 function HideTutorial()
@@ -197,7 +197,6 @@ function HideTutorial()
     end
     ShowMenu()
     ToggleUI("Tutorial", false)
-    ToggleUI("PlaceButtons", true)
 end
 
 function HideAll()
@@ -218,6 +217,7 @@ function HideAll()
     ToggleUI("RemoveFurnitureMenu", false)
     ToggleUI("EggCraftingUi", false)
     ToggleUI("DailyQuestUi", false)
+    ToggleUI("QuestRewardUi", false)
 end
 
 function OpenShearsTutorial()
@@ -246,7 +246,6 @@ end
 function ClosePlaceFlowerMenu()
     ToggleUI("PlaceFlowerMenu", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
 end
 
 function OpenPlaceFurnitureMenu()
@@ -260,7 +259,6 @@ end
 function ClosePlaceFurnitureMenu()
     ToggleUI("PlaceFurnitureMenu", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
 end
 
 function OpenPlaceObjectsUi()
@@ -274,7 +272,6 @@ end
 function ClosePlaceObjectsUi()
     ToggleUI("PlaceObjectsUi", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
 end
 
 function OpenRemoveFurnitureMenu()
@@ -289,7 +286,6 @@ end
 function CloseRemoveFurnitureMenu()
     ToggleUI("RemoveFurnitureMenu", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
 end
 
 function OpenAddHatMenu()
@@ -304,7 +300,6 @@ end
 function CloseAddHatMenu()
     ToggleUI("AddHatMenu", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
 end
 
 function ShowEggCraftingUi()
@@ -314,7 +309,6 @@ end
 function CloseEggCraftingUi()
     ToggleUI("EggCraftingUi", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
 end
 
 function ShowDailyQuestUi()
@@ -324,7 +318,15 @@ end
 function CloseDailyQuestUi()
     ToggleUI("DailyQuestUi", false)
     ShowMenu()
-    ToggleUI("PlaceButtons", true)
+end
+
+function ShowQuestRewardUi()
+    dailyQuestTracker.RequestTicketCountEvent:FireServer()
+end
+
+function CloseQuestRewardUi()
+    ToggleUI("QuestRewardUi", false)
+    ShowMenu()
 end
 
 function OpenTutorialByPlayer()
@@ -423,11 +425,20 @@ function self:ClientAwake()
         ToggleUI("PlaceButtons", false)
         DailyQuestUiObject:GetComponent(DailyQuestUi).Init(data)
     end))
+
+    dailyQuestTracker.NotifyTicketCountReceivedEvent:Connect((function(ticketCount)
+        ToggleUI("QuestRewardUi", true)
+        ToggleUI("PlayerStats", false)
+        ToggleUI("CenterPlayerButton", false)
+        ToggleUI("PlaceButtons", false)
+        QuestRewardUiObject:GetComponent(QuestRewardUi).Init(ticketCount)
+    end))
 end
 
 function ShowMenu()
     ToggleUI("PlayerStats", true)
     ToggleUI("CenterPlayerButton", true)
+    ToggleUI("PlaceButtons", true)
     StatsObject:GetComponent("PlayerStatGui").ShowMenu()
     StatsObject:GetComponent("PlayerStatGui").CloseSettings()
 end
