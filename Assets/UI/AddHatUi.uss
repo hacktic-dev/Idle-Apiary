@@ -234,3 +234,8 @@
     flex-grow: 1;
     flex-shrink: 0;
 }
+
+.scroll-view__content-container
+{
+    height: 100%;
+}
