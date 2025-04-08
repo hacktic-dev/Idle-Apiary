@@ -187,7 +187,7 @@ function InitServer()
 end
 
 function Delete(id)
-	requestObjectDeletion:FireServer(id, true)
+	RequestObjectDeletion:FireServer(id, true)
 end
 
 function CheckIfSpaceFree(player, i, j)

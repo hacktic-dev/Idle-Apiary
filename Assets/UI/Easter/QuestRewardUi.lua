@@ -26,9 +26,7 @@ local rewards = {
     {id ="bunny_ears", name ="Bunny Ears", ticketCost = 10, type = "hat"},
     {id ="chocolate_egg", name ="Chocolate Egg", ticketCost = 10, type = "furniture"},
     {id="easter_basket", name="Easter Basket", ticketCost = 10, type = "furniture"},
-    {id="rabbit_plush", name="Rabbit Plush", ticketCost = 15, type = "furniture"},
     {id="chicken_plush", name="Chicken Plush", ticketCost = 15, type = "furniture"},
-    {id="moai_head", name="Moai Head", ticketCost = 20, type = "furniture"},
 }
 
 local ticketCount = 0

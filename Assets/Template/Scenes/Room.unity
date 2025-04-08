@@ -10328,6 +10328,12 @@ MonoBehaviour:
     type: 3}
   m_goldenBeeEgg: {fileID: 8664181005057228116, guid: 4567e1f0c79973e4a93762a24fa3fe60,
     type: 3}
+  m_chickenPlush: {fileID: 2471304016359239742, guid: e5c45a99d88c3254aa2708a0828f40eb,
+    type: 3}
+  m_chocolateEgg: {fileID: 2471304016359239742, guid: 7ada45c6035fc34449d71ca45fde958f,
+    type: 3}
+  m_easterBasket: {fileID: 2471304016359239742, guid: c388aab75b927a04ea6ac34ba84e323b,
+    type: 3}
   references:
     version: 2
     RefIds:
@@ -35617,7 +35623,9 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 821c405b3b19249458035b99541b2fa4, type: 3}
   - {fileID: 2800000, guid: 422654ddccf2e1848a8ee7834622d298, type: 3}
   - {fileID: 2800000, guid: 4929341b93db1324c96a01cfbb76fe8c, type: 3}
-  - {fileID: 2800000, guid: c987a2654cbc3fd418264a42c68eb7eb, type: 3}
+  - {fileID: 2800000, guid: e40f9436b407bbf459ca74fe8177149a, type: 3}
+  - {fileID: 2800000, guid: 8e6736fd7fa4efd4f97a065d455d3ed4, type: 3}
+  - {fileID: 2800000, guid: 52d77f8fa859f114b9c24b7b7e034134, type: 3}
   m_placementTextures:
   - {fileID: 2800000, guid: 15569d3c5d9e9cb469e4295b71c6f10a, type: 3}
   - {fileID: 2800000, guid: 718b53da5352243409e5864f0353a906, type: 3}
@@ -35650,7 +35658,11 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 52383be436730bf47a80f454cfce0f70, type: 3}
   - {fileID: 2800000, guid: 8c3548703ae6aa34bbb1600189c2843e, type: 3}
   - {fileID: 2800000, guid: 3681d927135112d468615243da913434, type: 3}
-  - {fileID: 2800000, guid: a83e255af6313c04880e45ae321ffbe4, type: 3}
+  - {fileID: 2800000, guid: 4c13913b241e6bd4db49b43060cd0e58, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
+  - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
   - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
   - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
   - {fileID: 2800000, guid: 8b27cd2466ca17c4bb8fa815a420f3b5, type: 3}
@@ -35688,6 +35700,10 @@ MonoBehaviour:
   - {fileID: 3770721917800103863, guid: 9918e010115f3ec49b27ac78f59bdd0c, type: 3}
   - {fileID: 8243460293498165650, guid: 3e8d3e97e5878c6458cad3a8390336e2, type: 3}
   - {fileID: 8664181005057228116, guid: 4567e1f0c79973e4a93762a24fa3fe60, type: 3}
+  - {fileID: 2471304016359239742, guid: e5c45a99d88c3254aa2708a0828f40eb, type: 3}
+  - {fileID: 2471304016359239742, guid: c388aab75b927a04ea6ac34ba84e323b, type: 3}
+  - {fileID: 2471304016359239742, guid: 7ada45c6035fc34449d71ca45fde958f, type: 3}
+  - {fileID: 6150770344185259146, guid: 1aaf75d561a6f8744b5b8b49986e51ca, type: 3}
   references:
     version: 2
     RefIds:
@@ -72368,7 +72384,7 @@ MonoBehaviour:
   _uiOutputSettings:
     rid: -2
   m_zoom: 15
-  m_zoomMin: 10
+  m_zoomMin: 3
   m_zoomMax: 40
   m_fov: 30
   m_allowRotation: 1

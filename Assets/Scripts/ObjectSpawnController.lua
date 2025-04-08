@@ -96,6 +96,15 @@ local whiteBeeEgg : GameObject = nil
 --!SerializeField
 local goldenBeeEgg : GameObject = nil
 
+--!SerializeField
+local chickenPlush : GameObject = nil
+
+--!SerializeField
+local chocolateEgg : GameObject = nil
+
+--!SerializeField
+local easterBasket : GameObject = nil
+
 PlacementObject = {
     ["Chair"] = chair,
     ["Table"] = table,
@@ -130,6 +139,9 @@ PlacementObject = {
     ["Pink Bee Egg"] = pinkBeeEgg,
     ["White Bee Egg"] = whiteBeeEgg,
     ["Golden Bee Egg"] = goldenBeeEgg,
+    ["Chicken Plush"] = chickenPlush,
+    ["Chocolate Egg"] = chocolateEgg,
+    ["Easter Basket"] = easterBasket,
 }
 
 spawnedObjects = {}

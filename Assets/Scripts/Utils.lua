@@ -42,7 +42,10 @@ PlacementObject = {
     ["Regular Bee Egg"] = placementObjects[29],
     ["Pink Bee Egg"] = placementObjects[30],
     ["White Bee Egg"] = placementObjects[31],
-    ["Golden Bee Egg"] = placementObjects[32]
+    ["Golden Bee Egg"] = placementObjects[32],
+    ["Chicken Plush"] = placementObjects[33],
+    ["Easter Basket"] = placementObjects[34],
+    ["Chocolate Egg"] = placementObjects[35],
 }
 
 BeeImage = {
@@ -112,7 +115,9 @@ HatImage = {
     ["Cat Ears"] = hatTextures[16],
     ["Sleeping Cap"] = hatTextures[17],
     ["Mustache"] = hatTextures[18],
-    ["Heart Headband"] = hatTextures[19]
+    ["Heart Headband"] = hatTextures[19],
+    ["Bunny Ears"] = hatTextures[20],
+    ["Chicken Hat"] = hatTextures[21],
 }
 
 FurnitureImage = {
@@ -154,7 +159,10 @@ FurnitureImage = {
     ["Regular Bee Egg"] = placementTextures[33],
     ["Pink Bee Egg"] = placementTextures[34],
     ["White Bee Egg"] = placementTextures[35],
-    ["Golden Bee Egg"] = placementTextures[36]
+    ["Golden Bee Egg"] = placementTextures[36],
+    ["Chicken Plush"] = placementTextures[37],
+    ["Easter Basket"] = placementTextures[38],
+    ["Chocolate Egg"] = placementTextures[39],
 }
 
 local hatData = 
@@ -179,7 +187,9 @@ local hatData =
     {name = "Cat Ears", id = "cat_ears", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 30000, goldCost = 700},
     {name = "Sleeping Cap", id = "sleeping_cap", rarity = "Common", selectFactorRegular = 10, selectFactorGold = 1, isLimited = false, cost = 4000, goldCost = 200},
     {name = "Mustache", id = "mustache", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 25000, goldCost = 600},
-    {name = "Heart Headband", id = "heart_headband", rarity = "Rare", selectFactorRegular = 3, selectFactorGold = 8, isLimited = false, cost = 35000, goldCost = 500}
+    {name = "Heart Headband", id = "heart_headband", rarity = "Rare", selectFactorRegular = 0, selectFactorGold = 0, isLimited = false, cost = 35000, goldCost = 500},
+    {name = "Bunny Ears", id = "bunny_ears", rarity = "Rare", selectFactorRegular = 0, selectFactorGold = 0, isLimited = false, cost = 0, goldCost = 0},
+    {name = "Chicken Hat", id = "chicken_hat", rarity = "Rare", selectFactorRegular = 0, selectFactorGold = 0, isLimited = false, cost = 0, goldCost = 0},
 }
 
 local furnitureData = {
@@ -211,13 +221,16 @@ local furnitureData = {
     {name = "Pink Flower Pot", id = "pink_flower_pot", cost = 5000, goldCost = 150, selectFactorRegular = 10, selectFactorGold = 5},
     {name = "Cherry Blossom Petal", id = "cherry_blossom_petal", cost = 5000, goldCost = 150, selectFactorRegular = 5, selectFactorGold = 30},
     {name = "Cherry Blossom Tree", id = "cherry_blossom_tree", cost = 25000, goldCost = 400, selectFactorRegular = 4, selectFactorGold = 30},
-    {name = "Heart Pillow", id = "heart_pillow", cost = 12000, goldCost = 350, selectFactorRegular = 4, selectFactorGold = 30},
+    {name = "Heart Pillow", id = "heart_pillow", cost = 12000, goldCost = 350, selectFactorRegular = 0, selectFactorGold = 0},
 
     --Easter
     {name = "Regular Bee Egg", id = "regular_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
     {name = "Pink Bee Egg", id = "pink_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
     {name = "White Bee Egg", id = "white_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
-    {name = "Golden Bee Egg", id = "gold_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0}
+    {name = "Golden Bee Egg", id = "gold_bee_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Chicken Plush", id = "chicken_plush", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Easter Basket", id = "easter_basket", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
+    {name = "Chocolate Egg", id = "chocolate_egg", cost = 0, goldCost = 0, selectFactorRegular = 0, selectFactorGold = 0},
 }
 
 function IsHat(id)
