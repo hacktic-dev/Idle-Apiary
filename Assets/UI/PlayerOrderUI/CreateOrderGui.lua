@@ -1,6 +1,7 @@
 --!Type(UI)
 
-
+--!Bind
+local root : UILuaView = nil
 --!Bind
 local Orders_Root : UIScrollView = nil
 --!Bind
@@ -310,7 +311,9 @@ function CreateFurnitureItem(Name, Id, Cash, isGold, isSoldOut)
 
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
-    if Screen.width > Screen.height and Screen.height < 1000 then
+    width = root.parent.worldBound.width
+    height = root.parent.worldBound.height
+    if width > height and height < 1000 then
         _cashLabel:AddToClassList("furniture-price")
         _image:AddToClassList("furniture-image-small")
     else
@@ -585,7 +588,9 @@ function CreateHatItem(Name, Id, Rarity, Cash, isGold, isSoldOut)
 
     -- Create a label for the quest item's cash cost and add it to the quest item.
     local _cashLabel = UILabel.new()
-    if Screen.width > Screen.height and Screen.height < 1000 then
+    width = root.parent.worldBound.width
+    height = root.parent.worldBound.height
+    if width > height and height < 1000 then
         _cashLabel:AddToClassList("hat-price-small")
         _image:AddToClassList("hat-image-small")
         _rarityLabel:AddToClassList("rarity-label-small")
@@ -763,7 +768,9 @@ function Init()
 	purchaseHandler.beeCapacityPurchaseSuccessful:Connect(function() IncreaseBeeCapacity() audioManager.PlaySound("purchaseSound", 1) end)
     purchaseHandler.apiarySizePurchaseSuccessful:Connect(function(product_id) IncreaseApiarySize(product_id) end)
 
-    if Screen.width > Screen.height then
+    width = root.parent.worldBound.width
+    height = root.parent.worldBound.height
+    if width > height and height < 1000 then
         honeyLabel:SetPrelocalizedText("Honey / Items")
     else
         honeyLabel:SetPrelocalizedText("Items")

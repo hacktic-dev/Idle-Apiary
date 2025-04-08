@@ -7,7 +7,7 @@
     xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
 >
 
-<hr:UILuaView class="create-order-gui">
+<hr:UILuaView class="create-order-gui" name="root">
   <VisualElement class="shop__container" name="_ShopContainer">
     <VisualElement class="shop__header">
 

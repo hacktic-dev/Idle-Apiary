@@ -503,11 +503,14 @@
 .portrait .hat-image
 {
   height: 75%;
+  width: 75%;
+  align-self:center;
 }
 
 .landscape .hat-image
 {
   height: 200px;
+  width: 200px;
   padding-bottom: 5px;
 }
 
@@ -687,10 +690,13 @@
 
 .portrait .furniture-image {
   height: 75%;
+  width: 75%;
+  align-self:center;
 }
 
 .landscape .furniture-image {
   height: 200px;
+    width: 200px;
   padding-bottom: 5px;
 }
 
@@ -698,6 +704,7 @@
   flex-grow: 0;
   flex-shrink: 1;
   height: 120px;
+  width: 120px;
   padding-bottom: 5px;
 }
 
