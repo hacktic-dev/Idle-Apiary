@@ -18,6 +18,7 @@ local shopHeader : VisualElement = nil
 
 
 UIManager = require("UIManager")
+Utils = require("Utils")
 dailyQuestTracker = require("DailyQuestTracker")
 eggInventoryHandler = require("EggInventoryHandler")
 
@@ -117,6 +118,16 @@ function OnItemClicked(Id)
         nameLabel:SetPrelocalizedText(item.name)
         nameLabel:AddToClassList("title")
         _shopInfoArea:Add(nameLabel)
+
+        local image = UIImage.new()
+        image:AddToClassList("quest-reward-image")
+        if item.type == "hat" then
+            image.image = Utils.HatImage[item.name]
+        elseif item.type == "furniture" then
+            image.image = Utils.FurnitureImage[item.name]
+        end
+
+        _shopInfoArea:Add(image)
 
         local horizontalContainer = VisualElement.new()
         horizontalContainer:AddToClassList("horizontal-container")

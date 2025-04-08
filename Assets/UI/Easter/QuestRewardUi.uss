@@ -867,3 +867,10 @@
   width: 20px;
   height: 20px;
 }
+
+.quest-reward-image
+{
+  width: 80%;
+  height: 80%;
+  align-self: center;
+}
