@@ -8,14 +8,19 @@
 >
 
   <hr:UILuaView class="player-stat-gui" picking-mode="Ignore">
-      <VisualElement class="container">
+      <VisualElement name="cashContainer" class="container">
         <hr:UIImage class="icon" name="cashIcon"/>
         <hr:UILabel class="number" name="cashCount"/>
       </VisualElement>
       
-      <VisualElement class="container">
+      <VisualElement name="xpContainer" class="container">
         <hr:UIImage class="icon" name="xpIcon"/>
         <hr:UILabel class="number" name="xpCount"/>
+      </VisualElement>
+
+      <VisualElement name="ticketsContainer" class="container">
+        <hr:UIImage class="icon" name="ticketsIcon"/>
+        <hr:UILabel class="number" name="ticketsCount"/>
       </VisualElement>
 
       <hr:UIButton class="hamburgerButton" name="_hamburgerButton">

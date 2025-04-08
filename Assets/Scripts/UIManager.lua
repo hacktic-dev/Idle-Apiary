@@ -326,6 +326,7 @@ end
 
 function CloseQuestRewardUi()
     ToggleUI("QuestRewardUi", false)
+    StatsObject:GetComponent(PlayerStatGui).ShowAllButTickets()
     ShowMenu()
 end
 
@@ -418,6 +419,20 @@ function self:ClientAwake()
             end)
     end))
 
+    eggInventoryHandler.NotifyRewardExchangedEvent:Connect((function(name, cost)
+        ToggleUI("BeeCard", true)
+        ToggleUI("PlayerStats", false)
+        ToggleUI("QuestRewardUi", false)
+        InfoCardObject:GetComponent(InfoCard).ShowRewardExchanged(name, cost)
+        audioManager.PlaySound("captureSound", 1) --TODO add a new sound here
+        InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+            function()  
+                ToggleUI("BeeCard", false)
+                ToggleUI("PlayerStats", true)
+                ShowQuestRewardUi()
+            end)
+    end))
+
     dailyQuestTracker.NotifyDailyQuestDataRecievedEvent:Connect((function(data)
         ToggleUI("DailyQuestUi", true)
         ToggleUI("PlayerStats", false)
@@ -428,9 +443,9 @@ function self:ClientAwake()
 
     dailyQuestTracker.NotifyTicketCountReceivedEvent:Connect((function(ticketCount)
         ToggleUI("QuestRewardUi", true)
-        ToggleUI("PlayerStats", false)
         ToggleUI("CenterPlayerButton", false)
         ToggleUI("PlaceButtons", false)
+        StatsObject:GetComponent(PlayerStatGui).ShowOnlyTickets(ticketCount)
         QuestRewardUiObject:GetComponent(QuestRewardUi).Init(ticketCount)
     end))
 end

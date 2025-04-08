@@ -78,6 +78,14 @@ function ShowEggCrafted(name)
     SetTimer()
 end
 
+function ShowRewardExchanged(name, cost)
+    _beeLabel:SetPrelocalizedText("You exchanged " .. cost .. " tickets for a " .. name .. "!")
+    _rarity:SetPrelocalizedText("")
+    _honeyRateLabel:SetPrelocalizedText("")
+    _sellPriceLabel:SetPrelocalizedText("")
+    SetTimer()
+end
+
 function showPurchasedHoney(id)
     if id == "doubler_1" then
         _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler!")

@@ -147,6 +147,10 @@
     background-image: url("project://database/Assets/Icons/fishing-net.png");
 }
 
+.player-stat-gui #ticketsIcon{
+  background-image: url("project://database/Assets/Icons/ticket.png");
+}
+
 .player-stat-gui #xpCount{
     color: white;
 }

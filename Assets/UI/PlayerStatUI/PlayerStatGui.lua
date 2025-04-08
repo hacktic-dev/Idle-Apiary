@@ -32,6 +32,18 @@ local _settingsButton : UIButton = nil
 --!Bind
 local versionText : UILabel = nil
 
+--!Bind
+local ticketsContainer : VisualElement = nil
+
+--!Bind
+local cashContainer : VisualElement = nil
+
+--!Bind
+local xpContainer : VisualElement = nil
+
+--!Bind
+local ticketsCount : UILabel = nil
+
 --!SerializeField
 local BeeListObject : GameObject = nil
 
@@ -100,6 +112,7 @@ function self:ClientAwake()
     _viewTutorialButton:AddToClassList("hide")
     _viewTutorialButton:AddToClassList("hide")
     _viewTutorialButton:AddToClassList("hide")
+    ticketsContainer:AddToClassList("hide")
     _hamburgerButton:AddToClassList("hide")
     versionText:SetPrelocalizedText("")
 
@@ -155,6 +168,33 @@ function ShowMenu()
     _beestiaryButton:EnableInClassList("hide", useHamburger)
     _viewBeesButton:EnableInClassList("hide", useHamburger)
     _hamburgerButton:EnableInClassList("hide", not useHamburger)
+end
+
+function ShowOnlyTickets(count)
+    ticketsContainer:RemoveFromClassList("hide")
+    _viewTutorialButton.visible = false
+    _openShopButton.visible = false
+    _beestiaryButton.visible = false
+    _viewBeesButton.visible = false
+    _hamburgerButton.visible = false
+    _settingsButton.visible = false
+    _toggleBadgesButton.visible = false
+    cashContainer:AddToClassList("hide")
+    xpContainer:AddToClassList("hide")
+    ticketsCount:SetPrelocalizedText(tostring(count))
+end
+
+function ShowAllButTickets()
+    ticketsContainer:AddToClassList("hide")
+    _viewTutorialButton.visible = true
+    _openShopButton.visible = true
+    _beestiaryButton.visible = true
+    _viewBeesButton.visible = true
+    _hamburgerButton.visible = true
+    _settingsButton.visible = true
+    _toggleBadgesButton.visible = true
+    cashContainer:RemoveFromClassList("hide")
+    xpContainer:RemoveFromClassList("hide")
 end
 
 function ShowButtons()

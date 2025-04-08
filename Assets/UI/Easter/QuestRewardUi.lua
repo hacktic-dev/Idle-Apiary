@@ -19,8 +19,7 @@ local shopHeader : VisualElement = nil
 
 UIManager = require("UIManager")
 dailyQuestTracker = require("DailyQuestTracker")
-
-eggInventory = {}
+eggInventoryHandler = require("EggInventoryHandler")
 
 local rewards = {
     {id ="chicken_hat", name ="Chicken Hat", ticketCost = 5 , type = "hat"},
@@ -144,7 +143,7 @@ function OnItemClicked(Id)
         if item.ticketCost <= ticketCount then
             exchangeButton:AddToClassList("buy-button")
             exchangeButton:RegisterPressCallback(function()
-                --TODO exchange item
+                eggInventoryHandler.ExchangeReward(item)
             end, true, true, true)
         else
             exchangeButton:AddToClassList("buy-button-greyed")

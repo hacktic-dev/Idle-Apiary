@@ -13,7 +13,10 @@ RequestEggFinderActiveEvent = Event.new("RequestEggFinderActiveEvent")
 NotifyEggFinderActiveEvent = Event.new("NotifyEggFinderActiveEvent")
 
 RequestCraftEggEvent = Event.new("RequestCraftEggEvent")
-NotifyEggCraftedEvent = Event.new("NotifyEggCraftedEvent") 
+NotifyEggCraftedEvent = Event.new("NotifyEggCraftedEvent")
+
+RequestExchangeRewardEvent = Event.new("RequestExchangeRewardEvent")
+NotifyRewardExchangedEvent = Event.new("NotifyRewardExchangedEvent")
 
 RequestEggInventoryEvent = Event.new("RequestEggInventoryEvent")
 NotifyEggInventoryRecievedEvent = Event.new("NotifyEggInventoryRecievedEvent")
@@ -81,6 +84,14 @@ function self:ServerAwake()
         Inventory.CommitTransaction(transaction)
         NotifyEggCraftedEvent:FireClient(player, item.name)
     end)
+
+    RequestExchangeRewardEvent:Connect(function(player, item)
+        local transaction = InventoryTransaction.new():GivePlayer(player, item.id, 1)
+        transaction = transaction:TakePlayer(player, "ticket", item.ticketCost)
+
+        Inventory.CommitTransaction(transaction)
+        NotifyRewardExchangedEvent:FireClient(player, item.name, item.ticketCost)
+    end)
 end
 
 function GetPlayerItems(player, eggInventory, cursorId)
@@ -115,4 +126,8 @@ end
 
 function CraftEgg(item)
     RequestCraftEggEvent:FireServer(item)
+end
+
+function ExchangeReward(item)
+    RequestExchangeRewardEvent:FireServer(item)
 end
