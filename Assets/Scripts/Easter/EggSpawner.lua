@@ -54,7 +54,7 @@ end
 function TrySpawnEgg()
     local spawnChance = easterEventVariableRetriever.GetEggSpawnChance()
     if eggFinderActive then
-        spawnChance = spawnChance * 3
+        spawnChance = spawnChance * 6
     end
 
     if math.random() > spawnChance then
