@@ -1,0 +1,295 @@
+.trade-initiation-ui
+{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.portrait .trade-initiation-ui
+{
+    width: 90%;
+    align-self: center;
+}
+
+.trade__ui__container {
+  flex-direction: column;
+  align-self: center;
+  display: flex;
+  overflow: hidden;
+
+  padding: 6px;
+  min-height: 400px;
+  min-width: 250px;
+
+  max-height: 600px;
+  max-width: 400px;
+
+  width: 100%;
+  height: 100%;
+
+  border-width: 2px;
+  border-radius: 8px;
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
+}
+
+.wager__selection_container
+{
+  flex-direction: column;
+  align-self: center;
+  display: flex;
+  overflow: hidden;
+
+  padding: 6px;
+
+  min-height: 180px;
+
+  border-width: 2px;
+  border-radius: 8px;
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
+}
+
+.landscape .wager__selection_container
+{
+    width: 40%;
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
+.top__container
+{
+    flex-direction: row;
+}
+
+.trade__ui__select__player
+{
+    width: 100%;
+    background-color:rgba(0, 0, 0, 0.3)
+    border-radius: 8px;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+
+.main__container
+{
+    flex-direction: column;
+}
+
+.title
+{
+    color: white;
+    font-size: 16px;
+    white-space: normal;
+}
+
+.landscape .title
+{
+    font-size: 20px;
+}
+
+.warning-title
+{
+    color:rgb(255, 113, 113);
+    font-size: 16px;
+    white-space: normal;
+}
+
+.landscape .warning-title
+{
+    font-size: 20px;
+}
+
+.level__label
+{
+    color: white;
+    font-size: 12px;
+    width: 100%;
+    -unity-text-align: middle-right;
+}
+
+.wager__amount
+{
+    color: white;
+    font-size: 30px;
+    white-space: normal;
+    margin-left: 10px;
+    margin-right: 10px;
+    -unity-text-outline-color:rgb(255, 255, 255);
+    -unity-text-outline-width: 2;
+    height: 100%;
+    -unity-text-align: middle-center;
+}
+
+.landscape .wager__amount
+{
+    font-size: 50px;
+}
+
+.press__button {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    color: white;
+    height: 35px;
+    margin-top: auto;
+    margin-bottom: 10px;
+    width: 48%;
+    align-self: center;
+}
+
+.portrait .press__button
+{
+    width: 80%;
+}
+
+.wager__button {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    color: white;
+    height: 60px;
+    margin-top: auto;
+    margin-bottom: 10px;
+    width: 60px;
+    margin-left: 5px;
+    margin-right: 5px
+    align-self: center;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.wager__amount__container
+{
+    flex-direction: row;
+    margin-top: 20px;
+    align-items: center;
+    align-self: center;
+}
+
+.horizontal-container
+{
+  align-self: center;
+  flex-direction: row;
+  margin-top: 8px;
+  height: 30px;
+}
+
+.icon_energy
+{
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("project://database/Assets/Icons/energy.png");
+}
+
+.portrait .icon_energy
+{
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 5px;
+}
+
+.icon_health
+{
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("project://database/Assets/Icons/health.png");
+}
+
+.portrait .icon_health
+{
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 13px;
+}
+
+.icon_speed
+{
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("project://database/Assets/Icons/speed.png");
+}
+
+.portrait .icon_speed
+{
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 13px;
+}
+
+.icon_attack
+{
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("project://database/Assets/Icons/attack.png");
+}
+
+.portrait .icon_attack
+{
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 13px;
+}
+
+.icon_defense
+{
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("project://database/Assets/Icons/defense.png");
+}
+
+.portrait .icon_defense
+{
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 13px;
+}
+
+.pet-status
+{
+  margin-top: 0;
+  color:rgb(255, 255, 255);
+  font-size: 24px;
+  -unity-text-align: middle-center;
+
+}
+
+.portrait .pet-status
+{
+  font-size: 20px;
+}
+
+.pet-title
+{
+      margin-top: 15px;
+  color:rgb(255, 255, 255);
+  font-size: 30px;
+  -unity-font-style: bold;
+  -unity-text-align: middle-center;
+
+}
+
+
+.portrait .pet-title
+{
+  font-size: 20px;
+}

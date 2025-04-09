@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="UnityEngine.UIElements"
+    xmlns:hr="Highrise.UI"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+>
+
+  <hr:UILuaView class="trade-initiation-ui">
+    
+    <VisualElement class="trade__ui__container" name="playerSelectionScreen">
+      <VisualElement class="top__container">
+        <hr:UILabel class="title" name="titleLabel" />
+      </VisualElement>
+      <hr:UIScrollView class = "main__container" name="playersContainer">
+      </hr:UIScrollView>
+      <hr:UIButton class = "press__button" name = "closeButton">
+        <hr:UILabel class = "title" name = "closeButtonLabel" />
+      </hr:UIButton>
+    </VisualElement>
+    <VisualElement class="wager__selection_container" name="waitingScreen">
+    <hr:UILabel class="title" name="waitingLabel" />
+    </VisualElement>
+    <VisualElement class="wager__selection_container" name="tradeSelectionScreen">
+    </VisualElement>
+  </hr:UILuaView>
+
+</UXML>

@@ -27,17 +27,31 @@ RequestCancelTrade = Event.new("RequestCancelTrade")
 NotifyTradeConfirmed = Event.new("NotifyTradeConfirmed")
 NotifyTradeCancelled = Event.new("NotifyTradeCancelled")
 
+TRADE_TIMEOUT = 30
+
+responseRecieved = {}
+
 function self:ServerAwake()
     RequestStartTrade:Connect(function(sendingPlayer, targetPlayer)
         NotifyStartTradeRequested:FireClient(targetPlayer, sendingPlayer)
+        Timer.new(TRADE_TIMEOUT, function()
+            if not responseRecieved[targetPlayer] then
+                NotifyTradeRequestDeclined:FireClient(sendingPlayer, targetPlayer)
+                NotifyTradeRequestDeclined:FireClient(targetPlayer, sendingPlayer)
+            end
+        end)
+        responseRecieved[targetPlayer] = false
     end)
 
     RequestAcceptTradeRequest:Connect(function(targetPlayer, sendingPlayer)
         tradeId = StartTrade(sendingPlayer, targetPlayer)
+        responseRecieved[targetPlayer] = true
         NotifyTradeRequestAccepted:FireClient(sendingPlayer, targetPlayer, tradeId)
+        NotifyTradeRequestAccepted:FireClient(targetPlayer, sendingPlayer, tradeId)
     end)
 
     RequestDeclineTradeRequest:Connect(function(targetPlayer, sendingPlayer)
+        responseRecieved[targetPlayer] = true
         NotifyTradeRequestDeclined:FireClient(sendingPlayer, targetPlayer)
     end)
 
