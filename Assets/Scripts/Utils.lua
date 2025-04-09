@@ -369,3 +369,7 @@ function ChooseFurniture(isGold)
     -- Fallback in case no furniture is selected (this shouldn't happen)
     return furnitureData[1]
 end
+
+function GenerateUniqueID()
+    return tostring(os.time()) .. "-" .. tostring(math.random(1000, 9999))
+end
