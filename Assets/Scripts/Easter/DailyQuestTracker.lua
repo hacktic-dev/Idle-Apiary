@@ -220,7 +220,11 @@ function self:ServerAwake()
     RequestTicketCountEvent:Connect(function(player)
         if dailyQuestData[player] then
             local ticketCount = Inventory.GetPlayerItem(player, "ticket", function(item)
-                NotifyTicketCountReceivedEvent:FireClient(player, item.amount)
+                if item ~= nil then
+                    NotifyTicketCountReceivedEvent:FireClient(player, item.amount)
+                else
+                    NotifyTicketCountReceivedEvent:FireClient(player, 0)
+                end
             end)
         end
     end)
