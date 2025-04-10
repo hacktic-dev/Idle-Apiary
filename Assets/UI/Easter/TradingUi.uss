@@ -54,6 +54,11 @@
     width: 40%;
 }
 
+.portrait .wager__selection_container
+{
+  width: 80%;
+}
+
 .unity-text-element
 {
 	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");

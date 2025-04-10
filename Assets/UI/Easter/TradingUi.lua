@@ -51,8 +51,7 @@ function OnPlayerSelected(player)
 
     if playerTimeout[player] ~= nil then
         if os.time() - playerTimeout[player] < 60 then
-            UIManager.CloseTradingUi()
-            UIManager.ShowNotification("Challenge timeout", "You have already sent a challenge to this player recently. Please wait a while before sending another one.")
+            UIManager.NotifyTradeTimeout()
             return
         end
     end

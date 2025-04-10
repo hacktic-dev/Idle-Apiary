@@ -34,6 +34,7 @@ responseRecieved = {}
 
 function self:ServerAwake()
     RequestStartTrade:Connect(function(sendingPlayer, targetPlayer)
+        print("RequestStartTrade")
         NotifyStartTradeRequested:FireClient(targetPlayer, sendingPlayer)
         Timer.new(TRADE_TIMEOUT, function()
             if not responseRecieved[targetPlayer] then

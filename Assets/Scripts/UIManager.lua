@@ -242,9 +242,7 @@ end
 
 function OpenPlaceFlowerMenu()
     ToggleUI("PlaceFlowerMenu", true)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
+    HideMenu()
     PlaceFlowerMenuObject:GetComponent(PlaceFlowerUi).Init()
 end
 
@@ -255,9 +253,7 @@ end
 
 function OpenPlaceFurnitureMenu()
     ToggleUI("PlaceFurnitureMenu", true)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
+    HideMenu()
     initPlaceFurnitureMenu:Fire()
 end
 
@@ -281,9 +277,7 @@ end
 
 function OpenRemoveFurnitureMenu()
     ToggleUI("RemoveFurnitureMenu", true)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
+    HideMenu()
     print("Opening remove furniture menu")
     RemoveFurnitureMenuObject:GetComponent(RemoveFurnitureUi).Init()
 end
@@ -296,9 +290,7 @@ end
 function OpenAddHatMenu()
     ToggleUI("AddHatMenu", true)
     ToggleUI("BeeList", false)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
+    HideMenu()
     AddHatMenuObject:GetComponent(AddHatUi).Init()
 end
 
@@ -337,15 +329,26 @@ end
 
 function OpenTradingUi()
     ToggleUI("TradingUi", true)
-    ToggleUI("PlayerStats", false)
-    ToggleUI("CenterPlayerButton", false)
-    ToggleUI("PlaceButtons", false)
+    HideMenu()
     TradingUiObject:GetComponent(TradingUi).Init()
 end
 
 function CloseTradingUi()
     ToggleUI("TradingUi", false)
     ShowMenu()
+end
+
+function NotifyTradeTimeout()
+    ToggleUI("BeeCard", true)
+    ToggleUI("TradingUi", false)
+    InfoCardObject:GetComponent(InfoCard).ShowTradeTimeout()
+    audioManager.PlaySound("failSound", 1)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+        function()  
+            ToggleUI("BeeCard", false) 
+            ToggleUI("TradingUi", false) 
+            ShowMenu()
+        end)
 end
 
 function OpenTutorialByPlayer()
@@ -360,9 +363,12 @@ wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
     ToggleUI("CenterPlayerButton", false)
     InfoCardObject:GetComponent(InfoCard).ShowCaughtWild(species)
     audioManager.PlaySound("captureSound", 1)
-    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("PlaceButtons", true) ToggleUI("PlayerStats", true) ToggleUI("CenterPlayerButton", true) end)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+        function()
+            ToggleUI("BeeCard", false)
+            ShowMenu()
+        end)
 end))
-
 
 playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("BeeCard", true)
@@ -370,17 +376,29 @@ playerManager.notifyBeePurchased:Connect((function(species)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
     InfoCardObject:GetComponent(InfoCard).ShowReceived(species)
-    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+        function()
+            ToggleUI("BeeCard", false)
+            ToggleUI("ShopUi", true)
+            HideButtons()
+            ToggleUI("PlayerStats", true)
+        end)
 end))
 
 playerManager.notifyItemPurchased:Connect((function(item)
-    audioManager.PlaySound("purchaseSound", 1)
     ToggleUI("BeeCard", true)
     ToggleUI("PlayerStats", false)
     ToggleUI("CenterPlayerButton", false)
     ToggleUI("ShopUi", false)
     InfoCardObject:GetComponent(InfoCard).ShowPurchasedItem(item)
-    InfoCardObject:GetComponent(InfoCard).SetCloseCallback( function() ToggleUI("BeeCard", false) ToggleUI("ShopUi", true) HideButtons() ToggleUI("PlayerStats", true) end)
+    audioManager.PlaySound("purchaseSound", 1)
+    InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+        function()
+            ToggleUI("BeeCard", false)
+            ToggleUI("ShopUi", true)
+            HideButtons()
+            ToggleUI("PlayerStats", true)
+        end)
 end))
 
 function self:ClientAwake()
@@ -460,13 +478,20 @@ function self:ClientAwake()
     tradingManager.NotifyTradeRequestDeclined:Connect((function(targetPlayer)
         ToggleUI("BeeCard", true)
         ToggleUI("TradingUi", false)
-        TradingUiObject:GetComponent(InfoCard).ShowTradeRequestDeclined(targetPlayer)
+        InfoCardObject:GetComponent(InfoCard).ShowTradeRequestDeclined(targetPlayer)
+        audioManager.PlaySound("failSound", 1)
+        InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+            function()  
+                ToggleUI("BeeCard", false) 
+                ShowMenu()
+            end)
     end))
 
     --Open trading UI for the receiving player after accepting the trade request
     tradingManager.NotifyTradeRequestAccepted:Connect((function(targetPlayer, tradeId)
         if not IsActive("TradingUi") then
             ToggleUI("BeeCard", false)
+            HideMenu()
             ToggleUI("TradingUi", true)
         end
     end))
@@ -506,4 +531,10 @@ function ShowMenu()
     ToggleUI("PlaceButtons", true)
     StatsObject:GetComponent("PlayerStatGui").ShowMenu()
     StatsObject:GetComponent("PlayerStatGui").CloseSettings()
+end
+
+function HideMenu()
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
 end

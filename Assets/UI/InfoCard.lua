@@ -23,7 +23,9 @@ close:RegisterPressCallback(function()
         isTradeRequest = false
         return
     end
-    closeCallback()
+    if closeCallback ~= nil then
+        closeCallback()
+    end
     StopTimer()
 end, true, true, true)
 
@@ -220,6 +222,16 @@ function ShowTradeRequestDeclined(targetPlayer)
     PopulateInfoCard(
         "Trade request declined",
         targetPlayer.name .. " has declined your trade request.",
+        nil,
+        nil,
+        nil
+    )
+end
+
+function ShowTradeTimeout()
+    PopulateInfoCard(
+        "Too many requests!",
+        "You have sent a trade request to this player recently. Please wait a while before sending another one.",
         nil,
         nil,
         nil
