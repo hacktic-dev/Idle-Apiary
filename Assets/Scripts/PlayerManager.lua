@@ -1103,3 +1103,18 @@ function GiveEasterBee(player, egg)
     EasterBeeHatched:Fire(player, bee)
     giveBeeRequest:Fire(player, bee, true)
 end
+
+function GetAllPlayers()
+
+    print("Getting all players...")
+
+    playerData = {}
+
+    for player, _ in pairs(players) do
+        print(player.name)
+        data = {player = player}
+        table.insert(playerData, data)
+    end
+
+    return playerData
+end

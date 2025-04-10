@@ -5,7 +5,7 @@
 	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
 }
 
-.bee-obtain-card
+.info-obtain-card
 {
     margin : 10px;
     margin-right: auto;
@@ -14,7 +14,7 @@
     margin-bottom: auto;
 }
 
-.bee-card__container {
+.info-card__container {
     display: flex;
     flex-shrink: 1;
     max-width: none;
@@ -29,7 +29,7 @@
     justify-content: center;
 }
 
-.bee-label
+.info-label
 {
     align-self: center;
     font-size: 16px;
@@ -39,7 +39,7 @@
     -unity-text-align: middle-center;
 }
 
-.bee-main-label
+.info-main-label
 {
     white-space: normal;
     align-self: center;
@@ -47,7 +47,7 @@
     -unity-text-align: middle-center;
 }
 
-.bee-image
+.info-image
 {
     background-image: url("project://database/Assets/Icons/honey.png");
 }

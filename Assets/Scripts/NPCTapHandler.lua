@@ -9,11 +9,13 @@ function self:ClientAwake()
     local TapHand = self.gameObject:GetComponent(TapHandler)
     TapHand.Tapped:Connect(function()
         if npcName == "crafter" then
-            UIManager.ShowEggCraftingUi()
+            UIManager.OpenEggCraftingUi()
         elseif npcName == "questGiver" then
-            UIManager.ShowDailyQuestUi()
+            UIManager.OpenDailyQuestUi()
         elseif npcName == "questRewarder" then
-            UIManager.ShowQuestRewardUi()
+            UIManager.OpenQuestRewardUi()
+        elseif npcName == "trader" then
+            UIManager.OpenTradingUi()
         end
     end)
 end

@@ -41,12 +41,15 @@ local EggCraftingUiObject : GameObject = nil
 local DailyQuestUiObject : GameObject = nil
 --!SerializeField
 local QuestRewardUiObject : GameObject = nil
+--!SerializeField
+local TradingUiObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
 local audioManager = require("AudioManager")
 local eggInventoryHandler = require("EggInventoryHandler")
 local dailyQuestTracker = require("DailyQuestTracker")
+local tradingManager = require("TradingManager")
 
 initPlaceFurnitureMenu = Event.new("initPlaceFurnitureMenu")
 
@@ -70,6 +73,7 @@ local uiMap = {
     EggCraftingUi = EggCraftingUiObject,
     DailyQuestUi = DailyQuestUiObject,
     QuestRewardUi = QuestRewardUiObject,
+    TradingUi = TradingUiObject,
 }
 
 -- Activate the object if it is not active
@@ -218,6 +222,7 @@ function HideAll()
     ToggleUI("EggCraftingUi", false)
     ToggleUI("DailyQuestUi", false)
     ToggleUI("QuestRewardUi", false)
+    ToggleUI("TradingUi", false)
 end
 
 function OpenShearsTutorial()
@@ -302,7 +307,7 @@ function CloseAddHatMenu()
     ShowMenu()
 end
 
-function ShowEggCraftingUi()
+function OpenEggCraftingUi()
     eggInventoryHandler.RequestEggInventoryEvent:FireServer()
 end
 
@@ -311,7 +316,7 @@ function CloseEggCraftingUi()
     ShowMenu()
 end
 
-function ShowDailyQuestUi()
+function OpenDailyQuestUi()
     dailyQuestTracker.RequestDailyQuestDataEvent:FireServer()
 end
 
@@ -320,13 +325,26 @@ function CloseDailyQuestUi()
     ShowMenu()
 end
 
-function ShowQuestRewardUi()
+function OpenQuestRewardUi()
     dailyQuestTracker.RequestTicketCountEvent:FireServer()
 end
 
 function CloseQuestRewardUi()
     ToggleUI("QuestRewardUi", false)
     StatsObject:GetComponent(PlayerStatGui).ShowAllButTickets()
+    ShowMenu()
+end
+
+function OpenTradingUi()
+    ToggleUI("TradingUi", true)
+    ToggleUI("PlayerStats", false)
+    ToggleUI("CenterPlayerButton", false)
+    ToggleUI("PlaceButtons", false)
+    TradingUiObject:GetComponent(TradingUi).Init()
+end
+
+function CloseTradingUi()
+    ToggleUI("TradingUi", false)
     ShowMenu()
 end
 
@@ -431,6 +449,38 @@ function self:ClientAwake()
                 ToggleUI("PlayerStats", true)
                 ShowQuestRewardUi()
             end)
+    end))
+
+    tradingManager.NotifyStartTradeRequested:Connect((function(sendingPlayer)
+        HideAll()
+        ToggleUI("BeeCard", true)
+        InfoCardObject:GetComponent(InfoCard).ShowTradeRequest(sendingPlayer)
+    end))
+
+    tradingManager.NotifyTradeRequestDeclined:Connect((function(targetPlayer)
+        ToggleUI("BeeCard", true)
+        ToggleUI("TradingUi", false)
+        TradingUiObject:GetComponent(InfoCard).ShowTradeRequestDeclined(targetPlayer)
+    end))
+
+    --Open trading UI for the receiving player after accepting the trade request
+    tradingManager.NotifyTradeRequestAccepted:Connect((function(targetPlayer, tradeId)
+        if not IsActive("TradingUi") then
+            ToggleUI("BeeCard", false)
+            ToggleUI("TradingUi", true)
+        end
+    end))
+
+    InfoCardObject:GetComponent(InfoCard).RequestAcceptTradeEvent:Connect((function(sendingPlayer)
+        tradingManager.RequestAcceptTradeRequest:FireServer(sendingPlayer)
+        ToggleUI("BeeCard", false)
+        ShowMenu()
+    end))
+
+    InfoCardObject:GetComponent(InfoCard).RequestDeclineTradeEvent:Connect((function(sendingPlayer)
+        tradingManager.RequestDeclineTradeRequest:FireServer(sendingPlayer)
+        ToggleUI("BeeCard", false)
+        ShowMenu()
     end))
 
     dailyQuestTracker.NotifyDailyQuestDataRecievedEvent:Connect((function(data)

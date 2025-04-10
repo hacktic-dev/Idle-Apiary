@@ -1,114 +1,240 @@
 --!Type(UI)
 
 --!Bind
-local _beeCard : VisualElement = nil
---!Bind
-local _beeLabel : UILabel = nil
---!Bind
-local _honeyRateLabel : UILabel = nil
---!Bind
-local _sellPriceLabel : UILabel = nil
---!Bind
-local _beeImage : UIImage = nil
---!Bind
-local _rarity : UILabel = nil
+local _infoCard : VisualElement = nil
 --!Bind
 local close : UIButton = nil
 
 local wildBeeManager = require("WildBeeManager")
-
 local playerManager = require("PlayerManager")
 
 closeCallback = nil
-
 timer = nil
 
+isTradeRequest = false
+sendingPlayer = nil
+
+RequestAcceptTradeEvent = Event.new("RequestAcceptTradeEvent")
+RequestDeclineTradeEvent = Event.new("RequestDeclineTradeEvent")
+
 close:RegisterPressCallback(function()
+    if isTradeRequest then
+        OnDecline()
+        isTradeRequest = false
+        return
+    end
     closeCallback()
     StopTimer()
 end, true, true, true)
 
--- Initialize UI text and image
+-- Helper function to clear _infoCard
+local function ClearInfoCard()
+    _infoCard:Clear()
+end
 
+-- Helper function to create and add a UILabel
+local function AddLabel(parent, class, text)
+    local label = UILabel.new()
+    label:AddToClassList(class)
+    label:SetPrelocalizedText(text)
+    parent:Add(label)
+    return label
+end
+
+-- Helper function to create and add a UIImage
+local function AddImage(parent, class, src)
+    local image = UIImage.new()
+    image:AddToClassList(class)
+    image:SetSource(src) -- TODO
+    parent:Add(image)
+    return image
+end
+
+-- Function to populate the UI dynamically
+local function PopulateInfoCard(mainText, rarityText, honeyRateText, sellPriceText, imageSrc)
+    ClearInfoCard()
+    AddLabel(_infoCard, "info-main-label", mainText)
+    if imageSrc then
+        AddImage(_infoCard, "info-image", imageSrc)
+    end
+    if rarityText then
+        AddLabel(_infoCard, "info-label", rarityText)
+    end
+    if honeyRateText then
+        AddLabel(_infoCard, "info-label", honeyRateText)
+    end
+    if sellPriceText then
+        AddLabel(_infoCard, "info-label", sellPriceText)
+    end
+end
+
+-- Functions to show different UI states
 function ShowCaughtWild(species)
-    _beeLabel:SetPrelocalizedText("You caught a wild " .. species .. "!")
-    _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
-    _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
-    _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
+    PopulateInfoCard(
+        "You caught a wild " .. species .. "!",
+        wildBeeManager.getRarity(species) .. " Bee",
+        "Honey rate: " .. wildBeeManager.getHoneyRate(species),
+        "Sell price: " .. wildBeeManager.getSellPrice(species),
+        nil -- todo add actual image
+    )
     SetTimer()
 end
 
 function ShowEggCollected(eggColour)
-    _beeLabel:SetPrelocalizedText("You collected a " .. eggColour .. " egg!")
-    _rarity:SetPrelocalizedText("")
-    _honeyRateLabel:SetPrelocalizedText("")
-    _sellPriceLabel:SetPrelocalizedText("")
+    PopulateInfoCard(
+        "You collected a " .. eggColour .. " egg!",
+        nil,
+        nil,
+        nil,
+        nil
+    )
     SetTimer()
 end
 
 function ShowReceived(species)
-    _beeLabel:SetPrelocalizedText("You received a " .. species .. "!")
-    _rarity:SetPrelocalizedText(wildBeeManager.getRarity(species) .. " Bee")
-    _honeyRateLabel:SetPrelocalizedText("Honey rate: " .. wildBeeManager.getHoneyRate(species))
-    _sellPriceLabel:SetPrelocalizedText("Sell price: " .. wildBeeManager.getSellPrice(species))
+    PopulateInfoCard(
+        "You received a " .. species .. "!",
+        wildBeeManager.getRarity(species) .. " Bee",
+        "Honey rate: " .. wildBeeManager.getHoneyRate(species),
+        "Sell price: " .. wildBeeManager.getSellPrice(species),
+        nil 
+    )
     SetTimer()
 end
 
 function ShowPurchasedItem(hat)
-    _beeLabel:SetPrelocalizedText("You purchased a " .. hat .. "!")
-    _rarity:SetPrelocalizedText("")
-    _honeyRateLabel:SetPrelocalizedText("")
-    _sellPriceLabel:SetPrelocalizedText("")
+    PopulateInfoCard(
+        "You purchased a " .. hat .. "!",
+        nil,
+        nil,
+        nil,
+        nil
+    )
     SetTimer()
 end
 
 function ShowFlowerCut(name, effect)
-    _beeLabel:SetPrelocalizedText("You picked a " .. name .. " flower!")
-    _rarity:SetPrelocalizedText(effect)
-    _honeyRateLabel:SetPrelocalizedText("")
-    _sellPriceLabel:SetPrelocalizedText("")
+    PopulateInfoCard(
+        "You picked a " .. name .. " flower!",
+        effect,
+        nil,
+        nil,
+        nil
+    )
     SetTimer()
 end
 
 function ShowEggCrafted(name)
-    _beeLabel:SetPrelocalizedText("You crafted a " .. name .. "!")
-    _rarity:SetPrelocalizedText("")
-    _honeyRateLabel:SetPrelocalizedText("")
-    _sellPriceLabel:SetPrelocalizedText("")
+    PopulateInfoCard(
+        "You crafted a " .. name .. "!",
+        nil,
+        nil,
+        nil,
+        nil
+    )
     SetTimer()
 end
 
 function ShowRewardExchanged(name, cost)
-    _beeLabel:SetPrelocalizedText("You exchanged " .. cost .. " tickets for a " .. name .. "!")
-    _rarity:SetPrelocalizedText("")
-    _honeyRateLabel:SetPrelocalizedText("")
-    _sellPriceLabel:SetPrelocalizedText("")
+    PopulateInfoCard(
+        "You exchanged " .. cost .. " tickets for a " .. name .. "!",
+        nil,
+        nil,
+        nil,
+        nil
+    )
     SetTimer()
 end
 
 function showPurchasedHoney(id)
+    local mainText
     if id == "doubler_1" then
-        _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler!")
+        mainText = "You purchased a Honey Doubler!"
     elseif id == "doubler_2" then
-        _beeLabel:SetPrelocalizedText("You purchased a Honey Doubler Pro!")
+        mainText = "You purchased a Honey Doubler Pro!"
     elseif id == "egg_finder" then
-        _beeLabel:SetPrelocalizedText("You purchased an Egg Finder!")
+        mainText = "You purchased an Egg Finder!"
     end
 
-    _rarity:SetPrelocalizedText("Thank you for your purchase!")
-    _honeyRateLabel:SetPrelocalizedText("")
-    _sellPriceLabel:SetPrelocalizedText("")
+    PopulateInfoCard(
+        mainText,
+        "Thank you for your purchase!",
+        nil,
+        nil,
+        nil
+    )
     SetTimer()
 end
 
 function showPurchasedHoneyFailed()
-    _beeLabel:SetPrelocalizedText("There was an error while purchasing")
-    _rarity:SetPrelocalizedText("Please try again later")
-    _honeyRateLabel:SetPrelocalizedText("Your gold has not been deducted.")
-    _sellPriceLabel:SetPrelocalizedText("")
+    PopulateInfoCard(
+        "There was an error while purchasing",
+        "Please try again later",
+        "Your gold has not been deducted.",
+        nil,
+        nil
+    )
     SetTimer()
 end
 
+function ShowTradeRequest(_sendingPlayer)
+    ClearInfoCard()
+    
+    isTradeRequest = true
+    sendingPlayer = _sendingPlayer
+
+    -- Add main text
+    AddLabel(_infoCard, "info-main-label", "You have received a trade request from " .. sendingPlayer.name .. "!")
+    
+    -- Create Accept button
+    local acceptButton = UIButton.new()
+    acceptButton:AddToClassList("accept-button")
+    local acceptLabel = UILabel.new()
+    acceptLabel:AddToClassList("info-main-label")
+    acceptLabel:SetPrelocalizedText("Accept")
+    acceptButton:Add(acceptLabel)
+    acceptButton:RegisterPressCallback(function()
+        isTradeRequest = false
+        OnAccept()
+        StopTimer()
+    end, true, true, true)
+    _infoCard:Add(acceptButton)
+    
+    -- Create Decline button
+    local declineButton = UIButton.new()
+    declineButton:AddToClassList("decline-button")
+    local declineLabel = UILabel.new()
+    declineLabel:AddToClassList("info-main-label")
+    declineLabel:SetPrelocalizedText("Decline")
+    declineButton:Add(declineLabel)
+    declineButton:RegisterPressCallback(function()
+        isTradeRequest = false
+        OnDecline()
+        StopTimer()
+    end, true, true, true)
+    _infoCard:Add(declineButton)
+    _infoCard:Add(declineButton)
+end
+
+function ShowTradeRequestDeclined(targetPlayer)
+    PopulateInfoCard(
+        "Trade request declined",
+        targetPlayer.name .. " has declined your trade request.",
+        nil,
+        nil,
+        nil
+    )
+end
+
+function OnAccept()
+    RequestAcceptTradeEvent:Fire(sendingPlayer)
+end
+
+function OnDecline()
+    RequestDeclineTradeEvent:Fire(sendingPlayer)
+end
+
+-- Timer and close callback functions
 function SetCloseCallback(callback)
     closeCallback = callback
 end

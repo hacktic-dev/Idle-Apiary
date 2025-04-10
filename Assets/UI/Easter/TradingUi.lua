@@ -7,6 +7,8 @@ local closeButtonLabel : UILabel = nil
 --!Bind
 local closeButton : UIButton = nil
 --!Bind
+local playerSelectionScreen : VisualElement = nil
+--!Bind
 local playersContainer : VisualElement = nil
 --!Bind
 local waitingScreen : VisualElement = nil
@@ -35,9 +37,6 @@ function Init()
     waitingScreen:AddToClassList("hidden")
     tradeSelectionScreen:AddToClassList("hidden")
     playersContainer:Clear()
-    wager = 0
-    wagerAmountLabel:SetPrelocalizedText(tostring(wager))
-    infoLabel:SetPrelocalizedText("")
 
     players = tradingManager.RequestAvailableTradePartners:FireServer()
 end
@@ -52,7 +51,7 @@ function OnPlayerSelected(player)
 
     if playerTimeout[player] ~= nil then
         if os.time() - playerTimeout[player] < 60 then
-            UIManager.HideTradingScreen()
+            UIManager.CloseTradingUi()
             UIManager.ShowNotification("Challenge timeout", "You have already sent a challenge to this player recently. Please wait a while before sending another one.")
             return
         end
@@ -67,9 +66,9 @@ function self:ClientAwake()
     titleLabel:SetPrelocalizedText("Select a player to trade with:")
     waitingLabel:SetPrelocalizedText("Waiting for response...")
     closeButtonLabel:SetPrelocalizedText("Close")
-    statsNextButtonLabel:SetPrelocalizedText("Next")
+    --statsNextButtonLabel:SetPrelocalizedText("Next")
     closeButton:RegisterPressCallback(function()
-        UIManager.HideBattleInitiation()
+        UIManager.CloseTradingUi()
     end, true, true, true)
 
     tradingManager.NotifyAvailableTradePartners:Connect(function(players)
@@ -98,10 +97,5 @@ function self:ClientAwake()
         waitingScreen:AddToClassList("hidden")
         tradeSelectionScreen:RemoveFromClassList("hidden")
         tradeId = tradeId
-    end)
-
-    tradingManager.NotifyTradeRequestDeclined:Connect(function(targetPlayer)
-        UIManager.HideTradingScreen()
-        UIManager.ShowTradingRequestDeclined(targetPlayer.name)
     end)
 end

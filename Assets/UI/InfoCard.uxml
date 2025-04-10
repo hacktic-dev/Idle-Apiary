@@ -7,13 +7,8 @@
     xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
 >
 
-<hr:UILuaView class="bee-obtain-card">
-   <VisualElement name="_beeCard" class="bee-card__container">
-       <hr:UILabel name="_beeLabel" class="bee-main-label" text="You caught a bee" />
-       <hr:UIImage name="_beeImage" class="bee-image" src="bee_image.png" />
-       <hr:UILabel name="_rarity" class="bee-label" text="" />
-       <hr:UILabel name="_honeyRateLabel" class="bee-label" text="Honey rate:" />
-       <hr:UILabel name="_sellPriceLabel" class="bee-label" text="Sell price:" />
+<hr:UILuaView class="info-obtain-card">
+   <VisualElement name="_infoCard" class="info-card__container">
    </VisualElement>
 
    <hr:UIButton name="close" class="close-button">

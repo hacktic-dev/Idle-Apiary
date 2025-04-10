@@ -1,6 +1,7 @@
 --!Type(Module)
 
 Utils = require("Utils")
+playerManager = require("PlayerManager")
 
 activeTrades = {}
 
@@ -109,6 +110,12 @@ function self:ServerAwake()
             activeTrades[tradeId] = nil
         end
     end)
+
+    RequestAvailableTradePartners:Connect(function(player)
+        local players = playerManager.GetAllPlayers()
+        NotifyAvailableTradePartners:FireClient(player, players)
+    end)
+
 end
 
 function StartTrade(sendingPlayer, targetPlayer)
