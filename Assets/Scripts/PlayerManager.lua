@@ -521,7 +521,7 @@ function TrackPlayers(game, characterCallback)
 
             Storage.GetPlayerValue(player, player.name, function(data, errorCode)
                 if data == nil or data.joins == nil then
-                    data = {name = player.name, version = 2, joins = 1} -- remember to increment version for each breaking change
+                    data = {name = player.name, version = 4, joins = 1} -- remember to increment version for each breaking change
                 else
                     data.joins = data.joins + 1
                 end
@@ -531,7 +531,7 @@ function TrackPlayers(game, characterCallback)
                 playerLastJoinedVersions[player] = version
 
                 -- Set the current save data version (for compatibility with future changes)
-                data.version = 3
+                data.version = 4
 
                 if data.owed ~= nil then
                     if data.owed > 0 then
@@ -548,8 +548,6 @@ function TrackPlayers(game, characterCallback)
                         end)
                     end
                 end
-
-                print("player joins are " .. data.joins)
 
                 playerJoins[player] = IntValue.new("Joins" .. tostring(player.id), 0)
                 Timer.new(0.05, function() playerJoins[player].value = data.joins end, false)

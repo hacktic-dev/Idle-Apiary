@@ -195,6 +195,11 @@ function CloseShop()
     --ToggleUI("PlayerStats", true)
 end
 
+function ShowTutorial()
+    HideAll()
+    ToggleUI("Tutorial", true)
+end
+
 function HideTutorial()
     if not IsActive("Tutorial") then
         return
@@ -353,7 +358,7 @@ end
 
 function OpenTutorialByPlayer()
     ToggleUI("Tutorial", true)
-    TutorialObject:GetComponent(Tutorial).Init(true, false)
+    TutorialObject:GetComponent(Tutorial).Init(true)
 end
 
 wildBeeManager.notifyCaptureSucceeded:Connect((function(species)
@@ -406,16 +411,12 @@ function self:ClientAwake()
         HideAll()
     end, false)
 
-    Timer.new(.5, function() 
-        ToggleUI("Tutorial", true)
-        TutorialObject:GetComponent(Tutorial).Init(false, false)
-    end, false)
-
-    Timer.new(1.7, function() 
-        if playerManager.GetPlayerJoins() == 3 or playerManager.GetLastJoinedVersion() == 1 then
-            HideAll()
+    Timer.new(3, function() 
+        shouldShow = TutorialObject:GetComponent(Tutorial).GetShouldShowTutorial()
+        print("Should show tutorial: " .. tostring(shouldShow))
+        if shouldShow then
             ToggleUI("Tutorial", true)
-            TutorialObject:GetComponent(Tutorial).Init(false, true)
+            TutorialObject:GetComponent(Tutorial).Init(false)
         end
     end, false)
 
