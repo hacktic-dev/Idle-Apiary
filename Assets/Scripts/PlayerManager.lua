@@ -12,6 +12,7 @@ local beeObjectManager = require("BeeObjectManager")
 local wildBeeManager = require("WildBeeManager")
 local flowerManager = require("FlowerManager")
 local placedObjectsManager = require("PlacedObjectsController")
+local tradingManager = require("TradingManager")
 
 local dailyQuestTracker = require("DailyQuestTracker")
 
@@ -587,6 +588,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.RemoveAllPlayerBees(player)
             ApiaryManager.RemoveAllPlayerApiaries(player)
             flowerManager.RemoveAllPlayerFlowers(player)
+            tradingManager.PlayerDisconnected(player)
 			placedObjectsManager.RemoveAllPlayerPlacedObjects(player)
             playerJoins[player] = nil
             SaveProgress(player, true)

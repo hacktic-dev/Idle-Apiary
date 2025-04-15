@@ -152,3 +152,13 @@ function Trade(trade, tradeId)
     NotifyTradeConfirmed:FireClient(trade.target, trade.sender, trade.targetPlayerItems, trade.sendingPlayerItems)
     activeTrades[tradeId] = nil
 end
+
+function PlayerDisconnected(player)
+    for id, trade in pairs(activeTrades) do
+        if trade.sender == player or trade.target == player then
+            NotifyTradeCancelled:FireClient(trade.sender, player)
+            NotifyTradeCancelled:FireClient(trade.target, player)
+            activeTrades[id] = nil
+        end
+    end
+end
