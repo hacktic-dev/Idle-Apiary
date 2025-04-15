@@ -16,6 +16,8 @@ local waitingScreen : VisualElement = nil
 local waitingLabel : UILabel = nil
 --!Bind
 local tradeSelectionScreen : VisualElement = nil
+--!Bind
+local tradeConfirmationScreen : VisualElement = nil
 
 UIManager = require("UIManager")
 playerManager = require("PlayerManager")
@@ -34,7 +36,9 @@ eggIds =
 }
 
 tradeId = nil
-items = {}
+items = {} -- Items owned by this player
+mySelectedItems = {} -- Items selected by this player
+otherSelectedItems = {} -- Items selected by the other player
 
 tradingItemsSelected = {}
 eggCounters = {}
@@ -52,6 +56,7 @@ function Init()
     playerSelectionScreen:RemoveFromClassList("hidden")
     waitingScreen:AddToClassList("hidden")
     tradeSelectionScreen:AddToClassList("hidden")
+    tradeConfirmationScreen:AddToClassList("hidden")
     playersContainer:Clear()
 
     players = tradingManager.RequestAvailableTradePartners:FireServer()
@@ -60,6 +65,8 @@ end
 function ShowWaitingScreen()
     playerSelectionScreen:AddToClassList("hidden")
     waitingScreen:RemoveFromClassList("hidden")
+    tradeSelectionScreen:AddToClassList("hidden")
+    tradeConfirmationScreen:AddToClassList("hidden")
 end
 
 function OnPlayerSelected(player)
@@ -108,16 +115,28 @@ function self:ClientAwake()
     end)
 
     tradingManager.NotifyTradeRequestAccepted:Connect(function(targetPlayer, _tradeId, _items)
-        InitTradeSelectionScreen()
+        ShowTradeSelectionScreen()
         tradeId = _tradeId
         items = _items
     end)
+
+    tradingManager.NotifyWaitingForOtherPlayerReady:Connect(function()
+       ShowWaitingScreen()
+    end)
+
+    tradingManager.NotifyShowConfirmTrade:Connect(function(otherPlayer, tradeId, _mySelectedItems, _otherSelectedItems)
+        tradeId = _tradeId
+        mySelectedItems = _mySelectedItems
+        otherSelectedItems = _otherSelectedItems
+        ShowTradeConfirmationScreen()
+    end)
 end
 
-function InitTradeSelectionScreen()
+function ShowTradeSelectionScreen()
     playerSelectionScreen:AddToClassList("hidden")
     waitingScreen:AddToClassList("hidden")
     tradeSelectionScreen:RemoveFromClassList("hidden")
+    tradeConfirmationScreen:AddToClassList("hidden")
 
     tradingItemsSelected = {}
     for _, eggId in ipairs(eggIds) do
@@ -212,8 +231,7 @@ function InitTradeSelectionScreen()
     nextButton:AddToClassList("trade__ui_button")
     nextButton:Add(nextLabel)
     nextButton:RegisterPressCallback(function()
-        -- TODO: Implement functionality for proceeding to the next step
-        print("Next button pressed")
+        tradingManager.RequestSetReadyState:FireServer(tradeId, tradingItemsSelected)
     end, true, true, true)
     tradeSelectionScreen:Add(nextButton)
 
@@ -235,4 +253,11 @@ function SetValue(eggType, value)
     if eggCounters[eggType] then
         eggCounters[eggType]:SetPrelocalizedText(value)
     end
+end
+
+function ShowTradeConfirmationScreen()
+    playerSelectionScreen:AddToClassList("hidden")
+    waitingScreen:AddToClassList("hidden")
+    tradeSelectionScreen:AddToClassList("hidden")
+    tradeConfirmationScreen:RemoveFromClassList("hidden")
 end

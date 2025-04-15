@@ -24,6 +24,8 @@
     </VisualElement>
     <VisualElement class="wager__selection_container" name="tradeSelectionScreen">
     </VisualElement>
+    <VisualElement class="wager__selection_container" name="tradeConfirmationScreen">
+    </VisualElement>
   </hr:UILuaView>
 
 </UXML>
