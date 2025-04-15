@@ -249,6 +249,16 @@ function ShowTradeCancelled(targetPlayer)
     )
 end
 
+function ShowTradeConfirmed(otherPlayer)
+    PopulateInfoCard(
+        "Trade completed",
+        "You have successfully traded with " .. otherPlayer.name .. "!",
+        nil,
+        nil,
+        nil
+    )
+end
+
 function OnAccept()
     RequestAcceptTradeEvent:Fire(sendingPlayer)
 end

@@ -500,7 +500,19 @@ function self:ClientAwake()
         ToggleUI("BeeCard", true)
         ToggleUI("TradingUi", false)
         InfoCardObject:GetComponent(InfoCard).ShowTradeCancelled(cancellingPlayer)
-        audioManager.PlaySound("failSound", 1)
+        audioManager.PlaySound("failSound", 0.75)
+        InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+            function()  
+                ToggleUI("BeeCard", false) 
+                ShowMenu()
+            end)
+    end))
+
+    tradingManager.NotifyTradeConfirmed:Connect((function(otherPlayer)
+        ToggleUI("BeeCard", true)
+        ToggleUI("TradingUi", false)
+        InfoCardObject:GetComponent(InfoCard).ShowTradeConfirmed(otherPlayer)
+        audioManager.PlaySound("captureSound", 1) --TODO add a new sound here
         InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
             function()  
                 ToggleUI("BeeCard", false) 

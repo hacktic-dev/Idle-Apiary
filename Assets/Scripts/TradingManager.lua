@@ -136,12 +136,14 @@ end
 function Trade(trade, tradeId)
     local transaction = InventoryTransaction.new()
 
-    for _, item in ipairs(trade.sendingPlayerItems) do
-        transaction:MovePlayers(trade.sender, trade.target, item.id, item.amount)
+    for id, quantity in pairs(trade.sendingPlayerItems) do
+        print("Moving item: " .. id .. " amount: " .. quantity)
+        transaction = transaction:MovePlayers(trade.sender, trade.target, id, quantity)
     end
 
-    for _, item in ipairs(trade.targetPlayerItems) do
-        transaction:MovePlayers(trade.target, trade.sender, item.id, item.amount)
+    for id, quantity in pairs(trade.targetPlayerItems) do
+        print("Moving item: " .. id .. " amount: " .. quantity)
+        transaction = transaction:MovePlayers(trade.target, trade.sender, id, quantity)
     end
 
     Inventory.CommitTransaction(transaction)

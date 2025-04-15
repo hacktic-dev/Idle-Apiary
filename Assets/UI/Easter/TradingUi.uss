@@ -65,6 +65,17 @@ margin-top: 20px;
 margin-bottom: 20px;
 }
 
+.egg__confirmation_container
+{
+    justify-content: center;
+  flex-direction: row;
+  align-self: center;
+height: 40%;
+width: 100%;
+margin-top: 10px;
+margin-bottom: 10px;
+}
+
 .egg__counter_container
 {
   flex-direction: column;
@@ -76,6 +87,13 @@ margin-bottom: 20px;
 width: 30px;
 height: 30px;
 margin-left: 10px;
+}
+
+.egg__icon__confirmation_container
+{
+  flex-direction: row;
+  width:10%;
+  height: 100%;
 }
 
 .egg__icon_container
@@ -134,12 +152,26 @@ margin-left: 10px;
     color: white;
     font-size: 16px;
     white-space: normal;
+    align-self: center;
 }
 
 .landscape .title
 {
+    font-size: 24px;
+}
+
+.subtitle
+{
+      color: white;
+    font-size: 16px;
+    white-space: normal;
+}
+
+.landscape .subtitle
+{
     font-size: 20px;
 }
+
 
 .waiting-label
 {
@@ -148,44 +180,6 @@ margin-left: 10px;
     -unity-text-align: middle-center;
     align-self: center;
     height: 100%;
-}
-
-.warning-title
-{
-    color:rgb(255, 113, 113);
-    font-size: 16px;
-    white-space: normal;
-}
-
-.landscape .warning-title
-{
-    font-size: 20px;
-}
-
-.level__label
-{
-    color: white;
-    font-size: 12px;
-    width: 100%;
-    -unity-text-align: middle-right;
-}
-
-.wager__amount
-{
-    color: white;
-    font-size: 30px;
-    white-space: normal;
-    margin-left: 10px;
-    margin-right: 10px;
-    -unity-text-outline-color:rgb(255, 255, 255);
-    -unity-text-outline-width: 2;
-    height: 100%;
-    -unity-text-align: middle-center;
-}
-
-.landscape .wager__amount
-{
-    font-size: 50px;
 }
 
 .press__button {
@@ -238,129 +232,18 @@ margin-left: 10px;
   height: 30px;
 }
 
-.icon_energy
-{
-  margin-top: 2px;
-  margin-left: 5px;
-  margin-right: 20px;
-  width: 30px;
-  height: 30px;
-  background-image: url("project://database/Assets/Icons/energy.png");
-}
-
-.portrait .icon_energy
-{
-  margin-top: 0px;
-  margin-left: 2px;
-  margin-right: 5px;
-}
-
-.icon_health
-{
-  margin-top: 2px;
-  margin-left: 5px;
-  margin-right: 20px;
-  width: 30px;
-  height: 30px;
-  background-image: url("project://database/Assets/Icons/health.png");
-}
-
-.portrait .icon_health
-{
-  margin-top: 0px;
-  margin-left: 2px;
-  margin-right: 13px;
-}
-
-.icon_speed
-{
-  margin-top: 2px;
-  margin-left: 5px;
-  margin-right: 20px;
-  width: 30px;
-  height: 30px;
-  background-image: url("project://database/Assets/Icons/speed.png");
-}
-
-.portrait .icon_speed
-{
-  margin-top: 0px;
-  margin-left: 2px;
-  margin-right: 13px;
-}
-
-.icon_attack
-{
-  margin-top: 2px;
-  margin-left: 5px;
-  margin-right: 20px;
-  width: 30px;
-  height: 30px;
-  background-image: url("project://database/Assets/Icons/attack.png");
-}
-
-.portrait .icon_attack
-{
-  margin-top: 0px;
-  margin-left: 2px;
-  margin-right: 13px;
-}
-
-.icon_defense
-{
-  margin-top: 2px;
-  margin-left: 5px;
-  margin-right: 20px;
-  width: 30px;
-  height: 30px;
-  background-image: url("project://database/Assets/Icons/defense.png");
-}
-
-.portrait .icon_defense
-{
-  margin-top: 0px;
-  margin-left: 2px;
-  margin-right: 13px;
-}
-
-.pet-status
-{
-  margin-top: 0;
-  color:rgb(255, 255, 255);
-  font-size: 24px;
-  -unity-text-align: middle-center;
-
-}
-
-.portrait .pet-status
-{
-  font-size: 20px;
-}
-
-.pet-title
-{
-      margin-top: 15px;
-  color:rgb(255, 255, 255);
-  font-size: 30px;
-  -unity-font-style: bold;
-  -unity-text-align: middle-center;
-
-}
-
-
-.portrait .pet-title
-{
-  font-size: 20px;
-}
-
-.eggIcon
+.egg__icon
 {
   width: 30px;
   height: 30px;
+}
+
+.egg__icon__margin
+{
    margin-top: 15px;
 }
 
-.portrait .eggIcon
+.portrait .egg__icon
 {
   width: 20px;
   height: 20px;

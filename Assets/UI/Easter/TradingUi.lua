@@ -43,6 +43,8 @@ otherSelectedItems = {} -- Items selected by the other player
 tradingItemsSelected = {}
 eggCounters = {}
 
+selectionNextButton = nil
+
 playerTimeout = {}
 
 function Init()
@@ -124,6 +126,10 @@ function self:ClientAwake()
        ShowWaitingScreen()
     end)
 
+    tradingManager.NotifyWaitingForOtherPlayerConfirmed:Connect(function()
+        ShowWaitingScreen()
+    end)
+
     tradingManager.NotifyShowConfirmTrade:Connect(function(otherPlayer, tradeId, _mySelectedItems, _otherSelectedItems)
         tradeId = _tradeId
         mySelectedItems = _mySelectedItems
@@ -191,7 +197,8 @@ function ShowTradeSelectionScreen()
         local eggIconContainer = VisualElement.new()
         eggIconContainer:AddToClassList("egg__icon_container")
         local eggIcon = VisualElement.new()
-        eggIcon:AddToClassList("eggIcon")
+        eggIcon:AddToClassList("egg__icon")
+        eggIcon:AddToClassList("egg__icon__margin")
         eggIcon:AddToClassList(eggIconName)
         eggIconContainer:Add(eggIcon)
 
@@ -224,16 +231,17 @@ function ShowTradeSelectionScreen()
     tradeSelectionScreen:Add(eggSelectionContainer)
 
     -- Add the Next button
-    local nextButton = UIButton.new()
+    selectionNextButton = UIButton.new()
     local nextLabel = UILabel.new()
     nextLabel:SetPrelocalizedText("Next")
     nextLabel:AddToClassList("title")
-    nextButton:AddToClassList("trade__ui_button")
-    nextButton:Add(nextLabel)
-    nextButton:RegisterPressCallback(function()
+    selectionNextButton:AddToClassList("trade__ui_button")
+    selectionNextButton.visible = false
+    selectionNextButton:Add(nextLabel)
+    selectionNextButton:RegisterPressCallback(function()
         tradingManager.RequestSetReadyState:FireServer(tradeId, tradingItemsSelected)
     end, true, true, true)
-    tradeSelectionScreen:Add(nextButton)
+    tradeSelectionScreen:Add(selectionNextButton)
 
     -- Add the Cancel button
     local cancelButton = UIButton.new()
@@ -253,6 +261,16 @@ function SetValue(eggType, value)
     if eggCounters[eggType] then
         eggCounters[eggType]:SetPrelocalizedText(value)
     end
+
+    local allZero = true
+    for _, count in pairs(tradingItemsSelected) do
+        if count > 0 then
+            allZero = false
+            break
+        end
+    end
+
+    selectionNextButton.visible = not allZero
 end
 
 function ShowTradeConfirmationScreen()
@@ -260,4 +278,83 @@ function ShowTradeConfirmationScreen()
     waitingScreen:AddToClassList("hidden")
     tradeSelectionScreen:AddToClassList("hidden")
     tradeConfirmationScreen:RemoveFromClassList("hidden")
+
+    tradeConfirmationScreen:Clear()
+
+    local titleLabel = UILabel.new()
+    titleLabel:SetPrelocalizedText("Trade Confirmation")
+    titleLabel:AddToClassList("title")
+    tradeConfirmationScreen:Add(titleLabel)
+
+    local eggIcons = {
+        egg_red = "redEggIcon",
+        egg_orange = "orangeEggIcon",
+        egg_yellow = "yellowEggIcon",
+        egg_green = "greenEggIcon",
+        egg_purple = "purpleEggIcon",
+        egg_pink = "pinkEggIcon",
+        egg_white = "whiteEggIcon",
+        egg_gold = "goldEggIcon"
+    }
+
+    local function AddEggRow(container, items, labelText)
+        local rowLabel = UILabel.new()
+        rowLabel:SetPrelocalizedText(labelText)
+        rowLabel:AddToClassList("subtitle")
+        container:Add(rowLabel)
+
+        local eggSelectionContainer = VisualElement.new()
+        eggSelectionContainer:AddToClassList("egg__confirmation_container")
+
+        for eggType, count in pairs(items) do
+            if count > 0 then
+                local eggCounterContainer = VisualElement.new()
+                eggCounterContainer:AddToClassList("egg__icon__confirmation_container")
+
+                local eggIcon = VisualElement.new()
+                eggIcon:AddToClassList("egg__icon")
+                eggIcon:AddToClassList(eggIcons[eggType])
+                eggCounterContainer:Add(eggIcon)
+
+                local eggCountLabel = UILabel.new()
+                eggCountLabel:SetPrelocalizedText(tostring(count))
+                eggCountLabel:AddToClassList("egg__icon_label")
+                eggCounterContainer:Add(eggCountLabel)
+
+                eggSelectionContainer:Add(eggCounterContainer)
+            end
+        end
+
+        container:Add(eggSelectionContainer)
+    end
+
+    -- Add my selected items row
+    AddEggRow(tradeConfirmationScreen, mySelectedItems, "Your Selected Items:")
+
+    -- Add other player's selected items row
+    AddEggRow(tradeConfirmationScreen, otherSelectedItems, "Other Player's Selected Items:")
+
+    -- Add Confirm button
+    local confirmButton = UIButton.new()
+    local confirmLabel = UILabel.new()
+    confirmLabel:SetPrelocalizedText("Confirm Trade")
+    confirmLabel:AddToClassList("title")
+    confirmButton:AddToClassList("trade__ui_button")
+    confirmButton:Add(confirmLabel)
+    confirmButton:RegisterPressCallback(function()
+        tradingManager.RequestConfirmTrade:FireServer(tradeId)
+    end, true, true, true)
+    tradeConfirmationScreen:Add(confirmButton)
+
+    -- Add Cancel button
+    local cancelButton = UIButton.new()
+    local cancelLabel = UILabel.new()
+    cancelLabel:SetPrelocalizedText("Cancel")
+    cancelLabel:AddToClassList("title")
+    cancelButton:AddToClassList("trade__ui_button")
+    cancelButton:Add(cancelLabel)
+    cancelButton:RegisterPressCallback(function()
+        tradingManager.RequestCancelTrade:FireServer(tradeId)
+    end, true, true, true)
+    tradeConfirmationScreen:Add(cancelButton)
 end
