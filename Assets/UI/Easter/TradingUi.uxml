@@ -20,7 +20,7 @@
       </hr:UIButton>
     </VisualElement>
     <VisualElement class="wager__selection_container" name="waitingScreen">
-    <hr:UILabel class="title" name="waitingLabel" />
+    <hr:UILabel class="waiting-label" name="waitingLabel" />
     </VisualElement>
     <VisualElement class="wager__selection_container" name="tradeSelectionScreen">
     </VisualElement>

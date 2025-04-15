@@ -96,6 +96,15 @@
     font-size: 20px;
 }
 
+.waiting-label
+{
+  color: white;
+    font-size: 24px;
+    -unity-text-align: middle-center;
+    align-self: center;
+    height: 100%;
+}
+
 .warning-title
 {
     color:rgb(255, 113, 113);
