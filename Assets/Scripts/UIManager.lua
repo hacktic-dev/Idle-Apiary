@@ -496,6 +496,18 @@ function self:ClientAwake()
         end
     end))
 
+    tradingManager.NotifyTradeCancelled:Connect((function(cancellingPlayer)
+        ToggleUI("BeeCard", true)
+        ToggleUI("TradingUi", false)
+        InfoCardObject:GetComponent(InfoCard).ShowTradeCancelled(cancellingPlayer)
+        audioManager.PlaySound("failSound", 1)
+        InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
+            function()  
+                ToggleUI("BeeCard", false) 
+                ShowMenu()
+            end)
+    end))
+
     InfoCardObject:GetComponent(InfoCard).RequestAcceptTradeEvent:Connect((function(sendingPlayer)
         tradingManager.RequestAcceptTradeRequest:FireServer(sendingPlayer)
         ToggleUI("BeeCard", false)

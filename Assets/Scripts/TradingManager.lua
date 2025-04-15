@@ -104,8 +104,10 @@ function self:ServerAwake()
     end)
 
     RequestCancelTrade:Connect(function(player, tradeId)
+        print("RequestCancelTrade")
         local trade = activeTrades[tradeId]
         if trade then
+            print("Trade cancelled")
             NotifyTradeCancelled:FireClient(trade.sender, player)
             NotifyTradeCancelled:FireClient(trade.target, player)
             activeTrades[tradeId] = nil

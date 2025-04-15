@@ -238,6 +238,17 @@ function ShowTradeTimeout()
     )
 end
 
+function ShowTradeCancelled(targetPlayer)
+    local playerName = targetPlayer == client.localPlayer and "You" or targetPlayer.name
+    PopulateInfoCard(
+        "Trade cancelled",
+        playerName .. (targetPlayer == client.localPlayer and " have" or " has") .. " cancelled the trade.",
+        nil,
+        nil,
+        nil
+    )
+end
+
 function OnAccept()
     RequestAcceptTradeEvent:Fire(sendingPlayer)
 end

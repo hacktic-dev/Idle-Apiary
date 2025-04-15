@@ -2,6 +2,8 @@
 {
     margin-top: auto;
     margin-bottom: auto;
+    height: 300px;
+    max-height: 70%;
 }
 
 .portrait .trade-initiation-ui
@@ -23,6 +25,9 @@
   max-height: 600px;
   max-width: 400px;
 
+  margin-top: auto;
+  margin-bottom: auto;
+
   width: 100%;
   height: 100%;
 
@@ -41,12 +46,50 @@
 
   padding: 6px;
 
-  min-height: 180px;
+  height: 100%;
 
   border-width: 2px;
   border-radius: 8px;
   background-image: url("project://database/Assets/Textures/background_blur.png");
 	-unity-background-scale-mode: scale-and-crop;
+}
+
+.egg__selection_container
+{
+  justify-content: center;
+  flex-direction: row;
+  align-self: center;
+height: 40%;
+width: 100%;
+}
+
+.egg__counter_container
+{
+  flex-direction: column;
+  width:10%;
+}
+
+.egg__counter_button
+{
+width: 30px;
+height: 30px;
+margin-left: 10px;
+}
+
+.egg__icon_container
+{
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.egg__icon_label
+{
+    color: white;
+    margin-left: 5px;
+    font-size: 16px;
+    white-space: normal;
+    -unity-text-align: middle-center;
 }
 
 .landscape .wager__selection_container
@@ -306,4 +349,57 @@
 .portrait .pet-title
 {
   font-size: 20px;
+}
+
+.eggIcon
+{
+  width: 30px;
+  height: 30px;
+   margin-top: 15px;
+}
+
+.portrait .eggIcon
+{
+  width: 20px;
+  height: 20px;
+}
+
+.redEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-red.png");
+}
+
+.greenEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-green.png");
+}
+
+.orangeEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-orange.png");
+}
+
+.yellowEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-yellow.png");
+}
+
+.purpleEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-purple.png");
+}
+
+.pinkEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-pink.png");
+}
+
+.whiteEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-white.png");
+}
+
+.goldEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-gold.png");
 }
