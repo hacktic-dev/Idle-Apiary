@@ -512,7 +512,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.4.5")
+            setPlayerVersionString:FireClient(player, "1.5.0")
             dailyQuestTracker.GetData(player)
 
             for player, playerData in pairs(players) do
