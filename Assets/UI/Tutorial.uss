@@ -82,6 +82,36 @@
     background-image: url("project://database/Assets/Textures/leaderboard.png");
 }
 
+.easter-1-image
+{
+      background-image: url("project://database/Assets/Textures/easter_1.png");
+}
+
+.easter-2-image
+{
+      background-image: url("project://database/Assets/Textures/easter_2.png");
+}
+
+.easter-3-image
+{
+      background-image: url("project://database/Assets/Textures/easter_3.png");
+}
+
+.easter-4-image
+{
+      background-image: url("project://database/Assets/Textures/easter_4.png");
+}
+
+.easter-5-image
+{
+      background-image: url("project://database/Assets/Textures/easter_5.png");
+}
+
+.easter-6-image
+{
+      background-image: url("project://database/Assets/Textures/easter_6.png");
+}
+
 .title {
     font-size: 20px;
     margin: 5px;

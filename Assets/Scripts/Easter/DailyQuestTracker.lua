@@ -181,7 +181,7 @@ function self:ServerAwake()
 
     RequestClaimDailyQuestRewardEvent:Connect(function(player, reward)
         if dailyQuestData[player] then
-            if dailyQuestData[player].lastCompletedQuestDate == 0 then
+            if dailyQuestData[player].lastCompletedQuestDate ~= GetSeed() then
                 dailyQuestData[player].lastCompletedQuestDate = GetSeed()
                 local transaction = InventoryTransaction.new():GivePlayer(player, "ticket", reward)
                 Inventory.CommitTransaction(transaction)

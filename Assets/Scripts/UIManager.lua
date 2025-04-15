@@ -409,12 +409,14 @@ end))
 function self:ClientAwake()
     Timer.new(0.2, function() 
         HideAll()
+        ShowMenu()
     end, false)
 
     Timer.new(3, function() 
         shouldShow = TutorialObject:GetComponent(Tutorial).GetShouldShowTutorial()
         print("Should show tutorial: " .. tostring(shouldShow))
         if shouldShow then
+            HideMenu()
             ToggleUI("Tutorial", true)
             TutorialObject:GetComponent(Tutorial).Init(false)
         end
@@ -452,7 +454,7 @@ function self:ClientAwake()
         InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
             function()  
                 ToggleUI("BeeCard", false) 
-                ShowEggCraftingUi()
+                OpenEggCraftingUi()
             end)
     end))
 
@@ -466,7 +468,7 @@ function self:ClientAwake()
             function()  
                 ToggleUI("BeeCard", false)
                 ToggleUI("PlayerStats", true)
-                ShowQuestRewardUi()
+                OpenQuestRewardUi()
             end)
     end))
 

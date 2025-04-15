@@ -58,27 +58,32 @@ local tutorials = {
         steps = {
             {
                 text = "Welcome to the Easter Egg Hunt event!\n\nSearch the map for Easter eggs hidden under trees and near objects. Collect them before they despawn!",
-                imageClass = nil,
+                imageClass = "easter-1-image",
                 closeText = "Next",
             },
             {
-                text = "There are 8 egg colors to find: 5 regular and 3 rare. Rare eggs are harder to find but can be used to craft special bee eggs.",
-                imageClass = nil,
+                text = "There are 8 egg colors to find: 5 regular and 3 rare.",
+                imageClass = "easter-2-image",
                 closeText = "Next",
             },
             {
-                text = "Combine one of each regular egg to craft a bee egg. Place it in your apiary to hatch a unique Easter bee which can be sold for HR gold!.",
-                imageClass = nil,
+                text = "Collect one of each egg, then, visit the Crafter to craft your easter eggs into bee eggs.",
+                imageClass = "easter-3-image",
+                closeText = "Next",
+            },
+            {
+                text = "Next, place your bee eggs in your apiary to hatch a unique Easter bee which can be sold for HR gold!",
+                imageClass = "easter-4-image",
                 closeText = "Next",
             },
             {
                 text = "Rare eggs can be crafted to create rare bee eggs. These hatch into mythical bees with very high sell prices! Hatch a golden bee and win 1000 HR gold!",
-                imageClass = nil,
+                imageClass = "easter-5-image",
                 closeText = "Next",
             },
             {
                 text = "Trade eggs with other players or exchange them for exclusive items. Complete daily quests and spin the wheel for more rewards!",
-                imageClass = nil,
+                imageClass = "easter-6-image",
                 closeText = "Close",
             },
         },
@@ -109,6 +114,12 @@ local function ShowStep()
         _tutorialImage:RemoveFromClassList("bee-image")
         _tutorialImage:RemoveFromClassList("romantic-image")
         _tutorialImage:RemoveFromClassList("leaderboard-image")
+        _tutorialImage:RemoveFromClassList("easter-1-image")
+        _tutorialImage:RemoveFromClassList("easter-2-image")
+        _tutorialImage:RemoveFromClassList("easter-3-image")
+        _tutorialImage:RemoveFromClassList("easter-4-image")
+        _tutorialImage:RemoveFromClassList("easter-5-image")
+        _tutorialImage:RemoveFromClassList("easter-6-image")
         _tutorialImage:AddToClassList(step.imageClass)
         _tutorialImage.visible = true
     else
