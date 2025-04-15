@@ -740,6 +740,7 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }
 
 .greenEggIcon
@@ -756,6 +757,7 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }
 
 .orangeEggIcon
@@ -772,6 +774,7 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }
 
 .yellowEggIcon
@@ -788,6 +791,7 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }
 
 .purpleEggIcon
@@ -804,6 +808,7 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }
 
 .pinkEggIcon
@@ -820,6 +825,7 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }
 
 .whiteEggIcon
@@ -836,6 +842,7 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }
 
 .goldEggIcon
@@ -852,4 +859,5 @@
 {
   width: 20px;
   height: 20px;
+  margin-top: 8px;
 }

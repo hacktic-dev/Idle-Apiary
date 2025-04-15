@@ -10,8 +10,7 @@
 }
 
 .portrait .daily-quest-ui {
-    bottom: 10%;
-    height: 75%
+    height: 100%;
 }
 
 .landscape .daily-quest-ui {
@@ -36,6 +35,14 @@
   border-radius: 8px;
   background-image: url("project://database/Assets/Textures/background_blur_dark.png");
 	-unity-background-scale-mode: scale-and-crop;
+}
+
+.portrait .main-container
+{
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 40%;
+    width: 90%;
 }
 
 .close-button {
