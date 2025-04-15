@@ -94,7 +94,7 @@ function self:ServerAwake()
     end)
 end
 
-function GetPlayerItems(player, eggInventory, cursorId)
+function GetPlayerItems(player, eggInventory, cursorId, callback)
     Inventory.GetPlayerItems(player, 50, cursorId, function(items, newCursorId, errorCode)
     if errorCode ~= 0 then
         print("Error: couldn't retrieve player items")
@@ -112,7 +112,11 @@ function GetPlayerItems(player, eggInventory, cursorId)
     if(newCursorId ~= nil) then
         GetPlayerItems(player, eggInventory, newCursorId)
     else
-        NotifyEggInventoryRecievedEvent:FireClient(player, eggInventory)
+        if callback ~= nil then
+            callback(eggInventory)
+        else
+            NotifyEggInventoryRecievedEvent:FireClient(player, eggInventory)
+        end
     end
     end)
 end

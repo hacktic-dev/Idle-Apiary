@@ -2,6 +2,7 @@
 
 Utils = require("Utils")
 playerManager = require("PlayerManager")
+eggInventoryHandler = require("EggInventoryHandler")
 
 activeTrades = {}
 
@@ -48,8 +49,13 @@ function self:ServerAwake()
     RequestAcceptTradeRequest:Connect(function(targetPlayer, sendingPlayer)
         tradeId = StartTrade(sendingPlayer, targetPlayer)
         responseRecieved[targetPlayer] = true
-        NotifyTradeRequestAccepted:FireClient(sendingPlayer, targetPlayer, tradeId)
-        NotifyTradeRequestAccepted:FireClient(targetPlayer, sendingPlayer, tradeId)
+
+        eggInventoryHandler.GetPlayerItems(sendingPlayer, {}, "", function(items)
+            NotifyTradeRequestAccepted:FireClient(sendingPlayer, targetPlayer, tradeId, items)
+        end)
+        eggInventoryHandler.GetPlayerItems(targetPlayer, {}, "", function(items)
+            NotifyTradeRequestAccepted:FireClient(targetPlayer, sendingPlayer, tradeId, items)
+        end)
     end)
 
     RequestDeclineTradeRequest:Connect(function(targetPlayer, sendingPlayer)

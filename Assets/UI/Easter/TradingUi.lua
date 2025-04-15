@@ -21,7 +21,23 @@ UIManager = require("UIManager")
 playerManager = require("PlayerManager")
 tradingManager = require("TradingManager")
 
+eggIds =
+{
+    "egg_red",
+    "egg_orange",
+    "egg_yellow",
+    "egg_green",
+    "egg_purple",
+    "egg_pink",
+    "egg_white",
+    "egg_gold"
+}
+
 tradeId = nil
+items = {}
+
+tradingItemsSelected = {}
+eggCounters = {}
 
 playerTimeout = {}
 
@@ -91,9 +107,10 @@ function self:ClientAwake()
         end
     end)
 
-    tradingManager.NotifyTradeRequestAccepted:Connect(function(targetPlayer, _tradeId)
+    tradingManager.NotifyTradeRequestAccepted:Connect(function(targetPlayer, _tradeId, _items)
         InitTradeSelectionScreen()
         tradeId = _tradeId
+        items = _items
     end)
 end
 
@@ -102,7 +119,23 @@ function InitTradeSelectionScreen()
     waitingScreen:AddToClassList("hidden")
     tradeSelectionScreen:RemoveFromClassList("hidden")
 
-    eggIcons = {"redEggIcon", "orangeEggIcon", "yellowEggIcon", "greenEggIcon", "purpleEggIcon", "pinkEggIcon", "whiteEggIcon", "goldEggIcon"}
+    tradingItemsSelected = {}
+    for _, eggId in ipairs(eggIds) do
+        tradingItemsSelected[eggId] = 0
+    end
+
+    eggCounters = {}
+
+    eggIcons = {
+        egg_red = "redEggIcon",
+        egg_orange = "orangeEggIcon",
+        egg_yellow = "yellowEggIcon",
+        egg_green = "greenEggIcon",
+        egg_purple = "purpleEggIcon",
+        egg_pink = "pinkEggIcon",
+        egg_white = "whiteEggIcon",
+        egg_gold = "goldEggIcon"
+    }
 
     tradeSelectionScreen:Clear()
 
@@ -114,12 +147,13 @@ function InitTradeSelectionScreen()
     eggSelectionContainer = VisualElement.new()
     eggSelectionContainer:AddToClassList("egg__selection_container")
 
-    for i, eggIconName in ipairs(eggIcons) do
+    for _, eggType in ipairs(eggIds) do
+        local eggIconName = eggIcons[eggType]
 
         local eggCounterContainer = VisualElement.new()
         eggCounterContainer:AddToClassList("egg__counter_container")
 
-        --Firstly the increase button
+        -- Firstly the increase button
         local increaseButton = UIButton.new()
         local increaseLabel = UILabel.new()
         increaseLabel:SetPrelocalizedText("+")
@@ -127,7 +161,10 @@ function InitTradeSelectionScreen()
         increaseButton:AddToClassList("egg__counter_button")
         increaseButton:Add(increaseLabel)
         increaseButton:RegisterPressCallback(function()
-            --TODO
+            if tradingItemsSelected[eggType] < (items[eggType] or 0) then
+                tradingItemsSelected[eggType] = tradingItemsSelected[eggType] + 1
+                SetValue(eggType, tostring(tradingItemsSelected[eggType]))
+            end
         end, true, true, true)
         eggCounterContainer:Add(increaseButton)
 
@@ -142,6 +179,7 @@ function InitTradeSelectionScreen()
         local eggIconCounter = UILabel.new()
         eggIconCounter:SetPrelocalizedText("0")
         eggIconCounter:AddToClassList("egg__icon_label")
+        eggCounters[eggType] = eggIconCounter
         eggIconContainer:Add(eggIconCounter)
 
         eggCounterContainer:Add(eggIconContainer)
@@ -154,7 +192,10 @@ function InitTradeSelectionScreen()
         decreaseButton:AddToClassList("egg__counter_button")
         decreaseButton:Add(decreaseLabel)
         decreaseButton:RegisterPressCallback(function()
-            --TODO
+            if tradingItemsSelected[eggType] > 0 then
+                tradingItemsSelected[eggType] = tradingItemsSelected[eggType] - 1
+                SetValue(eggType, tostring(tradingItemsSelected[eggType]))
+            end
         end, true, true, true)
         eggCounterContainer:Add(decreaseButton)
 
@@ -168,7 +209,7 @@ function InitTradeSelectionScreen()
     local nextLabel = UILabel.new()
     nextLabel:SetPrelocalizedText("Next")
     nextLabel:AddToClassList("title")
-    nextButton:AddToClassList("trade__ui__next_button")
+    nextButton:AddToClassList("trade__ui_button")
     nextButton:Add(nextLabel)
     nextButton:RegisterPressCallback(function()
         -- TODO: Implement functionality for proceeding to the next step
@@ -181,11 +222,17 @@ function InitTradeSelectionScreen()
     local cancelLabel = UILabel.new()
     cancelLabel:SetPrelocalizedText("Cancel")
     cancelLabel:AddToClassList("title")
-    cancelButton:AddToClassList("trade__ui__cancel_button")
+    cancelButton:AddToClassList("trade__ui_button")
     cancelButton:Add(cancelLabel)
     cancelButton:RegisterPressCallback(function()
         -- Close the trading UI
         tradingManager.RequestCancelTrade:FireServer(tradeId)
     end, true, true, true)
     tradeSelectionScreen:Add(cancelButton)
+end
+
+function SetValue(eggType, value)
+    if eggCounters[eggType] then
+        eggCounters[eggType]:SetPrelocalizedText(value)
+    end
 end

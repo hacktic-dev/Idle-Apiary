@@ -61,6 +61,8 @@
   align-self: center;
 height: 40%;
 width: 100%;
+margin-top: 20px;
+margin-bottom: 20px;
 }
 
 .egg__counter_container
@@ -402,4 +404,12 @@ margin-left: 10px;
 .goldEggIcon
 {
   background-image: url("project://database/Assets/Textures/EggIcons/egg-gold.png");
+}
+
+.trade__ui_button
+{
+  width: 50%;
+  align-self: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
