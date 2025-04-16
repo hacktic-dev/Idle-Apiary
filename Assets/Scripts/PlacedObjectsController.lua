@@ -31,13 +31,10 @@ local spawnedObjects = {} -- Spawned objects on client
 index = 1
 
 function GetPlacedFlowers(player)
-	print("Getting placed flowers")
 	local flowers = {}
 	if placedObjects[player] then
 		for _, object in ipairs(placedObjects[player]) do
-			print("Checking object " .. object.id .. " with object id " .. utils.GetPlacementObjectIdByName(object.name))
 			if utils.IsFlower(utils.GetPlacementObjectIdByName(object.name)) then
-				print("Object is a flower")
 				table.insert(flowers, utils.GetPlacementObjectIdByName(object.name))
 			end
 		end
@@ -95,18 +92,12 @@ function InitServer()
 				print(errorCode)
 			end
 
-			print("Furniture recieved")
-
 			furnitureOwned = false
 
-			print("placed flower count: " .. GetPlacedFlowerCount(player) .. " max flowers: " ..  playerManager.GetPlayerFlowerCapacity(player))
 			local canPlaceFlower = GetPlacedFlowerCount(player) <  playerManager.GetPlayerFlowerCapacity(player)
 			setFlowerStatus:FireClient(player, canPlaceFlower)
 
 			for index, item in items do
-
-				print(item.id)
-
 				if utils.IsFurniture(item.id) or utils.IsFlower(item.id) then
 					receiveOwnedFurniture:FireClient(player, item.id, item.amount)
 					furnitureOwned = true
@@ -114,7 +105,6 @@ function InitServer()
 			end
 
 			if furnitureOwned == false then 
-				print("No owned hats")
 				noFurnitureOwned:FireClient(player)
 			end
 		end)
@@ -266,13 +256,10 @@ function GetPlacedFlowerCount(player)
 	local count = 0
 	if placedObjects[player] then
 		for _, object in ipairs(placedObjects[player]) do
-			print("Checking object " .. object.id)
 			if utils.IsFlower(utils.GetPlacementObjectIdByName(object.name)) then
 				count = count + 1
 			end
 		end
 	end
-	print("Returning count " .. count)
-	print("flower manager count " .. #flowerManager.GetPlacedFlowers(player))
 	return count + #flowerManager.GetPlacedFlowers(player)
 end

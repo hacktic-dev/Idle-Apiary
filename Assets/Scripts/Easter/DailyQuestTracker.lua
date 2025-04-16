@@ -17,6 +17,9 @@ NotifyTicketCountReceivedEvent = Event.new("NotifyTicketCountReceivedEvent")
 
 dailyQuestData = {}
 
+dailyQuest = {}
+lastDailyQuestSeed = 0
+
 function GetData(player)
     Storage.GetPlayerValue(player, "DailyQuestData", function(data, errorCode)
         if errorCode == 0 then
@@ -85,6 +88,11 @@ function GetSeed()
 end
 
 function GetDailyQuest()
+    if GetSeed() - lastDailyQuestSeed < 60 then
+        math.randomseed(os.time())
+        return dailyQuest
+    end
+
     math.randomseed(GetSeed())
     local quest = {}
     local questType = math.random(1, 3)
@@ -131,6 +139,8 @@ function GetDailyQuest()
             description = "Hatch a " .. colorNames[selectedColor]
         }
     end
+    dailyQuest = quest
+    lastDailyQuestSeed = GetSeed()
     return quest
 end
 

@@ -39,9 +39,8 @@ function self:Update()
 
     if hatchTimePassed.value >= eggHatchTime.value then
        --TODO
-       print("egg ".. objectId .. " hatched")
-       placedObjectsController.RequestObjectDeletion:Fire(ownerPlayer, objectId, false)
        playerManager.GiveEasterBee(ownerPlayer, eggId)
+       placedObjectsController.RequestObjectDeletion:Fire(ownerPlayer, objectId, false)
     end
 end
 

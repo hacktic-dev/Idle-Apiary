@@ -1089,7 +1089,8 @@ function GiveEasterBee(player, egg)
             "Green Easter Bee",
             "Purple Easter Bee"
         }
-        bee = easterBees[math.random(#easterBees)]
+        randomNumber = math.random(#easterBees)
+        bee = easterBees[randomNumber]
     elseif egg == "Pink Bee Egg" then
         bee = "Pink Easter Bee"
     elseif egg == "White Bee Egg" then
@@ -1100,6 +1101,7 @@ function GiveEasterBee(player, egg)
         print("Invalid egg type: " .. egg)
         return
     end
+
     EasterBeeHatched:Fire(player, bee)
     giveBeeRequest:Fire(player, bee, true)
 end

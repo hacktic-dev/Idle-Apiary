@@ -102,9 +102,7 @@ function GetPlayerItems(player, eggInventory, cursorId, callback)
     end
 
     for index, item in items do
-        print(item.id .. " " .. item.amount)
         if table.find(eggIds, item.id) then
-            print("found egg " .. item.id)
             eggInventory[item.id] = (eggInventory[item.id] or 0) + item.amount
         end
     end
