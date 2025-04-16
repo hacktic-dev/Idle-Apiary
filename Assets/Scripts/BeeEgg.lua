@@ -16,10 +16,10 @@ eggId = nil
 ownerPlayer = nil
 
 hatchTimes = {
-    ["Regular Bee Egg"] = 15, --300
-    ["Pink Bee Egg"] = 30, --600
-    ["White Bee Egg"] = 45, --900
-    ["Golden Bee Egg"] = 60, --1200
+    ["Regular Bee Egg"] = 300, --300
+    ["Pink Bee Egg"] = 600, --600
+    ["White Bee Egg"] = 900, --900
+    ["Golden Bee Egg"] = 1200, --1200
 }
 
 function InitEgg(player, _eggId, _objectId)
