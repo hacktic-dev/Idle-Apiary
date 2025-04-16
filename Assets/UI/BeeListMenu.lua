@@ -248,7 +248,9 @@ function PopulateBeeList(bees)
         elseif sortMode == 2 then
             return wildBeeManager.getHoneyRate(a.species) > wildBeeManager.getHoneyRate(b.species)
         elseif sortMode == 3 then
-            return wildBeeManager.getSellPrice(a.species) >  wildBeeManager.getSellPrice(b.species)
+            local sellPriceA = tonumber(wildBeeManager.getSellPrice(a.species)) or 0
+            local sellPriceB = tonumber(wildBeeManager.getSellPrice(b.species)) or 0
+            return sellPriceA > sellPriceB
         end
     end
     )
