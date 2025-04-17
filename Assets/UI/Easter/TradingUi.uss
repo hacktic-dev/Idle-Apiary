@@ -87,11 +87,24 @@ margin-bottom: 10px;
     height: 120%;
 }
 
+.portrait .egg__counter_container
+{
+  width: 14%;
+  height: 120%;
+}
+
 .egg__counter_button
 {
 width: 30px;
 height: 30px;
-margin-left: 10px;
+margin-left: 5px;
+margin-right: 5px;
+}
+
+.portrait .egg__counter_button
+{
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .egg__icon__confirmation_container
@@ -99,6 +112,11 @@ margin-left: 10px;
   flex-direction: row;
   width:10%;
   height: 100%;
+}
+
+.portrait .egg__icon__confirmation_container
+{
+  width: 14%;
 }
 
 .egg__icon_container
@@ -115,6 +133,12 @@ margin-left: 10px;
     font-size: 16px;
     white-space: normal;
     -unity-text-align: middle-center;
+}
+
+.portrait .egg__icon_label
+{
+  margin-left: 0px;
+  font-size: 12px;
 }
 
 .landscape .wager__selection_container
@@ -244,6 +268,11 @@ margin-left: 10px;
   height: 30px;
 }
 
+.landscape .egg__icon__confirm
+{
+  margin-top: -5px;
+}
+
 .egg__icon__margin
 {
    margin-top: 10px;
@@ -253,6 +282,7 @@ margin-left: 10px;
 {
   width: 20px;
   height: 20px;
+  margin-left: 0px;
 }
 
 .redEggIcon

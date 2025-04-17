@@ -330,6 +330,7 @@ function ShowTradeConfirmationScreen()
 
                 local eggIcon = VisualElement.new()
                 eggIcon:AddToClassList("egg__icon")
+                eggIcon:AddToClassList("egg__icon__confirm")
                 eggIcon:AddToClassList(eggIcons[eggType])
                 eggCounterContainer:Add(eggIcon)
 
