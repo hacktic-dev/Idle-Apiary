@@ -1,5 +1,5 @@
 .task-meter {
-  bottom: 50px
+  bottom: 50px;
 }
 
 .my-container {
@@ -11,12 +11,12 @@
 }
 
 .title {
-  color: #1aff6a;
+  color: #a8f5c2; /* Pastel green */
   font-size: 48px;
   -unity-font-style: bold;
 
   -unity-text-outline-width: 2px;
-  -unity-text-outline-color: #00a83a;
+  -unity-text-outline-color: #8ed8a8; /* Lighter pastel green */
 }
 
 .slider {
@@ -24,24 +24,22 @@
 }
 
 .slider .slider__background {
-    background-color: #00a83a;
+    background-color: #8ed8a8; /* Pastel green */
     border-width: 2px;
-    border-color: #008830;
+    border-color: #7cbf94; /* Slightly darker pastel green */
 }
 
 .slider .slider__foreground {
-    background-color: #1aff6a;
+    background-color: #a8f5c2; /* Pastel green */
     border-width: 2px;
-    border-color: #008830;
+    border-color: #7cbf94; /* Slightly darker pastel green */
 }
 
 .slider-cooldown .slider__foreground {
-    background-color: #00842e;
+    background-color: #7cbf94; /* Slightly darker pastel green */
     border-width: 2px;
-    border-color: #008830;
+    border-color: #7cbf94;
 }
-
-
 
 .slider .slider__dot {
         display: none;
