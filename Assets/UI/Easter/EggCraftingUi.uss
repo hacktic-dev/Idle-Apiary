@@ -719,16 +719,28 @@
 {
   flex-direction: row;
   align-self: center;
+  margin-bottom: 8px;
 }
 
 .landscape .horizontal-container
 {
-  height: 60px;
+  height: 50px;
+  
+}
+
+.portrait .horizontal-container
+{
+
+}
+
+.vertical-container
+{
+  flex-direction: column;
 }
 
 .redEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -740,12 +752,12 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
 
 .greenEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -757,12 +769,12 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
 
 .orangeEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -774,12 +786,12 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
 
 .yellowEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -791,12 +803,12 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
 
 .purpleEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -808,12 +820,12 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
 
 .pinkEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -825,12 +837,12 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
 
 .whiteEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -842,12 +854,12 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
 
 .goldEggIcon
 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5px;
   margin-right: 5px;
   width: 30px;
@@ -859,5 +871,5 @@
 {
   width: 20px;
   height: 20px;
-  margin-top: 8px;
+  margin-top: 3px;
 }
