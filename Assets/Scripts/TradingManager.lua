@@ -19,10 +19,12 @@ NotifyTradeRequestAccepted = Event.new("NotifyTradeRequestAccepted")
 
 RequestSetReadyState = Event.new("RequestSetReadyState")
 NotifyWaitingForOtherPlayerReady = Event.new("NotifyWaitingForOtherPlayerReady")
+NotifyOtherPlayerSelected = Event.new("NotifyOtherPlayerSelected")
 NotifyShowConfirmTrade = Event.new("NotifyShowConfirmTrade")
 
 RequestConfirmTrade = Event.new("RequestConfirmTrade")
 NotifyWaitingForOtherPlayerConfirmed = Event.new("NotifyWaitingForOtherPlayerConfirmed")
+NotifyOtherPlayerConfirmed = Event.new("NotifyOtherPlayerConfirmed")
 
 RequestCancelTrade = Event.new("RequestCancelTrade")
 
@@ -74,6 +76,7 @@ function self:ServerAwake()
                     NotifyShowConfirmTrade:FireClient(trade.target, trade.sender, tradeId, trade.targetPlayerItems, trade.sendingPlayerItems)
                 else
                     NotifyWaitingForOtherPlayerReady:FireClient(trade.sender, trade.target, tradeId)
+                    NotifyOtherPlayerSelected:FireClient(trade.target)
                 end
             else
                 trade.targetPlayerItems = items
@@ -83,6 +86,7 @@ function self:ServerAwake()
                     NotifyShowConfirmTrade:FireClient(trade.target, trade.sender, tradeId, trade.targetPlayerItems, trade.sendingPlayerItems)
                 else
                     NotifyWaitingForOtherPlayerReady:FireClient(trade.target, trade.sender, tradeId)
+                    NotifyOtherPlayerSelected:FireClient(trade.sender)
                 end
             end
         end
@@ -97,6 +101,7 @@ function self:ServerAwake()
                     Trade(trade, tradeId)
                 else
                     NotifyWaitingForOtherPlayerConfirmed:FireClient(trade.sender, trade.target, tradeId)
+                    NotifyOtherPlayerConfirmed:FireClient(trade.target)
                 end
             else
                 trade.targetConfirmed = true
@@ -104,6 +109,7 @@ function self:ServerAwake()
                     Trade(trade, tradeId)
                 else
                     NotifyWaitingForOtherPlayerConfirmed:FireClient(trade.target, trade.sender, tradeId)
+                    NotifyOtherPlayerConfirmed:FireClient(trade.sender)
                 end
             end
         end

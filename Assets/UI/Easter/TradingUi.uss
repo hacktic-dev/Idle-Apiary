@@ -79,7 +79,12 @@ margin-bottom: 10px;
 .egg__counter_container
 {
   flex-direction: column;
-  width:10%;
+  width: 10%;
+}
+
+.landscape .egg__counter_container
+{
+    height: 120%;
 }
 
 .egg__counter_button
@@ -165,6 +170,7 @@ margin-left: 10px;
       color: white;
     font-size: 16px;
     white-space: normal;
+    align-self: center;
 }
 
 .landscape .subtitle
@@ -240,7 +246,7 @@ margin-left: 10px;
 
 .egg__icon__margin
 {
-   margin-top: 15px;
+   margin-top: 10px;
 }
 
 .portrait .egg__icon

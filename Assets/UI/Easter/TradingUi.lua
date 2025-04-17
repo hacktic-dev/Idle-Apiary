@@ -39,6 +39,8 @@ tradeId = nil
 items = {} -- Items owned by this player
 mySelectedItems = {} -- Items selected by this player
 otherSelectedItems = {} -- Items selected by the other player
+otherPlayer = nil
+otherPlayerLabel = nil
 
 tradingItemsSelected = {}
 eggCounters = {}
@@ -116,7 +118,8 @@ function self:ClientAwake()
         end
     end)
 
-    tradingManager.NotifyTradeRequestAccepted:Connect(function(targetPlayer, _tradeId, _items)
+    tradingManager.NotifyTradeRequestAccepted:Connect(function(_otherPlayer, _tradeId, _items)
+        otherPlayer = _otherPlayer
         ShowTradeSelectionScreen()
         tradeId = _tradeId
         items = _items
@@ -135,6 +138,14 @@ function self:ClientAwake()
         mySelectedItems = _mySelectedItems
         otherSelectedItems = _otherSelectedItems
         ShowTradeConfirmationScreen()
+    end)
+
+    tradingManager.NotifyOtherPlayerSelected:Connect(function()
+        otherPlayerLabel.visible = true
+    end)
+
+    tradingManager.NotifyOtherPlayerConfirmed:Connect(function()
+        otherPlayerLabel.visible = true
     end)
 end
 
@@ -229,6 +240,12 @@ function ShowTradeSelectionScreen()
     end
 
     tradeSelectionScreen:Add(eggSelectionContainer)
+
+    otherPlayerLabel = UILabel.new()
+    otherPlayerLabel:SetPrelocalizedText(otherPlayer.name .. " has selected their items.")
+    otherPlayerLabel:AddToClassList("subtitle")
+    otherPlayerLabel.visible = false
+    tradeSelectionScreen:Add(otherPlayerLabel)
 
     -- Add the Next button
     selectionNextButton = UIButton.new()
@@ -333,6 +350,12 @@ function ShowTradeConfirmationScreen()
 
     -- Add other player's selected items row
     AddEggRow(tradeConfirmationScreen, otherSelectedItems, "Other Player's Selected Items:")
+
+    otherPlayerLabel = UILabel.new()
+    otherPlayerLabel:SetPrelocalizedText(otherPlayer.name .. " has confirmed the trade.")
+    otherPlayerLabel:AddToClassList("title")
+    otherPlayerLabel.visible = false
+    tradeConfirmationScreen:Add(otherPlayerLabel)
 
     -- Add Confirm button
     local confirmButton = UIButton.new()
