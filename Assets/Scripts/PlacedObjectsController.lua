@@ -85,29 +85,42 @@ function InitServer()
   print("Initing server")
   print("Initing server3")
 
-	queryOwnedFurniture:Connect(function(player)
-		print("Getting furniture")
-		Inventory.GetPlayerItems(player, 25, "", function(items, newCursorId, errorCode)
+	local function LoadFurniture(player, cursorId, furniture)
+		Inventory.GetPlayerItems(player, 25, cursorId, function(items, newCursorId, errorCode)
+			print("Loading furniture...")
+
 			if items == nil then
 				print(errorCode)
+				return
 			end
 
-			furnitureOwned = false
-
-			local canPlaceFlower = GetPlacedFlowerCount(player) <  playerManager.GetPlayerFlowerCapacity(player)
+			local canPlaceFlower = GetPlacedFlowerCount(player) < playerManager.GetPlayerFlowerCapacity(player)
 			setFlowerStatus:FireClient(player, canPlaceFlower)
 
-			for index, item in items do
+			for _, item in ipairs(items) do
 				if utils.IsFurniture(item.id) or utils.IsFlower(item.id) then
-					receiveOwnedFurniture:FireClient(player, item.id, item.amount)
-					furnitureOwned = true
+					table.insert(furniture, { id = item.id, amount = item.amount })
 				end
 			end
 
-			if furnitureOwned == false then 
-				noFurnitureOwned:FireClient(player)
+			if newCursorId ~= nil then
+				LoadFurniture(player, newCursorId, furniture) -- Recursively load more items
+			else
+				print("Finished loading furniture. Total items: " .. #furniture)
+				if #furniture > 0 then
+					receiveOwnedFurniture:FireClient(player, furniture) -- Send all furniture at once
+				else
+					print("No owned furniture")
+					noFurnitureOwned:FireClient(player)
+				end
 			end
 		end)
+	end
+
+	queryOwnedFurniture:Connect(function(player)
+		local furniture = {}
+		local cursorId = ""
+		LoadFurniture(player, cursorId, furniture) -- Start loading with an empty cursor
 	end)
 
 	requestObjectPlacement:Connect(function(player, _name, _x, _y, _rotation)
