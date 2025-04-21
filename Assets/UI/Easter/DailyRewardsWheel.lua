@@ -15,7 +15,9 @@ local TweenModule = require("TweenModule")
 local Tween = TweenModule.Tween
 local Easing = TweenModule.Easing
 local UIManager = require("UIManager")
+local eggInventoryHandler = require("EggInventoryHandler")
 
+local _prizeId = nil
 
 --!SerializeField
 local ItemIcons : {Texture} = nil
@@ -34,13 +36,47 @@ prizes =
     "egg_golden",
 }
 
+chances =
+{
+    egg_red = 0.1542,
+    egg_orange = 0.1542,
+    egg_yellow = 0.1542,
+    egg_green = 0.1542,
+    egg_purple = 0.1542,
+    egg_pink = 0.015,
+    egg_white = 0.0025,
+    egg_golden = 0.00025,
+}
+
 function self:ClientAwake()
     _closeButton:RegisterPressCallback(function()
         UIManager.CloseDailyRewardsWheel()
     end)
 
     _spinButton:RegisterPressCallback(function()
-        Spin(math.random(1, #ItemIcons))
+        local function ChoosePrize()
+            local cumulative = 0
+            local randomValue = math.random()
+            for prize, chance in pairs(chances) do
+                cumulative = cumulative + chance
+                if randomValue <= cumulative then
+                    for i, prizeName in ipairs(prizes) do
+                        if prizeName == prize then
+                            print("Prize chosen: " .. prizeName)
+                            _prizeId = prizeName
+                            eggInventoryHandler.GiveEgg(prizeName)
+                            return i
+                        end
+                    end
+                end
+            end
+
+            _prizeId = "egg_red" -- Default prize if none is chosen
+            return 1 -- Default to the first prize if none is chosen
+        end
+
+        local prizeId = ChoosePrize()
+        Spin(prizeId)
     end)
 
     _closeButtonLabel:SetPrelocalizedText("Close")
@@ -103,6 +139,10 @@ function Spin(prizeId : number)
     AddItems(prizeId)
     SpinWheelAnimations(_wheel)
     _spinButton.visible = false
+
+    Timer.new(1.25, function()
+        UIManager.OpenEggObtainUi(_prizeId)
+    end, false)
 end
 
 function Init()

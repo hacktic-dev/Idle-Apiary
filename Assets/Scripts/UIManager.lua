@@ -392,6 +392,7 @@ end
 
 function OpenEggObtainUi(eggId : string)
     ToggleUI("EggObtainUi", true)
+    ToggleUI("DailyRewardsWheel", false)
     HideMenu()
     audioManager.PlaySound("captureSound", 1)
     EggObtainUiObject:GetComponent(EggObtainUi).Init(eggId)

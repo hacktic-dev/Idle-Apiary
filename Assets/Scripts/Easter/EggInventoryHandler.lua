@@ -70,6 +70,10 @@ function CollectEgg()
     DestroyEggPrefabEvent:Fire(nearEgg)
 end
 
+function GiveEgg(eggId)
+    GiveEggEvent:Fire(eggId)
+end
+
 function self:ServerAwake()
     GiveEggEvent:Connect(function(player, eggId)
         local transaction = InventoryTransaction.new():GivePlayer(player, eggId, 1)
