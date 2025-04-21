@@ -45,6 +45,9 @@ namespace Highrise.Lua.Generated
         [SerializeField] public UnityEngine.GameObject m_DailyQuestUiObject = default;
         [SerializeField] public UnityEngine.GameObject m_QuestRewardUiObject = default;
         [SerializeField] public UnityEngine.GameObject m_TradingUiObject = default;
+        [SerializeField] public UnityEngine.GameObject m_EggInventoryObject = default;
+        [SerializeField] public UnityEngine.GameObject m_DailyRewardsWheelObject = default;
+        [SerializeField] public UnityEngine.GameObject m_EggObtainUiObject = default;
 
         protected override SerializedPropertyValue[] SerializeProperties()
         {
@@ -73,6 +76,9 @@ namespace Highrise.Lua.Generated
                 CreateSerializedProperty(_script.GetPropertyAt(17), m_DailyQuestUiObject),
                 CreateSerializedProperty(_script.GetPropertyAt(18), m_QuestRewardUiObject),
                 CreateSerializedProperty(_script.GetPropertyAt(19), m_TradingUiObject),
+                CreateSerializedProperty(_script.GetPropertyAt(20), m_EggInventoryObject),
+                CreateSerializedProperty(_script.GetPropertyAt(21), m_DailyRewardsWheelObject),
+                CreateSerializedProperty(_script.GetPropertyAt(22), m_EggObtainUiObject),
             };
         }
     }

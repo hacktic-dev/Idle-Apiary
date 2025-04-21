@@ -724,7 +724,6 @@
 
 .landscape .horizontal-container
 {
-  height: 50px;
   
 }
 

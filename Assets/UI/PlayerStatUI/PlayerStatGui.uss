@@ -122,6 +122,11 @@
   height: 40px;
 }
 
+.portrait .hamburger
+{
+  width: 30px;
+  height: 30px;
+}
 
 .button:hover {
     background-color: rgba(0,0,0,.4); /* Slightly transparent on hover */

@@ -161,12 +161,12 @@ beeData = {
     ["Psychedelic Bee"] = { honeyRate = 58, sellPrice = 4000, growTime = 80, rarity = "Legendary", set = "Platinum Set" },
 
     -- Easter Bees
-    ["Red Easter Bee"] = { honeyRate = 50, sellPrice = "2 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 2 },
-    ["Orange Easter Bee"] = { honeyRate = 50, sellPrice = "3 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 3  },
-    ["Yellow Easter Bee"] = { honeyRate = 50, sellPrice = "5 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 5  },
-    ["Green Easter Bee"] = { honeyRate = 50, sellPrice = "7 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 7  },
-    ["Purple Easter Bee"] = { honeyRate = 50, sellPrice = "9 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 9  },
-    ["Pink Easter Bee"] = { honeyRate = 60, sellPrice = "50 Gold", growTime = 200, rarity = "Legendary", set = "Event Bee", goldSellPrice = 50  },
+    ["Red Easter Bee"] = { honeyRate = 50, sellPrice = "1 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 1 },
+    ["Orange Easter Bee"] = { honeyRate = 50, sellPrice = "2 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 2  },
+    ["Yellow Easter Bee"] = { honeyRate = 50, sellPrice = "3 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 3  },
+    ["Green Easter Bee"] = { honeyRate = 50, sellPrice = "4 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 4  },
+    ["Purple Easter Bee"] = { honeyRate = 50, sellPrice = "5 Gold", growTime = 200, rarity = "Epic", set = "Event Bee", goldSellPrice = 5  },
+    ["Pink Easter Bee"] = { honeyRate = 60, sellPrice = "25 Gold", growTime = 200, rarity = "Legendary", set = "Event Bee", goldSellPrice = 25  },
     ["White Easter Bee"] = { honeyRate = 70, sellPrice = "250 Gold", growTime = 200, rarity = "Legendary", set = "Event Bee", goldSellPrice = 250  },
     ["Golden Easter Bee"] = { honeyRate = 80, sellPrice = "1000 Gold", growTime = 200, rarity = "Mythical", set = "Event Bee", goldSellPrice = 1000  },
 }

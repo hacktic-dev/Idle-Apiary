@@ -26,7 +26,11 @@ function Init()
         UIManager.ClosePlaceFurnitureMenu()
     end, true, true, true)
 
-    placedObjectsManager.receiveOwnedFurniture:Connect(function(name, amount) AddFurnitureCard(name, amount) end)
+    placedObjectsManager.receiveOwnedFurniture:Connect(function(furniture)
+        for _, item in ipairs(furniture) do
+            AddFurnitureCard(item.id, item.amount)
+        end
+    end)
 
     placedObjectsManager.setFlowerStatus:Connect(function(_canPlaceFlower) print("setting can place flower to " .. tostring(canPlaceFlower)) canPlaceFlower = _canPlaceFlower end)
 

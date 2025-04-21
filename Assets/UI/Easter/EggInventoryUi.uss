@@ -1,0 +1,356 @@
+.trade-initiation-ui
+{
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 300px;
+    max-height: 70%;
+}
+
+.portrait .trade-initiation-ui
+{
+    width: 90%;
+    align-self: center;
+}
+
+.trade__ui__container {
+  flex-direction: column;
+  align-self: center;
+  display: flex;
+  overflow: hidden;
+
+  padding: 6px;
+  min-height: 400px;
+  min-width: 250px;
+
+  max-height: 600px;
+  max-width: 400px;
+
+  margin-top: auto;
+  margin-bottom: auto;
+
+  width: 100%;
+  height: 100%;
+
+  border-width: 2px;
+  border-radius: 8px;
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
+}
+
+.wager__selection_container
+{
+  flex-direction: column;
+  align-self: center;
+  display: flex;
+  overflow: hidden;
+
+  padding: 6px;
+
+  height: 100%;
+
+  border-width: 2px;
+  border-radius: 8px;
+  background-image: url("project://database/Assets/Textures/background_blur.png");
+	-unity-background-scale-mode: scale-and-crop;
+}
+
+.egg__selection_container
+{
+  justify-content: center;
+  flex-direction: row;
+  align-self: center;
+height: 40%;
+width: 100%;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+.egg__confirmation_container
+{
+    justify-content: center;
+  flex-direction: column;
+  align-self: center;
+height: 40%;
+width: 100%;
+margin-top: 10px;
+margin-bottom: 10px;
+}
+
+.egg__counter_container
+{
+  flex-direction: column;
+  width: 10%;
+}
+
+.landscape .egg__counter_container
+{
+    height: 120%;
+}
+
+.portrait .egg__counter_container
+{
+  width: 14%;
+  height: 120%;
+}
+
+.egg__counter_button
+{
+width: 30px;
+height: 30px;
+margin-left: 5px;
+margin-right: 5px;
+}
+
+.portrait .egg__counter_button
+{
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.egg__icon__confirmation_container
+{
+  flex-direction: row;
+  width:20%;
+  height: 100%;
+}
+
+.egg__icon_container
+{
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.egg__icon_label
+{
+    color: white;
+    margin-left: 5px;
+    font-size: 16px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+}
+
+.portrait .egg__icon_label
+{
+  margin-left: 0px;
+  font-size: 12px;
+}
+
+.landscape .wager__selection_container
+{
+    width: 40%;
+}
+
+.portrait .wager__selection_container
+{
+  width: 80%;
+}
+
+.unity-text-element
+{
+	-unity-font-definition: url("project://database/Assets/Winter Selfie SDF.asset");
+	text-shadow: 4px 4px 9.5px rgba(0,0,0,0.5);
+}
+
+.top__container
+{
+    flex-direction: row;
+}
+
+.trade__ui__select__player
+{
+    width: 100%;
+    background-color:rgba(0, 0, 0, 0.3)
+    border-radius: 8px;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+
+.main__container
+{
+    flex-direction: column;
+}
+
+.title
+{
+    color: white;
+    font-size: 16px;
+    white-space: normal;
+    align-self: center;
+}
+
+.landscape .title
+{
+    font-size: 24px;
+}
+
+.subtitle
+{
+      color: white;
+    font-size: 16px;
+    white-space: normal;
+    align-self: center;
+}
+
+.landscape .subtitle
+{
+    font-size: 20px;
+}
+
+
+.waiting-label
+{
+  color: white;
+    font-size: 24px;
+    -unity-text-align: middle-center;
+    align-self: center;
+    height: 100%;
+}
+
+.press__button {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    color: white;
+    height: 35px;
+    margin-top: auto;
+    margin-bottom: 10px;
+    width: 48%;
+    align-self: center;
+}
+
+.portrait .press__button
+{
+    width: 80%;
+}
+
+.wager__button {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    color: white;
+    height: 60px;
+    margin-top: auto;
+    margin-bottom: 10px;
+    width: 60px;
+    margin-left: 5px;
+    margin-right: 5px
+    align-self: center;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.wager__amount__container
+{
+    flex-direction: row;
+    margin-top: 20px;
+    align-items: center;
+    align-self: center;
+}
+
+.horizontal-container
+{
+  align-self: center;
+  flex-direction: row;
+  margin-top: 8px;
+  height: 30px;
+}
+
+.egg__icon
+{
+  width: 30px;
+  height: 30px;
+}
+
+.landscape .egg__icon__confirm
+{
+  margin-top: -5px;
+}
+
+.egg__icon__margin
+{
+   margin-top: 10px;
+}
+
+.portrait .egg__icon
+{
+  width: 20px;
+  height: 20px;
+  margin-left: 0px;
+}
+
+.redEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-red.png");
+}
+
+.greenEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-green.png");
+}
+
+.orangeEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-orange.png");
+}
+
+.yellowEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-yellow.png");
+}
+
+.purpleEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-purple.png");
+}
+
+.pinkEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-pink.png");
+}
+
+.whiteEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-white.png");
+}
+
+.goldEggIcon
+{
+  background-image: url("project://database/Assets/Textures/EggIcons/egg-gold.png");
+}
+
+.beeEggIcon
+{
+  background-image: url("project://database/Assets/Textures/FurnitureIcons/bee_egg_regular.png");
+}
+
+.pinkBeeEggIcon
+{
+  background-image: url("project://database/Assets/Textures/FurnitureIcons/bee_egg_pink.png");
+}
+
+.whiteBeeEggIcon
+{
+  background-image: url("project://database/Assets/Textures/FurnitureIcons/bee_egg_white.png");
+}
+
+.goldBeeEggIcon
+{
+  background-image: url("project://database/Assets/Textures/FurnitureIcons/bee_egg_golden.png");
+}
+
+.trade__ui_button
+{
+  width: 50%;
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: 5px;
+}
+
+.horizontal-container
+{
+  width: 80%;
+  justify-content: center;
+}

@@ -44,6 +44,12 @@ local xpContainer : VisualElement = nil
 --!Bind
 local ticketsCount : UILabel = nil
 
+--!Bind
+local _eggInventoryMenu : UIButton = nil
+
+--!Bind
+local _dailyRewardsButton : UIButton = nil
+
 --!SerializeField
 local BeeListObject : GameObject = nil
 
@@ -88,6 +94,14 @@ end, true, true, true)
 _viewTutorialButton:RegisterPressCallback(function()
     UIManager.HideAll()
     UIManager.OpenTutorialByPlayer()
+end, true, true, true)
+
+_eggInventoryMenu:RegisterPressCallback(function()
+    UIManager.OpenEggInventory()
+end, true, true, true)
+
+_dailyRewardsButton:RegisterPressCallback(function()
+    UIManager.OpenDailyRewardsWheel()
 end, true, true, true)
 
 _hamburgerButton:RegisterPressCallback(function()
@@ -161,6 +175,7 @@ function OpenMenu()
     _beestiaryButton:EnableInClassList("hide", false)
     _viewBeesButton:EnableInClassList("hide", false)
     _hamburgerButton:EnableInClassList("hide", true)
+    _eggInventoryMenu:EnableInClassList("hide", false)
 end
 
 function ShowMenu()
@@ -168,6 +183,7 @@ function ShowMenu()
     _beestiaryButton:EnableInClassList("hide", useHamburger)
     _viewBeesButton:EnableInClassList("hide", useHamburger)
     _hamburgerButton:EnableInClassList("hide", not useHamburger)
+    _eggInventoryMenu:EnableInClassList("hide", useHamburger)
 end
 
 function ShowOnlyTickets(count)
@@ -176,6 +192,7 @@ function ShowOnlyTickets(count)
     _openShopButton.visible = false
     _beestiaryButton.visible = false
     _viewBeesButton.visible = false
+    _eggInventoryMenu.visible = false
     _hamburgerButton.visible = false
     _settingsButton.visible = false
     _toggleBadgesButton.visible = false
@@ -190,6 +207,7 @@ function ShowAllButTickets()
     _openShopButton.visible = true
     _beestiaryButton.visible = true
     _viewBeesButton.visible = true
+    _eggInventoryMenu.visible = true
     _hamburgerButton.visible = true
     _settingsButton.visible = true
     _toggleBadgesButton.visible = true
@@ -202,6 +220,7 @@ function ShowButtons()
     _openShopButton.visible = true
     _beestiaryButton.visible = true
     _viewBeesButton.visible = true
+    _eggInventoryMenu.visible = true
     _hamburgerButton.visible = true
     _settingsButton.visible = true
     _toggleBadgesButton.visible = true
@@ -212,6 +231,7 @@ function HideButtons(boolean : isVisible)
     _openShopButton.visible = false
     _beestiaryButton.visible = false
     _viewBeesButton.visible = false
+    _eggInventoryMenu.visible = false
     _hamburgerButton.visible = false
     _settingsButton.visible = false
     _toggleBadgesButton.visible = false

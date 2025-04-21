@@ -43,6 +43,12 @@ local DailyQuestUiObject : GameObject = nil
 local QuestRewardUiObject : GameObject = nil
 --!SerializeField
 local TradingUiObject : GameObject = nil
+--!SerializeField
+local EggInventoryObject : GameObject = nil
+--!SerializeField
+local DailyRewardsWheelObject : GameObject = nil
+--!SerializeField
+local EggObtainUiObject : GameObject = nil
 
 local wildBeeManager = require("WildBeeManager")
 local playerManager = require("PlayerManager")
@@ -74,6 +80,9 @@ local uiMap = {
     DailyQuestUi = DailyQuestUiObject,
     QuestRewardUi = QuestRewardUiObject,
     TradingUi = TradingUiObject,
+    EggInventory = EggInventoryObject,
+    DailyRewardsWheel = DailyRewardsWheelObject,
+    EggObtainUi = EggObtainUiObject,
 }
 
 -- Activate the object if it is not active
@@ -228,6 +237,9 @@ function HideAll()
     ToggleUI("DailyQuestUi", false)
     ToggleUI("QuestRewardUi", false)
     ToggleUI("TradingUi", false)
+    ToggleUI("EggInventory", false)
+    ToggleUI("DailyRewardsWheel", false)
+    ToggleUI("EggObtainUi", false)
 end
 
 function OpenShearsTutorial()
@@ -356,6 +368,39 @@ function NotifyTradeTimeout()
         end)
 end
 
+function OpenEggInventory()
+    ToggleUI("EggInventory", true)
+    HideMenu()
+    EggInventoryObject:GetComponent(EggInventoryUi).Init()
+end
+
+function CloseEggInventory()
+    ToggleUI("EggInventory", false)
+    ShowMenu()
+end
+
+function OpenDailyRewardsWheel()
+    ToggleUI("DailyRewardsWheel", true)
+    HideMenu()
+    DailyRewardsWheelObject:GetComponent(DailyRewardsWheel).Init()
+end
+
+function CloseDailyRewardsWheel()
+    ToggleUI("DailyRewardsWheel", false)
+    ShowMenu()
+end
+
+function OpenEggObtainUi(eggId : string)
+    ToggleUI("EggObtainUi", true)
+    HideMenu()
+    EggObtainUiObject:GetComponent(EggObtainUi).Init(eggId)
+end
+
+function CloseEggObtainUi()
+    ToggleUI("EggObtainUi", false)
+    ShowMenu()
+end
+
 function OpenTutorialByPlayer()
     ToggleUI("Tutorial", true)
     TutorialObject:GetComponent(Tutorial).Init(true)
@@ -422,20 +467,8 @@ function self:ClientAwake()
         end
     end, false)
 
-    eggInventoryHandler.NotifyEggCollectedEvent:Connect((function(eggColour)
-        ToggleUI("BeeCard", true)
-        ToggleUI("PlaceButtons", false)
-        ToggleUI("PlayerStats", false)
-        ToggleUI("CenterPlayerButton", false)
-        InfoCardObject:GetComponent(InfoCard).ShowEggCollected(eggColour)
-        audioManager.PlaySound("captureSound", 1)
-        InfoCardObject:GetComponent(InfoCard).SetCloseCallback(
-            function()  
-                ToggleUI("BeeCard", false) 
-                ToggleUI("PlaceButtons", true) 
-                ToggleUI("PlayerStats", true) 
-                ToggleUI("CenterPlayerButton", true)
-            end)
+    eggInventoryHandler.NotifyEggCollectedEvent:Connect((function(eggId)
+        OpenEggObtainUi(eggId)
     end))
 
     eggInventoryHandler.NotifyEggInventoryRecievedEvent:Connect((function(eggs)

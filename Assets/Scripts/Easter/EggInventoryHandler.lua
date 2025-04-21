@@ -21,6 +21,12 @@ NotifyRewardExchangedEvent = Event.new("NotifyRewardExchangedEvent")
 RequestEggInventoryEvent = Event.new("RequestEggInventoryEvent")
 NotifyEggInventoryRecievedEvent = Event.new("NotifyEggInventoryRecievedEvent")
 
+RequestEggInventoryDisplayEvent = Event.new("RequestEggInventoryDisplayEvent")
+NotifyEggInventoryDisplayEvent = Event.new("NotifyEggInventoryDisplayEvent")
+
+RequestBeeEggInventoryEvent = Event.new("RequestBeeEggInventoryEvent")
+NotifyBeeEggInventoryDisplayEvent = Event.new("NotifyBeeEggInventoryDisplayEvent")
+
 activePlayerEggFinders = {}
 
 eggIds =
@@ -33,6 +39,14 @@ eggIds =
     "egg_pink",
     "egg_white",
     "egg_gold"
+}
+
+beeEggIds = 
+{
+    "regular_bee_egg",
+    "pink_bee_egg",
+    "white_bee_egg",
+    "gold_bee_egg"
 }
 
 function EnteredEggRange(egg)
@@ -51,7 +65,7 @@ function ExitedEggRange()
 end
 
 function CollectEgg()
-    NotifyEggCollectedEvent:Fire(nearEgg.GetColour())
+    NotifyEggCollectedEvent:Fire(nearEgg.GetId())
     GiveEggEvent:FireServer(nearEgg.GetId())
     DestroyEggPrefabEvent:Fire(nearEgg)
 end
@@ -72,6 +86,18 @@ function self:ServerAwake()
 
     RequestEggInventoryEvent:Connect(function(player)
         GetPlayerItems(player, {}, nil)
+    end)
+
+    RequestEggInventoryDisplayEvent:Connect(function(player)
+        GetPlayerItems(player, {}, nil, function(eggInventory)
+            NotifyEggInventoryDisplayEvent:FireClient(player, eggInventory)
+        end)
+    end)
+
+    RequestBeeEggInventoryEvent:Connect(function(player)
+        GetPlayerBeeEggs(player, {}, nil, function(eggInventory)
+            NotifyBeeEggInventoryDisplayEvent:FireClient(player, eggInventory)
+        end)
     end)
 
     RequestCraftEggEvent:Connect(function(player, item)
@@ -115,6 +141,27 @@ function GetPlayerItems(player, eggInventory, cursorId, callback)
         else
             NotifyEggInventoryRecievedEvent:FireClient(player, eggInventory)
         end
+    end
+    end)
+end
+
+function GetPlayerBeeEggs(player, eggInventory, cursorId, callback)
+    Inventory.GetPlayerItems(player, 50, cursorId, function(items, newCursorId, errorCode)
+    if errorCode ~= 0 then
+        print("Error: couldn't retrieve player items")
+        return
+    end
+
+    for index, item in items do
+        if table.find(beeEggIds, item.id) then
+            eggInventory[item.id] = (eggInventory[item.id] or 0) + item.amount
+        end
+    end
+
+    if(newCursorId ~= nil) then
+        GetPlayerBeeEggs(player, eggInventory, newCursorId)
+    else
+        callback(eggInventory)
     end
     end)
 end
