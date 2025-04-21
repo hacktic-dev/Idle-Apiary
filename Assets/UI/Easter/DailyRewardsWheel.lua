@@ -64,7 +64,6 @@ function self:ClientAwake()
                         if prizeName == prize then
                             print("Prize chosen: " .. prizeName)
                             _prizeId = prizeName
-                            eggInventoryHandler.GiveEgg(prizeName)
                             return i
                         end
                     end
@@ -139,6 +138,8 @@ function Spin(prizeId : number)
     AddItems(prizeId)
     SpinWheelAnimations(_wheel)
     _spinButton.visible = false
+
+    eggInventoryHandler.GiveEgg(_prizeId)
 
     Timer.new(1.25, function()
         UIManager.OpenEggObtainUi(_prizeId)

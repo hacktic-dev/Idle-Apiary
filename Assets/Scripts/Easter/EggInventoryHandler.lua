@@ -71,7 +71,7 @@ function CollectEgg()
 end
 
 function GiveEgg(eggId)
-    GiveEggEvent:Fire(eggId)
+    GiveEggEvent:FireServer(eggId)
 end
 
 function self:ServerAwake()
