@@ -54,12 +54,52 @@ local popInTween = Tween:new(
 
 function Init(egg_id : string)
     _mainContainer:Clear()
+
+    highlightImage = VisualElement.new()
+    highlightImage:AddToClassList("highlight-image")
+    _mainContainer:Add(highlightImage)
+
     eggImage = Image.new()
     eggImage:AddToClassList("egg-image")
-    -- Set item icon
     eggImage.image = idToTex[egg_id]
-    -- Add item to the wheel
     _mainContainer:Add(eggImage)
+
+    highlightImage.style.opacity = 0 -- Set initial opacity to 0
+
+    Timer.new(0.25, function()
+        -- Fade in the highlight image
+        local highlightFadeInTween = Tween:new(
+            0, -- Start opacity
+            1, -- End opacity
+            0.3, -- Duration in seconds
+            false, -- Loop flag
+            false, -- Yoyo flag
+            Easing.linear, -- Linear easing for smooth fade-in
+            function(value, t)
+                highlightImage.style.opacity = value
+            end,
+            function()
+                -- Ensure final opacity is set
+                highlightImage.style.opacity = 1
+            end
+        )
+        highlightFadeInTween:start()
+    end, false)
+
+    -- Rotate the highlight image
+    local highlightRotateTween = Tween:new(
+        0, -- Start rotation angle
+        360, -- End rotation angle
+        5.5, -- Duration in seconds
+        true, -- Loop flag
+        false, -- Yoyo flag
+        Easing.linear, -- Linear easing for smooth rotation
+        function(value, t)
+            highlightImage.style.rotate = StyleRotate.new(Rotate.new(Angle.new(value)))
+        end
+    )
+    highlightRotateTween:start()
+
     popInTween:start()
 
     Timer.new(0.2, function()

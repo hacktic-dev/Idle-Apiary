@@ -393,6 +393,7 @@ end
 function OpenEggObtainUi(eggId : string)
     ToggleUI("EggObtainUi", true)
     HideMenu()
+    audioManager.PlaySound("captureSound", 1)
     EggObtainUiObject:GetComponent(EggObtainUi).Init(eggId)
 end
 

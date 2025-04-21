@@ -21,8 +21,22 @@ align-self: center;
     scale: 1;
     opacity: 1;
 
-    margin-top:auto;
-    margin-bottom:auto;
+position:absolute;
+bottom: 43%;
+}
+
+.highlight-image
+{
+    width: 402px;
+    height: 402px;
+    align-self: center;
+    scale: 1;
+    opacity: 1;
+
+
+    bottom: 40%;
+    position: absolute;
+    background-image: url("project://database/Assets/Textures/ItemReward_BackgroundGlow.png");
 }
 
 .obtain-title
@@ -37,6 +51,11 @@ align-self: center;
     font-size: 50px;
 }
 
+.portrait .obtain-title
+{
+    font-size: 26px;
+}
+
 .title {
     margin: 5px;
     color: white;
@@ -46,7 +65,7 @@ align-self: center;
 }
 
 .portrait .title {
-    font-size: 11.5px;
+    font-size: 20px;
 }
 
 .landscape .title {
@@ -74,7 +93,7 @@ align-self: center;
 
 .portrait .close-button
 {
-    width: 40%;
+    width: 20%;
 }
 
 .unity-text-element
