@@ -196,11 +196,11 @@ function self:ClientAwake()
         toggleUIElement(_RemoveFurnitureButton, inApiary)
     end)
 
-    eggInventoryHandler.EnteredEggRangeEvent:Connect(function()
-        toggleUIElement(_CollectEggButton, true)
-    end)
+    --eggInventoryHandler.EnteredEggRangeEvent:Connect(function()
+    --    toggleUIElement(_CollectEggButton, true)
+    --end)
 
-    eggInventoryHandler.ExitedEggRangeEvent:Connect(function()
-        toggleUIElement(_CollectEggButton, false)
-    end)
+    --eggInventoryHandler.ExitedEggRangeEvent:Connect(function()
+    --    toggleUIElement(_CollectEggButton, false)
+    --end)
 end

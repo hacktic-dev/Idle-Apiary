@@ -256,6 +256,12 @@ function AddBee(player, speciesName, isAdult, timeToGrowUp)
         InitializeBeeStorageSync(player) -- Synchronously load storage if needed
     end
 
+    if playerBeeStorage[player] > 25 then
+        while #playerBeeStorage[player] > 25 do
+            table.remove(playerBeeStorage[player], 1)
+        end
+    end
+
     -- Create a new bee structure with a unique ID
     local bee = {
         beeId = GenerateUniqueID(),
@@ -512,7 +518,7 @@ function TrackPlayers(game, characterCallback)
             beeObjectManager.SpawnAllBeesForPlayer(player)
             flowerManager.SpawnAllFlowersForIncomingPlayer(player)
             playerTimers[player] = nil
-            setPlayerVersionString:FireClient(player, "1.5.1")
+            setPlayerVersionString:FireClient(player, "1.5.3")
             dailyQuestTracker.GetData(player)
 
             for player, playerData in pairs(players) do

@@ -12439,7 +12439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &429952757
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31900,6 +31900,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: easter_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: daf860503e1bda043a15db7e36637377,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1368053777027238869, guid: daf860503e1bda043a15db7e36637377,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -37982,6 +37987,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DailyQuestGiver
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120352708776957908, guid: 8b599258acf1d144f8f8808bc65d4505,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4990922477737629571, guid: 8b599258acf1d144f8f8808bc65d4505,
         type: 3}
@@ -49531,7 +49541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1580149373
 Transform:
   m_ObjectHideFlags: 0
@@ -59539,6 +59549,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: QuestRewarder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120352708776957908, guid: 8b599258acf1d144f8f8808bc65d4505,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4990922477737629571, guid: 8b599258acf1d144f8f8808bc65d4505,
         type: 3}
@@ -70100,6 +70115,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Crafter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120352708776957908, guid: 8b599258acf1d144f8f8808bc65d4505,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4990922477737629571, guid: 8b599258acf1d144f8f8808bc65d4505,
         type: 3}

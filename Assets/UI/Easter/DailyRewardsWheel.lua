@@ -1,15 +1,13 @@
 --!Type(UI)
 
 --!Bind
-local _closeButton : UIButton = nil
---!Bind
-local _closeButtonLabel : UILabel = nil
---!Bind
 local _wheel : VisualElement = nil
 --!Bind
 local _spinButton : UIButton = nil
 --!Bind
 local _spinButtonLabel : UILabel = nil
+--!Bind
+local _title : UILabel = nil
 
 local TweenModule = require("TweenModule")
 local Tween = TweenModule.Tween
@@ -49,10 +47,6 @@ chances =
 }
 
 function self:ClientAwake()
-    _closeButton:RegisterPressCallback(function()
-        UIManager.CloseDailyRewardsWheel()
-    end)
-
     _spinButton:RegisterPressCallback(function()
         local function ChoosePrize()
             local cumulative = 0
@@ -78,8 +72,8 @@ function self:ClientAwake()
         Spin(prizeId)
     end)
 
-    _closeButtonLabel:SetPrelocalizedText("Close")
     _spinButtonLabel:SetPrelocalizedText("Spin")
+    _title:SetPrelocalizedText("Spin for your daily reward!")
 end
 
 function AddItems(prizeId : number)

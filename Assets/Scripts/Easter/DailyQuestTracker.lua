@@ -15,6 +15,8 @@ NotifyNotifierVisibilityEvent = Event.new("NotifyNotifierVisibilityEvent")
 RequestTicketCountEvent = Event.new("RequestTicketCountEvent")
 NotifyTicketCountReceivedEvent = Event.new("NotifyTicketCountReceivedEvent")
 
+ShowDailyRewardsWheelEvent = Event.new("ShowDailyRewardsWheelEvent")
+
 dailyQuestData = {}
 
 dailyQuest = {}
@@ -46,6 +48,12 @@ function GetData(player)
 
             -- Check if the date has changed
             local currentDate = GetSeed()
+
+            if data.date ~= currentDate then
+                print("data.date: " .. data.date .. " currentDate: " .. currentDate .. " showing wheel")
+                ShowDailyRewardsWheelEvent:FireClient(player)
+            end
+
             if data.date ~= currentDate then
                 -- Reset the daily quest data for the new day
                 data = 

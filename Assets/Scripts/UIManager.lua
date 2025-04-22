@@ -233,13 +233,14 @@ function HideAll()
     ToggleUI("Tutorial", false)
     ToggleUI("PlaceObjectsUi", false)
     ToggleUI("RemoveFurnitureMenu", false)
+    --[[
     ToggleUI("EggCraftingUi", false)
     ToggleUI("DailyQuestUi", false)
     ToggleUI("QuestRewardUi", false)
     ToggleUI("TradingUi", false)
     ToggleUI("EggInventory", false)
     ToggleUI("DailyRewardsWheel", false)
-    ToggleUI("EggObtainUi", false)
+    ToggleUI("EggObtainUi", false)]]
 end
 
 function OpenShearsTutorial()
@@ -468,7 +469,7 @@ function self:ClientAwake()
             TutorialObject:GetComponent(Tutorial).Init(false)
         end
     end, false)
-
+--[[
     eggInventoryHandler.NotifyEggCollectedEvent:Connect((function(eggId)
         OpenEggObtainUi(eggId)
     end))
@@ -558,6 +559,10 @@ function self:ClientAwake()
             end)
     end))
 
+    dailyQuestTracker.ShowDailyRewardsWheelEvent:Connect((function()
+        Timer.new(2, function() OpenDailyRewardsWheel() end, false)
+    end))
+
     InfoCardObject:GetComponent(InfoCard).RequestAcceptTradeEvent:Connect((function(sendingPlayer)
         tradingManager.RequestAcceptTradeRequest:FireServer(sendingPlayer)
         ToggleUI("BeeCard", false)
@@ -584,7 +589,7 @@ function self:ClientAwake()
         ToggleUI("PlaceButtons", false)
         StatsObject:GetComponent(PlayerStatGui).ShowOnlyTickets(ticketCount)
         QuestRewardUiObject:GetComponent(QuestRewardUi).Init(ticketCount)
-    end))
+    end))]]
 end
 
 function ShowMenu()
